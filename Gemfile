@@ -57,3 +57,9 @@ group :development do
 end
 
 gem "devise", "~> 4.9"
+
+gem "faraday", "~> 2.12"
+
+group :test do
+  gem "shoulda-matchers", "~> 6.4"
+end
