@@ -28,6 +28,10 @@
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
     </div>
+    <nav>
+      <%= current_user.email if user_signed_in? %> |
+      <%= link_to 'Login', new_user_registration_path %>
+    </nav>
     <main class="container mx-auto mt-28 px-5 flex">
       <%= yield %>
     </main>
