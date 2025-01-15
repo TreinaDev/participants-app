@@ -12,7 +12,7 @@ describe 'Usuario ve detalhes de um evento', type: :system do
     allow(response_list).to receive(:success?). and_return(true)
     allow(Faraday).to receive(:get).with('http://localhost:3000/events').and_return(response_list)
 
-    response_details = double('response_details', status: 200, body: events.to_json)
+    response_details = double('response_details', status: 200, body: event_one.to_json)
     allow(Faraday).to receive(:get).with('http://localhost:3000/events/1').and_return(response_details)
 
     visit root_path
