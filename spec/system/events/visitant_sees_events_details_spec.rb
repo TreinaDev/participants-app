@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Visitante acessa página de detalhes de um evento' do
   it 'com sucesso' do
     # Arrange
-    event = Event.new(
+    event = {
       event_id: "1",
       name: 'Aprendedo a cozinhar',
       url_event: 'https://ecvitoria.com.br/public/Inicio/',
@@ -15,14 +15,14 @@ describe 'Visitante acessa página de detalhes de um evento' do
       price: 30,
       event_owner: 'Samuel',
       event_agendas: []
-    )
+  }
 
     response = double('response', status: 200, body: event.to_json)
     allow(Faraday).to receive(:get).with('http://localhost:3000/events/1').and_return(response)
     allow(response).to receive(:success?).and_return(true)
 
     # Act
-    visit event_path(event.event_id)
+    visit event_path(event[:event_id])
     # Assert
     expect(page).to have_content 'Aprendedo a cozinhar'
     expect(page).to have_content 'Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil'
@@ -95,7 +95,7 @@ describe 'Visitante acessa página de detalhes de um evento' do
 
   it 'e visualiza que não há programação para o evento' do
     # Arrange
-    event = Event.new(
+    event = {
       event_id: 1,
       name: 'Aprendedo a cozinhar',
       url_event: 'https://ecvitoria.com.br/public/Inicio/',
@@ -107,14 +107,24 @@ describe 'Visitante acessa página de detalhes de um evento' do
       price: 30,
       event_owner: 'Samuel',
       event_agendas: []
-    )
+  }
     response = double('response', status: 200, body: event.to_json)
     allow(Faraday).to receive(:get).with('http://localhost:3000/events/1').and_return(response)
     allow(response).to receive(:success?).and_return(true)
 
     # Act
-    visit event_path(event.event_id)
+    visit event_path(event[:event_id])
     # Assert
     expect(page).to have_content 'Ainda não existe programação cadastrada para esse evento'
+  end
+
+  it 'e mostra mensagem de erro para evento não encontrado' do
+    response = double('response', status: 404, body: '')
+    allow(Faraday).to receive(:get).and_return(response)
+    allow(response).to receive(:success?).and_return(false)
+
+    visit event_path(1)
+
+    expect(page).to have_content "Evento não encontrado"
   end
 end

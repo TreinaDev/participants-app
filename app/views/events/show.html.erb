@@ -1,26 +1,30 @@
-<%= @event.name %> 
-<%= @event.local_event %> 
-<%= @event.description %> 
-Criado por: <%= @event.event_owner %> 
+<% if @event.present? %>
+    <%= @event.name %> 
+    <%= @event.local_event %> 
+    <%= @event.description %> 
+    Criado por: <%= @event.event_owner %> 
 
-<h2>Agenda do evento</h2>
+    <h2>Agenda do evento</h2>
 
-<% if @event.event_agendas.empty? %>
+    <% if @event.event_agendas.empty? %>
 
- <p> Ainda não existe programação cadastrada para esse evento </p>
+    <p> Ainda não existe programação cadastrada para esse evento </p>
 
+    <% else %>
+    <% @event.event_agendas.each do |event_agenda|%>
+        <div>
+        <p><%= event_agenda.title %></p>
+        <p><%= event_agenda.description %></p>
+        <p><%= event_agenda.start_time %></p>
+        <p><%= event_agenda.duration %></p>
+        <p><%= event_agenda.type %></p>
+        <p><%= event_agenda.instructor %></p>
+        <p><%= event_agenda.email %></p>
+        </div>
+    <% end %> 
+    
+    <% end %>
 <% else %>
-  <% @event.event_agendas.each do |event_agenda|%>
-    <div>
-      <p><%= event_agenda.title %></p>
-      <p><%= event_agenda.description %></p>
-      <p><%= event_agenda.start_time %></p>
-      <p><%= event_agenda.duration %></p>
-      <p><%= event_agenda.type %></p>
-      <p><%= event_agenda.instructor %></p>
-      <p><%= event_agenda.email %></p>
-    </div>
-  <% end %> 
-  
+  <p>Evento não encontrado</p>
 <% end %>
 
