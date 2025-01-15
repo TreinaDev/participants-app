@@ -1,3 +1,2 @@
-class Event < ApplicationRecord
-  has_many :favorites
+class Event
 end
