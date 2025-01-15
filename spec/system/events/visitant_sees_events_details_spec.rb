@@ -4,7 +4,7 @@ describe 'Visitante acessa página de detalhes de um evento' do
   it 'com sucesso' do
     # Arrange
     event = Event.new(
-      event_id: 1,
+      event_id: "1",
       name: 'Aprendedo a cozinhar',
       url_event: 'https://ecvitoria.com.br/public/Inicio/',
       local_event: 'Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil',
@@ -17,7 +17,10 @@ describe 'Visitante acessa página de detalhes de um evento' do
       event_agendas: []
     )
 
-    allow(Event).to receive(:request_event_by_id).and_return(event)
+    response = double('response', status: 200, body: event.to_json)
+    allow(Faraday).to receive(:get).with('http://localhost:3000/events/1').and_return(response)
+    allow(response).to receive(:success?).and_return(true)
+
     # Act
     visit event_path(event.event_id)
     # Assert
@@ -30,7 +33,7 @@ describe 'Visitante acessa página de detalhes de um evento' do
   it 'e consegue ver os detalhes da agenda do evento' do
     # Arrange
     event_agendas = [ {
-      id: 1,
+      event_agenda_id: 1,
       date: '15/08/2025',
       title: 'Aprendendo a cozinhar massas',
       description: 'lorem ipsum',
@@ -40,7 +43,7 @@ describe 'Visitante acessa página de detalhes de um evento' do
       duration: 120,
       type: 'Palestra'
     }, {
-      id: 1,
+      event_agenda_id: 1,
       date: '15/08/2025',
       title: 'Aprendendo a fritar salgados',
       description: 'lorem ipsum',
@@ -51,7 +54,7 @@ describe 'Visitante acessa página de detalhes de um evento' do
       type: 'Work-shop'
     }
     ]
-    event = Event.new(
+    event = {
       event_id: 1,
       name: 'Aprendedo a cozinhar',
       url_event: 'https://ecvitoria.com.br/public/Inicio/',
@@ -63,11 +66,14 @@ describe 'Visitante acessa página de detalhes de um evento' do
       price: 30,
       event_owner: 'Samuel',
       event_agendas: event_agendas
-    )
+  }
 
-    allow(Event).to receive(:request_event_by_id).and_return(event)
+    response = double('response', status: 200, body: event.to_json)
+    allow(Faraday).to receive(:get).with('http://localhost:3000/events/1').and_return(response)
+    allow(response).to receive(:success?).and_return(true)
+
     # Act
-    visit event_path(event.event_id)
+    visit event_path(event[:event_id])
     # Assert
 
     expect(page).to have_content "Aprendendo a cozinhar massas"
@@ -102,8 +108,10 @@ describe 'Visitante acessa página de detalhes de um evento' do
       event_owner: 'Samuel',
       event_agendas: []
     )
+    response = double('response', status: 200, body: event.to_json)
+    allow(Faraday).to receive(:get).with('http://localhost:3000/events/1').and_return(response)
+    allow(response).to receive(:success?).and_return(true)
 
-    allow(Event).to receive(:request_event_by_id).and_return(event)
     # Act
     visit event_path(event.event_id)
     # Assert
