@@ -29,8 +29,13 @@
       <p class="alert"><%= alert %></p>
     </div>
     <nav>
-      <%= current_user.email if user_signed_in? %> |
-      <%= link_to 'Login', new_user_registration_path %>
+      <% if user_signed_in? %>
+        <%= current_user.email %> |
+        <%= button_to t('.log_out'), destroy_user_session_path, method: :delete %>
+      <% else %>
+        <%= link_to t('.sign_up'), new_user_registration_path %> |
+        <%= link_to t('.log_in'), new_user_session_path %>
+      <% end %>
     </nav>
     <main class="container mx-auto mt-28 px-5 flex">
       <%= yield %>
