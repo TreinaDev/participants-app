@@ -17,9 +17,7 @@ class Event
     conn = Faraday.new do |faraday|
       faraday.response :raise_error
     end
-    response = conn.get("http://localhost:3000/events/#{event_id}")
-
-    puts("A resposta do teste: #{response}")
+    response = conn.get("http://events/#{event_id}")
 
     data = JSON.parse(response.body, symbolize_names: true)
     Event.new(

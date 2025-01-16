@@ -96,8 +96,9 @@ RSpec.describe Event, type: :model do
         expect(result.event_agendas[1].type).to eq 'Work-shop'
       end
 
-      it "e retorna um array vazio em caso de erro" do
-        allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/events/1').and_raise(Faraday::Error)
+      it "e retorna um array vazio, caso a API retorne status 500" do
+        response = double('response', status: 500, body: "{}")
+        allow(Faraday).to receive(:get).with('http://localhost:3000/events/1').and_return(response)
         result = Event.request_event_by_id(1)
 
         expect(result).to eq []
