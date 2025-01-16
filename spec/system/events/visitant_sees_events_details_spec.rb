@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Visitante acessa página de detalhes de um evento' do
   it 'com sucesso' do
     # Arrange
-    event = {
+    event = Event.new(
       event_id: "1",
       name: 'Aprendedo a cozinhar',
       url_event: 'https://ecvitoria.com.br/public/Inicio/',
@@ -15,14 +15,11 @@ describe 'Visitante acessa página de detalhes de um evento' do
       price: 30,
       event_owner: 'Samuel',
       event_agendas: []
-  }
-
-    response = double('response', status: 200, body: event.to_json)
-    allow(Faraday).to receive(:get).with('http://localhost:3000/events/1').and_return(response)
-    allow(response).to receive(:success?).and_return(true)
+    )
+    allow(Event).to receive(:request_event_by_id).and_return(event)
 
     # Act
-    visit event_path(event[:event_id])
+    visit event_path(event.event_id)
     # Assert
     expect(page).to have_content 'Aprendedo a cozinhar'
     expect(page).to have_content 'Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil'
@@ -54,8 +51,8 @@ describe 'Visitante acessa página de detalhes de um evento' do
       type: 'Work-shop'
     }
     ]
-    event = {
-      event_id: 1,
+    event = Event.new(
+      event_id: "1",
       name: 'Aprendedo a cozinhar',
       url_event: 'https://ecvitoria.com.br/public/Inicio/',
       local_event: 'Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil',
@@ -66,14 +63,12 @@ describe 'Visitante acessa página de detalhes de um evento' do
       price: 30,
       event_owner: 'Samuel',
       event_agendas: event_agendas
-  }
+    )
 
-    response = double('response', status: 200, body: event.to_json)
-    allow(Faraday).to receive(:get).with('http://localhost:3000/events/1').and_return(response)
-    allow(response).to receive(:success?).and_return(true)
+    allow(Event).to receive(:request_event_by_id).and_return(event)
 
     # Act
-    visit event_path(event[:event_id])
+    visit event_path(event.event_id)
     # Assert
 
     expect(page).to have_content "Aprendendo a cozinhar massas"
@@ -95,8 +90,8 @@ describe 'Visitante acessa página de detalhes de um evento' do
 
   it 'e visualiza que não há programação para o evento' do
     # Arrange
-    event = {
-      event_id: 1,
+    event = Event.new(
+      event_id: "1",
       name: 'Aprendedo a cozinhar',
       url_event: 'https://ecvitoria.com.br/public/Inicio/',
       local_event: 'Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil',
@@ -107,13 +102,12 @@ describe 'Visitante acessa página de detalhes de um evento' do
       price: 30,
       event_owner: 'Samuel',
       event_agendas: []
-  }
-    response = double('response', status: 200, body: event.to_json)
-    allow(Faraday).to receive(:get).with('http://localhost:3000/events/1').and_return(response)
-    allow(response).to receive(:success?).and_return(true)
+    )
+    allow(Event).to receive(:request_event_by_id).and_return(event)
+
 
     # Act
-    visit event_path(event[:event_id])
+    visit event_path(event.event_id)
     # Assert
     expect(page).to have_content 'Ainda não existe programação cadastrada para esse evento'
   end
@@ -124,6 +118,21 @@ describe 'Visitante acessa página de detalhes de um evento' do
     allow(response).to receive(:success?).and_return(false)
 
     visit event_path(1)
+
+    expect(page).to have_content "Evento não encontrado"
+  end
+
+  it 'e mostra mensagem de erro para evento com dados invalidos' do
+    invalid_event = {
+      event_id: 1,
+      name: 'Aprendedo a cozinhar',
+      invalid_key: "Invalid Value"
+    }
+    response = double('response', status: 200, body: invalid_event.to_json)
+    allow(Faraday).to receive(:get).with('http://localhost:3000/events/1').and_return(response)
+    allow(response).to receive(:success?).and_return(true)
+
+    visit event_path(invalid_event[:event_id])
 
     expect(page).to have_content "Evento não encontrado"
   end
