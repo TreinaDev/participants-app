@@ -9,6 +9,7 @@ describe 'Usuario ve detalhes de um evento', type: :system do
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
     visit root_path
+    click_on 'Eventos'
     click_on 'Dev Week'
 
     expect(current_path).to eq event_path(1)

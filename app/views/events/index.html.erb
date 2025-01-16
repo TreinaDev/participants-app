@@ -1,0 +1,17 @@
+<h1>Eventos</h1>
+
+<% if @events.present? %>
+  <% @events.each do |event| %>
+    <div> 
+      <%= link_to event.name, event_path(event.event_id) %>
+      <% if event.banner.present? %>
+        <img src="<%= event.banner %>" alt="Banner do evento">
+      <% end %>
+      <% if event.logo.present? %>
+        <img src="<%= event.logo %>" alt="Logo do evento">
+      <% end %>
+    </div>
+  <% end %>
+<% else %>
+  <p>Nenhum evento disponível</p>
+<% end %>
