@@ -3,17 +3,12 @@ require 'rails_helper'
 describe 'Visitante acessa página de detalhes de um evento' do
   it 'com sucesso' do
     # Arrange
-    event = Event.new(
+    event = build(:event,
       event_id: "1",
       name: 'Aprendedo a cozinhar',
-      url_event: 'https://ecvitoria.com.br/public/Inicio/',
       local_event: 'Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil',
-      limit_participants: 30,
-      banner: 'https://via.placeholder.com/300x200',
-      logo: 'https://via.placeholder.com/100x100',
       description: 'Aprenda a fritar um ovo',
       event_owner: 'Samuel',
-      event_agendas: []
     )
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
@@ -50,16 +45,7 @@ describe 'Visitante acessa página de detalhes de um evento' do
       type: 'Work-shop'
     }
     ]
-    event = Event.new(
-      event_id: "1",
-      name: 'Aprendedo a cozinhar',
-      url_event: 'https://ecvitoria.com.br/public/Inicio/',
-      local_event: 'Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil',
-      limit_participants: 30,
-      banner: 'https://via.placeholder.com/300x200',
-      logo: 'https://via.placeholder.com/100x100',
-      description: 'Aprenda a fritar um ovo',
-      event_owner: 'Samuel',
+    event = build(:event,
       event_agendas: event_agendas
     )
 
@@ -88,18 +74,7 @@ describe 'Visitante acessa página de detalhes de um evento' do
 
   it 'e visualiza que não há programação para o evento' do
     # Arrange
-    event = Event.new(
-      event_id: "1",
-      name: 'Aprendedo a cozinhar',
-      url_event: 'https://ecvitoria.com.br/public/Inicio/',
-      local_event: 'Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil',
-      limit_participants: 30,
-      banner: 'https://via.placeholder.com/300x200',
-      logo: 'https://via.placeholder.com/100x100',
-      description: 'Aprenda a fritar um ovo',
-      event_owner: 'Samuel',
-      event_agendas: []
-    )
+    event = build(:event,  event_agendas: [])
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
 
