@@ -72,6 +72,18 @@ describe 'Visitante acessa página de detalhes de um evento' do
     expect(page).to have_content "Work-shop"
   end
 
+  it 'e visualiza opção de ver ingressos' do
+    # Arrange
+    event = build(:event,  event_agendas: [])
+    allow(Event).to receive(:request_event_by_id).and_return(event)
+
+
+    # Act
+    visit event_path(event.event_id)
+    # Assert
+    expect(page).to have_link 'Ver ingressos'
+  end
+
   it 'e visualiza que não há programação para o evento' do
     # Arrange
     event = build(:event,  event_agendas: [])
