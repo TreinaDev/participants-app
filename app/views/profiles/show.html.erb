@@ -1,0 +1,18 @@
+<h1> <%= t('.title') %> </h1>
+
+<dl>
+  <dt><%=User.human_attribute_name(:name)%>:</dt>
+  <dd><%=@profile.user.name%></dd>
+  <dt><%=User.human_attribute_name(:last_name)%>:</dt>
+  <dd><%=@profile.user.last_name%></dd>
+  <dt><%=User.human_attribute_name(:email)%>:</dt>
+  <dd><%=@profile.user.email%></dd>
+  <dt><%=Profile.human_attribute_name(:city)%>:</dt>
+  <dd><%=@profile.city%></dd>
+  <dt><%=Profile.human_attribute_name(:state)%>:</dt>
+  <dd><%=@profile.state%></dd>
+  <dt><%=Profile.human_attribute_name(:phone_number).pluralize%>:</dt>
+  <dd><%=@profile.phone_numbers%></dd>
+  <dt><%=Profile.human_attribute_name(:social_link).pluralize%>:</dt>
+  <dd><%=@profile.social_links%></dd>
+</dl>

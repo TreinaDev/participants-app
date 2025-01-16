@@ -10,13 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_14_185853) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_16_194638) do
   create_table "favorites", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "event_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
+  create_table "phone_numbers", force: :cascade do |t|
+    t.string "number"
+    t.integer "profile_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_phone_numbers_on_profile_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -26,6 +34,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_14_185853) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
+  create_table "social_links", force: :cascade do |t|
+    t.string "url"
+    t.string "name"
+    t.integer "profile_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_social_links_on_profile_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -44,5 +61,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_14_185853) do
   end
 
   add_foreign_key "favorites", "users"
+  add_foreign_key "phone_numbers", "profiles"
   add_foreign_key "profiles", "users"
+  add_foreign_key "social_links", "profiles"
 end
