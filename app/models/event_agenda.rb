@@ -1,5 +1,5 @@
 class EventAgenda
-  attr_accessor :title, :date, :description, :instructor, :email, :start_time, :duration, :type
+  attr_accessor :title, :date, :description, :instructor, :email, :start_time, :duration, :type, :event_agenda_id
 
   def initialize(event_agenda_id:, title:, date:, description:, instructor:, email:, start_time:, duration:, type:)
     @event_agenda_id = event_agenda_id

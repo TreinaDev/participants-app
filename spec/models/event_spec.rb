@@ -12,7 +12,6 @@ RSpec.describe Event, type: :model do
         banner: 'https://via.placeholder.com/300x200',
         logo: 'https://via.placeholder.com/100x100',
         description: 'Aprenda a fritar um ovo',
-        price: 30,
         event_owner: 'Samuel',
         event_agendas: []
       }
@@ -34,6 +33,68 @@ RSpec.describe Event, type: :model do
       expect(result.event_agendas).to eq []
     end
 
+    it "e retorna detalhes do evento com agenda" do
+      event_agendas = [ {
+        event_agenda_id: 1,
+        date: '15/08/2025',
+        title: 'Aprendendo a cozinhar massas',
+        description: 'lorem ipsum',
+        instructor: 'Elefante',
+        email: 'elefante@email.com',
+        start_time: '07:00',
+        duration: 120,
+        type: 'Palestra'
+      }, {
+        event_agenda_id: 2,
+        date: '15/08/2025',
+        title: 'Aprendendo a fritar salgados',
+        description: 'lorem ipsum',
+        instructor: 'Jacaré',
+        email: 'jacare@email.com',
+        start_time: '11:00',
+        duration: 120,
+        type: 'Work-shop'
+      }
+      ]
+      event = {
+        event_id: 1,
+        name: 'Aprendedo a cozinhar',
+        url_event: 'https://ecvitoria.com.br/public/Inicio/',
+        local_event: 'Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil',
+        limit_participants: 30,
+        banner: 'https://via.placeholder.com/300x200',
+        logo: 'https://via.placeholder.com/100x100',
+        description: 'Aprenda a fritar um ovo',
+        event_owner: 'Samuel',
+        event_agendas: event_agendas
+      }
+
+      response = double('response', status: 200, body: event.to_json)
+      allow(Faraday).to receive(:get).with('http://localhost:3000/events/1').and_return(response)
+      allow(response).to receive(:success?).and_return(true)
+      result = Event.request_event_by_id(event[:event_id])
+
+      # Assert
+
+      expect(result.event_agendas[0].event_agenda_id).to eq 1
+      expect(result.event_agendas[0].date).to eq '15/08/2025'
+      expect(result.event_agendas[0].title).to eq 'Aprendendo a cozinhar massas'
+      expect(result.event_agendas[0].description).to eq 'lorem ipsum'
+      expect(result.event_agendas[0].instructor).to eq 'Elefante'
+      expect(result.event_agendas[0].email).to eq 'elefante@email.com'
+      expect(result.event_agendas[0].start_time).to eq '07:00'
+      expect(result.event_agendas[0].duration).to eq 120
+      expect(result.event_agendas[0].type).to eq 'Palestra'
+
+      expect(result.event_agendas[1].event_agenda_id).to eq 2
+      expect(result.event_agendas[1].date).to eq '15/08/2025'
+      expect(result.event_agendas[1].title).to eq 'Aprendendo a fritar salgados'
+      expect(result.event_agendas[1].description).to eq 'lorem ipsum'
+      expect(result.event_agendas[1].instructor).to eq 'Jacaré'
+      expect(result.event_agendas[1].email).to eq 'jacare@email.com'
+      expect(result.event_agendas[1].start_time).to eq '11:00'
+      expect(result.event_agendas[1].duration).to eq 120
+      expect(result.event_agendas[1].type).to eq 'Work-shop'
+    end
   end
-  
 end
