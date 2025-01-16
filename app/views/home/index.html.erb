@@ -1,6 +1,6 @@
 <h1>Eventos</h1>
 
-<% unless @events.empty? %>
+<% if @events.present? %>
   <% @events.each do |event| %>
     <div> 
       <%= link_to event.name, event_path(event.event_id) %>
