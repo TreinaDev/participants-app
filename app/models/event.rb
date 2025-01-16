@@ -14,21 +14,28 @@ class Event
   end
 
   def self.request_event_by_id(event_id)
-    response = Faraday.get("http://localhost:3000/events/#{event_id}")
-    if response.success?
-      data = JSON.parse(response.body, symbolize_names: true)
-      Event.new(
-        event_id: data[:event_id],
-        name: data[:name],
-        banner: data[:banner],
-        logo: data[:logo],
-        event_owner: data[:event_owner],
-        url_event: data[:url_event],
-        local_event: data[:local_event],
-        limit_participants: data[:limit_participants],
-        description: data[:description],
-        event_agendas: data[:event_agendas]
-      )
+    conn = Faraday.new do |faraday|
+      faraday.response :raise_error
     end
+    response = conn.get("http://localhost:3000/events/#{event_id}")
+
+    puts("A resposta do teste: #{response}")
+
+    data = JSON.parse(response.body, symbolize_names: true)
+    Event.new(
+      event_id: data[:event_id],
+      name: data[:name],
+      banner: data[:banner],
+      logo: data[:logo],
+      event_owner: data[:event_owner],
+      url_event: data[:url_event],
+      local_event: data[:local_event],
+      limit_participants: data[:limit_participants],
+      description: data[:description],
+      event_agendas: data[:event_agendas]
+    )
+  rescue Faraday::Error => error
+    Rails.logger.error(error)
+    []
   end
 end
