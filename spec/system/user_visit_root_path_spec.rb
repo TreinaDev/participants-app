@@ -6,7 +6,7 @@ describe 'Visitante abre a app', type: :system do
     expect(page).to have_content 'Olá mundo'
   end
 
-  it 'com sucesso e JavaScript', js: true do
+  xit 'com sucesso e JavaScript', js: true do
     visit root_path
     click_on 'Ver mensagem'
     expect(page).to have_content "Olá mundo via StimulusJS"

@@ -14,7 +14,7 @@ class User < ApplicationRecord
 
   def cpf_valid
     unless CPF.valid?(self.cpf)
-      self.errors.add(:cpf, "inválido")
+      self.errors.add(:cpf, :invalid_cpf)
     end
   end
 end
