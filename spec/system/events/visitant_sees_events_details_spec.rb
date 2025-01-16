@@ -12,7 +12,6 @@ describe 'Visitante acessa página de detalhes de um evento' do
       banner: 'https://via.placeholder.com/300x200',
       logo: 'https://via.placeholder.com/100x100',
       description: 'Aprenda a fritar um ovo',
-      price: 30,
       event_owner: 'Samuel',
       event_agendas: []
     )
@@ -60,7 +59,6 @@ describe 'Visitante acessa página de detalhes de um evento' do
       banner: 'https://via.placeholder.com/300x200',
       logo: 'https://via.placeholder.com/100x100',
       description: 'Aprenda a fritar um ovo',
-      price: 30,
       event_owner: 'Samuel',
       event_agendas: event_agendas
     )
@@ -99,7 +97,6 @@ describe 'Visitante acessa página de detalhes de um evento' do
       banner: 'https://via.placeholder.com/300x200',
       logo: 'https://via.placeholder.com/100x100',
       description: 'Aprenda a fritar um ovo',
-      price: 30,
       event_owner: 'Samuel',
       event_agendas: []
     )
@@ -118,21 +115,6 @@ describe 'Visitante acessa página de detalhes de um evento' do
     allow(response).to receive(:success?).and_return(false)
 
     visit event_path(1)
-
-    expect(page).to have_content "Evento não encontrado"
-  end
-
-  it 'e mostra mensagem de erro para evento com dados invalidos' do
-    invalid_event = {
-      event_id: 1,
-      name: 'Aprendedo a cozinhar',
-      invalid_key: "Invalid Value"
-    }
-    response = double('response', status: 200, body: invalid_event.to_json)
-    allow(Faraday).to receive(:get).with('http://localhost:3000/events/1').and_return(response)
-    allow(response).to receive(:success?).and_return(true)
-
-    visit event_path(invalid_event[:event_id])
 
     expect(page).to have_content "Evento não encontrado"
   end

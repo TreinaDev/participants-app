@@ -1,6 +1,6 @@
 class Event
-  attr_accessor :name, :banner, :logo, :event_id, :event_owner, :local_event, :description, :event_agendas
-  def initialize(event_id:, name:, banner:, logo:, event_owner:, url_event:, local_event:, limit_participants:, price:, description:, event_agendas:)
+  attr_accessor :name, :banner, :logo, :event_id, :event_owner, :local_event, :description, :event_agendas, :url_event, :limit_participants
+  def initialize(event_id:, name:, banner:, logo:, event_owner:, url_event:, local_event:, limit_participants:, description:, event_agendas:)
     @event_id = event_id
     @name = name
     @banner = banner
@@ -9,7 +9,6 @@ class Event
     @url_event = url_event
     @local_event = local_event
     @limit_participants = limit_participants
-    @price = price
     @description = description
     @event_agendas = event_agendas.map { |event_agenda| EventAgenda.new(title: event_agenda[:title], description: event_agenda[:description], email: event_agenda[:email], event_agenda_id: event_agenda[:event_agenda_id], date: event_agenda[:date], instructor: event_agenda[:instructor], start_time: event_agenda[:start_time], duration: event_agenda[:duration], type: event_agenda[:type]) }
   end
@@ -27,7 +26,6 @@ class Event
         url_event: data["url_event"],
         local_event: data["local_event"],
         limit_participants: data["limit_participants"],
-        price: data["price"],
         description: data["description"],
         event_agendas: data["event_agendas"]
       )
