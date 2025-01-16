@@ -2,15 +2,12 @@ require 'rails_helper'
 
 describe 'Visitante abre a app e ve lista de eventos', type: :system do
   it 'com sucesso' do
-    events = [
-      { id: 1, name: 'Dev Week', banner: 'http://localhost:3000/events/1/banner.jpg',
-        logo: 'http://localhost:3000/events/1/logo.jpg' },
-      { id: 2, name: 'Ruby Update', banner: 'http://localhost:3000/events/2/banner.jpg',
-        logo: 'http://localhost:3000/events/2/logo.jpg' }
-    ]
-    response = double('response', status: 200, body: events.to_json)
-    allow(response).to receive(:success?). and_return(true)
-    allow(Faraday).to receive(:get).with('http://localhost:3000/events').and_return(response)
+    events = []
+    events << build(:event, name: 'Dev Week', banner: 'http://localhost:3000/events/1/banner.jpg',
+                                     logo: 'http://localhost:3000/events/1/logo.jpg', event_id: 1)
+    events << build(:event, name: 'Ruby Update', banner: 'http://localhost:3000/events/2/banner.jpg',
+                                     logo: 'http://localhost:3000/events/2/logo.jpg', event_id: 2)
+    allow(Event).to receive(:all).and_return(events)
 
     visit root_path
 
@@ -23,9 +20,9 @@ describe 'Visitante abre a app e ve lista de eventos', type: :system do
     expect(page).to have_css 'img[src="http://localhost:3000/events/2/logo.jpg"]'
   end
 
-  it 'api não disponivel' do
-    response = double('response', status: 404)
-    allow(response).to receive(:status).and_return(Faraday::Error)
+  it 'e não tem eventos disponiveis' do
+    events = []
+    allow(response).to receive(:all).and_return(events)
 
     visit root_path
 
