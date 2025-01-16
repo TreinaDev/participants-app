@@ -10,14 +10,14 @@ class Event
     @local_event = local_event
     @limit_participants = limit_participants
     @description = description
-    @event_agendas = event_agendas.map { |event_agenda| EventAgenda.new(title: event_agenda[:title], description: event_agenda[:description], email: event_agenda[:email], event_agenda_id: event_agenda[:event_agenda_id], date: event_agenda[:date], instructor: event_agenda[:instructor], start_time: event_agenda[:start_time], duration: event_agenda[:duration], type: event_agenda[:type]) }
+    @event_agendas = build_event_agenda(event_agendas)
   end
 
   def self.request_event_by_id(event_id)
     conn = Faraday.new do |faraday|
       faraday.response :raise_error
     end
-    response = conn.get("http://events/#{event_id}")
+    response = conn.get("http://localhost:3000/events/#{event_id}")
 
     data = JSON.parse(response.body, symbolize_names: true)
     Event.new(
@@ -35,5 +35,21 @@ class Event
   rescue Faraday::Error => error
     Rails.logger.error(error)
     []
+  end
+
+  private
+
+  def build_event_agenda(event_agendas)
+    event_agendas.map { |event_agenda| EventAgenda.new(
+      title: event_agenda[:title],
+      description: event_agenda[:description],
+      email: event_agenda[:email],
+      event_agenda_id: event_agenda[:event_agenda_id],
+      date: event_agenda[:date],
+      instructor: event_agenda[:instructor],
+      start_time: event_agenda[:start_time],
+      duration: event_agenda[:duration],
+      type: event_agenda[:type]
+      ) }
   end
 end

@@ -68,13 +68,12 @@ RSpec.describe Event, type: :model do
           event_owner: 'Samuel',
           event_agendas: event_agendas
         }
-  
         response = double('response', status: 200, body: event.to_json)
         allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/events/1').and_return(response)
         result = Event.request_event_by_id(event[:event_id])
-  
+
         # Assert
-  
+
         expect(result.event_agendas[0].event_agenda_id).to eq 1
         expect(result.event_agendas[0].date).to eq '15/08/2025'
         expect(result.event_agendas[0].title).to eq 'Aprendendo a cozinhar massas'
