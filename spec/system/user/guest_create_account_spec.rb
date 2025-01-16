@@ -40,6 +40,7 @@ describe 'visitante cria conta' do
 
   it 'com cpf e email únicos' do
     create(:user, email: 'cristiano@email.com', cpf: '22099395004')
+    
     visit root_path
     click_on 'Inscrever-se'
     fill_in 'Nome',	with: 'Cristiano'
