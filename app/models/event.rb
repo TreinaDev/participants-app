@@ -20,18 +20,7 @@ class Event
     response = conn.get("http://localhost:3000/events/#{event_id}")
 
     data = JSON.parse(response.body, symbolize_names: true)
-    Event.new(
-      event_id: data[:event_id],
-      name: data[:name],
-      banner: data[:banner],
-      logo: data[:logo],
-      event_owner: data[:event_owner],
-      url_event: data[:url_event],
-      local_event: data[:local_event],
-      limit_participants: data[:limit_participants],
-      description: data[:description],
-      event_agendas: data[:event_agendas]
-    )
+    build_event(data)
   rescue Faraday::Error => error
     Rails.logger.error(error)
     []
@@ -40,16 +29,18 @@ class Event
   private
 
   def build_event_agenda(event_agendas)
-    event_agendas.map { |event_agenda| EventAgenda.new(
-      title: event_agenda[:title],
-      description: event_agenda[:description],
-      email: event_agenda[:email],
-      event_agenda_id: event_agenda[:event_agenda_id],
-      date: event_agenda[:date],
-      instructor: event_agenda[:instructor],
-      start_time: event_agenda[:start_time],
-      duration: event_agenda[:duration],
-      type: event_agenda[:type]
-      ) }
+    event_agendas.map { |event_agenda| EventAgenda.new(title: event_agenda[:title], description: event_agenda[:description],
+                                                       email: event_agenda[:email], event_agenda_id: event_agenda[:event_agenda_id],
+                                                       date: event_agenda[:date], instructor: event_agenda[:instructor],
+                                                       start_time: event_agenda[:start_time], duration: event_agenda[:duration],
+                                                       type: event_agenda[:type]) }
+  end
+
+  def self.build_event(data)
+    Event.new(
+      event_id: data[:event_id], name: data[:name], banner: data[:banner], logo: data[:logo], event_owner: data[:event_owner],
+      url_event: data[:url_event], local_event: data[:local_event], limit_participants: data[:limit_participants],
+      description: data[:description], event_agendas: data[:event_agendas]
+    )
   end
 end
