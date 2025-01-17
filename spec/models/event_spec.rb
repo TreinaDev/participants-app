@@ -95,9 +95,12 @@ RSpec.describe Event, type: :model do
     it "e retorna um array vazio, caso a API retorne status 500" do
       response = double('response', status: 500, body: "{}")
       allow(Faraday).to receive(:get).with('http://localhost:3000/events/1').and_return(response)
+      allow(Rails.logger).to receive(:error)
+
       result = Event.request_event_by_id(1)
 
       expect(result).to eq []
+      expect(Rails.logger).to have_received(:error)
     end
   end
 end
