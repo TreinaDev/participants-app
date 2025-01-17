@@ -8,15 +8,21 @@ describe 'Visitante acessa página de detalhes de um evento' do
       local_event: 'Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil',
       description: 'Aprenda a fritar um ovo',
       event_owner: 'Samuel',
+      limit_participants: 30,
+      banner: 'http://localhost:3000/events/1/banner.jpg',
+      url_event: 'http://evento_fake.com'
     )
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
     visit event_path(event.event_id)
 
     expect(page).to have_content 'Aprendedo a cozinhar'
-    expect(page).to have_content 'Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil'
+    expect(page).to have_content 'Local: Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil'
     expect(page).to have_content 'Aprenda a fritar um ovo'
     expect(page).to have_content 'Criado por: Samuel'
+    expect(page).to have_content 'Limite de Participantes: 30'
+    expect(page).to have_css 'img[src="http://localhost:3000/events/1/banner.jpg"]'
+    expect(page).to have_content 'http://evento_fake.com'
   end
 
   it 'e consegue ver os detalhes da agenda do evento' do
@@ -28,7 +34,7 @@ describe 'Visitante acessa página de detalhes de um evento' do
       instructor: 'Elefante',
       email: 'elefante@email.com',
       start_time: '07:00',
-      duration: 120,
+      duration: 100,
       type: 'Palestra'
     }, {
       event_agenda_id: 1,
@@ -52,19 +58,19 @@ describe 'Visitante acessa página de detalhes de um evento' do
 
     expect(page).to have_content "Aprendendo a cozinhar massas"
     expect(page).to have_content "lorem ipsum"
-    expect(page).to have_content "Elefante"
-    expect(page).to have_content "elefante@email.com"
-    expect(page).to have_content "07:00"
-    expect(page).to have_content "120"
-    expect(page).to have_content "Palestra"
+    expect(page).to have_content "Instrutor: Elefante"
+    expect(page).to have_content "Contato: elefante@email.com"
+    expect(page).to have_content "Início: 07:00"
+    expect(page).to have_content "Duração: 120min"
+    expect(page).to have_content "Tipo do Evento: Palestra"
 
     expect(page).to have_content "Aprendendo a fritar salgados"
     expect(page).to have_content "lorem ipsum"
-    expect(page).to have_content "Jacaré"
-    expect(page).to have_content "jacare@email.com"
-    expect(page).to have_content "11:00"
-    expect(page).to have_content "120"
-    expect(page).to have_content "Work-shop"
+    expect(page).to have_content "Instrutor: Jacaré"
+    expect(page).to have_content "Contato: jacare@email.com"
+    expect(page).to have_content "Início: 11:00"
+    expect(page).to have_content "Duração: 100min"
+    expect(page).to have_content "Tipo do Evento: Work-shop"
   end
 
   it 'e visualiza opção de ver ingressos' do
