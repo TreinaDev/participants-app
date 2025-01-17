@@ -1,6 +1,7 @@
 class Event
   attr_accessor :name, :banner, :logo, :event_id, :event_owner, :local_event, :description, :event_agendas, :url_event, :limit_participants
   def initialize(event_id:, name:, banner:, logo:, event_owner:, url_event:, local_event:, limit_participants:, description:, event_agendas:)
+
     @event_id = event_id
     @name = name
     @banner = banner
@@ -13,6 +14,20 @@ class Event
     @event_agendas = build_event_agenda(event_agendas)
   end
 
+  def self.all
+    conn = Faraday.new do |faraday|
+      faraday.response :raise_error
+    end
+    response = conn.get("https://localhost:3000/events")
+    JSON.parse(response.body).map { |event| Event.new(
+                                            event_id: event["id"],
+                                            name: event["name"],
+                                            banner: event["banner"],
+                                            logo: event["logo"]) }
+  rescue Faraday::Error => error
+    Rails.logger.error(error)
+    []
+  end
   def self.request_event_by_id(event_id)
     conn = Faraday.new do |faraday|
       faraday.response :raise_error
