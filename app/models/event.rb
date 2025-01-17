@@ -23,7 +23,7 @@ class Event
     build_event(data)
   rescue Faraday::Error => error
     Rails.logger.error(error)
-    []
+    nil
   end
 
   private

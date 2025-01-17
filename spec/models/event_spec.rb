@@ -99,7 +99,7 @@ RSpec.describe Event, type: :model do
 
       result = Event.request_event_by_id(1)
 
-      expect(result).to eq []
+      expect(result).to eq nil
       expect(Rails.logger).to have_received(:error)
     end
   end

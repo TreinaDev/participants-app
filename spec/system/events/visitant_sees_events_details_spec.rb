@@ -95,5 +95,6 @@ describe 'Visitante acessa página de detalhes de um evento' do
     visit event_path(1)
 
     expect(page).to have_content "Evento não encontrado"
+    expect(current_path).to eq root_path
   end
 end
