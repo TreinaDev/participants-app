@@ -23,7 +23,7 @@ class Event
   end
 
   def self.request_event_by_id(event_id)
-    response = Faraday.get("https://localhost:3000/events/#{event_id}")
+    response = Faraday.get("http://localhost:3000/events/#{event_id}")
 
     event = JSON.parse(response.body)
     Event.new(event_id: event["id"], name: event["name"], banner: event["banner"],
