@@ -16,4 +16,6 @@ Rails.application.routes.draw do
   resources :users do
     resources :profiles, only: [ :show ]
   end
+
+  resources :events, only: [ :index, :show ]
 end
