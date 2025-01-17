@@ -2,7 +2,6 @@ require 'rails_helper'
 
 describe 'Visitante acessa página de detalhes de um evento' do
   it 'com sucesso' do
-    # Arrange
     event = build(:event,
       event_id: "1",
       name: 'Aprendedo a cozinhar',
@@ -12,9 +11,8 @@ describe 'Visitante acessa página de detalhes de um evento' do
     )
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
-    # Act
     visit event_path(event.event_id)
-    # Assert
+
     expect(page).to have_content 'Aprendedo a cozinhar'
     expect(page).to have_content 'Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil'
     expect(page).to have_content 'Aprenda a fritar um ovo'
@@ -22,7 +20,6 @@ describe 'Visitante acessa página de detalhes de um evento' do
   end
 
   it 'e consegue ver os detalhes da agenda do evento' do
-    # Arrange
     event_agendas = [ {
       event_agenda_id: 1,
       date: '15/08/2025',
@@ -51,9 +48,7 @@ describe 'Visitante acessa página de detalhes de um evento' do
 
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
-    # Act
     visit event_path(event.event_id)
-    # Assert
 
     expect(page).to have_content "Aprendendo a cozinhar massas"
     expect(page).to have_content "lorem ipsum"
@@ -73,26 +68,22 @@ describe 'Visitante acessa página de detalhes de um evento' do
   end
 
   it 'e visualiza opção de ver ingressos' do
-    # Arrange
     event = build(:event,  event_agendas: [])
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
 
-    # Act
     visit event_path(event.event_id)
-    # Assert
+
     expect(page).to have_link 'Ver ingressos'
   end
 
   it 'e visualiza que não há programação para o evento' do
-    # Arrange
     event = build(:event,  event_agendas: [])
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
 
-    # Act
     visit event_path(event.event_id)
-    # Assert
+
     expect(page).to have_content 'Ainda não existe programação cadastrada para esse evento'
   end
 

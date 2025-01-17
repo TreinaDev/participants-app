@@ -21,7 +21,6 @@ RSpec.describe Event, type: :model do
         allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/events/1').and_return(response)
         result = Event.request_event_by_id(event[:event_id])
 
-        # Assert
         expect(result.name).to eq 'Aprendedo a cozinhar'
         expect(result.url_event).to eq 'https://ecvitoria.com.br/public/Inicio/'
         expect(result.local_event).to eq 'Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil'
@@ -72,7 +71,6 @@ RSpec.describe Event, type: :model do
         allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/events/1').and_return(response)
         result = Event.request_event_by_id(event[:event_id])
 
-        # Assert
 
         expect(result.event_agendas[0].event_agenda_id).to eq 1
         expect(result.event_agendas[0].date).to eq '15/08/2025'
