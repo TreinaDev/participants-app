@@ -39,15 +39,15 @@ RSpec.configure do |config|
     driven_by :rack_test
   end
 
-  config.before(:each, type: :system) do
-    driven_by(:cuprite, screen_size: [ 1440, 810 ], options: {
-      js_errors: false,
-      headless: true,
-      process_timeout: 15,
-      timeout: 10,
-      browser_options: { "no-sandbox" => nil }
-    })
-  end
+  #config.before(:each, type: :system) do
+  #  driven_by(:cuprite, screen_size: [ 1440, 810 ], options: {
+  #    js_errors: false,
+  #    headless: true,
+  #    process_timeout: 15,
+  #    timeout: 10,
+  #    browser_options: { "no-sandbox" => nil }
+  #  })
+  #end
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
@@ -73,6 +73,7 @@ RSpec.configure do |config|
   #
   # To enable this behaviour uncomment the line below.
   config.infer_spec_type_from_file_location!
+  config.include ActiveSupport::Testing::TimeHelpers
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
