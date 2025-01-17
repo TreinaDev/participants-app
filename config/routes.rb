@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root to: "home#index"
   resources :users do
-    resources :profiles, only: [ :show ]
+    resources :profiles, only: [ :show, :edit, :update ]
   end
 
   resources :events, only: [ :index, :show ]

@@ -2,3 +2,9 @@ en:
   profiles:
     show:
       title: Profile
+      negate_access: You cannot access this page.
+    edit:
+      title: Edit Your Profile
+      save: Save Information
+    update: 
+      notice: Profile updated

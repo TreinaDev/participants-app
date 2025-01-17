@@ -1,5 +1,7 @@
 <h1> <%= t('.title') %> </h1>
 
+<%= link_to 'Editar Perfil', edit_user_profile_path(user_id: current_user, id: current_user.profile) %>
+
 <dl>
   <dt><%=User.human_attribute_name(:name)%>:</dt>
   <dd><%=@profile.user.name%></dd>

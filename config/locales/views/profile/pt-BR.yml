@@ -1,4 +1,10 @@
 pt-BR:
   profiles:
+    negate_access: Você não tem autorização para acessar está página.
     show:
       title: Perfil
+    edit:
+      title: Edite seu Perfil
+      save: Salvar Informações
+    update: 
+      notice: Perfil atualizado
