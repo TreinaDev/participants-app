@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :event_agenda do
-      event_agenda_id { 1 }
+      sequence (:event_agenda_id) { |n| n }
       date { '15/08/2025' }
       title { 'Aprendendo a fritar salgados' }
       description { 'lorem ipsum' }

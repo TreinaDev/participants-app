@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :event do
-    event_id { 1 }
+    sequence(:event_id) { |n| n }
     name { "Dev Week" }
     banner { 'http://localhost:3000/events/1/banner.jpg' }
     logo { 'http://localhost:3000/events/1/logo.jpg' }
