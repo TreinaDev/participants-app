@@ -1,6 +1,0 @@
-pt-BR:
-  devise:
-    registrations:  
-      new:
-        title: Inscrever-se
-        save: Salvar Conta

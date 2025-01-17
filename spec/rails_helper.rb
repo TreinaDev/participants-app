@@ -42,7 +42,7 @@ RSpec.configure do |config|
   config.before(:each, type: :system) do
     driven_by(:cuprite, screen_size: [ 1440, 810 ], options: {
       js_errors: false,
-      headless: true,
+      headless: %w[0],
       process_timeout: 15,
       timeout: 10,
       browser_options: { "no-sandbox" => nil }

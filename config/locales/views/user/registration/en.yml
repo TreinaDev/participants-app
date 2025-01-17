@@ -1,6 +1,0 @@
-en:
-  devise:
-    registrations:  
-      new:
-        title: Subscribe
-        save: Save Account

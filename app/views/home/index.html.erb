@@ -1,17 +1,6 @@
-<h1>Eventos</h1>
+<h1>Olá mundo</h1>
 
-<% unless @events.empty? %>
-  <% @events.each do |event| %>
-    <div> 
-      <%= link_to event.name, event_path(event.event_id) %>
-      <% if event.banner.present? %>
-        <img src="<%= event.banner %>" alt="Banner do evento">
-      <% end %>
-      <% if event.logo.present? %>
-        <img src="<%= event.logo %>" alt="Logo do evento">
-      <% end %>
-    </div>
-  <% end %>
-<% else %>
-  <p>Nenhum evento disponível</p>
-<% end %>
+<div data-controller="home">
+  <button data-action="click->home#helloWorld">Ver mensagem</button>
+  <div data-home-target="result"></div>
+</div>
