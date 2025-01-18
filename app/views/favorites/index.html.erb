@@ -1,0 +1,25 @@
+<h1 class="text-3xl font-extrabold text-center dark:text-black mt-8 mb-6">Eventos Favoritos/h1> 
+
+
+<% if @events_favorites.present? %>
+  <div class="container mx-auto">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <% @events_favorites.each do |event| %>
+        <div id="event_id_#{event.event_id}" class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+          <% if event.banner.present? %>
+            <img class="rounded-t-lg object-cover w-full h-48" src="<%= event.banner %>" alt="Banner do evento">
+          <% end %>
+          <div class="p-5">
+            <% if event.logo.present? %>
+              <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="<%= event.logo %>" alt="Bonnie image"/>
+            <% end %>
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><%= link_to event.name, event_path(event.event_id) %></h5>
+              <%= button_to 'Desfavoritar', favorite_path(event.event_id), method: :delete%>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% else %>
+  <p class="text-lg text-center text-gray-500 dark:text-black-300 mt-6">Você ainda não possui eventos favoritos</p>
+<% end %>
