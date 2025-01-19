@@ -7,7 +7,7 @@
       <% @favorites.each do |event| %>
           <%= render '/events/event', event: event %>
           <div id="event_id_<%=event.event_id%>">
-            <%= button_to 'Desfavoritar', favorite_path(current_user.favorites.find_by(event_id: event.event_id)&.id), method: :delete %>   
+            <%= button_to 'Desfavoritar', favorite_path(Favorite.find_by(event_id: event.event_id)), method: :delete %>   
           </div> 
         <% end %> 
     </div>

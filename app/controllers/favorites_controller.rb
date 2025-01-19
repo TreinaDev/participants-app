@@ -3,7 +3,7 @@ class FavoritesController < ApplicationController
   def create
     @favorite = current_user.favorites.build(event_id: params[:event_id])
     if @favorite.save
-      redirect_back_or_to root_path, notice: "Evento adicionado a favorito com sucesso"
+      redirect_back_or_to root_path, notice: t(".success")
     end
   end
 
@@ -14,13 +14,13 @@ class FavoritesController < ApplicationController
   def destroy
     @favorite = Favorite.find(params[:id])
     if @favorite.destroy!
-      redirect_to favorites_path, notice: "Evento Desfavoritado"
+      redirect_to favorites_path, notice: t(".success")
     end
   end
 
   private
 
   def check_user_is_authenticated
-    redirect_to new_user_session_path, alert: "Usuário não autenticado" unless user_signed_in?
+    redirect_to new_user_session_path, alert: t(".check_user_is_authenticated.alert") unless user_signed_in?
   end
 end
