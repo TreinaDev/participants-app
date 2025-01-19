@@ -41,6 +41,14 @@ class Event
     nil
   end
 
+  def self.request_favorites(favorites)
+    favorites = []
+    favorites.each do |favorite|
+      favorites << Event.request_event_by_id(favorite.event_id)
+    end
+    favorites
+  end
+
   private
 
   def build_event_agenda(event_agendas)
