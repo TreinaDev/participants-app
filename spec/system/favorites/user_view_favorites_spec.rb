@@ -77,6 +77,46 @@ describe 'Usuário acessa página de favoritos' do
     expect(page).to have_css 'img[src="http://localhost:3000/events/3/logo.jpg"]'
   end
 
+  it 'e não vê um evento que não foi favoritado' do
+    user = create(:user)
+    events = []
+    events << build(:event,
+      name: 'Aprendendo a cozinhar',
+      banner: 'http://localhost:3000/events/1/banner.jpg',
+      logo: 'http://localhost:3000/events/1/logo.jpg',
+    )
+    events << build(:event,
+      name: 'Aprendendo a voar',
+      banner: 'http://localhost:3000/events/2/banner.jpg',
+      logo: 'http://localhost:3000/events/2/logo.jpg',
+    )
+
+    events << build(:event,
+      name: 'Aprendendo a nadar',
+      banner: 'http://localhost:3000/events/3/banner.jpg',
+      logo: 'http://localhost:3000/events/3/logo.jpg',
+    )
+    create(:favorite, user_id: user.id, event_id: events[0].event_id)
+    create(:favorite, user_id: user.id, event_id: events[1].event_id)
+    allow(Event).to receive(:request_favorites).and_return(events)
+
+    login_as user
+    visit favorites_path
+
+    expect(page).to have_link 'Aprendendo a cozinhar'
+    expect(page).to have_css 'img[src="http://localhost:3000/events/1/banner.jpg"]'
+    expect(page).to have_css 'img[src="http://localhost:3000/events/1/logo.jpg"]'
+
+    expect(page).to have_link 'Aprendendo a voar'
+    expect(page).to have_css 'img[src="http://localhost:3000/events/2/banner.jpg"]'
+    expect(page).to have_css 'img[src="http://localhost:3000/events/2/logo.jpg"]'
+
+    expect(page).not_to have_link 'Aprendendo a nadar'
+    expect(page).not_to have_css 'img[src="http://localhost:3000/events/3/banner.jpg"]'
+    expect(page).not_to have_css 'img[src="http://localhost:3000/events/3/logo.jpg"]'
+  end
+
+
   it 'e desfavorita com sucesso' do
     user = create(:user)
     first_event = build(:event,

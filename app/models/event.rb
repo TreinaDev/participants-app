@@ -1,7 +1,6 @@
 class Event
   attr_accessor :name, :banner, :logo, :event_id, :event_owner, :local_event, :description, :event_agendas, :url_event, :limit_participants
   def initialize(event_id:, name:, banner:, logo:, event_owner:, url_event:, local_event:, limit_participants:, description:, event_agendas:)
-
     @event_id = event_id
     @name = name
     @banner = banner
