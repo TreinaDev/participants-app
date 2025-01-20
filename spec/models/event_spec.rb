@@ -41,7 +41,7 @@ RSpec.describe Event, type: :model do
         email: 'elefante@email.com',
         start_time: '07:00',
         duration: 120,
-        type: 'Palestra'
+        agenda_type: 'Palestra'
       }, {
         event_agenda_id: 2,
         date: '15/08/2025',
@@ -51,7 +51,7 @@ RSpec.describe Event, type: :model do
         email: 'jacare@email.com',
         start_time: '11:00',
         duration: 120,
-        type: 'Work-shop'
+        agenda_type: 'Work-shop'
       }
       ]
       event = {
@@ -106,6 +106,7 @@ RSpec.describe Event, type: :model do
 
   context 'lista de eventos' do
     it 'Deveria receber toda a lista de eventos disponíveis' do
+      travel_to(Time.zone.local(2024, 01, 01, 00, 04, 44))
       json = File.read(Rails.root.join('spec/support/json/events_list.json'))
       url = 'https://localhost:3000/events'
       response = double('faraday_response', body: json, status: 200)
@@ -133,6 +134,19 @@ RSpec.describe Event, type: :model do
 
       result = Event.all
       expect(result.length).to eq 0
+    end
+
+    it 'só recebe eventos que não aconteceram' do
+      travel_to(Time.zone.local(2024, 01, 01, 00, 04, 44))
+      json = File.read(Rails.root.join('spec/support/json/error_events_list.json'))
+      url = 'https://localhost:3000/events'
+      response = double('faraday_response', body: json, status: 200)
+      allow_any_instance_of(Faraday::Connection).to receive(:get).with(url).and_return(response)
+      allow(response).to receive(:success?).and_return(true)
+
+      result = Event.all
+
+      expect(result.length).to eq 2
     end
   end
 end
