@@ -5,18 +5,7 @@
   <div class="container mx-auto">
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       <% @events.each do |event| %>
-        <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-          <% if event.banner.present? %>
-            <img class="rounded-t-lg object-cover w-full h-48" src="<%= event.banner %>" alt="Banner do evento">
-          <% end %>
-          <div class="p-5">
-            <% if event.logo.present? %>
-              <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="<%= event.logo %>" alt="Bonnie image"/>
-            <% end %>
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><%= link_to event.name, event_path(event.event_id) %></h5>
-            <p class="text-md dark:text-white mt-6">Data de início: <%=I18n.l(event.start_date.to_date, format: :long)%></p>
-          </div>
-        </div>
+        <%= render '/events/event', event: event %>
       <% end %>
     </div>
   </div>

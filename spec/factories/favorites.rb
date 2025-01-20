@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :favorite do
-    user { nil }
-    event { nil }
+    user
+    sequence(:event_id)
   end
 end

@@ -1,0 +1,17 @@
+<h1 class="text-3xl font-extrabold text-center dark:text-black mt-8 mb-6">Eventos Favoritos/h1> 
+
+
+<% if @favorites.present? %>
+  <div class="container mx-auto">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <% @favorites.each do |event| %>
+          <%= render '/events/event', event: event %>
+          <div id="event_id_<%=event.event_id%>">
+            <%= button_to 'Desfavoritar', favorite_path(Favorite.find_by(event_id: event.event_id)), method: :delete %>   
+          </div> 
+        <% end %> 
+    </div>
+  </div>
+<% else %>
+  <p class="text-lg text-center text-gray-500 dark:text-black-300 mt-6">Você ainda não possui eventos favoritos</p>
+<% end %>

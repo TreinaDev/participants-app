@@ -15,4 +15,5 @@ Rails.application.routes.draw do
   root to: "home#index"
 
   resources :events, only: [ :index, :show ]
+  resources :favorites, only: [ :index, :create, :destroy ]
 end
