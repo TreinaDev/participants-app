@@ -36,7 +36,7 @@ describe EventsApiService, type: :model do
   
       response = double('response', status: 200, body: events.to_json)
       allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/events').and_return(response)
-      result = EventsApiService.get_events
+      results = EventsApiService.get_events
   
       
 
