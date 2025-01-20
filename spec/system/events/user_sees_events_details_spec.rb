@@ -55,7 +55,7 @@ describe 'Usuário acessa página de detalhes de um evento' do
       email: 'elefante@email.com',
       start_time: '07:00',
       duration: 100,
-      type: 'Palestra'
+      agenda_type: 'Palestra'
     }, {
       event_agenda_id: 1,
       date: '15/08/2025',
@@ -65,7 +65,7 @@ describe 'Usuário acessa página de detalhes de um evento' do
       email: 'jacare@email.com',
       start_time: '11:00',
       duration: 120,
-      type: 'Work-shop'
+      agenda_type: 'Work-shop'
     }
     ]
     event = build(:event,
