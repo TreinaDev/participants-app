@@ -134,5 +134,18 @@ RSpec.describe Event, type: :model do
       result = Event.all
       expect(result.length).to eq 0
     end
+
+    it 'só recebe eventos que não aconteceram' do
+      travel_to(Time.zone.local(2024, 01, 01, 00, 04, 44))
+      json = File.read(Rails.root.join('spec/support/json/error_events_list.json'))
+      url = 'https://localhost:3000/events'
+      response = double('faraday_response', body: json, status: 200)
+      allow_any_instance_of(Faraday::Connection).to receive(:get).with(url).and_return(response)
+      allow(response).to receive(:success?).and_return(true)
+
+      result = Event.all
+
+      expect(result.length).to eq 2
+    end    
   end
 end
