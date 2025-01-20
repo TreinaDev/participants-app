@@ -16,11 +16,7 @@ class Event
   end
 
   def self.all
-    conn = Faraday.new do |faraday|
-      faraday.response :raise_error
-    end
-    response = conn.get("https://localhost:3000/events")
-    events = JSON.parse(response.body, symbolize_names: true)
+    events = EventsApiService.get_events
     events.select { |event| DateTime.now.before?(event[:start_date].to_date) }.map { |event| build_event(event) }
   rescue Faraday::Error => error
     Rails.logger.error(error)
@@ -28,13 +24,8 @@ class Event
   end
 
   def self.request_event_by_id(event_id)
-    conn = Faraday.new do |faraday|
-      faraday.response :raise_error
-    end
-    response = conn.get("http://localhost:3000/events/#{event_id}")
-
-    data = JSON.parse(response.body, symbolize_names: true)
-    build_event(data)
+    event_params = EventsApiService.get_event_by_id event_id
+    build_event(event_params)
   rescue Faraday::Error => error
     Rails.logger.error(error)
     nil
