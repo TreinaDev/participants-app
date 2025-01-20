@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Usuário acessa página de detalhes de um evento' do
   it 'com sucesso' do
-    user = build(:user)
+    user = create(:user)
 
     event = build(:event,
       event_id: "1",
@@ -29,7 +29,7 @@ describe 'Usuário acessa página de detalhes de um evento' do
   end
 
   it 'a partir da pagina inicial' do
-    user = build(:user)
+    user = create(:user)
     event = build(:event, name: 'Dev Week', banner: 'http://localhost:3000/events/1/banner.jpg',
                                      logo: 'http://localhost:3000/events/1/logo.jpg', event_id: 1)
     events = [ event ]
@@ -45,7 +45,7 @@ describe 'Usuário acessa página de detalhes de um evento' do
   end
 
   it 'e consegue ver os detalhes da agenda do evento' do
-    user = build(:user)
+    user = create(:user)
     event_agendas = [ {
       event_agenda_id: 1,
       date: '15/08/2025',
@@ -95,7 +95,7 @@ describe 'Usuário acessa página de detalhes de um evento' do
   end
 
   it 'e visualiza opção de ver ingressos' do
-    user = build(:user)
+    user = create(:user)
     event = build(:event,  event_agendas: [])
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
@@ -107,7 +107,7 @@ describe 'Usuário acessa página de detalhes de um evento' do
   end
 
   it 'e visualiza que não há programação para o evento' do
-    user = build(:user)
+    user = create(:user)
     event = build(:event,  event_agendas: [])
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
