@@ -17,4 +17,24 @@ describe 'usuário atualiza seu perfil' do
     expect(profile.city).to eq 'Teste'
     expect(profile.state).to eq 'Estado'
   end
+
+  it 'logado e tenta atualizar de outro' do
+    user = create(:user)
+    profile = create(:profile, user: user, city: 'Londrina', state: 'Paraná')
+    other_user = create(:user)
+    other_profile = create(:profile, user: other_user, city: 'Recife', state: 'Pernambuco')
+
+    login_as user
+    patch user_profile_path(user_id: other_user, id: other_user.profile), params: {
+      profile: {
+        city: 'São Paulo',
+        state: 'São Paulo'
+      }
+    }
+
+    other_profile.reload
+    expect(response).to redirect_to root_path
+    expect(other_profile.city).to eq 'Recife'
+    expect(other_profile.state).to eq 'Pernambuco'
+  end
 end

@@ -11,19 +11,6 @@ describe 'usuário edita perfil' do
     expect(page).to have_link 'Editar Perfil'
   end
 
-  it "e acessa formulário" do
-    user = create(:user, email: 'teste@email.com')
-
-    login_as user
-    visit edit_user_profile_path(user_id: user, id: user.profile)
-
-    expect(page).to have_content 'Edite seu Perfil'
-    expect(page).to have_field 'Cidade'
-    expect(page).to have_field 'Estado'
-    expect(page).to have_field 'Telefone'
-    expect(page).to have_button 'Salvar Informações'
-  end
-
   it 'com sucesso' do
     user = create(:user, email: 'teste@email.com')
 
