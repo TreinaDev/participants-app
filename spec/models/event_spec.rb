@@ -135,7 +135,7 @@ RSpec.describe Event, type: :model do
       expect(result.length).to eq 0
     end
 
-    it 'só recebe eventos que já aconteceram' do
+    it 'só recebe eventos que não aconteceram' do
       travel_to(Time.zone.local(2024, 01, 01, 00, 04, 44))
       json = File.read(Rails.root.join('spec/support/json/error_events_list.json'))
       url = 'https://localhost:3000/events'
