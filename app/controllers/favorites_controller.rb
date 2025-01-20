@@ -13,7 +13,9 @@ class FavoritesController < ApplicationController
 
   def destroy
     @favorite = Favorite.find(params[:id])
-    if @favorite.destroy!
+    if @favorite.user_id != current_user.id
+      redirect_to root_path, alert: t(".alert")
+    elsif @favorite.destroy!
       redirect_to favorites_path, notice: t(".success")
     end
   end
