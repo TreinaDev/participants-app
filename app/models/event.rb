@@ -20,13 +20,8 @@ class Event
       faraday.response :raise_error
     end
     response = conn.get("https://localhost:3000/events")
-    JSON.parse(response.body).filter_map { |event| Event.new(
-                                            event_id: event["id"],
-                                            name: event["name"],
-                                            banner: event["banner"],
-                                            logo: event["logo"],
-                                            start_date: event["start_date"].to_date,
-                                            end_date: event["end_date"].to_date) if DateTime.now.before?(event["start_date"].to_date)}
+    events = JSON.parse(response.body, symbolize_names: true)
+    events.select { |event| DateTime.now.before?(event[:start_date].to_date) }.map { |event| build_event(event) }
   rescue Faraday::Error => error
     Rails.logger.error(error)
     []
@@ -52,14 +47,14 @@ class Event
                                                        email: event_agenda[:email], event_agenda_id: event_agenda[:event_agenda_id],
                                                        date: event_agenda[:date], instructor: event_agenda[:instructor],
                                                        start_time: event_agenda[:start_time], duration: event_agenda[:duration],
-                                                       type: event_agenda[:type]) }
+                                                       type: event_agenda[:agenda_type]) }
   end
 
   def self.build_event(data)
     Event.new(
-      event_id: data[:event_id], name: data[:name], banner: data[:banner], logo: data[:logo], event_owner: data[:event_owner],
+      event_id: data[:id], name: data[:name], banner: data[:banner], logo: data[:logo], event_owner: data[:event_owner],
       url_event: data[:url_event], local_event: data[:local_event], limit_participants: data[:limit_participants],
-       description: data[:description], event_agendas: data[:event_agendas] , start_date: data[:start_date], end_date: data[:end_date]
+       description: data[:description], event_agendas: data[:event_agendas] || [], start_date: data[:start_date], end_date: data[:end_date]
     )
   end
 end

@@ -1,7 +1,8 @@
 require 'rails_helper'
 
-describe 'Visitante abre a app e ve lista de eventos', type: :system do
+describe 'Usuário abre a app e vê lista de eventos', type: :system do
   it 'com sucesso' do
+    user = build(:user)
     events = []
     travel_to(Time.zone.local(2024, 01, 01, 00, 04, 44))
     events << build(:event, event_id: 1, name: 'Dev Week', banner: 'http://localhost:3000/events/1/banner.jpg',
@@ -13,6 +14,7 @@ describe 'Visitante abre a app e ve lista de eventos', type: :system do
 
     allow(Event).to receive(:all).and_return(events)
 
+    login_as user
     visit root_path
     click_on 'Eventos'
 
@@ -45,9 +47,11 @@ describe 'Visitante abre a app e ve lista de eventos', type: :system do
   end
 
   it 'e não tem eventos disponiveis' do
+    user = build(:user)
     events = []
     allow(response).to receive(:all).and_return(events)
 
+    login_as user
     visit root_path
     click_on 'Eventos'
 

@@ -1,19 +1,28 @@
 [
-  { 
-    "id": 1, 
-    "name": "Dev Week",  
+  {
+    "id": 1,
+    "name": "Dev Week",
     "banner": "http://localhost:3000/events/1/banner.jpg",
     "logo": "http://localhost:3000/events/1/logo.jpg",
     "start_date": "2024-11-17",
-    "end_date": "2024-11-19"
+    "end_date": "2024-11-19",
+    "local_event": "Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil",
+    "description": "Aprenda a fritar um ovo",
+    "event_owner": "Samuel",
+    "limit_participants": 30,
+    "url_event": "http: //evento_fake.com"
   },
-
-  { 
-      "id": 2, 
-      "name": "Ruby Update",  
-      "banner": "http://localhost:3000/events/2/banner.jpg",
-      "logo": "http://localhost:3000/events/2/logo.jpg",
-      "start_date": "2024-01-25",
-      "end_date": "2024-11-30"
-    }
-]
+  {
+    "id": 2,
+    "name": "Ruby Update",
+    "banner": "http://localhost:3000/events/2/banner.jpg",
+    "logo": "http://localhost:3000/events/2/logo.jpg",
+    "start_date": "2024-01-25",
+    "end_date": "2024-11-30",
+    "local_event": "Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil",
+    "description": "Aprenda a fritar um ovo",
+    "event_owner": "Samuel",
+    "limit_participants": 30,
+    "url_event": "http: //evento_fake.com"
+        }
+      ]
