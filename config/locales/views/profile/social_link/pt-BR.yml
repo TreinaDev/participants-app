@@ -1,0 +1,7 @@
+pt-BR:
+  social_links:
+    new:
+      title: Adicione um link
+      save: Salvar Link
+    create: 
+      notice: Perfil atualizado

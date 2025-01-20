@@ -1,0 +1,10 @@
+pt-BR:
+  activerecord:
+    models:
+      social_link:
+        one: Link Social
+        other: Link Sociais
+    attributes:
+      social_link:
+        name: Nome
+        url: URL

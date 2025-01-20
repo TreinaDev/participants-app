@@ -1,0 +1,7 @@
+pt-BR:
+  social_links:
+    new:
+      title: Add a Link
+      save: Save
+    create: 
+      notice: Profile updated

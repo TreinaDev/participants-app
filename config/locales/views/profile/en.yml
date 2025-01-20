@@ -1,8 +1,10 @@
 en:
   profiles:
+    negate_access: You cannot access this page.
     show:
       title: Profile
-      negate_access: You cannot access this page.
+      edit_profile: Edit Profile
+      add_social_link: Add Social Link
     edit:
       title: Edit Your Profile
       save: Save Information

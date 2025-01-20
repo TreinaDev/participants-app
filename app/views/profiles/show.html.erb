@@ -1,6 +1,6 @@
 <h1> <%= t('.title') %> </h1>
 
-<%= link_to 'Editar Perfil', edit_user_profile_path(user_id: current_user, id: current_user.profile) %>
+<%= link_to t('.edit_profile'), edit_user_profile_path(user_id: current_user, id: current_user.profile) %>
 
 <dl>
   <dt><%=User.human_attribute_name(:name)%>:</dt>
@@ -16,5 +16,10 @@
   <dt><%=Profile.human_attribute_name(:phone_number).pluralize%>:</dt>
   <dd><%=@profile.phone_numbers%></dd>
   <dt><%=Profile.human_attribute_name(:social_link).pluralize%>:</dt>
-  <dd><%=@profile.social_links%></dd>
+  <%@profile.social_links.each do |social_link|%>
+    <dd><%=social_link.name%></dd>
+    <dd><%=social_link.url%></dd>
+  <% end %>
 </dl>
+
+<%= link_to t('.add_social_link'), new_user_profile_social_link_path(user_id: current_user, profile_id: @profile) %>

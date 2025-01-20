@@ -3,6 +3,8 @@ pt-BR:
     negate_access: Você não tem autorização para acessar está página.
     show:
       title: Perfil
+      edit_profile: Editar Perfil
+      add_social_link: Adicionar Link Social
     edit:
       title: Edite seu Perfil
       save: Salvar Informações
