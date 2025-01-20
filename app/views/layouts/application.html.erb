@@ -24,13 +24,15 @@
   </head>
 
   <body>
-    <%= render 'shared/nav' %>
-    <div>
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
-    </div>
     <main class="container mx-auto mt-28 px-5">
-      <%= yield %>
+      <%= render 'shared/nav' %>
+      <div>
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+      </div>
+      <div>
+        <%= yield %>
+      </div>
     </main>
   </body>
 </html>
