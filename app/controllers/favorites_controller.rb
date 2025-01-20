@@ -1,5 +1,5 @@
 class FavoritesController < ApplicationController
-  before_action :check_user_is_authenticated, only: [ :create, :index, :destroy ]
+  before_action :check_if_user_is_authenticated, only: [ :create, :index, :destroy ]
   def create
     @favorite = current_user.favorites.build(event_id: params[:event_id])
     if @favorite.save
@@ -20,7 +20,7 @@ class FavoritesController < ApplicationController
 
   private
 
-  def check_user_is_authenticated
+  def check_if_user_is_authenticated
     redirect_to new_user_session_path, alert: t(".check_user_is_authenticated.alert") unless user_signed_in?
   end
 end
