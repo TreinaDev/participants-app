@@ -20,6 +20,7 @@ describe 'usuário edita perfil' do
     expect(page).to have_content 'Edite seu Perfil'
     expect(page).to have_field 'Cidade'
     expect(page).to have_field 'Estado'
+    expect(page).to have_field 'Telefone'
     expect(page).to have_button 'Salvar Informações'
   end
 
@@ -30,12 +31,14 @@ describe 'usuário edita perfil' do
     visit edit_user_profile_path(user_id: user, id: user.profile)
     fill_in 'Cidade', with: 'TesteCidade'
     fill_in 'Estado', with: 'TesteEstado'
+    fill_in 'Telefone', with: '11912125454'
     click_on 'Salvar Informações'
 
     expect(current_path).to eq user_profile_path(user_id: user, id: user.profile)
     expect(page).to have_content 'Perfil atualizado'
     expect(page).to have_content 'TesteCidade'
     expect(page).to have_content 'TesteEstado'
+    expect(page).to have_content '11912125454'
   end
 
   it 'e não está logado' do

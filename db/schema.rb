@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_16_194638) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_20_130304) do
   create_table "favorites", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "event_id", null: false
@@ -19,20 +19,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_16_194638) do
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
-  create_table "phone_numbers", force: :cascade do |t|
-    t.string "number"
-    t.integer "profile_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["profile_id"], name: "index_phone_numbers_on_profile_id"
-  end
-
   create_table "profiles", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "city"
     t.string "state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "phone_number"
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
@@ -61,7 +54,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_16_194638) do
   end
 
   add_foreign_key "favorites", "users"
-  add_foreign_key "phone_numbers", "profiles"
   add_foreign_key "profiles", "users"
   add_foreign_key "social_links", "profiles"
 end
