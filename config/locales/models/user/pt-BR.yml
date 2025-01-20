@@ -12,3 +12,9 @@ pt-BR:
         email: E-mail
         password: Senha
         password_confirmation: Confirmar Senha
+    errors:
+      models:
+        user:
+          attributes:
+            cpf:
+              invalid_cpf: inválido

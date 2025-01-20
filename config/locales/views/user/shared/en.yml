@@ -1,0 +1,10 @@
+en:
+  devise:
+    shared:
+      links:
+        log_in: Login
+        sign_up: SignUp
+        forgot_password: Forgot your password?
+        email_confirmation_instructions: Didn't receive confirmation instructions?
+        email_unlock_instructions: Didn't receive unlock instructions?
+        sign_in_with: Sign in with

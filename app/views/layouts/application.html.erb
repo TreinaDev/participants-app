@@ -29,15 +29,6 @@
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
     </div>
-    <nav>
-      <% if user_signed_in? %>
-        <%= current_user.email %> |
-        <%= button_to t('.log_out'), destroy_user_session_path, method: :delete %>
-      <% else %>
-        <%= link_to t('.sign_up'), new_user_registration_path %> |
-        <%= link_to t('.log_in'), new_user_session_path %>
-      <% end %>
-    </nav>
     <main class="container mx-auto mt-28 px-5">
       <%= yield %>
     </main>

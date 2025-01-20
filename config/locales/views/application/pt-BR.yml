@@ -1,6 +1,3 @@
 pt-BR:
   layouts:
-    application:  
-      sign_up: Inscrever-se
-      log_out: Sair
-      log_in: Entrar
+    application: 

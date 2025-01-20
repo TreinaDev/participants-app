@@ -1,0 +1,7 @@
+pt-BR:
+  shared:
+    nav:
+      events: Eventos
+      sign_up: Inscrever-se
+      log_out: Sair
+      log_in: Entrar

@@ -12,3 +12,9 @@ en:
         email: Email
         password: Password
         password_confirmation: Confirm Password
+    errors:
+      models:
+        user:
+          attributes:
+            cpf:
+              invalid_cpf: invalid

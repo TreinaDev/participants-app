@@ -10,11 +10,17 @@ class User < ApplicationRecord
   validates :cpf, uniqueness: { case_sensitive: false }
   validate :cpf_valid
 
+  after_create :create_profile
+
   private
+
+  def create_profile
+    create_profile!()
+  end
 
   def cpf_valid
     unless CPF.valid?(self.cpf)
-      self.errors.add(:cpf, "inválido")
+      self.errors.add(:cpf, :invalid_cpf)
     end
   end
 end

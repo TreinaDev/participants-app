@@ -1,0 +1,8 @@
+pt-BR:
+  social_links:
+    negate_access: Você não pode acessar essa página
+    new:
+      title: Adicione um link
+      save: Salvar Link
+    create: 
+      notice: Perfil atualizado

@@ -1,6 +1,3 @@
 en:
   layouts:
     application:  
-      sign_up: SignUp
-      log_out: LogOut
-      log_in: LogIn

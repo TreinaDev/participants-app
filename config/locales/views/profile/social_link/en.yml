@@ -1,0 +1,8 @@
+en:
+  social_links:
+    negate_access: You cannot access this page
+    new:
+      title: Add a Link
+      save: Save
+    create: 
+      notice: Profile updated
