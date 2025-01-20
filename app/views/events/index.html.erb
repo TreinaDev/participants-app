@@ -2,7 +2,7 @@
 
 <% if @events.present? %>
   <div class="container mx-auto">
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">      
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       <% @events.each do |event| %>
         <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
           <%= render '/events/event', event: event %>
@@ -11,5 +11,5 @@
     </div>
   </div>
 <% else %>
-  <p class="text-lg text-center text-gray-500 dark:text-black-300 mt-6">Nenhum evento disponível</p>
+  <p class="text-lg text-center text-gray-500 dark:text-black-300 mt-6"><%=t('.unavailable_events')%></p>
 <% end %>
