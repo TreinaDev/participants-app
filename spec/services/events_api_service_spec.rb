@@ -20,7 +20,7 @@ describe EventsApiService, type: :model do
         {
           event_id: 2,
           name: 'Aprendendo a Nadar',
-          url_event: 'https://ecvitoria.com.br/public/Inicio/',
+          url_event: 'https://ecbahia.com.br/public/Inicio/',
           local_event: 'Rua dos Elefantes, 138, CEP: 50000000, Salvador, Bahia, Brasil',
           limit_participants: 40,
           banner: 'https://via.placeholder.com/300x200',
@@ -36,9 +36,29 @@ describe EventsApiService, type: :model do
   
       response = double('response', status: 200, body: events.to_json)
       allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/events').and_return(response)
-      results = EventsApiService.get_events
+      result = EventsApiService.get_events
   
+      
+
       expect(results[0][:name]).to eq 'Aprendedo a cozinhar'
+      expect(results[0][:url_event]).to eq 'https://ecvitoria.com.br/public/Inicio/'
+      expect(results[0][:local_event]).to eq 'Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil'
+      expect(results[0][:limit_participants]).to eq 30
+      expect(results[0][:banner]).to eq 'https://via.placeholder.com/300x200'
+      expect(results[0][:logo]).to eq 'https://via.placeholder.com/100x100'
+      expect(results[0][:description]).to eq 'Aprenda a fritar um ovo'
+      expect(results[0][:event_owner]).to eq 'Samuel'
+      expect(results[0][:event_agendas]).to eq []
+
+      expect(results[1][:name]).to eq 'Aprendendo a Nadar'
+      expect(results[1][:url_event]).to eq 'https://ecbahia.com.br/public/Inicio/'
+      expect(results[1][:local_event]).to eq 'Rua dos Elefantes, 138, CEP: 50000000, Salvador, Bahia, Brasil'
+      expect(results[1][:limit_participants]).to eq 40
+      expect(results[1][:banner]).to eq 'https://via.placeholder.com/300x200'
+      expect(results[1][:logo]).to eq 'https://via.placeholder.com/100x100'
+      expect(results[1][:description]).to eq 'Aprenda a nadar rápido'
+      expect(results[1][:event_owner]).to eq 'Cesar'
+      expect(results[1][:event_agendas]).to eq []
   
   
     end
