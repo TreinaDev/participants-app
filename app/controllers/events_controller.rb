@@ -8,6 +8,6 @@ class EventsController < ApplicationController
   end
 
   def index
-    @events = Event.all
+    @events = Event.all.select { |event| event.start_date > Date.today }
   end
 end
