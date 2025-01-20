@@ -1,12 +1,13 @@
 <h1 class="text-3xl font-extrabold text-center dark:text-black mt-8 mb-6">Eventos disponíveis</h1> 
 
-
 <% if @events.present? %>
   <div class="container mx-auto">
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      <% @events.each do |event| %>
-        <%= render '/events/event', event: event %>
-      <% end %>
+      <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <% @events.each do |event| %>
+          <%= render '/events/event', event: event %>
+        <% end %>
+      </div>
     </div>
   </div>
 <% else %>
