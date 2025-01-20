@@ -13,12 +13,9 @@
   <dd><%=@profile.city%></dd>
   <dt><%=Profile.human_attribute_name(:state)%>:</dt>
   <dd><%=@profile.state%></dd>
-  <dt><%=Profile.human_attribute_name(:phone_number).pluralize%>:</dt>
-  <dd><%=@profile.phone_numbers%></dd>
   <dt><%=Profile.human_attribute_name(:social_link).pluralize%>:</dt>
   <%@profile.social_links.each do |social_link|%>
-    <dd><%=social_link.name%></dd>
-    <dd><%=social_link.url%></dd>
+    <dd><%=social_link.name%>: <%=social_link.url%></dd>
   <% end %>
 </dl>
 

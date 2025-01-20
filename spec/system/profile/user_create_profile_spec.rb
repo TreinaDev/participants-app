@@ -27,7 +27,6 @@ describe 'usuário cria perfil' do
     expect(profile).not_to eq nil
     expect(page).to have_content 'Cidade'
     expect(page).to have_content 'Estado'
-    expect(page).to have_content 'Telefones'
     expect(page).to have_content 'Links'
     expect(page).to have_content 'Perfil'
   end
