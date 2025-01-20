@@ -24,6 +24,6 @@ class FavoritesController < ApplicationController
   private
 
   def check_if_user_is_authenticated
-    redirect_to new_user_session_path, alert: t(".check_user_is_authenticated.alert") unless user_signed_in?
+    redirect_to new_user_session_path(locale: :'pt-BR'), alert: t(".check_user_is_authenticated.alert") unless user_signed_in?
   end
 end
