@@ -1,6 +1,7 @@
 <nav class="container mx-auto px-4 py-4 flex items-center">
     <div class="ml-auto flex items-center space-x-4">
-      <%= link_to t('.events'), events_path, class: "mx-4 px-4 py-2 bg-gray-100 text-gray-700 rounded-md text-sm hover:bg-gray-200 whitespace-nowrap" %> |
+      <%= link_to t('.events'), events_path, class: "px-4 py-2 bg-gray-100 text-gray-700 rounded-md text-sm hover:bg-gray-200 whitespace-nowrap" %> |
+      <%= link_to 'Meus Favoritos', favorites_path, class: "px-4 py-2 bg-gray-100 text-gray-700 rounded-md text-sm hover:bg-gray-200 whitespace-nowrap" %>
       <% if user_signed_in? %>
         <%= link_to current_user.email, user_profile_path(user_id: current_user.id, id: current_user.profile)  %> |
         <%= button_to t('.log_out'), destroy_user_session_path, method: :delete, class: "px-4 py-2 bg-gray-100 text-gray-700 rounded-md text-sm hover:bg-gray-200 whitespace-nowrap" %>

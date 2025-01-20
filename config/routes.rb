@@ -20,4 +20,5 @@ Rails.application.routes.draw do
   end
 
   resources :events, only: [ :index, :show ]
+  resources :favorites, only: [ :index, :create, :destroy ]
 end

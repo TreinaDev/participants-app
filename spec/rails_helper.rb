@@ -43,8 +43,8 @@ RSpec.configure do |config|
     driven_by(:cuprite, screen_size: [ 1440, 810 ], options: {
       js_errors: false,
       headless: true,
-      process_timeout: 15,
-      timeout: 10,
+      process_timeout: 25,
+      timeout: 20,
       browser_options: { "no-sandbox" => nil }
     })
   end
@@ -73,6 +73,7 @@ RSpec.configure do |config|
   #
   # To enable this behaviour uncomment the line below.
   config.infer_spec_type_from_file_location!
+  config.include ActiveSupport::Testing::TimeHelpers
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!

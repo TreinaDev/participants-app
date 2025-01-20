@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Event, type: :model do
   context 'detalhes de um evento' do
     it "e retorna detalhes do evento" do
+      travel_to(Time.zone.local(2024, 01, 01, 00, 04, 44))
       event = {
         event_id: 1,
         name: 'Aprendedo a cozinhar',
@@ -13,7 +14,9 @@ RSpec.describe Event, type: :model do
         logo: 'https://via.placeholder.com/100x100',
         description: 'Aprenda a fritar um ovo',
         event_owner: 'Samuel',
-        event_agendas: []
+        event_agendas: [],
+        start_date: '2024-01-01',
+        end_date: '2024-02-01'
       }
 
       response = double('response', status: 200, body: event.to_json)
@@ -32,6 +35,7 @@ RSpec.describe Event, type: :model do
     end
 
     it "e retorna detalhes do evento com agenda" do
+      travel_to(Time.zone.local(2024, 01, 01, 00, 04, 44))
       event_agendas = [ {
         event_agenda_id: 1,
         date: '15/08/2025',
@@ -41,7 +45,9 @@ RSpec.describe Event, type: :model do
         email: 'elefante@email.com',
         start_time: '07:00',
         duration: 120,
-        type: 'Palestra'
+        agenda_type: 'Palestra',
+        start_date: '2024-01-01',
+        end_date: '2024-02-01'
       }, {
         event_agenda_id: 2,
         date: '15/08/2025',
@@ -51,7 +57,9 @@ RSpec.describe Event, type: :model do
         email: 'jacare@email.com',
         start_time: '11:00',
         duration: 120,
-        type: 'Work-shop'
+        agenda_type: 'Work-shop',
+        start_date: '2024-01-01',
+        end_date: '2024-02-01'
       }
       ]
       event = {
@@ -64,7 +72,9 @@ RSpec.describe Event, type: :model do
         logo: 'https://via.placeholder.com/100x100',
         description: 'Aprenda a fritar um ovo',
         event_owner: 'Samuel',
-        event_agendas: event_agendas
+        event_agendas: event_agendas,
+        start_date: '2024-01-01',
+        end_date: '2024-02-01'
       }
       response = double('response', status: 200, body: event.to_json)
       allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/events/1').and_return(response)
@@ -106,6 +116,7 @@ RSpec.describe Event, type: :model do
 
   context 'lista de eventos' do
     it 'Deveria receber toda a lista de eventos disponíveis' do
+      travel_to(Time.zone.local(2024, 01, 01, 00, 04, 44))
       json = File.read(Rails.root.join('spec/support/json/events_list.json'))
       url = 'https://localhost:3000/events'
       response = double('faraday_response', body: json, status: 200)
@@ -133,6 +144,19 @@ RSpec.describe Event, type: :model do
 
       result = Event.all
       expect(result.length).to eq 0
+    end
+
+    it 'só recebe eventos que não aconteceram' do
+      travel_to(Time.zone.local(2024, 01, 01, 00, 04, 44))
+      json = File.read(Rails.root.join('spec/support/json/error_events_list.json'))
+      url = 'https://localhost:3000/events'
+      response = double('faraday_response', body: json, status: 200)
+      allow_any_instance_of(Faraday::Connection).to receive(:get).with(url).and_return(response)
+      allow(response).to receive(:success?).and_return(true)
+
+      result = Event.all
+
+      expect(result.length).to eq 2
     end
   end
 end

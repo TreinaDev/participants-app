@@ -1,7 +1,9 @@
 require 'rails_helper'
 
-describe 'Visitante acessa página de detalhes de um evento' do
+describe 'Usuário acessa página de detalhes de um evento' do
   it 'com sucesso' do
+    user = build(:user)
+
     event = build(:event,
       event_id: "1",
       name: 'Aprendedo a cozinhar',
@@ -14,6 +16,7 @@ describe 'Visitante acessa página de detalhes de um evento' do
     )
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
+    login_as(user)
     visit event_path(event.event_id)
 
     expect(page).to have_content 'Aprendedo a cozinhar'
@@ -26,12 +29,14 @@ describe 'Visitante acessa página de detalhes de um evento' do
   end
 
   it 'a partir da pagina inicial' do
+    user = build(:user)
     event = build(:event, name: 'Dev Week', banner: 'http://localhost:3000/events/1/banner.jpg',
                                      logo: 'http://localhost:3000/events/1/logo.jpg', event_id: 1)
     events = [ event ]
     allow(Event).to receive(:all).and_return(events)
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
+    login_as(user)
     visit root_path
     click_on 'Eventos'
     click_on 'Dev Week'
@@ -40,6 +45,7 @@ describe 'Visitante acessa página de detalhes de um evento' do
   end
 
   it 'e consegue ver os detalhes da agenda do evento' do
+    user = build(:user)
     event_agendas = [ {
       event_agenda_id: 1,
       date: '15/08/2025',
@@ -68,6 +74,7 @@ describe 'Visitante acessa página de detalhes de um evento' do
 
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
+    login_as(user)
     visit event_path(event.event_id)
 
     expect(page).to have_content "Aprendendo a cozinhar massas"
@@ -88,30 +95,35 @@ describe 'Visitante acessa página de detalhes de um evento' do
   end
 
   it 'e visualiza opção de ver ingressos' do
+    user = build(:user)
     event = build(:event,  event_agendas: [])
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
 
+    login_as(user)
     visit event_path(event.event_id)
 
     expect(page).to have_link 'Ver ingressos'
   end
 
   it 'e visualiza que não há programação para o evento' do
+    user = build(:user)
     event = build(:event,  event_agendas: [])
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
-
+    login_as(user)
     visit event_path(event.event_id)
 
     expect(page).to have_content 'Ainda não existe programação cadastrada para esse evento'
   end
 
   it 'e mostra mensagem de erro para evento não encontrado' do
+    user = build(:user)
     response = double('response', status: 404, body: '')
     allow(Faraday).to receive(:get).and_return(response)
     allow(response).to receive(:success?).and_return(false)
 
+    login_as(user)
     visit event_path(1)
 
     expect(page).to have_content "Evento não encontrado"
