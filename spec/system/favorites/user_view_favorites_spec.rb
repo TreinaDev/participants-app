@@ -101,7 +101,8 @@ describe 'Usuário acessa página de favoritos' do
     allow(Event).to receive(:request_favorites).and_return(events)
 
     login_as user
-    visit favorites_path
+    visit root_path
+    click_on 'Meus Favoritos'
 
     expect(page).to have_link 'Aprendendo a cozinhar'
     expect(page).to have_css 'img[src="http://localhost:3000/events/1/banner.jpg"]'
