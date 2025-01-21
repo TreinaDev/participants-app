@@ -32,7 +32,7 @@ describe 'usuário adiciona link social ao seu perfil' do
     }
 
     profile.reload
-    expect(response).to redirect_to root_path
+    expect(response).to redirect_to root_path(locale: :'pt-BR')
     expect(profile.social_links.empty?).to be true
   end
 end
