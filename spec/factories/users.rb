@@ -20,7 +20,7 @@ FactoryBot.define do
         tickets_count { 1 }
       end
       tickets do
-        Array.new(tickets_count) { association(:tickets, user: instance) }
+        Array.new(tickets_count) { association(:ticket, user: instance) }
       end
     end
   end

@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :ticket do
     sequence(:id)
-    status { 1 }
+    status { :confirmed }
     date_of_purchase { DateTime.now }
     payment_method { 1 }
     token { SecureRandom.alphanumeric(36) }
