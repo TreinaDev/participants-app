@@ -1,0 +1,6 @@
+en:
+  devise:
+    confirmations:  
+      new:
+        title: Resend instructions of confirmations
+        save: Resend Confirmations

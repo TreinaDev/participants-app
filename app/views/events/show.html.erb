@@ -16,11 +16,11 @@
           <% end %>
         <% end %>
       </div>
-      <p class="text-sm text-gray-500 mt-1">Local: <%= @event.local_event %> </p>
+      <p class="text-sm text-gray-500 mt-1"><%=I18n.t('event.local_event')%>: <%= @event.local_event %></p>
       <p class="text-sm text-gray-500 mt-1"> <%= @event.description %> </p>
       <p class="text-sm text-gray-500 mt-1"></p>
-      <p class="text-sm text-gray-500 mt-1"> <span class="font-bold">Criado por:</span> <%= @event.event_owner %> </p>
-      <p class="text-sm text-gray-500 mt-1"> <span class="font-bold">Limite de Participantes:</span> <%= @event.limit_participants %> </p>
+      <p class="text-sm text-gray-500 mt-1"> <span class="font-bold"><%=I18n.t('event.event_owner')%>:</span> <%= @event.event_owner %> </p>
+      <p class="text-sm text-gray-500 mt-1"> <span class="font-bold"><%=I18n.t('event.limit_participants')%>:</span> <%= @event.limit_participants %> </p>
       <a class="text-sm text-gray-500 mt-1">  <%= @event.url_event %> </a>
     </div>
     <div class="w-3/5 bg-white p-6 rounded-lg shadow-md m-3">
@@ -35,11 +35,11 @@
               <div class="bg-white p-4 rounded-lg shadow-md">
               <p class="font-bold text-gray-800"><%= event_agenda.title %></p>
                 <p class="text-sm text-gray-600 m-1"><%= event_agenda.description %></p>
-                <p class="text-sm text-gray-600"><span class="font-bold">Início:</span> <%= event_agenda.start_time %></p>
-                <p class="text-sm text-gray-600"><span class="font-bold">Duração:</span> <%= event_agenda.duration %>min</p>
-                <p class="text-sm text-gray-600"><span class="font-bold">Tipo do Evento:</span> <%= event_agenda.type %></p>
-                <p class="text-sm text-gray-600"><span class="font-bold">Instrutor:</span> <%= event_agenda.instructor %></p>
-                <p class="text-sm text-gray-600"><span class="font-bold">Contato:</span> <%= event_agenda.email %></p>
+                <p class="text-sm text-gray-600"><span class="font-bold"><%=I18n.t('event_agenda.start_time')%>:</span> <%= event_agenda.start_time %></p>
+                <p class="text-sm text-gray-600"><span class="font-bold"><%=I18n.t('event_agenda.duration')%>:</span> <%= event_agenda.duration %>min</p>
+                <p class="text-sm text-gray-600"><span class="font-bold"><%=I18n.t('event_agenda.type')%>:</span> <%= event_agenda.type %></p>
+                <p class="text-sm text-gray-600"><span class="font-bold"><%=I18n.t('event_agenda.instructor')%>:</span> <%= event_agenda.instructor %></p>
+                <p class="text-sm text-gray-600"><span class="font-bold"><%=I18n.t('event_agenda.email')%>:</span> <%= event_agenda.email %></p>
               </div>
             <% end %>
           </div>

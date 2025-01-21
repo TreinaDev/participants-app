@@ -1,4 +1,4 @@
-<h2>Esqueceu a sua senha?</h2>
+<h2><%=t('.title')%></h2>
 
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
@@ -9,7 +9,7 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "Me envie as instruções para resetar senha" %>
+    <%= f.submit t('.save') %>
   </div>
 <% end %>
 

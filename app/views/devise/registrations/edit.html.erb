@@ -1,4 +1,4 @@
-<h2>Editar <%= resource_name.to_s.humanize %></h2>
+<h2><%= t('.title') %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
@@ -9,15 +9,15 @@
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Esperando confirmação para: <%= resource.unconfirmed_email %></div>
+    <div><%=t('.waiting_confirmation')%>: <%= resource.unconfirmed_email %></div>
   <% end %>
 
   <div class="field">
-    <%= f.label :password %> <i>(deixe em branco se não quiser mudar)</i><br />
+    <%= f.label :password %> <i>(<%=t('.leave_blank')%>)</i><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
     <% if @minimum_password_length %>
       <br />
-      <em><%= @minimum_password_length %> caracteres mínimos</em>
+      <em><%= @minimum_password_length %> <%=t('.min_character', count: @minimum_password_length)%></em>
     <% end %>
   </div>
 
@@ -27,17 +27,17 @@
   </div>
 
   <div class="field">
-    <%= f.label :current_password %> <i>(nós precisamos da sua senha atual para confirmar a alteração)</i><br />
+    <%= f.label :current_password %> <i>(<%=t('.need_password')%>)</i><br />
     <%= f.password_field :current_password, autocomplete: "current-password" %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Update" %>
+    <%= f.submit t('.save') %>
   </div>
 <% end %>
 
-<h3>Cancelar minha conta</h3>
+<h3><%=t('.cancel_account')%></h3>
 
-<div>Triste? <%= button_to "Cancelar minha conta", registration_path(resource_name), data: { confirm: "Tem certeza?", turbo_confirm: "Tem certeza?" }, method: :delete %></div>
+<div><%=t('.sad')%> <%= button_to t('.cancel_account'), registration_path(resource_name), data: { confirm: t('.are_you_sure'), turbo_confirm: t('.are_you_sure') }, method: :delete %></div>
 
-<%= link_to "Voltar", :back %>
+<%= link_to t('.back'), :back %>

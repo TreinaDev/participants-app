@@ -1,0 +1,5 @@
+en:
+  favorites:
+    index:
+      title: 'Events Favorites'
+      no_favorites: 'Not Favorites'

@@ -1,0 +1,6 @@
+pt-BR:
+  devise:
+    unlock:  
+      new:
+        title: Reenviar informações de desbloqueio
+        save: Reenviar instruções

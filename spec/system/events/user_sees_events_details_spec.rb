@@ -22,7 +22,7 @@ describe 'Usuário acessa página de detalhes de um evento' do
     expect(page).to have_content 'Aprendedo a cozinhar'
     expect(page).to have_content 'Local: Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil'
     expect(page).to have_content 'Aprenda a fritar um ovo'
-    expect(page).to have_content 'Criado por: Samuel'
+    expect(page).to have_content 'Dono do evento: Samuel'
     expect(page).to have_content 'Limite de Participantes: 30'
     expect(page).to have_css 'img[src="http://localhost:3000/events/1/banner.jpg"]'
     expect(page).to have_content 'http://evento_fake.com'

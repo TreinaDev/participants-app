@@ -4,3 +4,19 @@ pt-BR:
       new:
         title: Inscrever-se
         save: Salvar Conta
+        min_character: 
+          one: Um caractere mínimo
+          other: Número de caracteres mínimo
+      edit:
+        title: Editar sua conta
+        min_character: 
+          one: Um caractere mínimo
+          other: Número de caracteres mínimo
+        wait_confirmation: Esperando confirmação para
+        leave_blank: Deixe em branco se não quiser mudar
+        need_password: Nós precisamos da sua senha atual para confirmar a alteração
+        save: Atualizar
+        cancel_account: Cancelar minha conta
+        are_you_sure: Tem certeza?
+        back: Voltar
+        sad: Triste?
