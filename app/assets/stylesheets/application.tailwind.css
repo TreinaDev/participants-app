@@ -4,7 +4,7 @@
 
 @layer components {
   .btn-confirm {
-    @apply text-white bg-violet-900 hover:bg-violet-950 focus:ring-4 focus:ring-violet-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+    @apply text-white bg-purple-700 hover:bg-purple-500 focus:ring-4 focus:ring-purple-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
   }
 
   .btn-nav {
@@ -16,7 +16,7 @@
   }
 
   .card-event {
-    @apply max-w-lg rounded-lg shadow bg-purple-300 border-purple-900 border-2 
+    @apply max-w-lg rounded-lg shadow border-purple-900 border-2 
   }
 
   .notice {
@@ -37,6 +37,14 @@
 
   .btn-login {
     @apply w-full rounded-md bg-violet-900 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-violet-600 focus:shadow-none active:bg-slate-700 hover:bg-violet-950 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none
+  }
+
+  .profile-row {
+    @apply px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6
+  }
+
+  .profile-row-1 {
+    @apply px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6
   }
 
 }
