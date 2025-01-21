@@ -18,7 +18,7 @@ describe 'usuário adiciona link social ao perfil' do
     visit user_profile_path(user_id: user, id: user.profile)
     click_on 'Adicionar Link Social'
 
-    expect(page).to have_css 'h1', text: 'Adicione um link'
+    expect(page).to have_css 'h3', text: 'Adicione um link'
     expect(page).to have_field 'Nome'
     expect(page).to have_field 'URL'
     expect(page).to have_button 'Salvar Link'
