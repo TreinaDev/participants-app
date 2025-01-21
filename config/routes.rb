@@ -20,7 +20,9 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :events, only: [ :index, :show ]
+    resources :events, only: [ :index, :show ] do
+      resources :batches, only: [ :index ]
+    end
     resources :favorites, only: [ :index, :create, :destroy ]
   end
 end
