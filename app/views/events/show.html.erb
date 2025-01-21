@@ -1,53 +1,77 @@
-<div class="bg-gray-100 min-h-screen flex-col items-center justify-center p-6 w-full">
-  <div class='flex flex-col justify-center items-center w-full'>
-    <div class="flex ">
-     <%= image_tag @event.banner %>
+<div class='flex flex-col justify-center items-center w-full bg-white'>
+  <div class="w-full">
+    <%= image_tag @event.banner, class: 'w-full h-96 object-cover' %>
+  </div>
+  <div class="flex justify-between bg-white p-6 w-full">
+    <div class="flex items-center space-x-4">
+      <% if @event.logo.present? %>
+        <img class="w-20 h-20 mb-3 rounded-full" src="<%= @event.logo %>" alt="Logo do evento"/>
+      <% end %>
+      <h5 class="mb-2 text-2xl font-bold tracking-tigh text-black"><%= @event.name %></h5>
     </div>
-    <div></div>
-    <div class="w-3/5 bg-white p-6 rounded-lg shadow-md">
-      <div class="flex">
-        <%= page_title(@event.name)%>
- 
+    <div class="space-y-4 text-right">
+      <div class="space-y-2">
         <% if current_user && current_user.favorites.find_by(event_id: @event.event_id).present? %>
-          <p>Favorito</p>
+          <p class="text-yellow-500">
+            *Favorito
+          </p>
         <% else %> 
           <%= form_with(url: favorites_path) do |f| %>
             <%= f.hidden_field :event_id, value: @event.event_id %>
-            <%= f.submit 'Adicionar a favoritos' %>
+            <%= f.submit 'Adicionar a favoritos', class: 'text-blue-500 underline cursor-pointer'%>
           <% end %>
-        <% end %>        
+        <% end %> 
       </div>
-      <p class="text-sm text-gray-500 mt-1">Local: <%= @event.local_event %> </p>
-      <p class="text-sm text-gray-500 mt-1"> <%= @event.description %> </p>
-      <p class="text-sm text-gray-500 mt-1"></p>
-      <p class="text-sm text-gray-500 mt-1"> <span class="font-bold">Criado por:</span> <%= @event.event_owner %> </p>
-      <p class="text-sm text-gray-500 mt-1"> <span class="font-bold">Limite de Participantes:</span> <%= @event.limit_participants %> </p>
-      <a class="text-sm text-gray-500 mt-1">  <%= @event.url_event %> </a>
+      <div>
+        <%= link_to "Ver ingressos", "#", class: "bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition" %>
+      </div>
     </div>
-    <div class="w-3/5 bg-white p-6 rounded-lg shadow-md m-3">
-      <h2>Agenda do evento</h2>
-        <% if @event.event_agendas.empty? %>
-    
-          <p class="mt-4 text-gray-600"> Ainda não existe programação cadastrada para esse evento </p>
-    
-        <% else %>
-          <div class="mt-4 space-y-4">
-            <% @event.event_agendas.each do |event_agenda|%>
-              <div class="bg-white p-4 rounded-lg shadow-md">
-              <p class="font-bold text-gray-800"><%= event_agenda.title %></p>
-                <p class="text-sm text-gray-600 m-1"><%= event_agenda.description %></p>
-                <p class="text-sm text-gray-600"><span class="font-bold">Início:</span> <%= event_agenda.start_time %></p>
-                <p class="text-sm text-gray-600"><span class="font-bold">Duração:</span> <%= event_agenda.duration %>min</p>
-                <p class="text-sm text-gray-600"><span class="font-bold">Tipo do Evento:</span> <%= event_agenda.type %></p>
-                <p class="text-sm text-gray-600"><span class="font-bold">Instrutor:</span> <%= event_agenda.instructor %></p>
-                <p class="text-sm text-gray-600"><span class="font-bold">Contato:</span> <%= event_agenda.email %></p>
-              </div>
-            <% end %>
-          </div>
-          
-        <% end %>
-    </div>
-    <%= link_to "Ver ingressos", "#", class: "bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition" %>
   </div>
+  <div class="bg-white p-6 rounded-lg shadow-md w-full">
+    <div class="flex justify-between w-auto">
+      <dl>
+        <p class="text-sm text-black-500 mt-1 font-bold">Data do evento:</p>
+        <dt class="text-sm text-black-500 mt-1 font-bold">Inicio:</dt>
+        <dd class="text-sm text-gray-500 mt-1"><%= I18n.l(@event.start_date, format: :long) %></dd>
+        <dt class="text-sm text-black-500 mt-1 font-bold">Final:</dt>
+        <dd class="text-sm text-gray-500 mt-1"><%= I18n.l(@event.end_date, format: :long) %> </dd>
+      </dl>
+      <dl>        
+        <dt class="text-sm text-black-500 mt-1 font-bold">Local:</dt>
+        <dd class="text-sm text-gray-500 mt-1"><%= @event.local_event %> </dd>
+        <dt class="text-sm text-black-500 mt-1 font-bold">Limite de Participantes:</dt>
+        <dd class="text-sm text-gray-500 mt-1"><%= @event.limit_participants %></dd>
+      </dl>
+      <dl>        
+        <dt class="text-sm text-black-500 mt-1 font-bold">Criado por:</dt>
+        <dd class="text-sm text-gray-500 mt-1"><%= @event.event_owner %>  </dd>
+        <dt class="text-sm text-black-500 mt-1 font-bold">URL:</dt>
+        <dd class="text-sm text-gray-500 mt-1"><%= @event.url_event %></dd>
+      </dl>
+    </div>    
+  </div>
+  <div class="bg-white p-6 m-3 w-full">
+    <h2>Descrição do evento:</h2>
+    <p class="text-sm text-gray-500 mt-1"><%= @event.description %></p>
+  </div>          
+  <div class="bg-white p-6 m-3 w-full">
+    <h2>Agenda do evento</h2>
+    <% if @event.event_agendas.empty? %>
+      <p class="mt-4 text-gray-600"> Ainda não existe programação cadastrada para esse evento </p>
+    <% else %>
+      <div class="mt-4 space-y-4">
+        <% @event.event_agendas.each do |event_agenda|%>
+          <div class="bg-white p-4 rounded-lg shadow-md">
+            <p class="font-bold text-gray-800"><%= event_agenda.title %></p>
+            <p class="text-sm text-gray-600 m-1"><%= event_agenda.description %></p>
+            <p class="text-sm text-gray-600"><span class="font-bold">Início:</span> <%= event_agenda.start_time %></p>
+            <p class="text-sm text-gray-600"><span class="font-bold">Duração:</span> <%= event_agenda.duration %>min</p>
+            <p class="text-sm text-gray-600"><span class="font-bold">Tipo do Evento:</span> <%= event_agenda.type %></p>
+            <p class="text-sm text-gray-600"><span class="font-bold">Instrutor:</span> <%= event_agenda.instructor %></p>
+            <p class="text-sm text-gray-600"><span class="font-bold">Contato:</span> <%= event_agenda.email %></p>
+          </div>
+        <% end %>
+      </div>        
+    <% end %>    
+  </div>  
 </div>
-
