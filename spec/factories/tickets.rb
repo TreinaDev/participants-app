@@ -1,10 +1,11 @@
 FactoryBot.define do
   factory :ticket do
+    sequence(:id)
     status { 1 }
-    date_of_purchase { "2025-01-21 17:19:13" }
+    date_of_purchase { DateTime.now }
     payment_method { 1 }
-    token { "MyString" }
-    user { nil }
+    token { SecureRandom.alphanumeric(36) }
+    user
     batch_id { 1 }
   end
 end
