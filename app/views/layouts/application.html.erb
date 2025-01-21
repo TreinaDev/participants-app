@@ -23,12 +23,11 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="bg-purple-300">
     <main class="container mx-auto mt-28 px-5">
       <%= render 'shared/nav' %>
       <div>
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
+        <%= render 'shared/alerts' %>
       </div>
       <div>
         <%= yield %>

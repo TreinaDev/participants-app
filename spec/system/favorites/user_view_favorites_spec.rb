@@ -34,7 +34,7 @@ describe 'Usuário acessa página de favoritos' do
     expect(page).to have_link 'Aprendedo a cozinhar'
     expect(page).to have_css 'img[src="http://localhost:3000/events/1/banner.jpg"]'
     expect(page).to have_css 'img[src="http://localhost:3000/events/1/logo.jpg"]'
-    expect(page).to have_button 'Desfavoritar'
+    expect(page).to have_button 'x'
   end
 
   it 'e vê mais de um evento' do
@@ -144,7 +144,7 @@ describe 'Usuário acessa página de favoritos' do
     login_as user
     visit favorites_path
     within("#event_id_#{third_event.event_id}") do
-     click_on 'Desfavoritar'
+     click_on 'x'
     end
 
     expect(Favorite.count).to eq(2)
