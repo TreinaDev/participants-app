@@ -1,6 +1,12 @@
 module ApplicationHelper
   def page_title(text)
-    content_tag(:h1, class: "text-3xl font-extrabold text-center dark:text-black mt-8 mb-6") do
+    content_tag(:h1, class: "text-3xl font-extrabold text-center text-black mt-8 mb-6") do
+      text
+    end
+  end
+
+  def form_title(text)
+    content_tag(:h3, class: "text-2xl font-extrabold text-center text-white mt-8 mb-6") do
       text
     end
   end
