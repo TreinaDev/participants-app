@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Usuário acessa página de favoritos' do
   it 'e deve estar autenticado' do
-    visit favorites_path
+    visit favorites_path(locale: :'pt-BR')
 
     expect(current_path).to eq new_user_session_path
   end
@@ -11,7 +11,7 @@ describe 'Usuário acessa página de favoritos' do
     user = create(:user)
 
     login_as user
-    visit favorites_path
+    visit favorites_path(locale: :'pt-BR')
 
     expect(page).to have_content 'Você ainda não possui eventos favoritos'
   end
@@ -29,7 +29,7 @@ describe 'Usuário acessa página de favoritos' do
     allow(Event).to receive(:request_favorites).and_return(events)
 
     login_as user
-    visit favorites_path
+    visit favorites_path(locale: :'pt-BR')
 
     expect(page).to have_link 'Aprendedo a cozinhar'
     expect(page).to have_css 'img[src="http://localhost:3000/events/1/banner.jpg"]'
@@ -62,7 +62,7 @@ describe 'Usuário acessa página de favoritos' do
     allow(Event).to receive(:request_favorites).and_return(events)
 
     login_as user
-    visit favorites_path
+    visit favorites_path(locale: :'pt-BR')
 
     expect(page).to have_link 'Aprendedo a cozinhar'
     expect(page).to have_css 'img[src="http://localhost:3000/events/1/banner.jpg"]'
@@ -142,7 +142,7 @@ describe 'Usuário acessa página de favoritos' do
     allow(Event).to receive(:request_favorites).and_return([ first_event, second_event, third_event ], [ first_event, second_event ])
 
     login_as user
-    visit favorites_path
+    visit favorites_path(locale: :'pt-BR')
     within("#event_id_#{third_event.event_id}") do
      click_on 'x'
     end

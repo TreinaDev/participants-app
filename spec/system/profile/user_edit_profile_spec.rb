@@ -21,7 +21,7 @@ describe 'usuário edita perfil' do
     fill_in 'Telefone', with: '11912125454'
     click_on 'Salvar Informações'
 
-    expect(current_path).to eq user_profile_path(user_id: user, id: user.profile)
+    expect(current_path).to eq user_profile_path(user_id: user, id: user.profile, locale: :'pt-BR')
     expect(page).to have_content 'Perfil atualizado'
     expect(page).to have_content 'TesteCidade'
     expect(page).to have_content 'TesteEstado'

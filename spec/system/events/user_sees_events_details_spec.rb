@@ -17,7 +17,7 @@ describe 'Usuário acessa página de detalhes de um evento' do
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
     login_as(user)
-    visit event_path(event.event_id)
+    visit event_path(event.event_id, locale: :'pt-BR')
 
     expect(page).to have_content 'Aprendedo a cozinhar'
     expect(page).to have_content 'Local: Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil', normalize_ws: true
@@ -37,11 +37,11 @@ describe 'Usuário acessa página de detalhes de um evento' do
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
     login_as(user)
-    visit root_path
+    visit root_path(locale: :'pt-BR')
     click_on 'Eventos'
     click_on 'Dev Week'
 
-    expect(current_path).to eq event_path(1)
+    expect(current_path).to eq event_path(id: 1, locale: :'pt-BR')
   end
 
   it 'e consegue ver os detalhes da agenda do evento' do
@@ -75,7 +75,7 @@ describe 'Usuário acessa página de detalhes de um evento' do
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
     login_as(user)
-    visit event_path(event.event_id)
+    visit event_path(event.event_id, locale: :'pt-BR')
 
     expect(page).to have_content "Aprendendo a cozinhar massas"
     expect(page).to have_content "lorem ipsum"
@@ -101,7 +101,7 @@ describe 'Usuário acessa página de detalhes de um evento' do
 
 
     login_as(user)
-    visit event_path(event.event_id)
+    visit event_path(id: event.event_id,  locale: :'pt-BR')
 
     expect(page).to have_link 'Ver ingressos'
   end
@@ -112,7 +112,7 @@ describe 'Usuário acessa página de detalhes de um evento' do
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
     login_as(user)
-    visit event_path(event.event_id)
+    visit event_path(event.event_id, locale: :'pt-BR')
 
     expect(page).to have_content 'Ainda não existe programação cadastrada para esse evento'
   end
@@ -124,7 +124,7 @@ describe 'Usuário acessa página de detalhes de um evento' do
     allow(response).to receive(:success?).and_return(false)
 
     login_as(user)
-    visit event_path(1)
+    visit event_path(1, locale: :'pt-BR')
 
     expect(page).to have_content "Evento não encontrado"
     expect(current_path).to eq root_path

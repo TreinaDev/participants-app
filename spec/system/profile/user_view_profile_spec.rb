@@ -8,7 +8,7 @@ describe 'usuário vê perfil' do
     visit root_path
     click_on 'teste@email.com'
 
-    expect(current_path).to eq user_profile_path(user_id: user, id: Profile.first)
+    expect(current_path).to eq user_profile_path(user_id: user, id: Profile.first, locale: :'pt-BR')
   end
 
   it 'e não está logado' do

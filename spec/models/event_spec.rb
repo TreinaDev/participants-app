@@ -118,7 +118,7 @@ RSpec.describe Event, type: :model do
     it 'Deveria receber toda a lista de eventos disponíveis' do
       travel_to(Time.zone.local(2024, 01, 01, 00, 04, 44))
       json = File.read(Rails.root.join('spec/support/json/events_list.json'))
-      url = 'https://localhost:3000/events'
+      url = 'http://localhost:3000/events'
       response = double('faraday_response', body: json, status: 200)
       allow_any_instance_of(Faraday::Connection).to receive(:get).with(url).and_return(response)
       allow(response).to receive(:success?).and_return(true)
@@ -137,7 +137,7 @@ RSpec.describe Event, type: :model do
     end
 
     it 'e deveria receber array vazio em caso de erro na requisição' do
-      url = 'https://localhost:3000/events'
+      url = 'http://localhost:3000/events'
       response = double('faraday_response', body: "{}", status: 500)
       allow(Faraday).to receive(:get).with(url).and_return(response)
       allow(response).to receive(:success?).and_return(false)
@@ -149,7 +149,7 @@ RSpec.describe Event, type: :model do
     it 'só recebe eventos que não aconteceram' do
       travel_to(Time.zone.local(2024, 01, 01, 00, 04, 44))
       json = File.read(Rails.root.join('spec/support/json/error_events_list.json'))
-      url = 'https://localhost:3000/events'
+      url = 'http://localhost:3000/events'
       response = double('faraday_response', body: json, status: 200)
       allow_any_instance_of(Faraday::Connection).to receive(:get).with(url).and_return(response)
       allow(response).to receive(:success?).and_return(true)

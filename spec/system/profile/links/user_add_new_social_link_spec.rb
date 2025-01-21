@@ -52,7 +52,7 @@ describe 'usuário adiciona link social ao perfil' do
     fill_in 'URL', with: 'teste URL'
     click_on 'Salvar Link'
 
-    expect(current_path).to eq user_profile_path(user_id: user, id: user.profile)
+    expect(current_path).to eq user_profile_path(user_id: user, id: user.profile, locale: :'pt-BR')
     expect(page).to have_content 'Perfil atualizado'
     expect(page).to have_content 'teste Nome'
     expect(page).to have_content 'teste URL'

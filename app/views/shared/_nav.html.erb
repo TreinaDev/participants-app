@@ -13,6 +13,8 @@
         <% else %>
           <%= button_to t('.log_out'), destroy_user_session_path, method: :delete, class: "btn-logout" %>
         <% end %>
+        <%= link_to 'Português', url_for(locale: :'pt-BR'), class: "btn-lng" if I18n.locale == :en  %>
+        <%= link_to 'English', url_for(locale: :en), class: "btn-lng" if I18n.locale == :'pt-BR' %>
       </ul>
     </div>
     <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
@@ -32,5 +34,3 @@
     </div>
   </div>
 </nav>
-
-

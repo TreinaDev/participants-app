@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   devise_for :users
-  get "home/index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -12,13 +11,16 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
+  get "/:locale" => "home#index"
   root to: "home#index"
-  resources :users do
-    resources :profiles, only: [ :show, :edit, :update ] do
-      resources :social_links, only: [ :new, :create ]
+  scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
+    resources :users do
+      resources :profiles, only: [ :show, :edit, :update ] do
+        resources :social_links, only: [ :new, :create ]
+      end
     end
-  end
 
-  resources :events, only: [ :index, :show ]
-  resources :favorites, only: [ :index, :create, :destroy ]
+    resources :events, only: [ :index, :show ]
+    resources :favorites, only: [ :index, :create, :destroy ]
+  end
 end
