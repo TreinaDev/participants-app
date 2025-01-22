@@ -7,6 +7,10 @@
     @apply text-white bg-purple-700 hover:bg-purple-500 focus:ring-4 focus:ring-purple-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
   }
 
+  .btn-buy {
+    @apply bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition
+  }
+
   .btn-nav {
     @apply block py-2 px-3 md:p-0 md:hover:text-purple-400 text-white hover:text-white md:hover:bg-transparent 
   }

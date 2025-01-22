@@ -9,7 +9,14 @@ FactoryBot.define do
     event_id { 1 }
 
     initialize_with do
-      new(attributes)
+      new(
+        batch_id: batch_id,
+        name: name,
+        limit_tickets: limit_tickets,
+        start_date: start_date,
+        value: value,
+        end_date: end_date,
+        event_id: event_id)
     end
   end
 end

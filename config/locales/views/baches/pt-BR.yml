@@ -1,0 +1,15 @@
+pt-BR:
+  batches:
+    index:
+      buy: 'Comprar'
+      sold_coming_soon: 'Vendas em breve'
+      sold_closed: 'Vendas fechadas'
+    batch:
+      name: 'Nome'
+      limit_tickets: 'Quantidade'
+      start_date: 'Início de venda'
+      end_date: 'Clausura de venda'
+      value: 'Valor'
+      event_id: 'Evento'
+      currency: 'R$ %{price}'
+    show:
