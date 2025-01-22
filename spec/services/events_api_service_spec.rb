@@ -3,7 +3,8 @@ require 'rails_helper'
 describe EventsApiService, type: :model do
   describe 'Usuário faz uma requisição para uma lista de eventos' do
     it 'e recebe uma lista de eventos com sucesso' do
-      events = [ {
+      events = [
+        {
             event_id: 1,
             name: 'Aprendedo a cozinhar',
             url_event: 'https://ecvitoria.com.br/public/Inicio/',
