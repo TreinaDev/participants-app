@@ -34,7 +34,6 @@ describe EventsApiService, type: :model do
         }
       ]
 
-
       response = double('response', status: 200, body: events.to_json)
       allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/events').and_return(response)
       results = EventsApiService.get_events
@@ -101,6 +100,7 @@ describe EventsApiService, type: :model do
 
   it 'e ocorre erro na requisição' do
     allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/events/1').and_raise(Faraday::Error)
+
     expect { EventsApiService.get_event_by_id(1) }.to raise_error(Faraday::Error)
   end
 end

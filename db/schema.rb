@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_20_130304) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_21_201913) do
   create_table "favorites", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "event_id", null: false
@@ -38,6 +38,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_20_130304) do
     t.index ["profile_id"], name: "index_social_links_on_profile_id"
   end
 
+  create_table "tickets", force: :cascade do |t|
+    t.integer "status"
+    t.datetime "date_of_purchase"
+    t.integer "payment_method"
+    t.string "token"
+    t.integer "user_id", null: false
+    t.integer "batch_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_tickets_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -56,4 +68,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_20_130304) do
   add_foreign_key "favorites", "users"
   add_foreign_key "profiles", "users"
   add_foreign_key "social_links", "profiles"
+  add_foreign_key "tickets", "users"
 end

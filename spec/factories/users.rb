@@ -14,5 +14,14 @@ FactoryBot.define do
         Array.new(favorites_count) { association(:favorite, user: instance) }
       end
     end
+
+    factory :user_with_tickets do
+      transient do
+        tickets_count { 1 }
+      end
+      tickets do
+        Array.new(tickets_count) { association(:ticket, user: instance) }
+      end
+    end
   end
 end
