@@ -3,4 +3,19 @@ class Ticket < ApplicationRecord
 
   enum :status, confirmed: 0
   enum :payment_method, paypal: 0, pix: 1, credit_card: 2, bank_slip: 3, cash: 4
+
+  validates :batch_id, :payment_method, presence: true
+  validates :token, uniqueness: true
+  validates :token, length: { is: 36 }
+
+  before_validation :set_ticket_token, :set_date_of_purchase, on: :create
+
+  private
+  def set_ticket_token
+    self.token = SecureRandom.alphanumeric(36)
+  end
+
+  def set_date_of_purchase
+    self.date_of_purchase = DateTime.now
+  end
 end
