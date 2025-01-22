@@ -12,63 +12,61 @@
     <div class="space-y-4 text-right">
       <div class="space-y-2">
         <% if current_user && current_user.favorites.find_by(event_id: @event.event_id).present? %>
-          <p class="text-yellow-500">
-            *Favorito
-          </p>
+          <p><%= Favorite.model_name.human %></p>
         <% else %> 
           <%= form_with(url: favorites_path) do |f| %>
             <%= f.hidden_field :event_id, value: @event.event_id %>
-            <%= f.submit 'Adicionar a favoritos', class: 'text-blue-500 underline cursor-pointer'%>
+            <%= f.submit t('.add_favorites'), class: 'text-blue-500 underline cursor-pointer' %>
           <% end %>
         <% end %> 
       </div>
       <div>
-        <%= link_to "Ver ingressos", "#", class: "bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition" %>
+        <%= link_to t('.tickets'), "#", class: "bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition" %>
       </div>
     </div>
   </div>
   <div class="bg-white p-6 rounded-lg shadow-md w-full">
     <div class="flex justify-between w-auto">
       <dl>
-        <p class="text-sm text-black-500 mt-1 font-bold">Data do evento:</p>
-        <dt class="text-sm text-black-500 mt-1 font-bold">Inicio:</dt>
+        <p class="text-sm text-black-500 mt-1 font-bold"><%= I18n.t('event.date_event') %>:</p>
+        <dt class="text-sm text-black-500 mt-1 font-bold"><%= I18n.t('event.start_date') %>:</dt>
         <dd class="text-sm text-gray-500 mt-1"><%= I18n.l(@event.start_date, format: :long) %></dd>
-        <dt class="text-sm text-black-500 mt-1 font-bold">Final:</dt>
+        <dt class="text-sm text-black-500 mt-1 font-bold"><%= I18n.t('event.end_date') %>:</dt>
         <dd class="text-sm text-gray-500 mt-1"><%= I18n.l(@event.end_date, format: :long) %> </dd>
       </dl>
       <dl>        
-        <dt class="text-sm text-black-500 mt-1 font-bold">Local:</dt>
+        <dt class="text-sm text-black-500 mt-1 font-bold"><%= I18n.t('event.local_event') %>:</dt>
         <dd class="text-sm text-gray-500 mt-1"><%= @event.local_event %> </dd>
-        <dt class="text-sm text-black-500 mt-1 font-bold">Limite de Participantes:</dt>
+        <dt class="text-sm text-black-500 mt-1 font-bold"><%= I18n.t('event.limit_participants') %>:</dt>
         <dd class="text-sm text-gray-500 mt-1"><%= @event.limit_participants %></dd>
       </dl>
       <dl>        
-        <dt class="text-sm text-black-500 mt-1 font-bold">Criado por:</dt>
+        <dt class="text-sm text-black-500 mt-1 font-bold"><%= I18n.t('event.event_owner') %>:</dt>
         <dd class="text-sm text-gray-500 mt-1"><%= @event.event_owner %>  </dd>
-        <dt class="text-sm text-black-500 mt-1 font-bold">URL:</dt>
+        <dt class="text-sm text-black-500 mt-1 font-bold"><%= I18n.t('event.url_event') %>:</dt>
         <dd class="text-sm text-gray-500 mt-1"><%= @event.url_event %></dd>
       </dl>
     </div>    
   </div>
   <div class="bg-white p-6 m-3 w-full">
-    <h2>Descrição do evento:</h2>
+    <h2><%= t('.event_description') %>:</h2>
     <p class="text-sm text-gray-500 mt-1"><%= @event.description %></p>
   </div>          
   <div class="bg-white p-6 m-3 w-full">
-    <h2>Agenda do evento</h2>
+    <h2><%= t('.event_agenda') %></h2>
     <% if @event.event_agendas.empty? %>
-      <p class="mt-4 text-gray-600"> Ainda não existe programação cadastrada para esse evento </p>
+      <p class="mt-4 text-gray-600"><%= t('.no_schedule') %></p>
     <% else %>
       <div class="mt-4 space-y-4">
-        <% @event.event_agendas.each do |event_agenda|%>
+        <% @event.event_agendas.each do |event_agenda| %>
           <div class="bg-white p-4 rounded-lg shadow-md">
             <p class="font-bold text-gray-800"><%= event_agenda.title %></p>
             <p class="text-sm text-gray-600 m-1"><%= event_agenda.description %></p>
-            <p class="text-sm text-gray-600"><span class="font-bold">Início:</span> <%= event_agenda.start_time %></p>
-            <p class="text-sm text-gray-600"><span class="font-bold">Duração:</span> <%= event_agenda.duration %>min</p>
-            <p class="text-sm text-gray-600"><span class="font-bold">Tipo do Evento:</span> <%= event_agenda.type %></p>
-            <p class="text-sm text-gray-600"><span class="font-bold">Instrutor:</span> <%= event_agenda.instructor %></p>
-            <p class="text-sm text-gray-600"><span class="font-bold">Contato:</span> <%= event_agenda.email %></p>
+            <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('event_agenda.start_time') %>:</span> <%= event_agenda.start_time %></p>
+            <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('event_agenda.duration') %>:</span> <%= event_agenda.duration %>min</p>
+            <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('event_agenda.type') %>:</span> <%= event_agenda.type %></p>
+            <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('event_agenda.instructor') %>:</span> <%= event_agenda.instructor %></p>
+            <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('event_agenda.email') %>:</span> <%= event_agenda.email %></p>
           </div>
         <% end %>
       </div>        

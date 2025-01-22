@@ -8,5 +8,5 @@
     <% end %>
     <h5 class="mb-2 text-2xl font-bold tracking-tigh text-black"><%= link_to event.name, event_path(event.event_id) %></h5>
   </div>
-  <p class="text-md text-black mt-4">Data de início: <%=I18n.l(event.start_date.to_date, format: :long)%></p>
+  <p class="text-md text-black mt-4"><%=t('.start_date')%>:  <%=I18n.l(event.start_date.to_date, format: :long)%></p>
 </div>

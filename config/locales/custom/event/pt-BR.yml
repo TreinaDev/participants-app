@@ -1,0 +1,8 @@
+pt-BR:
+  event:
+    one: Evento
+    other: Eventos
+    start_date: Data de Início
+    local_event: Local
+    event_owner: Dono do evento
+    limit_participants: Limite de Participantes

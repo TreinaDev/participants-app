@@ -1,4 +1,4 @@
-<h2>Alterar sua senha</h2>
+<h2><%=t('.title')%></h2>
 
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
@@ -7,7 +7,7 @@
   <div class="field">
     <%= f.label :password, "Nova Senha" %><br />
     <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+      <em>(<%= @minimum_password_length %> <%=t('.min_character', count: @minimum_password_length)%>)</em><br />
     <% end %>
     <%= f.password_field :password, autofocus: true, autocomplete: "nova-senha" %>
   </div>
@@ -18,7 +18,7 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "Alterar minha senha" %>
+    <%= f.submit t('.save') %>
   </div>
 <% end %>
 

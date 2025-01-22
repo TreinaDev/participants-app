@@ -1,0 +1,6 @@
+pt-BR:
+  activerecord:
+    models:
+      favorite:
+        one: Favorite
+        other: Favorites

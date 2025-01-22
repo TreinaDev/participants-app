@@ -1,0 +1,12 @@
+pt-BR:
+  devise:
+    password:  
+      edit:
+        title: Alterar sua senha
+        min_character: 
+          one: Um caractere mínimo
+          other: Número de caracteres mínimo
+        save: Alterar minha senha
+      new:
+        title: Esqueceu a sua senha?
+        save: Envie as instruções para resetar a senha

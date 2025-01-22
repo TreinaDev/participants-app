@@ -31,7 +31,7 @@
           <div class="w-full">
             <%= f.label :password, class: 'form-label' %>
             <% if @minimum_password_length %>
-            <em>(<%= @minimum_password_length %> characters minimum)</em>
+            <em>>(<%= @minimum_password_length %> <%=t('.min_character', count: @minimum_password_length)%>)</em>
             <% end %>
             <%= f.password_field :password, autocomplete: "new-password", class: 'form-field' %>
           </div>
@@ -46,6 +46,5 @@
           <%= render "devise/shared/links" %>
         </div>
       <% end %>
-    </div>
   </div>
 </div>

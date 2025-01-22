@@ -1,0 +1,6 @@
+en:
+  devise:
+    unlock:  
+      new:
+        title: Resend unlock instructions
+        save: Resend instructions

@@ -2,3 +2,11 @@ en:
   events:
     index:
       available_events: Available Events
+      unavailable_events: Unavailable events
+    event:
+      start_date: Start Date
+    show:
+      event_agenda: Event Agenda
+      no_schedule: There is no schedule registered for this event yet.
+      add_favorites: Add Favorites
+      tickets: Tickets

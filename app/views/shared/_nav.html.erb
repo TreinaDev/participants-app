@@ -13,8 +13,10 @@
         <% else %>
           <%= button_to t('.log_out'), destroy_user_session_path, method: :delete, class: "btn-logout" %>
         <% end %>
-        <%= link_to 'Português', url_for(locale: :'pt-BR'), class: "btn-lng" if I18n.locale == :en  %>
-        <%= link_to 'English', url_for(locale: :en), class: "btn-lng" if I18n.locale == :'pt-BR' %>
+        <li>
+          <%= link_to 'Português', url_for(locale: :'pt-BR'), class: "btn-confirm" if I18n.locale == :en  %>
+          <%= link_to 'English', url_for(locale: :en), class: "btn-confirm" if I18n.locale == :'pt-BR' %>
+        </li>
       </ul>
     </div>
     <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
@@ -24,7 +26,7 @@
         </li>
         <% if user_signed_in? %>
           <li>
-            <%= link_to 'Meus Favoritos', favorites_path, class: "btn-nav" %>
+            <%= link_to t('.my_favorites'), favorites_path, class: "btn-nav" %>
           </li>
           <li>
             <%= link_to current_user.email, user_profile_path(user_id: current_user.id, id: current_user.profile), class: "btn-nav" %>
