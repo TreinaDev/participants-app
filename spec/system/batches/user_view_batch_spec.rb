@@ -110,4 +110,49 @@ describe 'usuário vê botão de compra de ingressos' do
     expect(page).not_to have_link 'Ingressos Esgotados'
     expect(page).to have_content 'Ainda não existem ingressos disponíveis'
   end
+
+  it 'e ingressos estão todos esgotados' do
+    batch = [ {
+      batch_id: 1,
+      name: 'Lote Teste',
+      limit_tickets: 10,
+      start_date: 5.day.from_now.to_date,
+      value: 10.00,
+      end_date: 1.month.from_now.to_date,
+      event_id: 1
+    }, {
+      batch_id: 2,
+      name: 'Mesmo Lote Teste',
+      limit_tickets: 30,
+      start_date: 3.day.from_now.to_date,
+      value: 20.00,
+      end_date: 3.month.from_now.to_date,
+      event_id: 1
+    }, {
+      batch_id: 3,
+      name: 'Mesmo Mesmo Lote Teste',
+      limit_tickets: 10,
+      start_date: 2.day.from_now.to_date,
+      value: 20.00,
+      end_date: 2.month.from_now.to_date,
+      event_id: 1
+    } ]
+    create_list(:ticket, 10) do |t|
+      t.batch_id = batch[0][:batch_id]
+    end
+    create_list(:ticket, 30) do |t|
+      t.batch_id = batch[1][:batch_id]
+    end
+    create_list(:ticket, 10) do |t|
+      t.batch_id = batch[2][:batch_id]
+    end
+    event = build(:event, name: 'Evento Teste 01', batches: batch, limit_participants: 50)
+    allow(Event).to receive(:request_event_by_id).and_return(event)
+
+    visit event_path(id: event, locale: :'pt-BR')
+
+    expect(page).not_to have_link 'Ver Ingressos'
+    expect(page).not_to have_content 'Ainda não existem ingressos disponíveis'
+    expect(page).to have_link 'Ingressos Esgotados'
+  end
 end

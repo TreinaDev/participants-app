@@ -22,7 +22,9 @@
       </div>
       <div>
         <% if @event.batches.any? && @event.batches.min_by { |batch| batch.start_date }.start_date <= DateTime.now %>
-          <%= link_to t('.tickets'), "#", class: "bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition" %>
+          <%= link_to t('.tickets'), "#", class: "btn-confirm" %>
+        <% elsif @event.batches.any? && @total_tickets_sales == @event.batches.reduce(0) {|acc, curr| acc + curr.limit_tickets } %>
+          <%= link_to t('.soldout'), "#", class: "btn-confirm", disabled: true %>
         <% elsif @event.batches.any? %>
           <p><%=t('.ticket_date')%> <%=I18n.l(@event.batches.min_by { |batch| batch.start_date }.start_date, format: :short)%></p>
         <% else %>

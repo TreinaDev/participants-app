@@ -136,7 +136,7 @@ describe 'Usuário acessa página de detalhes de um evento' do
     login_as(user)
     visit event_path(1, locale: :'pt-BR')
 
-    expect(page).to have_content "Evento não encontrado"
     expect(current_path).to eq root_path
+    expect(page).to have_content "Evento não encontrado"
   end
 end
