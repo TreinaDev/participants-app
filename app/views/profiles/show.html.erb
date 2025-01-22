@@ -1,24 +1,68 @@
-<h1> <%= t('.title') %> </h1>
-
-<%= link_to t('.edit_profile'), edit_user_profile_path(user_id: current_user, id: current_user.profile) %>
-
-<dl>
-  <dt><%=User.human_attribute_name(:name)%>:</dt>
-  <dd><%=@profile.user.name%></dd>
-  <dt><%=User.human_attribute_name(:last_name)%>:</dt>
-  <dd><%=@profile.user.last_name%></dd>
-  <dt><%=User.human_attribute_name(:email)%>:</dt>
-  <dd><%=@profile.user.email%></dd>
-  <dt><%=Profile.human_attribute_name(:city)%>:</dt>
-  <dd><%=@profile.city%></dd>
-  <dt><%=Profile.human_attribute_name(:state)%>:</dt>
-  <dd><%=@profile.state%></dd>
-  <dt><%=Profile.human_attribute_name(:phone_number)%>:</dt>
-  <dd><%=@profile.phone_number%></dd>
-  <dt><%=Profile.human_attribute_name(:social_link).pluralize%>:</dt>
-  <%@profile.social_links.each do |social_link|%>
-    <dd><%=social_link.name%>: <%=social_link.url%></dd>
-  <% end %>
-</dl>
-
-<%= link_to t('.add_social_link'), new_user_profile_social_link_path(user_id: current_user, profile_id: @profile) %>
+<div class='flex item-center justify-center mt-4'>
+  <div class="bg-white max-w-2xl shadow overflow-hidden sm:rounded-lg relative">
+    <div class="px-4 py-5 sm:px-6">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">
+          <%= t('.title') %>
+        </h3>
+        <p class="mt-1 max-w-2xl text-sm text-gray-500">
+            Detalhes e informações sobre o usuário.
+        </p>
+    </div>
+    <div class="border-t border-gray-200">
+        <dl>
+            <div class="bg-gray-50 profile-row">
+                <dt class="text-sm font-medium text-gray-500">
+                  <%=User.human_attribute_name(:name)%>
+                </dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <%=@profile.user.name%> <%=@profile.user.last_name%>
+                </dd>
+            </div>
+            <div class="bg-white profile-row">
+                <dt class="text-sm font-medium text-gray-500">
+                  <%=User.human_attribute_name(:email)%>
+                </dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <%=@profile.user.email%>
+                </dd>
+            </div>
+            <div class="bg-gray-50 profile-row">
+                <dt class="text-sm font-medium text-gray-500">
+                  <%=Profile.human_attribute_name(:city)%>
+                </dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <%=@profile.city%>
+                </dd>
+            </div>
+            <div class="bg-white profile-row">
+                <dt class="text-sm font-medium text-gray-500">
+                  <%=Profile.human_attribute_name(:state)%>
+                </dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <%=@profile.state%>
+                </dd>
+            </div>
+            <div class="bg-gray-50 profile-row">
+                <dt class="text-sm font-medium text-gray-500">
+                  <%=Profile.human_attribute_name(:phone_number)%>
+                </dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <%=@profile.phone_number%>
+                </dd>
+            </div>
+            <div class="bg-white profile-row relative">
+                <dt class="text-sm font-medium text-gray-500">
+                    <%=Profile.human_attribute_name(:social_link).pluralize%>
+                </dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <%@profile.social_links.each do |social_link|%>
+                    <dd><%=social_link.name%>: <%=social_link.url%></dd>
+                  <% end %>
+                </dd>
+                <%= link_to t('.add_social_link'), new_user_profile_social_link_path(user_id: current_user, profile_id: @profile), class: 'absolute top-2 right-2 mt-2 text-blue-500 underline' %>
+            </div>
+        </dl>
+    </div>
+    <%= link_to t('.edit_profile'), edit_user_profile_path(user_id: current_user, id: current_user.profile), class: 'absolute top-2 right-2 mt-2 text-blue-500 underline' %>
+  </div>
+</div>

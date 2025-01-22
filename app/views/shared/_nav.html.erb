@@ -1,15 +1,38 @@
-<nav class="container mx-auto px-4 py-4 flex items-center">
-  <div class="ml-auto flex items-center space-x-4">
-    <%= link_to t('.events'), events_path, class: "px-4 py-2 bg-gray-100 text-gray-700 rounded-md text-sm hover:bg-gray-200 whitespace-nowrap" %>
-    <% if user_signed_in? %>
-      <%= link_to t('.my_favorites'), favorites_path, class: "px-4 py-2 bg-gray-100 text-gray-700 rounded-md text-sm hover:bg-gray-200 whitespace-nowrap" %>
-      <%= link_to current_user.email, user_profile_path(user_id: current_user.id, id: current_user.profile) %>
-      <%= button_to t('.log_out'), destroy_user_session_path, method: :delete, class: "px-4 py-2 bg-gray-100 text-gray-700 rounded-md text-sm hover:bg-gray-200 whitespace-nowrap" %>
-    <% else %>
-      <%= link_to t('.sign_up'), new_user_registration_path, class: "px-4 py-2 bg-gray-100 text-gray-700 rounded-md text-sm hover:bg-gray-200 whitespace-nowrap" %>
-      <%= link_to t('.log_in'), new_user_session_path, class: "px-4 py-2 bg-gray-100 text-gray-700 rounded-md text-sm hover:bg-gray-200 whitespace-nowrap" %>
-    <% end %>
-    <%= link_to 'Português', url_for(locale: :'pt-BR'), class: "px-4 py-2 bg-gray-100 text-gray-700 rounded-md text-sm hover:bg-gray-200 whitespace-nowrap" if I18n.locale == :en  %>
-    <%= link_to 'English', url_for(locale: :en), class: "px-4 py-2 bg-gray-100 text-gray-700 rounded-md text-sm hover:bg-gray-200 whitespace-nowrap" if I18n.locale == :'pt-BR' %>
+<nav class="bg-violet-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200">
+  <div class="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto">
+    <%= link_to page_title('E-vento'), root_path %>
+    <div class="flex md:order-2 space-x-2 md:space-x-0">
+      <ul class="flex flex-col md:p-0 font-medium border md:space-x-2 md:flex-row md:mt-0 md:border-0 ">
+        <% unless user_signed_in?%>
+          <li>
+            <%= link_to t('.sign_up'), new_user_registration_path, class: "btn-confirm" %>
+          </li>
+          <li>
+            <%= link_to t('.log_in'), new_user_session_path, class: "btn-confirm" %>
+          </li>
+        <% else %>
+          <%= button_to t('.log_out'), destroy_user_session_path, method: :delete, class: "btn-logout" %>
+        <% end %>
+        <li>
+          <%= link_to 'Português', url_for(locale: :'pt-BR'), class: "btn-confirm" if I18n.locale == :en  %>
+          <%= link_to 'English', url_for(locale: :en), class: "btn-confirm" if I18n.locale == :'pt-BR' %>
+        </li>
+      </ul>
+    </div>
+    <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+      <ul class="flex flex-col md:p-0 font-medium border md:space-x-8 md:flex-row md:mt-0 md:border-0 ">
+        <li>
+          <%= link_to t('.events'), events_path, class: "btn-nav" %> 
+        </li>
+        <% if user_signed_in? %>
+          <li>
+            <%= link_to t('.my_favorites'), favorites_path, class: "btn-nav" %>
+          </li>
+          <li>
+            <%= link_to current_user.email, user_profile_path(user_id: current_user.id, id: current_user.profile), class: "btn-nav" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 </nav>

@@ -17,7 +17,7 @@ describe 'Visitante acessa página de detalhes de um evento' do
     visit event_path(event.event_id, locale: :'pt-BR')
 
     expect(page).to have_content 'Aprendedo a cozinhar'
-    expect(page).to have_content 'Local: Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil'
+    expect(page).to have_content 'Local: Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil', normalize_ws: true
     expect(page).to have_content 'Aprenda a fritar um ovo'
     expect(page).to have_content 'Dono do evento: Samuel'
     expect(page).to have_content 'Limite de Participantes: 30'
