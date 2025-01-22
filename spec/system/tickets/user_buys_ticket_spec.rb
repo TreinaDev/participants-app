@@ -35,4 +35,20 @@ describe 'Usuário é redirecionado para a tela de confimação de compra de ing
     expect(ticket.batch_id).to eq batch_2.batch_id
     expect(ticket.payment_method).to eq 'pix'
   end
+
+  it 'e falha por não selecionar o método de pagamento' do
+    user = create(:user)
+    event_1 = build(:event,  event_id: 1)
+    event_2 = build(:event,  event_id: 2)
+    batch_1 = build(:batch, batch_id: 1, name: "Meia-Entrada")
+    batch_2 = build(:batch, batch_id: 2, name: "Pré-venda")
+
+    login_as(user)
+    visit new_event_batch_ticket_path(event_id: event_2.event_id, batch_id: batch_2.batch_id, locale: :'pt-BR')
+    click_on "Criar Ingresso"
+
+    expect(page).not_to have_content("Compra aprovada")
+    expect(page).to have_content "Não foi possível realizar a compra"
+    expect(page).to have_content "Método de pagamento não pode ficar em branco"
+  end
 end

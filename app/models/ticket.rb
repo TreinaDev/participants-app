@@ -9,6 +9,7 @@ class Ticket < ApplicationRecord
   validates :token, length: { is: 36 }
 
   before_validation :set_ticket_token, :set_date_of_purchase, on: :create
+  before_save :mark_status_as_confirmed
 
   private
   def set_ticket_token
@@ -17,5 +18,9 @@ class Ticket < ApplicationRecord
 
   def set_date_of_purchase
     self.date_of_purchase = DateTime.now
+  end
+
+  def mark_status_as_confirmed
+    self.status = :confirmed
   end
 end

@@ -72,6 +72,19 @@ RSpec.describe Ticket, type: :model do
     it 'é inválido com um token com menos de 36 caracteres' do
       user = create(:user)
       batch = build(:batch, batch_id: 1, name: "Meia-Entrada")
+      allow(SecureRandom).to receive(:alphanumeric).with(36).and_return("qQFcXk2K1AL9Ciditu3pbOLE4TyokgcYElAR")
+
+      ticket = Ticket.create(
+        user: user,
+        batch_id: batch.batch_id,
+        payment_method: 'pix',
+      )
+      expect(ticket).to be_confirmed
+    end
+
+    it 'e recebe status de confirmado' do
+      user = create(:user)
+      batch = build(:batch, batch_id: 1, name: "Meia-Entrada")
       short_token = "qQ"
       allow(SecureRandom).to receive(:alphanumeric).with(36).and_return(short_token)
 
