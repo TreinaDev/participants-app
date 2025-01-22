@@ -21,7 +21,11 @@
         <% end %> 
       </div>
       <div>
-        <%= link_to t('.tickets'), "#", class: "bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition" %>
+        <% if @event.batches.any? && @event.batches.first.start_date <= DateTime.now %>
+          <%= link_to t('.tickets'), "#", class: "bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition" %>
+        <% elsif @event.batches.any? %>
+          <p><%=t('.ticket_date')%> <%=I18n.l(@event.batches.first.start_date, format: :short)%></p>
+        <% end %>
       </div>
     </div>
   </div>

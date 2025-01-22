@@ -10,3 +10,4 @@ en:
       no_schedule: There is no schedule registered for this event yet.
       add_favorites: Add Favorites
       tickets: Tickets
+      ticket_date: Ticket Date

@@ -3,9 +3,7 @@
   <div class="relative p-4 flex flex-col item-center justify-center shadow-sm border border-purple-900 w-100 rounded-lg my-6">
     <div class="relative flex flex-col rounded-xl bg-transparent">
       <%= form_title(t('.title')) %>
-      <p class="text-black-500 font-dark">
-        Prazer em conhecê-lo! Insira seus detalhes para se registrar.
-      </p>
+      <p class="text-black-500 font-dark"><%=t('.welcome')%></p>
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name), class: 'mt-8 mb-2 w-80 max-w-screen-lg sm:w-96') do |f| %>
         <div class="mb-1 flex flex-col gap-6">
           <div class="w-full">
@@ -31,7 +29,7 @@
           <div class="w-full">
             <%= f.label :password, class: 'form-label' %>
             <% if @minimum_password_length %>
-            <em>>(<%= @minimum_password_length %> <%=t('.min_character', count: @minimum_password_length)%>)</em>
+              <em>(<%= @minimum_password_length %> <%=t('.min_character', count: @minimum_password_length)%>)</em>
             <% end %>
             <%= f.password_field :password, autocomplete: "new-password", class: 'form-field' %>
           </div>

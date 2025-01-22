@@ -88,13 +88,23 @@ describe 'Visitante acessa página de detalhes de um evento' do
   end
 
   it 'e visualiza opção de ver ingressos' do
-    event = build(:event,  event_agendas: [])
+    batch = [ {
+      batch_id: 1,
+      name: 'Lote Teste',
+      limit_tickets: 30,
+      start_date: 5.day.ago.to_date,
+      value: 10.00,
+      end_date: 10.day.from_now.to_date,
+      event_id: 1
+      }
+    ]
+    event = build(:event,  event_agendas: [], batches: batch)
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
 
     visit event_path(event.event_id, locale: :'pt-BR')
 
-    expect(page).to have_link 'Ver ingressos'
+    expect(page).to have_link 'Ver Ingressos'
   end
 
   it 'e visualiza que não há programação para o evento' do
