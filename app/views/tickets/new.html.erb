@@ -1,0 +1,6 @@
+<%= form_with(model: @ticket, method: 'post', url: event_batch_tickets_path(batch_id: @batch_id, event_id: @event_id)) do |f| %>
+  <%= f.label :payment_method  %> 
+  <%= f.select :payment_method,
+    options_for_select(Ticket.payment_methods.keys.map { |key| [t(key), key]})  %>
+    <%= f.submit %>
+<% end %>
