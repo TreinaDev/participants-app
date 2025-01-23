@@ -21,7 +21,7 @@
         <% end %> 
       </div>
       <div>
-        <%= link_to t('.tickets'), "#", class: "bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition" %>
+        <%= link_to t('.tickets'), event_batches_path(@event.event_id), class: "btn-buy" %>
       </div>
     </div>
   </div>

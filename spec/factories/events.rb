@@ -12,6 +12,7 @@ FactoryBot.define do
     description { 'Aprenda a fritar um ovo' }
     event_owner { 'Samuel' }
     event_agendas { [] }
+    batches { [] }
 
     initialize_with do
       new(
@@ -26,7 +27,8 @@ FactoryBot.define do
         limit_participants: limit_participants,
         description: description,
         event_owner: event_owner,
-        event_agendas: event_agendas
+        event_agendas: event_agendas,
+        batches: batches
       )
     end
   end
