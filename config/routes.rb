@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     resources :events, only: [ :index, :show ] do
       resources :batches, only: [ :index ]
     end
+    resources :reminders, only: [ :create ]
     resources :favorites, only: [ :index, :create, :destroy ]
   end
 end

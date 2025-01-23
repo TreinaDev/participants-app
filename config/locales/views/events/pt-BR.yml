@@ -13,3 +13,5 @@ pt-BR:
       ticket_date: Ingressos disponíveis
       no_tickets_registered: Sem ingressos disponíveis
       soldout: Ingressos Esgotados
+      add_reminder: Adicionar Lembrete
+      remove_reminder: Remover Lembrete

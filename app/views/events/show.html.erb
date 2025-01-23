@@ -26,8 +26,12 @@
         <% elsif @event.batches.any? && @total_tickets_sales == @event.batches.reduce(0) {|acc, curr| acc + curr.limit_tickets } %>
           <%= link_to t('.soldout'), event_batches_path(@event.event_id), class: "btn-buy", disabled: true %>
         <% elsif @event.batches.any? %>
+          <%= button_to t('.add_reminder'), reminders_path(event_id: @event.event_id, start_date: @event.start_date), method: :create, class: "btn-confirm" if user_signed_in? && !current_user.reminders.pluck(:event_id).include?(@event.event_id) %>
+          <%= button_to t('.remove_reminder'), "#", class: "btn-buy" if user_signed_in? && current_user.reminders.pluck(:event_id).include?(@event.event_id) %>
           <p><%=t('.ticket_date')%> <%=I18n.l(@event.batches.min_by { |batch| batch.start_date }.start_date, format: :short)%></p>
         <% else %>
+          <%= button_to t('.add_reminder'), reminders_path(event_id: @event.event_id), method: :create, class: "btn-confirm" if user_signed_in? && !current_user.reminders.pluck(:event_id).include?(@event.event_id) %>
+          <%= button_to t('.remove_reminder'), "#", class: "btn-buy" if user_signed_in? && current_user.reminders.pluck(:event_id).include?(@event.event_id) %>
           <p><%=t('.no_tickets_registered')%></p>
         <% end %>
       </div>
@@ -36,7 +40,6 @@
   <div class="bg-white p-6 rounded-lg shadow-md w-full">
     <div class="flex justify-between w-auto">
       <dl>
-        <p class="text-sm text-black-500 mt-1 font-bold"><%= I18n.t('event.date_event') %>:</p>
         <dt class="text-sm text-black-500 mt-1 font-bold"><%= I18n.t('event.start_date') %>:</dt>
         <dd class="text-sm text-gray-500 mt-1"><%= I18n.l(@event.start_date, format: :long) %></dd>
         <dt class="text-sm text-black-500 mt-1 font-bold"><%= I18n.t('event.end_date') %>:</dt>
