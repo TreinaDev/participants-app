@@ -1,6 +1,6 @@
 require 'rails_helper'
 RSpec.describe "Tickets", type: :request do
-  describe 'GET events/:event_id/batches/:batch_id/' do
+  describe 'Usuário vê opções de pagamento' do
     it 'e deve estar autenticado' do
       event = build(:event,  event_id: 1)
       batch = build(:batch, batch_id: 1, name: "Meia-Entrada")
@@ -13,7 +13,7 @@ RSpec.describe "Tickets", type: :request do
     end
   end
 
-  describe 'POST events/:event_id/batches/:batch_id/' do
+  describe 'Usuário escolhe método de pagamento' do
     it 'e deve estar autenticado' do
       event = build(:event,  event_id: 1)
       batch = build(:batch, batch_id: 1, name: "Meia-Entrada")

@@ -1,8 +1,7 @@
 class TicketsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_event_and_batch, only: [ :new, :create ]
   def new
-    @batch_id = params[:batch_id]
-    @event_id = params[:event_id]
     @ticket = Ticket.new
   end
 
@@ -12,15 +11,20 @@ class TicketsController < ApplicationController
     )
 
     @ticket = current_user.tickets.build(ticket_params)
-    @ticket.batch_id = params[:batch_id]
+    @ticket.batch_id = @batch_id
 
     if @ticket.save
       redirect_to root_path, notice: "Compra aprovada"
     else
-      @batch_id = params[:batch_id]
-      @event_id = params[:event_id]
       flash.now[:notice] = "Não foi possível realizar a compra"
       render :new, status: :unprocessable_entity
     end
+  end
+
+  private
+
+  def set_event_and_batch
+    @batch_id = params[:batch_id]
+    @event_id = params[:event_id]
   end
 end
