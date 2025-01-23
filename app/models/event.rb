@@ -54,9 +54,8 @@ class Event
     Event.new(
       event_id: data[:id], name: data[:name], banner: data[:banner], logo: data[:logo], event_owner: data[:event_owner],
       url_event: data[:url_event], local_event: data[:local_event], limit_participants: data[:limit_participants],
-       description: data[:description], event_agendas: data[:event_agendas] || [], start_date: data[:start_date].to_date,
-       end_date: data[:end_date].to_date, batches: data[:batches] || []
-       )
+       description: data[:description], event_agendas: data[:event_agendas] || [], start_date: data[:start_date].to_date, end_date: data[:end_date].to_date, batches: data[:batches] || []
+    )
   end
 
   def build_batch(batches)

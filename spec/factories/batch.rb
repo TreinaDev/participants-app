@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :batch do
     sequence(:batch_id)
-    name { "Entrada -VIP" }
+    name { "Ticket Test" }
     limit_tickets { 50 }
     start_date { 1.day.from_now.to_date }
     value { 10.00 }
@@ -16,7 +16,8 @@ FactoryBot.define do
         start_date: start_date,
         value: value,
         end_date: end_date,
-        event_id: event_id)
+        event_id: event_id
+      )
     end
   end
 end
