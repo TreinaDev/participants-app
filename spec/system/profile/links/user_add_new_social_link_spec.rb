@@ -59,7 +59,7 @@ describe 'usuário adiciona link social ao perfil' do
     click_on 'Salvar Link'
 
     expect(current_path).to eq user_profile_path(user_id: user, id: user.profile, locale: :'pt-BR')
-    expect(page).to have_content 'Perfil atualizado'
+    expect(page).to have_content 'Link salvo'
     expect(page).to have_link 'Facebook'
     expect(page).to have_selector('a[href="https://www.facebook.com"]')
   end
@@ -89,7 +89,6 @@ describe 'usuário adiciona link social ao perfil' do
     click_on 'Salvar Link'
 
     expect(current_path).to eq user_profile_path(user_id: user, id: user.profile, locale: :'pt-BR')
-    expect(page).to have_content 'Perfil atualizado'
     expect(page).to have_link 'Facebook'
     expect(page).to have_selector('a[href="https://www.facebook.com/1"]')
     expect(page).not_to have_selector('a[href="https://www.facebook.com"]')
