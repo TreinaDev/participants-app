@@ -46,14 +46,14 @@ RSpec.describe Batch, type: :model do
 
       expect(result[0].name).to eq 'Entrada - VIP'
       expect(result[0].limit_tickets).to eq 50
-      expect(result[0].start_date).to eq '2024-12-30'
+      expect(result[0].start_date).to eq '2024-12-30'.to_date
       expect(result[0].value).to eq 40
-      expect(result[0].end_date).to eq '2024-02-01'
+      expect(result[0].end_date).to eq '2024-02-01'.to_date
       expect(result[1].name).to eq 'Entrada - Meia'
       expect(result[1].limit_tickets).to eq 20
-      expect(result[1].start_date).to eq '2024-12-27'
+      expect(result[1].start_date).to eq '2024-12-27'.to_date
       expect(result[1].value).to eq 20.00
-      expect(result[1].end_date).to eq '2024-03-01'
+      expect(result[1].end_date).to eq '2024-03-01'.to_date
     end
 
     it 'e deveria receber array vazio em caso de erro na requisição' do
