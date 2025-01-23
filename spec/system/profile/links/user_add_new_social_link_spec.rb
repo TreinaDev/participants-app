@@ -13,11 +13,11 @@ describe 'usuário adiciona link social ao perfil' do
 
   it 'e vê formulário para adicionar link social' do
     user = create(:user)
-    SocialMedium.create(name: 'Instagram', icon: Rails.root.join('spec', 'support', 'instagram.svg'))
-    SocialMedium.create(name: 'Linkedin', icon: Rails.root.join('spec', 'support', 'linkedin.svg'))
-    SocialMedium.create(name: 'GitHub', icon: Rails.root.join('spec', 'support', 'github.svg'))
-    SocialMedium.create(name: 'Reddit', icon: Rails.root.join('spec', 'support', 'reddit.svg'))
-    SocialMedium.create(name: 'Facebook', icon: Rails.root.join('spec', 'support', 'facebook.svg'))
+    SocialMedium.create(name: 'Instagram')
+    SocialMedium.create(name: 'Linkedin')
+    SocialMedium.create(name: 'GitHub')
+    SocialMedium.create(name: 'Reddit')
+    SocialMedium.create(name: 'Facebook')
 
     login_as user
     visit user_profile_path(user_id: user, id: user.profile)
@@ -50,17 +50,48 @@ describe 'usuário adiciona link social ao perfil' do
 
   it 'com sucesso' do
     user = create(:user)
-    SocialMedium.create(name: 'Facebook', icon: Rails.root.join('spec', 'support', 'facebook.svg'))
+    SocialMedium.create(name: 'Facebook')
 
     login_as user
     visit new_user_profile_social_link_path(user_id: user, profile_id: user.profile)
     select 'Facebook', from: 'Redes Sociais'
-    fill_in 'URL', with: 'www.facebook.com'
+    fill_in 'URL', with: 'https://www.facebook.com'
     click_on 'Salvar Link'
 
     expect(current_path).to eq user_profile_path(user_id: user, id: user.profile, locale: :'pt-BR')
     expect(page).to have_content 'Perfil atualizado'
-    expect(page).to have_css 'img[src*="facebook.svg"]'
-    expect(page).to have_selector(:css, 'a[href="www.facebook.com"]')
+    expect(page).to have_link 'Facebook'
+    expect(page).to have_selector('a[href="https://www.facebook.com"]')
+  end
+
+  it 'e link deve ser valido' do
+    user = create(:user)
+    SocialMedium.create(name: 'Facebook')
+
+    login_as user
+    visit new_user_profile_social_link_path(user_id: user, profile_id: user.profile)
+    select 'Facebook', from: 'Redes Sociais'
+    fill_in 'URL', with: 'facebook.com'
+    click_on 'Salvar Link'
+
+    expect(page).to have_content 'URL não é válido'
+  end
+
+  it 'e não cria dois links da mesma rede social' do
+    user = create(:user)
+    SocialMedium.create(name: 'Facebook')
+    SocialLink.create(profile: user.profile, social_medium_id: 1, url: 'https://www.facebook.com')
+
+    login_as user
+    visit new_user_profile_social_link_path(user_id: user, profile_id: user.profile)
+    select 'Facebook', from: 'Redes Sociais'
+    fill_in 'URL', with: 'https://www.facebook.com/1'
+    click_on 'Salvar Link'
+
+    expect(current_path).to eq user_profile_path(user_id: user, id: user.profile, locale: :'pt-BR')
+    expect(page).to have_content 'Perfil atualizado'
+    expect(page).to have_link 'Facebook'
+    expect(page).to have_selector('a[href="https://www.facebook.com/1"]')
+    expect(page).not_to have_selector('a[href="https://www.facebook.com"]')
   end
 end

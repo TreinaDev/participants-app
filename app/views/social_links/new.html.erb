@@ -1,3 +1,11 @@
+<% if @social_link.errors.any? %>
+  <div class="error-messages">
+    <% @social_link.errors.full_messages.each do |msg| %>
+      <p class="alert"><%= msg %></p>
+    <% end %>
+  </div>
+<% end %>
+
 <div class='flex item-center justify-center'>
   <div class="relative p-4 flex flex-col item-center justify-center shadow-sm border border-purple-900 w-100 rounded-lg my-6">
     <div class="relative flex flex-col rounded-xl bg-transparent">
@@ -6,7 +14,7 @@
         <div class="mb-1 flex flex-col gap-6">
           <div class="w-full">
             <%= f.label :social_medium_id, class: 'form-label' %>
-            <%= f.collection_select(:social_medium_id, @social_media, :id, :name) %>
+            <%= f.collection_select(:social_medium_id, @social_media, :id, :name, class: 'form-field w-full')%>
           </div>
 
           <div class="w-full">

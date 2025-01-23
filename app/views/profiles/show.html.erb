@@ -51,16 +51,16 @@
                 </dd>
             </div>
             <div class="bg-white profile-row relative">
+              <div>
                 <dt class="text-sm font-medium text-gray-500">
                     <%=Profile.human_attribute_name(:social_link).pluralize%>
                 </dt>
                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                   <%@profile.social_links.each do |social_link|%>
-                    <%= link_to social_link.url do %>
-                      <%= image_tag social_link.social_medium.icon %>
-                    <% end %>
+                    <%= link_to social_link.social_medium.name, social_link.url, class: 'text-blue-500 underline' %> <br />
                   <% end %>
                 </dd>
+              </div>
                 <%= link_to t('.add_social_link'), new_user_profile_social_link_path(user_id: current_user, profile_id: @profile), class: 'absolute top-2 right-2 mt-2 text-blue-500 underline' %>
             </div>
         </dl>

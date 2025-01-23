@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :social_link do
     url { "MyString" }
-    name { "MyString" }
+    social_medium { nil }
     profile { nil }
   end
 end
