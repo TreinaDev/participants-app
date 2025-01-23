@@ -14,4 +14,8 @@ pt-BR:
       ticket:
         payment_method: 'Método de pagamento'
         date_of_purchase: 'Data da Compra'
+    errors:
+      models:
+        ticket:
+          sold_out: 'Esgotado'
 

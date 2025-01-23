@@ -9,12 +9,4 @@ class Batch
     @end_date = end_date
     @event_id = event_id
   end
-
-  private
-
-  def self.build_batch(data)
-    Batch.new(batch_id: data[:id], name: data[:name], limit_tickets: data[:limit_tickets],
-              start_date: data[:start_date], value: data[:value], end_date: data[:value],
-              event_id: data[:event_id])
-  end
 end
