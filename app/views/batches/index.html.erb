@@ -3,7 +3,7 @@
 <div class="bg-white p-6 m-3 w-full">
   <div class="mt-4 space-y-4">
     <% @batches.each do |batch| %>
-      <div class="bg-white p-4 rounded-lg shadow-md flex justify-between">
+      <div id="batch_id_<%=batch.batch_id%>" class="bg-white p-4 rounded-lg shadow-md flex justify-between">
         <div>
           <p class="font-bold text-gray-800"><%= batch.name %></p>
           <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('batches.batch.value') %>:</span> <%= I18n.t('batches.batch.currency', price: batch.value) %></p>
