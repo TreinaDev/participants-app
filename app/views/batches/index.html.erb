@@ -1,29 +1,26 @@
-<% @batches.each do |batch| %>
-  <div id="batch_id_<%=batch.batch_id%>" class="bg-white p-6 rounded-lg shadow-md w-full">
-    <div class="flex justify-between w-auto">
-      <dl>
-        <dt class="text-sm text-black-500 mt-1 font-bold"><%= I18n.t('batches.batch.name')  %>:</dt>
-        <dd class="text-sm text-gray-500 mt-1"><%= batch.name %></dd>
-        <dt class="text-sm text-black-500 mt-1 font-bold"><%= I18n.t('batches.batch.limit_tickets')  %>:</dt>
-        <dd class="text-sm text-gray-500 mt-1"><%= batch.limit_tickets %></dd>
-      </dl>
-      <dl>
-        <dt class="text-sm text-black-500 mt-1 font-bold"><%= I18n.t('batches.batch.start_date')%>:</dt>
-        <dd class="text-sm text-gray-500 mt-1"><%= I18n.l(batch.start_date.to_date, format: :long) %></dd>
-        <dt class="text-sm text-black-500 mt-1 font-bold"><%= I18n.t('batches.batch.end_date')%>:</dt>
-        <dd class="text-sm text-gray-500 mt-1"><%= I18n.l(batch.end_date.to_date, format: :long)  %></dd>
-      </dl>
-      <dl>
-        <dt class="text-sm text-black-500 mt-1 font-bold"><%= I18n.t('batches.batch.value')%>:</dt>
-        <dt class="text-sm text-gray-500 mt-1"><%= I18n.t('batches.batch.currency', price: batch.value) %></dt>
-        <% if batch.start_date > Date.today %>
-          <p><%= I18n.t('batches.index.sold_coming_soon') %></p>
-        <%elsif batch.end_date < Date.today %>
-          <p><%= I18n.t('batches.index.sold_closed') %></p>
-        <% else %>
-          <%= link_to I18n.t('batches.index.buy'), event_batches_path(batch.event_id, batch.batch_id), class: 'btn-buy' %>
-        <% end %>
-      </dl>
-    </div>
-  </div>
-<% end %>
+<%= page_title(t('.availiable_batches'))%>
+
+<div class="bg-white p-6 m-3 w-full">
+  <div class="mt-4 space-y-4">
+    <% @batches.each do |batch| %>
+      <div class="bg-white p-4 rounded-lg shadow-md flex justify-between">
+        <div>
+          <p class="font-bold text-gray-800"><%= batch.name %></p>
+          <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('batches.batch.value') %>:</span> <%= I18n.t('batches.batch.currency', price: batch.value) %></p>
+          <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('batches.batch.limit_tickets') %>:</span> <%= batch.limit_tickets %></p>
+          <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('batches.batch.start_date') %>:</span> <%= I18n.l(batch.start_date, format: :long) %></p>
+          <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('batches.batch.end_date') %>:</span> <%= I18n.l(batch.end_date, format: :long) %></p>
+        </div>
+        <div>
+          <% if batch.start_date > Date.today %>
+            <p><%= I18n.t('batches.index.sold_coming_soon') %></p>
+          <%elsif batch.end_date < Date.today %>
+            <p><%= I18n.t('batches.index.sold_closed') %></p>
+          <% else %>
+            <%= link_to I18n.t('batches.index.buy'), event_batches_path(batch.event_id, batch.batch_id), class: 'btn-buy' %>
+          <% end %>
+        </div>
+        </div>
+      <% end %>
+  </div>         
+</div>  
