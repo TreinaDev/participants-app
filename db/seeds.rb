@@ -11,5 +11,8 @@
 user = User.create!(name: 'Master', last_name: 'Teste', email: 'master@email.com', password: '123456', cpf: CPF.generate)
 profile = user.profile
 profile.update(city: 'Cidade Teste', state: 'Estado Teste')
-SocialLink.create!(name: 'Facebook', url: 'facebook/master.com', profile: profile)
-SocialLink.create!(name: 'Instagram', url: 'instagram/master.com', profile: profile)
+SocialMedium.create(name: 'Instagram', icon: Rails.root.join('spec', 'support', 'instagram.svg'))
+SocialMedium.create(name: 'Linkedin', icon: Rails.root.join('spec', 'support', 'linkedin.svg'))
+SocialMedium.create(name: 'GitHub', icon: Rails.root.join('spec', 'support', 'github.svg'))
+SocialMedium.create(name: 'Reddit', icon: Rails.root.join('spec', 'support', 'reddit.svg'))
+SocialMedium.create(name: 'Facebook', icon: Rails.root.join('spec', 'support', 'facebook.svg'))

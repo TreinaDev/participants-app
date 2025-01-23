@@ -5,10 +5,11 @@ class SocialLinksController < ApplicationController
 
   def new
     @social_link = SocialLink.new()
+    @social_media = SocialMedium.all
   end
 
   def create
-    @social_link = @profile.social_links.build(params.require(:social_link).permit(:name, :url))
+    @social_link = @profile.social_links.build(params.require(:social_link).permit(:social_medium_id, :url))
     if @social_link.save
       flash[:notice] = t(".notice")
       redirect_to user_profile_path(user_id: @user, id: @profile)

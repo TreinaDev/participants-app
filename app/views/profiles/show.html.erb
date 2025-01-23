@@ -56,7 +56,9 @@
                 </dt>
                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                   <%@profile.social_links.each do |social_link|%>
-                    <dd><%=social_link.name%>: <%=social_link.url%></dd>
+                    <%= link_to social_link.url do %>
+                      <%= image_tag social_link.social_medium.icon %>
+                    <% end %>
                   <% end %>
                 </dd>
                 <%= link_to t('.add_social_link'), new_user_profile_social_link_path(user_id: current_user, profile_id: @profile), class: 'absolute top-2 right-2 mt-2 text-blue-500 underline' %>
