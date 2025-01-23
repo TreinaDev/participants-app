@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_21_201913) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_23_203216) do
   create_table "favorites", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "event_id", null: false
@@ -39,7 +39,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_21_201913) do
   end
 
   create_table "tickets", force: :cascade do |t|
-    t.integer "status"
+    t.integer "status_confirmed"
     t.datetime "date_of_purchase"
     t.integer "payment_method"
     t.string "token"

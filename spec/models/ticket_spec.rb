@@ -92,7 +92,7 @@ RSpec.describe Ticket, type: :model do
         batch_id: batch.batch_id,
         payment_method: 'pix',
       )
-      expect(ticket.status).to eq "confirmed"
+      expect(ticket.status_confirmed?).to eq true
     end
   end
 end
