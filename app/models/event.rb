@@ -61,7 +61,7 @@ class Event
 
   def build_batch(batches)
     batches.map { |data| Batch.new(batch_id: data[:id], name: data[:name], limit_tickets: data[:limit_tickets],
-              start_date: data[:start_date], value: data[:value], end_date: data[:end_date],
+              start_date: data[:start_date].to_date, value: data[:value], end_date: data[:end_date].to_date,
               event_id: data[:event_id]) }
   end
 end
