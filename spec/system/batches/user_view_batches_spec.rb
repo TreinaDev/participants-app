@@ -66,14 +66,17 @@ describe 'Usuário acessa página de tipos de ingresso de um evento' do
     expect(page).to have_content 'Entrada - PCD'
     within("#batch_id_#{batch_1.batch_id}") do
        expect(page).to have_link 'Comprar'
+       expect(page).not_to have_content 'Esgotado'
     end
     within("#batch_id_#{batch_2.batch_id}") do
        expect(page).not_to have_link 'Comprar'
        expect(page).to have_content 'Vendas em breve'
+       expect(page).not_to have_content 'Esgotado'
     end
     within("#batch_id_#{batch_3.batch_id}") do
        expect(page).not_to have_link 'Comprar'
        expect(page).to have_content 'Vendas fechadas'
+       expect(page).not_to have_content 'Esgotado'
     end
   end
 
@@ -93,9 +96,10 @@ describe 'Usuário acessa página de tipos de ingresso de um evento' do
     user = create(:user)
     event = build(:event, name: 'Dev Week')
     events = [ event ]
-    tickets_available = 0
+    tickets_available = 1
     batch_1 = build(:batch, name: 'Entrada - VIP', limit_tickets: 50, event_id: event.event_id)
     batch_2 = build(:batch, name: 'Entrada - Meia', limit_tickets: tickets_available,  event_id: event.event_id)
+    create(:ticket, batch_id: batch_2.batch_id)
     batches = [ batch_1, batch_2 ]
     allow(Event).to receive(:all).and_return(events)
     allow(Event).to receive(:request_event_by_id).and_return(event)
@@ -108,7 +112,7 @@ describe 'Usuário acessa página de tipos de ingresso de um evento' do
     click_on 'Ver ingressos'
 
     within("#batch_id_#{batch_2.batch_id}") do
-       expect(page).to have_content 'Entrada - Meia'
+      expect(page).to have_content 'Entrada - Meia'
       expect(page).to have_content 'Esgotado'
     end
   end

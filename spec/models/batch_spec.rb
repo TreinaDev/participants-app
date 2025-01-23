@@ -82,4 +82,20 @@ RSpec.describe Batch, type: :model do
       expect(result.length).to eq 0
     end
   end
+
+  context 'Esgotado?' do
+    it 'verdadeiro quando o limite de ingressos tiver sido atingido' do
+      batch = build(:batch, limit_tickets: 2)
+      create_list(:ticket, 2, batch_id: batch.batch_id)
+
+      expect(batch.sold_out?).to eq true
+    end
+
+    it 'falso quando o limite de ingressos não tiver sido atingido' do
+      batch = build(:batch, limit_tickets: 10)
+      create(:ticket, batch_id: batch.batch_id)
+
+      expect(batch.sold_out?).to eq false
+    end
+  end
 end
