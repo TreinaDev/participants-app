@@ -12,9 +12,11 @@
           <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('batches.batch.end_date') %>:</span> <%= I18n.l(batch.end_date, format: :long) %></p>
         </div>
         <div>
-          <% if batch.start_date > Date.today %>
+          <% if batch.sold_out? %>
+            <p><%= I18n.t('batches.index.sold_out')%></p>
+          <% elsif batch.start_date > Date.today %>
             <p><%= I18n.t('batches.index.sold_coming_soon') %></p>
-          <%elsif batch.end_date < Date.today %>
+          <% elsif batch.end_date < Date.today %>
             <p><%= I18n.t('batches.index.sold_closed') %></p>
           <% else %>
             <%= link_to I18n.t('batches.index.buy'), event_batches_path(batch.event_id, batch.batch_id), class: 'btn-buy' %>

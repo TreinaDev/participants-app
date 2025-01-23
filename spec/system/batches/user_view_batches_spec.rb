@@ -88,4 +88,28 @@ describe 'Usuário acessa página de tipos de ingresso de um evento' do
     expect(current_path).to eq event_path(event.event_id, locale: :'pt-BR')
     expect(page).to have_content 'Evento ainda não possui ingressos'
   end
+
+  it 'E vê que os ingressos estão esgotados para um lote' do
+    user = create(:user)
+    event = build(:event, name: 'Dev Week')
+    events = [ event ]
+    tickets_available = 0
+    batch_1 = build(:batch, name: 'Entrada - VIP', limit_tickets: 50, event_id: event.event_id)
+    batch_2 = build(:batch, name: 'Entrada - Meia', limit_tickets: tickets_available,  event_id: event.event_id)
+    batches = [ batch_1, batch_2 ]
+    allow(Event).to receive(:all).and_return(events)
+    allow(Event).to receive(:request_event_by_id).and_return(event)
+    allow(Batch).to receive(:request_batches_by_event_id).and_return(batches)
+
+    login_as(user)
+    visit root_path(locale: :'pt-BR')
+    click_on 'Eventos'
+    click_on 'Dev Week'
+    click_on 'Ver ingressos'
+
+    within("#batch_id_#{batch_2.batch_id}") do
+       expect(page).to have_content 'Entrada - Meia'
+      expect(page).to have_content 'Esgotado'
+    end
+  end
 end

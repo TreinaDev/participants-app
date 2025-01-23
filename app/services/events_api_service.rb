@@ -8,6 +8,10 @@ class EventsApiService
     self.request("#{BASE_URL}/#{event_id}", :get)
   end
 
+  def self.get_batches_by_event_id(event_id)
+    self.request("#{BASE_URL}/#{event_id}/batches", :get)
+  end
+
   def self.request(url, method)
     conn = Faraday.new do |faraday|
       faraday.response :raise_error
@@ -15,9 +19,5 @@ class EventsApiService
     JSON.parse(conn.send(method, url).body, symbolize_names: true)
   rescue Faraday::Error => e
     raise e
-  end
-
-  def self.get_batches_by_event_id(event_id)
-    self.request("#{BASE_URL}/#{event_id}/batches", :get)
   end
 end
