@@ -56,11 +56,11 @@ class Event
       url_event: data[:url_event], local_event: data[:local_event], limit_participants: data[:limit_participants],
        description: data[:description], event_agendas: data[:event_agendas] || [], start_date: data[:start_date].to_date, end_date: data[:end_date].to_date, batches: data[:batches] || []
     )
+  end
 
   def build_batch(batches)
     batches.map { |data| Batch.new(batch_id: data[:id], name: data[:name], limit_tickets: data[:limit_tickets],
               start_date: data[:start_date].to_date, value: data[:value], end_date: data[:end_date].to_date,
               event_id: data[:event_id]) }
   end
-
 end
