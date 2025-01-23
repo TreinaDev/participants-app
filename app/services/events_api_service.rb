@@ -16,4 +16,8 @@ class EventsApiService
   rescue Faraday::Error => e
     raise e
   end
+
+  def self.get_batches_by_event_id(event_id)
+    self.request("#{BASE_URL}/#{event_id}/batches", :get)
+  end
 end
