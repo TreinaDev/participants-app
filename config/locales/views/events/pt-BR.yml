@@ -12,5 +12,5 @@ pt-BR:
       event_description: Descrição do Evento
       tickets: Ver Ingressos
       ticket_date: Ingressos disponíveis
-      no_tickets_registered: Ainda não existem ingressos disponíveis
+      no_tickets_registered: Sem ingressos disponíveis
       soldout: Ingressos Esgotados
