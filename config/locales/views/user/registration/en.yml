@@ -7,6 +7,7 @@ en:
         min_character: 
           one: A minimum character
           other: Min characters
+        welcome: Nice to meet you! Please insert your informations.
       edit:
         title: Edit your account
         min_character: 

@@ -9,4 +9,7 @@ pt-BR:
       event_agenda: Agenda do evento
       no_schedule: Ainda não existe programação cadastrada para esse evento
       add_favorites: Adicionar a favoritos
-      tickets: Ver ingressos
+      tickets: Ver Ingressos
+      ticket_date: Ingressos disponíveis
+      no_tickets_registered: Sem ingressos disponíveis
+      soldout: Ingressos Esgotados
