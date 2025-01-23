@@ -21,7 +21,7 @@
         <% end %> 
       </div>
       <div>
-        <% if @event.batches.any? && @event.batches.min_by { |batch| batch.start_date }.start_date <= DateTime.now.to_date %>
+        <% if @event.batches.any? && @event.batches.min_by { |batch| batch.start_date }.start_date <= DateTime.now %>
           <%= link_to t('.tickets'), "#", class: "btn-buy" %>
         <% elsif @event.batches.any? && @total_tickets_sales == @event.batches.reduce(0) {|acc, curr| acc + curr.limit_tickets } %>
           <%= link_to t('.soldout'), "#", class: "btn-buy", disabled: true %>
@@ -36,7 +36,6 @@
   <div class="bg-white p-6 rounded-lg shadow-md w-full">
     <div class="flex justify-between w-auto">
       <dl>
-        <p class="text-sm text-black-500 mt-1 font-bold"><%= I18n.t('event.date_event') %>:</p>
         <dt class="text-sm text-black-500 mt-1 font-bold"><%= I18n.t('event.start_date') %>:</dt>
         <dd class="text-sm text-gray-500 mt-1"><%= I18n.l(@event.start_date, format: :long) %></dd>
         <dt class="text-sm text-black-500 mt-1 font-bold"><%= I18n.t('event.end_date') %>:</dt>
