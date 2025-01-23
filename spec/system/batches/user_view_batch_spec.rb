@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'usuário vê botão de compra de ingressos' do
   it 'com ingressos disponíveis' do
     batch = [ {
-      batch_id: 1,
+      id: 1,
       name: 'Lote Teste',
       limit_tickets: 30,
       start_date: 1.day.ago.to_date,
@@ -11,7 +11,7 @@ describe 'usuário vê botão de compra de ingressos' do
       end_date: 1.day.from_now.to_date,
       event_id: 1
     }, {
-      batch_id: 2,
+      id: 2,
       name: 'Mesmo Lote Teste',
       limit_tickets: 50,
       start_date: 2.day.ago.to_date,
@@ -37,7 +37,7 @@ describe 'usuário vê botão de compra de ingressos' do
 
   it 'com um único ingresso fora da época de venda' do
     batch = [ {
-      batch_id: 1,
+      id: 1,
       name: 'Lote Teste',
       limit_tickets: 30,
       start_date: 5.day.from_now.to_date,
@@ -64,7 +64,7 @@ describe 'usuário vê botão de compra de ingressos' do
 
   it 'com vários ingressos fora da época de venda' do
     batch = [ {
-      batch_id: 1,
+      id: 1,
       name: 'Lote Teste',
       limit_tickets: 30,
       start_date: 5.day.from_now.to_date,
@@ -72,7 +72,7 @@ describe 'usuário vê botão de compra de ingressos' do
       end_date: 1.month.from_now.to_date,
       event_id: 1
     }, {
-      batch_id: 2,
+      id: 2,
       name: 'Mesmo Lote Teste',
       limit_tickets: 50,
       start_date: 3.day.from_now.to_date,
@@ -80,7 +80,7 @@ describe 'usuário vê botão de compra de ingressos' do
       end_date: 3.month.from_now.to_date,
       event_id: 1
     }, {
-      batch_id: 3,
+      id: 3,
       name: 'Mesmo Mesmo Lote Teste',
       limit_tickets: 50,
       start_date: 2.day.from_now.to_date,
@@ -113,7 +113,7 @@ describe 'usuário vê botão de compra de ingressos' do
 
   it 'e ingressos estão todos esgotados' do
     batch = [ {
-      batch_id: 1,
+      id: 1,
       name: 'Lote Teste',
       limit_tickets: 10,
       start_date: 5.day.from_now.to_date,
@@ -121,7 +121,7 @@ describe 'usuário vê botão de compra de ingressos' do
       end_date: 1.month.from_now.to_date,
       event_id: 1
     }, {
-      batch_id: 2,
+      id: 2,
       name: 'Mesmo Lote Teste',
       limit_tickets: 30,
       start_date: 3.day.from_now.to_date,
@@ -129,7 +129,7 @@ describe 'usuário vê botão de compra de ingressos' do
       end_date: 3.month.from_now.to_date,
       event_id: 1
     }, {
-      batch_id: 3,
+      id: 3,
       name: 'Mesmo Mesmo Lote Teste',
       limit_tickets: 10,
       start_date: 2.day.from_now.to_date,
