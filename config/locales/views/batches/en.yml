@@ -1,0 +1,7 @@
+en:
+  batches:
+    index:
+      title: Available Tickets
+      buy: Buy
+      sold_coming_soon: Sales coming soon
+      sold_closed: Sales closed

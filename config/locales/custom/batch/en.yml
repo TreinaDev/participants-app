@@ -1,0 +1,11 @@
+en:
+  batch:
+    one: Batch
+    other: Batches
+    name: Name
+    limit_tickets: Limit tickets
+    start_date: Start date
+    end_date: End date
+    value: Value
+    event_id: Event
+    currency: R$ %{price}

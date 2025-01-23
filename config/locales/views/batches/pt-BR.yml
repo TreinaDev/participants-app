@@ -1,0 +1,7 @@
+pt-BR:
+  batches:
+    index:
+      title: 'Ingressos disponíveis'
+      buy: 'Comprar'
+      sold_coming_soon: 'Vendas em breve'
+      sold_closed: 'Vendas fechadas'
