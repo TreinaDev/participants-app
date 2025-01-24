@@ -18,7 +18,7 @@ RSpec.describe "Tickets", type: :request do
       batch = build(:batch, batch_id: 1, name: "Meia-Entrada")
       login_as user
 
-      allow(Batch).to receive(:sold_out?).and_return(true)
+      allow(Batch).to receive(:check_if_batch_is_sold_out).and_return(true)
       get(new_event_batch_ticket_path(batch_id: batch.batch_id, event_id: event.event_id))
 
       expect(response).to redirect_to root_path(locale: :'pt-BR')
@@ -45,7 +45,7 @@ RSpec.describe "Tickets", type: :request do
       batch = build(:batch, batch_id: 1, name: "Meia-Entrada")
       login_as user
 
-      allow(Batch).to receive(:sold_out?).and_return(true)
+      allow(Batch).to receive(:check_if_batch_is_sold_out).and_return(true)
       post(event_batch_tickets_path(batch_id: batch.batch_id, event_id: event.event_id), params: { ticket: { payment_method: :cash } })
 
       expect(response).to redirect_to root_path(locale: :'pt-BR')

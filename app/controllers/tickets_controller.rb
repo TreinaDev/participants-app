@@ -15,9 +15,9 @@ class TicketsController < ApplicationController
     @ticket.batch_id = @batch_id
 
     if @ticket.save
-      redirect_to root_path, notice: "Compra aprovada"
+      redirect_to root_path, notice: t(".approved")
     else
-      flash.now[:notice] = "Não foi possível realizar a compra"
+      flash.now[:notice] = t(".error")
       render :new, status: :unprocessable_entity
     end
   end
@@ -25,7 +25,7 @@ class TicketsController < ApplicationController
   private
 
   def check_batch_is_sold_out?
-    if Batch.sold_out?(@event_id, @batch_id)
+    if Batch.check_if_batch_is_sold_out(@event_id, @batch_id)
       redirect_to root_path, alert: t(".check_batch_is_sold_out?.alert")
     end
   end

@@ -5,6 +5,7 @@ describe 'Usuário é redirecionado para a tela de confimação de compra de ing
     user = create(:user)
     event = build(:event,  event_id: 1)
     batch = build(:batch, batch_id: 1, name: "Meia-Entrada")
+    allow(Batch).to receive(:check_if_batch_is_sold_out).and_return(false)
 
     login_as(user)
     visit new_event_batch_ticket_path(event_id: event.event_id, batch_id: batch.batch_id, locale: :'pt-BR')
@@ -23,6 +24,7 @@ describe 'Usuário é redirecionado para a tela de confimação de compra de ing
     event_2 = build(:event,  event_id: 2)
     batch_1 = build(:batch, batch_id: 1, name: "Meia-Entrada")
     batch_2 = build(:batch, batch_id: 2, name: "Pré-venda")
+    allow(Batch).to receive(:check_if_batch_is_sold_out).and_return(false)
 
     login_as(user)
     visit new_event_batch_ticket_path(event_id: event_2.event_id, batch_id: batch_2.batch_id, locale: :'pt-BR')
@@ -42,6 +44,7 @@ describe 'Usuário é redirecionado para a tela de confimação de compra de ing
     event_2 = build(:event,  event_id: 2)
     batch_1 = build(:batch, batch_id: 1, name: "Meia-Entrada")
     batch_2 = build(:batch, batch_id: 2, name: "Pré-venda")
+    allow(Batch).to receive(:check_if_batch_is_sold_out).and_return(false)
 
     login_as(user)
     visit new_event_batch_ticket_path(event_id: event_2.event_id, batch_id: batch_2.batch_id, locale: :'pt-BR')
