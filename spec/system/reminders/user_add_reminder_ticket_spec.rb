@@ -122,7 +122,7 @@ describe 'Usuário adiciona lembrete' do
       event_id: 1
     } ]
     event = build(:event, name: 'Evento Teste 01', batches: batch)
-    allow(Event).to receive(:request_event_by_id).and_return(event)
+    allow(Event).to receive(:request_event_by_id).and_return(event, event)
 
     login_as user
     visit event_path(id: event, locale: :'pt-BR')

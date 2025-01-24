@@ -26,7 +26,7 @@
         <% elsif @event.batches.any? && @total_tickets_sales == @event.batches.reduce(0) {|acc, curr| acc + curr.limit_tickets } %>
           <%= link_to t('.soldout'), event_batches_path(@event.event_id), class: "btn-buy", disabled: true %>
         <% elsif @event.batches.any? %>
-          <%= button_to t('.add_reminder'), reminders_path(event_id: @event.event_id, start_date: @event.start_date), method: :create, class: "btn-confirm" if user_signed_in? && !current_user.reminders.pluck(:event_id).include?(@event.event_id) %>
+          <%= button_to t('.add_reminder'), reminders_path(event_id: @event.event_id), method: :create, class: "btn-confirm" if user_signed_in? && !current_user.reminders.pluck(:event_id).include?(@event.event_id) %>
           <%= button_to t('.remove_reminder'), "#", class: "btn-buy" if user_signed_in? && current_user.reminders.pluck(:event_id).include?(@event.event_id) %>
           <p><%=t('.ticket_date')%> <%=I18n.l(@event.batches.min_by { |batch| batch.start_date }.start_date, format: :short)%></p>
         <% else %>
