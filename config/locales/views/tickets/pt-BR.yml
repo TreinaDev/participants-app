@@ -1,0 +1,4 @@
+pt-BR:
+  tickets:
+    check_batch_is_sold_out?:
+      alert: Ingressos esgotados

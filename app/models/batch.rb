@@ -19,7 +19,7 @@ class Batch
 
   def self.request_batches_by_event_id(event_id)
     batches_params = EventsApiService.get_batches_by_event_id event_id
-    build_batches(batches_params)
+    self.build_batches(batches_params)
   rescue Faraday::Error => error
     Rails.logger.error(error)
     []
@@ -31,8 +31,8 @@ class Batch
               event_id: batch[:event_id])}
   end
 
-  def self.sold_out?(batch_id)
+  def self.sold_out?(event_id, batch_id)
     number_of_tickets_sold = Ticket.where(batch_id: batch_id).count
-    EventsApiService.get_batch_by_id(batch_id)["limit_tickets"] <= number_of_tickets_sold
+    EventsApiService.get_batch_by_id(event_id, batch_id)["limit_tickets"] <= number_of_tickets_sold
   end
 end

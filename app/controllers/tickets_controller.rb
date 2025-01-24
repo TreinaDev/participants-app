@@ -1,6 +1,7 @@
 class TicketsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_event_and_batch, only: [ :new, :create ]
+  before_action :check_batch_is_sold_out?, only: [ :new, :create ]
   def new
     @ticket = Ticket.new
   end
@@ -22,6 +23,12 @@ class TicketsController < ApplicationController
   end
 
   private
+
+  def check_batch_is_sold_out?
+    if Batch.sold_out?(@event_id, @batch_id)
+      redirect_to root_path, alert: t(".check_batch_is_sold_out?.alert")
+    end
+  end
 
   def set_event_and_batch
     @batch_id = params[:batch_id]

@@ -118,24 +118,49 @@ describe 'Usuário acessa página de tipos de ingresso de um evento' do
 
   it 'E vê que os ingressos estão esgotados para um lote' do
     user = create(:user)
-    event = build(:event, name: 'Dev Week')
-    events = [ event ]
     tickets_available = 1
-    batch_1 = build(:batch, name: 'Entrada - VIP', limit_tickets: 50, event_id: event.event_id)
-    batch_2 = build(:batch, name: 'Entrada - Meia', limit_tickets: tickets_available,  event_id: event.event_id)
-    create(:ticket, batch_id: batch_2.batch_id)
-    batches = [ batch_1, batch_2 ]
+    batches = [ {
+      id: 1,
+      name: 'Lote Teste',
+      limit_tickets: 20,
+      start_date: 5.days.ago.to_date,
+      value: 20.00,
+      end_date: 2.month.from_now.to_date,
+      event_id: 1
+      },
+      {
+      id: 2,
+      name: 'Entrada - Meia',
+      limit_tickets: tickets_available,
+      start_date: 5.day.ago.to_date,
+      value: 10.00,
+      end_date: 10.day.from_now.to_date,
+      event_id: 1
+      },
+      {
+      id: 3,
+      name: 'Entrada - VIP',
+      limit_tickets: 30,
+      start_date: 2.days.ago.to_date,
+      value: 40.00,
+      end_date: 1.month.from_now.to_date,
+      event_id: 1
+      }
+    ]
+    event = build(:event, name: 'Dev Week', batches: batches)
+    events = [ event ]
+    create(:ticket, batch_id: batches[1][:id])
     allow(Event).to receive(:all).and_return(events)
     allow(Event).to receive(:request_event_by_id).and_return(event)
-    allow(Batch).to receive(:request_batches_by_event_id).and_return(batches)
+    allow(EventsApiService).to receive(:get_batches_by_event_id).and_return(batches)
 
     login_as(user)
     visit root_path(locale: :'pt-BR')
     click_on 'Eventos'
     click_on 'Dev Week'
-    click_on 'Ver ingressos'
+    click_on 'Ver Ingressos'
 
-    within("#batch_id_#{batch_2.batch_id}") do
+    within("#batch_id_#{batches[1][:id]}") do
       expect(page).to have_content 'Entrada - Meia'
       expect(page).to have_content 'Esgotado'
     end
