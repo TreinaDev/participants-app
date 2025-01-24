@@ -25,12 +25,12 @@ class TicketsController < ApplicationController
     @ticket = Ticket.find(params[:id])
     @event = Event.request_event_by_id(@event_id)
 
-    @qrcode =   RQRCode::QRCode.new(@ticket.token)
+    @qrcode = RQRCode::QRCode.new(@ticket.token)
 
     @svg = @qrcode.as_svg(
       offset: 0,
-      color: '000',
-      shape_rendering: 'crispEdges',
+      color: "000",
+      shape_rendering: "crispEdges",
       module_size: 6,
       standalone: true
     )
