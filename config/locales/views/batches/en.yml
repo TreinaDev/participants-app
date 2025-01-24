@@ -1,0 +1,7 @@
+pt-BR:
+  batches:
+    index:
+      title: Available Ticktets
+      buy: Buy
+      sold_coming_soon: Sales coming soon
+      sold_closed: Sales closed

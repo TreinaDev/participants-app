@@ -1,4 +1,5 @@
 en:
   custom:
     generic:
-      no_event_found: Event not found
+      event_not_found: Event not found
+      batches_not_found: This event do not have tickets yet
