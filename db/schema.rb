@@ -9,7 +9,8 @@
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
-ActiveRecord::Schema[8.0].define(version: 2025_01_23_185446) do
+
+ActiveRecord::Schema[8.0].define(version: 2025_01_23_203216) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -74,7 +75,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_23_185446) do
   end
 
   create_table "tickets", force: :cascade do |t|
-    t.integer "status_confirmed"
+    t.boolean "status_confirmed", default: false
     t.datetime "date_of_purchase"
     t.integer "payment_method"
     t.string "token"
