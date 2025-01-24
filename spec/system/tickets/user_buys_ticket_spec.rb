@@ -37,7 +37,7 @@ describe 'Usuário é redirecionado para a tela de confimação de compra de ing
     expect(page).to have_content 'Evento: DevWeek'
     expect(ticket.batch_id).to eq batch_2.batch_id
     expect(ticket.payment_method).to eq 'pix'
-    expect(page).to have_css('sv')
+    expect(page).to have_css('svg')
   end
 
   it 'e falha por não selecionar o método de pagamento' do
