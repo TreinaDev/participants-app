@@ -4,7 +4,5 @@ en:
     other: Events
     start_date: Start Date
     local_event: Local Event
-    end_date: End date
-    url_event: Event url
     event_owner: Event owner
-    limit_participants: Limit participants I18n.t(event.start_date)
+    limit_participants: Limit participants
