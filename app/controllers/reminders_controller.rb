@@ -4,12 +4,22 @@ class RemindersController < ApplicationController
   def create
     set_reminder()
     if @reminder.save
-      flash[:notice] = "Lembrete adicionado com sucesso"
+      flash[:notice] = t(".success")
       redirect_to request.referrer
     else
       flash.now[:alert] = @reminder.errors.full_messages.to_sentence
       redirect_to root_path
     end
+  end
+
+  def destroy
+    reminder = Reminder.find(params[:id])
+    if reminder.destroy
+      flash[:notice] = t(".success")
+      redirect_to request.referrer
+    end
+  rescue ActiveRecord::RecordNotFound
+    redirect_to root_path
   end
 
   private

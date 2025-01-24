@@ -2,5 +2,5 @@ pt-BR:
   activerecord:
     models:
       reminder:
-        one: Favorit
+        one: Favorite
         other: Favorites

@@ -1,0 +1,7 @@
+pt-BR:
+  reminders:
+    create:
+      success: Lembrete adicionado com sucesso
+    destroy:
+      success: Lembrete removido com sucesso
+    
