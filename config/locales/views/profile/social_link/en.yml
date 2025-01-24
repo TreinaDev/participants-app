@@ -5,4 +5,5 @@ en:
       title: Add a Link
       save: Save
     create: 
-      notice: Profile updated
+      notice: Link saved
+      alert: Unable to save Link

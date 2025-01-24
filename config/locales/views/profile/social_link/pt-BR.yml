@@ -5,4 +5,5 @@ pt-BR:
       title: Adicione um link
       save: Salvar Link
     create: 
-      notice: Perfil atualizado
+      notice: Link salvo
+      alert: Não foi possível salvar o Link

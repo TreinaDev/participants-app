@@ -1,4 +1,4 @@
-<%= page_title(t('.availiable_batches'))%>
+<%= page_title(t('.title'))%>
 
 <div class="bg-white p-6 m-3 w-full">
   <div class="mt-4 space-y-4">
@@ -6,18 +6,18 @@
       <div id="batch_id_<%=batch.batch_id%>" class="bg-white p-4 rounded-lg shadow-md flex justify-between">
         <div>
           <p class="font-bold text-gray-800"><%= batch.name %></p>
-          <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('batches.batch.value') %>:</span> <%= I18n.t('batches.batch.currency', price: batch.value) %></p>
-          <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('batches.batch.limit_tickets') %>:</span> <%= batch.limit_tickets %></p>
-          <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('batches.batch.start_date') %>:</span> <%= I18n.l(batch.start_date, format: :long) %></p>
-          <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('batches.batch.end_date') %>:</span> <%= I18n.l(batch.end_date, format: :long) %></p>
+          <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('batch.value') %>:</span> <%= I18n.t('batch.currency', price: batch.value) %></p>
+          <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('batch.limit_tickets') %>:</span> <%= batch.limit_tickets %></p>
+          <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('batch.start_date') %>:</span> <%= I18n.l(batch.start_date, format: :long) %></p>
+          <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('batch.end_date') %>:</span> <%= I18n.l(batch.end_date, format: :long) %></p>
         </div>
         <div>
           <% if batch.start_date > Date.today %>
-            <p><%= I18n.t('batches.index.sold_coming_soon') %></p>
+            <p><%= t('.sold_coming_soon') %></p>
           <%elsif batch.end_date < Date.today %>
-            <p><%= I18n.t('batches.index.sold_closed') %></p>
+            <p><%= t('.sold_closed') %></p>
           <% else %>
-            <%= link_to I18n.t('batches.index.buy'), event_batches_path(batch.event_id, batch.batch_id), class: 'btn-buy' %>
+            <%= link_to t('.buy'), event_batches_path(batch.event_id, batch.batch_id), class: 'btn-buy' %>
           <% end %>
         </div>
         </div>

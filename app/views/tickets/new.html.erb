@@ -1,0 +1,15 @@
+
+<% if @ticket.errors.any? %>
+    <ul> 
+        <% @ticket.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+    </ul>
+<% end %>
+
+<%= form_with(model: @ticket, method: 'post', url: event_batch_tickets_path(batch_id: @batch_id, event_id: @event_id)) do |f| %>
+  <%= f.label :payment_method  %> 
+  <%= f.select :payment_method,
+    options_for_select(Ticket.payment_methods.keys.map { |key| [t(key), key]}), prompt: true  %>
+    <%= f.submit %>
+<% end %>
