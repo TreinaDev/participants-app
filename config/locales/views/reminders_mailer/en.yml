@@ -1,0 +1,5 @@
+en:
+  reminders_mailer:
+    ticket_reminder:
+      subject: Ticket sale reminder
+      
