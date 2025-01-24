@@ -1,6 +1,7 @@
 pt-BR:
   batches:
     index:
+<<<<<<< HEAD
       availiable_batches: 'Ingressos disponíveis'
       buy: 'Comprar'
       sold_coming_soon: 'Vendas em breve'
@@ -15,3 +16,9 @@ pt-BR:
       event_id: 'Evento'
       currency: 'R$ %{price}'
     show:
+=======
+      title: Ingressos disponíveis
+      buy: Comprar
+      sold_coming_soon: Vendas em breve
+      sold_closed: Vendas fechadas
+>>>>>>> remotes/origin/main

@@ -1,0 +1,5 @@
+pt-BR:
+  custom:
+    generic:
+      event_not_found: Evento não encontrado
+      batches_not_found: Evento ainda não possui ingressos

@@ -16,22 +16,46 @@ describe 'Usuário acessa página de tipos de ingresso de um evento' do
 
   it 'com sucesso' do
     travel_to(Time.zone.local(2024, 01, 01, 12, 04, 44))
+    batches = [ {
+      id: 1,
+      name: 'Entrada - Meia',
+      limit_tickets: 20,
+      start_date: 5.days.ago.to_date,
+      value: 20.00,
+      end_date: 2.month.from_now.to_date,
+      event_id: 1
+      },
+      {
+      id: 2,
+      name: 'Lote Teste',
+      limit_tickets: 30,
+      start_date: 5.day.ago.to_date,
+      value: 10.00,
+      end_date: 10.day.from_now.to_date,
+      event_id: 1
+      },
+      {
+      id: 3,
+      name: 'Entrada - VIP',
+      limit_tickets: 50,
+      start_date: 2.days.ago.to_date,
+      value: 40.00,
+      end_date: 1.month.from_now.to_date,
+      event_id: 1
+      }
+    ]
     user = create(:user)
-    event = build(:event, name: 'Dev Week')
+    event = build(:event, name: 'Dev Week', batches: batches)
     events = [ event ]
-    batches = [ build(:batch, name: 'Entrada - VIP', limit_tickets: 50, start_date: 2.days.ago.to_date,
-                  value: 40.00, end_date: 1.month.from_now.to_date, event_id: event.event_id),
-                build(:batch, name: 'Entrada - Meia', limit_tickets: 20, start_date: 5.days.ago.to_date,
-                  value: 20.00, end_date: 2.month.from_now.to_date, event_id: event.event_id) ]
     allow(Event).to receive(:all).and_return(events)
     allow(Event).to receive(:request_event_by_id).and_return(event)
-    allow(Batch).to receive(:request_batches_by_event_id).and_return(batches)
+    allow(Batch).to receive(:request_batches_by_event_id).and_return(event.batches)
 
     login_as(user)
     visit root_path(locale: :'pt-BR')
     click_on 'Eventos'
     click_on 'Dev Week'
-    click_on 'Ver ingressos'
+    click_on 'Ver Ingressos'
 
     expect(page).to have_content 'Entrada - VIP'
     expect(page).to have_content 'Quantidade: 50', normalize_ws: true

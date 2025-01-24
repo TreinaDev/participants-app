@@ -7,6 +7,7 @@ pt-BR:
         min_character: 
           one: Um caractere mínimo
           other: Número de caracteres mínimo
+        welcome: Prazer em conhecê-lo! Insira seus detalhes para se registrar.
       edit:
         title: Editar sua conta
         min_character: 
