@@ -2,45 +2,37 @@ require 'rails_helper'
 
 RSpec.describe SocialLink, type: :model do
   describe "#valid?" do
-    context "URL deve ser válido" do
-      it 'https' do
+    context "URL" do
+      it 'inválido quando não adiciona https' do
         user = build(:user)
-        social_medium = SocialMedium.create(name: 'Facebook')
+        social_medium = SocialMedium.create(name: 'Instagram')
         social_link = SocialLink.new(profile: user.profile, social_medium_id: social_medium.id, url: 'instagram.com')
 
-        social_link.valid?
-
-        expect(social_link.errors.include?(:url)).to be true
+        expect(social_link.valid?).to be_falsey
       end
 
-      it '.com' do
+      it 'inválido quando não adiciona .com' do
         user = build(:user)
-        social_medium = SocialMedium.create(name: 'Facebook')
+        social_medium = SocialMedium.create(name: 'Instagram')
         social_link = SocialLink.new(profile: user.profile, social_medium_id: social_medium.id, url: 'https://www.instagram')
 
-        social_link.valid?
-
-        expect(social_link.errors.include?(:url)).to be true
+        expect(social_link.valid?).to be_falsey
       end
 
-      it 'www' do
+      it 'inválido quando não adiciona www' do
         user = build(:user)
-        social_medium = SocialMedium.create(name: 'Facebook')
+        social_medium = SocialMedium.create(name: 'Instagram')
         social_link = SocialLink.new(profile: user.profile, social_medium_id: social_medium.id, url: 'https://instagram.com')
 
-        social_link.valid?
-
-        expect(social_link.errors.include?(:url)).to be true
+        expect(social_link.valid?).to be_falsey
       end
 
-      it 'com endereço completo' do
-        user = build(:user)
-        social_medium = SocialMedium.create(name: 'Facebook')
+      it 'válido com endereço completo' do
+        user = create(:user)
+        social_medium = SocialMedium.create(name: 'Instagram')
         social_link = SocialLink.new(profile: user.profile, social_medium_id: social_medium.id, url: 'https://www.instagram.com')
 
-        social_link.valid?
-
-        expect(social_link.errors.include?(:url)).to be false
+        expect(social_link.valid?).to be true
       end
     end
   end
