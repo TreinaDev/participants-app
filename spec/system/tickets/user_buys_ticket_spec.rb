@@ -2,12 +2,30 @@ require 'rails_helper'
 
 describe 'Usuário é redirecionado para a tela de confimação de compra de ingresso' do
   it 'e visualiza os métodos de pagamento' do
+    travel_to(Time.zone.local(2024, 02, 01, 00, 04, 44))
+    batches = [ {
+      id: 1,
+      name: 'Entrada - Meia',
+      limit_tickets: 20,
+      start_date: 5.days.ago.to_date,
+      value: 20.00,
+      end_date: 2.month.from_now.to_date,
+      event_id: 1
+      }
+    ]
     user = create(:user)
-    event = build(:event,  event_id: 1)
-    batch = build(:batch, batch_id: 1, name: "Meia-Entrada")
+    event = build(:event, name: 'DevWeek',  event_id: 1, batches: batches)
+    events = [ event ]
+    allow(Event).to receive(:all).and_return(events)
+    allow(Event).to receive(:request_event_by_id).and_return(event)
+    allow(Batch).to receive(:request_batches_by_event_id).and_return(event.batches)
 
     login_as(user)
-    visit new_event_batch_ticket_path(event_id: event.event_id, batch_id: batch.batch_id, locale: :'pt-BR')
+    visit root_path
+    click_on 'Eventos'
+    click_on 'DevWeek'
+    click_on 'Ver Ingressos'
+    click_on 'Comprar'
 
     expect(page).to have_content "Pay-Pal"
     expect(page).to have_content "PIX"
