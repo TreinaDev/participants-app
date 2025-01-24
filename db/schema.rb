@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_23_203216) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_23_213040) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -55,6 +55,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_23_203216) do
     t.datetime "updated_at", null: false
     t.string "phone_number"
     t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
+  create_table "reminders", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.date "start_date"
+    t.integer "event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_reminders_on_user_id"
   end
 
   create_table "social_links", force: :cascade do |t|
@@ -105,6 +114,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_23_203216) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "favorites", "users"
   add_foreign_key "profiles", "users"
+  add_foreign_key "reminders", "users"
   add_foreign_key "social_links", "profiles"
   add_foreign_key "social_links", "social_media"
   add_foreign_key "tickets", "users"

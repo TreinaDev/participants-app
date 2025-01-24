@@ -49,7 +49,7 @@ describe 'Usuário abre a app e vê lista de eventos', type: :system do
   it 'e não tem eventos disponiveis' do
     user = create(:user)
     events = []
-    allow(response).to receive(:all).and_return(events)
+    allow(Event).to receive(:all).and_return(events)
 
     login_as user
     visit root_path

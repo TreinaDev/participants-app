@@ -25,6 +25,7 @@ Rails.application.routes.draw do
         resources :tickets, only: [ :new, :create ]
       end
     end
+    resources :reminders, only: [ :create ]
     resources :favorites, only: [ :index, :create, :destroy ]
   end
 end
