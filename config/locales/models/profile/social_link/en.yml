@@ -8,3 +8,10 @@ en:
       social_link:
         name: Name
         url: URL
+        social_medium_id: Social Media
+    errors:
+      models:
+        social_link:
+          attributes:
+            url:
+              invalid_url: invalid

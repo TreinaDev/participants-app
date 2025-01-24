@@ -11,5 +11,8 @@
 user = User.create!(name: 'Master', last_name: 'Teste', email: 'master@email.com', password: '123456', cpf: CPF.generate)
 profile = user.profile
 profile.update(city: 'Cidade Teste', state: 'Estado Teste')
-SocialLink.create!(name: 'Facebook', url: 'facebook/master.com', profile: profile)
-SocialLink.create!(name: 'Instagram', url: 'instagram/master.com', profile: profile)
+SocialMedium.create(name: 'Instagram')
+SocialMedium.create(name: 'Linkedin')
+SocialMedium.create(name: 'GitHub')
+SocialMedium.create(name: 'Reddit')
+SocialMedium.create(name: 'Facebook')
