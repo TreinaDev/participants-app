@@ -1,5 +1,13 @@
 
 
-<h2>Evento: <%= @event.name %></h2>
-
-<%= @svg.html_safe %>
+<div class="w-80 mx-auto bg-white p-4 rounded-[1.25rem] mb-5 shadow-lg ">
+  <div class="text-center w-72 card-event">
+    <div class="flex justify-center items-center mb-5 h-72 mt-5 text-center">
+        <%= @svg.html_safe %>
+    </div>
+    <div class="px-3 space-y-2 text-center">
+        <h1 class="text-dark_blue text-[22px] font-bold"><h2><%= I18n.t('.event.one') %>: <%= @event.name %></h2></h1>
+        <p class="font-normal text-light_slate_gray text-normal"><%= current_user.name %></p>
+    </div>
+  </div>
+</div>
