@@ -1,0 +1,5 @@
+en:
+  custom:
+    generic:
+      event_not_found: Event not found
+      batches_not_found: This event do not have tickets yet

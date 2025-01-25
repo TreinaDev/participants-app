@@ -55,8 +55,6 @@ Esta aplicação Ruby on Rails foi desenvolvida para gerenciar inscrições em e
 - Feedbacks públicos aparecem no feed do evento.
 - Organizadores têm acesso a todos os feedbacks.
 
-
-
 ## Pré-requisitos
 1. setup:
    - Ruby 3.3.5+
@@ -112,3 +110,5 @@ Esta aplicação Ruby on Rails foi desenvolvida para gerenciar inscrições em e
    - Email do dono: `user@email.com`
    - Senha: `123456`
 
+* ...
+# events_api

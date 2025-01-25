@@ -1,0 +1,17 @@
+pt-BR:
+  events:
+    index:
+      available_events: Eventos disponíveis
+      unavailable_events: Nenhum evento disponível
+    event:
+      start_date: Data de início
+    show:
+      event_agenda: Agenda do evento
+      no_schedule: Ainda não existe programação cadastrada para esse evento
+      add_favorites: Adicionar a favoritos
+      tickets: Ver Ingressos
+      ticket_date: Ingressos disponíveis
+      no_tickets_registered: Sem ingressos disponíveis
+      soldout: Ingressos Esgotados
+      add_reminder: Adicionar Lembrete
+      remove_reminder: Remover Lembrete

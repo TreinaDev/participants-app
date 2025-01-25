@@ -1,0 +1,20 @@
+en:
+  activerecord:
+    models:
+      user:
+        one: User
+        other: Users
+    attributes:
+      user:
+        name: Name
+        last_name: Last Name
+        cpf: CPF
+        email: Email
+        password: Password
+        password_confirmation: Confirm Password
+    errors:
+      models:
+        user:
+          attributes:
+            cpf:
+              invalid_cpf: invalid

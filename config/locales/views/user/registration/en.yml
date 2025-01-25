@@ -1,0 +1,26 @@
+en:
+  devise:
+    registrations:  
+      new:
+        title: Subscribe
+        save: Save Account
+        min_character: 
+          one: A minimum character
+          other: Min characters
+        welcome: Nice to meet you! Please insert your informations.
+      edit:
+        title: Edit your account
+        min_character: 
+          one: A minimum character
+          other: Min characters
+        wait_confirmation: Wait confirmation
+        leave_blank: Leave in blank if you don't want to change
+        need_password: we need our current password to confirm the change
+        save: Update
+        cancel_account: Cancel account
+        are_you_sure: Are you sure?
+        back: Back
+        sad: Sad?
+
+
+

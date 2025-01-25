@@ -1,0 +1,17 @@
+pt-BR:
+  activerecord:
+    models:
+      social_link:
+        one: Link Social
+        other: Link Sociais
+    attributes:
+      social_link:
+        name: Nome
+        url: URL
+        social_medium_id: Redes Sociais
+    errors:
+      models:
+        social_link:
+          attributes:
+            url:
+              invalid_url: não é válido

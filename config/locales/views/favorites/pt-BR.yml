@@ -1,0 +1,12 @@
+pt-BR:
+  favorites:
+    create:
+      success: 'Evento adicionado a favorito com sucesso'
+    destroy:
+      success: 'Evento Desfavoritado'
+      alert: 'Você não possui permissão para realizar essa ação'
+    check_user_is_authenticated:
+      alert: 'Usuário não autenticado'
+    index:
+      title: 'Eventos Favoritos'
+      no_favorites: 'Você ainda não possui eventos favoritos'

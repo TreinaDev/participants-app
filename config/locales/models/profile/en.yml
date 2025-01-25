@@ -1,0 +1,12 @@
+en:
+  activerecord:
+    models:
+      profile:
+        one: Profile
+        other: Profiles
+    attributes:
+      profile:
+        city: City
+        state: State
+        phone_number: Phone Number
+        social_link: Social Link

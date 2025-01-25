@@ -1,0 +1,12 @@
+en:
+  devise:
+    password:
+      edit:
+        title: Edit your password
+        min_character: 
+          one: Um caractere mínimo
+          other: Número de caracteres mínimo
+        save: Edit your password
+      new:
+        title: Forgot your password?
+        save: Send me instructions for reset password

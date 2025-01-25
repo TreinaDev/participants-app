@@ -1,0 +1,7 @@
+pt-BR:
+  event_agenda:
+    start_time: Início
+    duration: Duração
+    type: Tipo do Evento
+    instructor: Instrutor
+    email: Contato

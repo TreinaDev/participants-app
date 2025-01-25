@@ -1,0 +1,8 @@
+en:
+  event:
+    one: Event
+    other: Events
+    start_date: Start Date
+    local_event: Local Event
+    event_owner: Event owner
+    limit_participants: Limit participants

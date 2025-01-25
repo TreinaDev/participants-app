@@ -1,0 +1,6 @@
+pt-BR:
+  devise:
+    sessions:
+      new:
+        title: Faça seu login
+        log_in: Entrar

@@ -1,0 +1,12 @@
+pt-BR:
+  activerecord:
+    models:
+      profile:
+        one: Perfil
+        other: Perfis
+    attributes:
+      profile:
+        city: Cidade
+        state: Estado
+        phone_number: Telefone
+        social_link: Link

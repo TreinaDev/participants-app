@@ -1,0 +1,6 @@
+pt-BR:
+  devise:
+    confirmations:  
+      new:
+        title: Reenviar instruções de confirmação
+        save: Reenviar instruções

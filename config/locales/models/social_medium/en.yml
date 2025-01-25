@@ -1,0 +1,10 @@
+en:
+  activerecord:
+    models:
+      social_medium:
+        one: Social Medium
+        other: Social Media
+    attributes:
+      social_medium:
+        name: Nome
+        icon: Icone

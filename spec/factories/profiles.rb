@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :profile do
     user { nil }
-    city { "MyString" }
-    state { "MyString" }
+    city { "Cidade Teste" }
+    state { "Estado Teste" }
   end
 end

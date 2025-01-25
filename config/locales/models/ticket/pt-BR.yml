@@ -1,0 +1,21 @@
+pt-BR:
+  pix: 'PIX'
+  cash: 'Em Dinheiro'
+  paypal: 'Pay-Pal'
+  credit_card: 'Cartão De Crédito'
+  bank_slip: 'Boleto Bancário'
+
+  activerecord:
+    models:
+      ticket:
+        one: 'Ingresso'
+        other: 'Ingressos'
+    attributes:
+      ticket:
+        payment_method: 'Método de pagamento'
+        date_of_purchase: 'Data da Compra'
+    errors:
+      models:
+        ticket:
+          sold_out: 'Esgotado'
+
