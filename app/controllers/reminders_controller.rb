@@ -6,6 +6,7 @@ class RemindersController < ApplicationController
     if @reminder.save
       flash[:notice] = "Lembrete adicionado com sucesso"
       redirect_to request.referrer
+      RemindersMailer.with(user: @reminder.user.id, event: params[:event_id]).ticket_reminder.deliver_later(wait_until: @reminder.start_date.to_datetime) if @reminder.start_date.to_datetime
     else
       flash.now[:alert] = @reminder.errors.full_messages.to_sentence
       redirect_to root_path
