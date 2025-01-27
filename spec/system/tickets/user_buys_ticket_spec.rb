@@ -19,6 +19,7 @@ describe 'Usuário é redirecionado para a tela de confimação de compra de ing
     allow(Event).to receive(:all).and_return(events)
     allow(Event).to receive(:request_event_by_id).and_return(event)
     allow(Batch).to receive(:request_batches_by_event_id).and_return(event.batches)
+    allow(Batch).to receive(:check_if_batch_is_sold_out).and_return(false)
 
     login_as(user)
     visit root_path
@@ -41,6 +42,7 @@ describe 'Usuário é redirecionado para a tela de confimação de compra de ing
     event_2 = build(:event, name: 'DevWeek',  event_id: 2)
     batch_1 = build(:batch, batch_id: 1, name: "Meia-Entrada")
     batch_2 = build(:batch, batch_id: 2, name: "Pré-venda")
+    allow(Batch).to receive(:check_if_batch_is_sold_out).and_return(false)
 
     allow(Event).to receive(:request_event_by_id).and_return(event_2)
 
@@ -64,6 +66,7 @@ describe 'Usuário é redirecionado para a tela de confimação de compra de ing
     event_2 = build(:event,  event_id: 2)
     batch_1 = build(:batch, batch_id: 1, name: "Meia-Entrada")
     batch_2 = build(:batch, batch_id: 2, name: "Pré-venda")
+    allow(Batch).to receive(:check_if_batch_is_sold_out).and_return(false)
 
     login_as(user)
     visit new_event_batch_ticket_path(event_id: event_2.event_id, batch_id: batch_2.batch_id, locale: :'pt-BR')

@@ -82,4 +82,70 @@ RSpec.describe Batch, type: :model do
       expect(result.length).to eq 0
     end
   end
+
+  context 'Esgotado?' do
+    it 'verdadeiro quando o limite de ingressos tiver sido atingido' do
+      batch = build(:batch, limit_tickets: 2)
+      create_list(:ticket, 2, batch_id: batch.batch_id)
+
+      expect(batch.sold_out?).to eq true
+    end
+
+    it 'falso quando o limite de ingressos não tiver sido atingido' do
+      batch = build(:batch, limit_tickets: 10)
+      create(:ticket, batch_id: batch.batch_id)
+
+      expect(batch.sold_out?).to eq false
+    end
+  end
+
+  context 'Verificação de limite com base apenas no id do lote' do
+    it ' retorna verdadeiro se os ingressos estão esgotados para um certo lote' do
+      batch = {
+          id: 1,
+          name: 'Entrada - VIP',
+          limit_tickets: 2,
+          start_date: '2024-12-30',
+          value: 40.00,
+          end_date: '2024-02-01',
+          event_id: 1
+        }
+      create_list(:ticket, 2, batch_id: batch[:id])
+      allow(EventsApiService).to receive(:get_batch_by_id).and_return(batch)
+
+      expect(Batch.check_if_batch_is_sold_out(batch[:event_id], batch[:id])).to eq true
+    end
+
+    it 'retorna falso se os ingressos não estão esgotados para um certo lote' do
+      batch = {
+          id: 1,
+          name: 'Entrada - VIP',
+          limit_tickets: 2,
+          start_date: '2024-12-30',
+          value: 40.00,
+          end_date: '2024-02-01',
+          event_id: 1
+        }
+
+      allow(EventsApiService).to receive(:get_batch_by_id).and_return(batch)
+
+      expect(Batch.check_if_batch_is_sold_out(batch[:event_id], batch[:id])).to eq false
+    end
+
+    it 'retorna verdadeiro em caso de erro na requisição à API de Eventos' do
+      batch = {
+          id: 1,
+          name: 'Entrada - VIP',
+          limit_tickets: 2,
+          start_date: '2024-12-30',
+          value: 40.00,
+          end_date: '2024-02-01',
+          event_id: 1
+        }
+
+      allow(EventsApiService).to receive(:get_batch_by_id).and_raise(Faraday::Error)
+
+      expect(Batch.check_if_batch_is_sold_out(batch[:event_id], batch[:id])).to eq true
+    end
+  end
 end

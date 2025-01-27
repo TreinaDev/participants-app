@@ -1,0 +1,7 @@
+pt-BR:
+  tickets:
+    create:
+      approved: Compra aprovada
+      error: Não foi possível realizar a compra
+    check_batch_is_sold_out?:
+      alert: Ingressos esgotados
