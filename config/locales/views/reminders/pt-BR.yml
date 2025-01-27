@@ -4,4 +4,5 @@ pt-BR:
       success: Lembrete adicionado com sucesso
     destroy:
       success: Lembrete removido com sucesso
+      alert: Você não tem permissão para excluir este lembrete.
     

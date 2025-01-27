@@ -4,4 +4,4 @@ en:
       success: Reminder added with success
     destroy:
       success: Reminder removed with success
-    
+      alert: You do not have permission to delete this reminder.

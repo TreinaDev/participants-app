@@ -1,5 +1,7 @@
 class RemindersController < ApplicationController
   before_action :authenticate_user!
+  before_action :check_user, only: [ :destroy ]
+  rescue_from ActiveRecord::RecordNotFound, with: :handle_record_not_found
 
   def create
     set_reminder()
@@ -13,13 +15,10 @@ class RemindersController < ApplicationController
   end
 
   def destroy
-    reminder = Reminder.find(params[:id])
-    if reminder.destroy
+    if @reminder.destroy
       flash[:notice] = t(".success")
       redirect_to request.referrer
     end
-  rescue ActiveRecord::RecordNotFound
-    redirect_to root_path
   end
 
   private
@@ -33,5 +32,17 @@ class RemindersController < ApplicationController
       @reminder.start_date = min_date_batch
     end
     @reminder.event_id = params[:event_id]
+  end
+
+  def check_user
+    @reminder = Reminder.find(params[:id])
+    if current_user.id != @reminder.user_id
+      flash[:alert] = t(".alert")
+      redirect_to root_path
+    end
+  end
+
+  def handle_record_not_found
+    redirect_to root_path
   end
 end
