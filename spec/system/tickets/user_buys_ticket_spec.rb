@@ -20,9 +20,11 @@ describe 'Usuário é redirecionado para a tela de confimação de compra de ing
     travel_to(Time.zone.local(2024, 02, 01, 00, 04, 44))
     user = create(:user)
     event_1 = build(:event,  event_id: 1)
-    event_2 = build(:event,  event_id: 2)
+    event_2 = build(:event, name: 'DevWeek',  event_id: 2)
     batch_1 = build(:batch, batch_id: 1, name: "Meia-Entrada")
     batch_2 = build(:batch, batch_id: 2, name: "Pré-venda")
+
+    allow(Event).to receive(:request_event_by_id).and_return(event_2)
 
     login_as(user)
     visit new_event_batch_ticket_path(event_id: event_2.event_id, batch_id: batch_2.batch_id, locale: :'pt-BR')
@@ -32,8 +34,10 @@ describe 'Usuário é redirecionado para a tela de confimação de compra de ing
     ticket = Ticket.last
 
     expect(page).to have_content("Compra aprovada")
+    expect(page).to have_content 'Evento: DevWeek'
     expect(ticket.batch_id).to eq batch_2.batch_id
     expect(ticket.payment_method).to eq 'pix'
+    expect(page).to have_css('svg')
   end
 
   it 'e falha por não selecionar o método de pagamento' do
