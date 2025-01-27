@@ -22,7 +22,7 @@ RSpec.describe RemindersMailer, type: :mailer do
       allow(Event).to receive(:request_event_by_id).and_return(event)
 
       expect(mail.body).to include "Olá #{user.name}"
-      expect(mail.body).to include "O ingresso para o evento #{event.name} chegou"
+      expect(mail.body).to include "As vendas do ingresso para o evento #{event.name} já foram abertas"
       expect(mail.body).to include "Garanta já o seu!"
     end
   end
