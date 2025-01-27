@@ -14,8 +14,11 @@ describe 'Usuário é redirecionado para a tela de confimação de compra de ing
       }
     ]
     user = create(:user)
-    event = build(:event,  event_id: 1)
-    batch = build(:batch, batch_id: 1, name: "Meia-Entrada")
+    event = build(:event, name: 'DevWeek',  event_id: 1, batches: batches)
+    events = [ event ]
+    allow(Event).to receive(:all).and_return(events)
+    allow(Event).to receive(:request_event_by_id).and_return(event)
+    allow(Batch).to receive(:request_batches_by_event_id).and_return(event.batches)
     allow(Batch).to receive(:check_if_batch_is_sold_out).and_return(false)
 
     login_as(user)
