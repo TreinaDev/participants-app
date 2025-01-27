@@ -29,6 +29,9 @@
             <%= link_to t('.my_favorites'), favorites_path, class: "btn-nav" %>
           </li>
           <li>
+            <%= link_to t('.my_events'), my_events_path, class: "btn-nav" %>
+          </li>
+          <li>
             <%= link_to current_user.email, user_profile_path(user_id: current_user.id, id: current_user.profile), class: "btn-nav" %>
           </li>
         <% end %>

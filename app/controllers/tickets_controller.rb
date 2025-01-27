@@ -12,6 +12,7 @@ class TicketsController < ApplicationController
 
     @ticket = current_user.tickets.build(ticket_params)
     @ticket.batch_id = @batch_id
+    @ticket.event_id = @event_id
 
     if @ticket.save
       redirect_to root_path, notice: "Compra aprovada"

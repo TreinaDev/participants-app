@@ -1,0 +1,11 @@
+<h1>Meus Eventos</h1>
+
+<% if @my_events.empty? %>
+    <%= t('.no_tickets') %>
+<% else %>
+    <% @my_events.each do |event| %>
+
+    <%= event.name %>
+
+    <% end %>
+<% end %>
