@@ -2,13 +2,28 @@ require 'rails_helper'
 
 describe 'Usuário é redirecionado para a tela de confimação de compra de ingresso' do
   it 'e visualiza os métodos de pagamento' do
+    travel_to(Time.zone.local(2024, 02, 01, 00, 04, 44))
+    batches = [ {
+      id: 1,
+      name: 'Entrada - Meia',
+      limit_tickets: 20,
+      start_date: 5.days.ago.to_date,
+      value: 20.00,
+      end_date: 2.month.from_now.to_date,
+      event_id: 1
+      }
+    ]
     user = create(:user)
     event = build(:event,  event_id: 1)
     batch = build(:batch, batch_id: 1, name: "Meia-Entrada")
     allow(Batch).to receive(:check_if_batch_is_sold_out).and_return(false)
 
     login_as(user)
-    visit new_event_batch_ticket_path(event_id: event.event_id, batch_id: batch.batch_id, locale: :'pt-BR')
+    visit root_path
+    click_on 'Eventos'
+    click_on 'DevWeek'
+    click_on 'Ver Ingressos'
+    click_on 'Comprar'
 
     expect(page).to have_content "Pay-Pal"
     expect(page).to have_content "PIX"
@@ -21,10 +36,12 @@ describe 'Usuário é redirecionado para a tela de confimação de compra de ing
     travel_to(Time.zone.local(2024, 02, 01, 00, 04, 44))
     user = create(:user)
     event_1 = build(:event,  event_id: 1)
-    event_2 = build(:event,  event_id: 2)
+    event_2 = build(:event, name: 'DevWeek',  event_id: 2)
     batch_1 = build(:batch, batch_id: 1, name: "Meia-Entrada")
     batch_2 = build(:batch, batch_id: 2, name: "Pré-venda")
     allow(Batch).to receive(:check_if_batch_is_sold_out).and_return(false)
+
+    allow(Event).to receive(:request_event_by_id).and_return(event_2)
 
     login_as(user)
     visit new_event_batch_ticket_path(event_id: event_2.event_id, batch_id: batch_2.batch_id, locale: :'pt-BR')
@@ -34,8 +51,10 @@ describe 'Usuário é redirecionado para a tela de confimação de compra de ing
     ticket = Ticket.last
 
     expect(page).to have_content("Compra aprovada")
+    expect(page).to have_content 'Evento: DevWeek'
     expect(ticket.batch_id).to eq batch_2.batch_id
     expect(ticket.payment_method).to eq 'pix'
+    expect(page).to have_css('svg')
   end
 
   it 'e falha por não selecionar o método de pagamento' do

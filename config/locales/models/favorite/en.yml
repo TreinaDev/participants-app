@@ -1,6 +1,6 @@
 pt-BR:
   activerecord:
     models:
-      favorite:
+      reminder:
         one: Favorite
         other: Favorites

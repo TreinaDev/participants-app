@@ -1,7 +1,8 @@
 class TicketsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_event_and_batch, only: [ :new, :create ]
   before_action :check_batch_is_sold_out?, only: [ :new, :create ]
+  before_action :set_event_and_batch, only: [ :new, :create, :show ]
+
   def new
     @ticket = Ticket.new
   end
@@ -15,11 +16,26 @@ class TicketsController < ApplicationController
     @ticket.batch_id = @batch_id
 
     if @ticket.save
-      redirect_to root_path, notice: t(".approved")
+      redirect_to event_batch_ticket_path(@event_id, @batch_id, @ticket.id), notice: "Compra aprovada"
     else
       flash.now[:notice] = t(".error")
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def show
+    @ticket = Ticket.find(params[:id])
+    @event = Event.request_event_by_id(@event_id)
+
+    @qrcode = RQRCode::QRCode.new(@ticket.token)
+
+    @svg = @qrcode.as_svg(
+      offset: 0,
+      color: "000",
+      shape_rendering: "crispEdges",
+      module_size: 6,
+      standalone: true
+    )
   end
 
   private

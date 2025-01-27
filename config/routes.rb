@@ -22,9 +22,10 @@ Rails.application.routes.draw do
 
     resources :events, only: [ :index, :show ] do
       resources :batches, only: [ :index ] do
-        resources :tickets, only: [ :new, :create ]
+        resources :tickets, only: [ :new, :create, :show ]
       end
     end
+    resources :reminders, only: [ :create, :destroy ]
     resources :favorites, only: [ :index, :create, :destroy ]
   end
 end

@@ -1,0 +1,9 @@
+en:
+  activerecord:
+    models:
+      reminder:
+        one: Reminder
+        other: Reminders
+    attributes:
+      reminder:
+        start_date: Start Date
