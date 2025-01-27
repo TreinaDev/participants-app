@@ -16,4 +16,9 @@ module ApplicationHelper
       text
     end
   end
+
+  def formatted_currency(amount, locale: I18n.locale)
+    converted_amount = locale == :'pt-BR' ? amount  : amount / 5
+    number_to_currency(converted_amount, locale: locale)
+  end
 end
