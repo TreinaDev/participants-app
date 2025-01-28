@@ -1,6 +1,8 @@
 <nav class="bg-violet-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200">
-  <div class="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto">
-    <%= link_to page_title('E-vento'), root_path %>
+  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+    <%= link_to root_path, class: "flex items-center space-x-3 rtl:space-x-reverse" do%>
+      <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white text-white">Participants</span>
+    <% end %>
     <div class="flex md:order-2 space-x-2 md:space-x-0">
       <ul class="flex flex-col md:p-0 font-medium border md:space-x-2 md:flex-row md:mt-0 md:border-0 ">
         <% unless user_signed_in?%>
@@ -10,13 +12,41 @@
           <li>
             <%= link_to t('.log_in'), new_user_session_path, class: "btn-confirm" %>
           </li>
-        <% else %>
-          <%= button_to t('.log_out'), destroy_user_session_path, method: :delete, class: "btn-logout" %>
         <% end %>
-        <li>
-          <%= link_to 'Português', url_for(locale: :'pt-BR'), class: "btn-confirm" if I18n.locale == :en  %>
-          <%= link_to 'English', url_for(locale: :en), class: "btn-confirm" if I18n.locale == :'pt-BR' %>
-        </li>
+        <% if user_signed_in? %>
+          <li>
+            <button id="dropdownAvatarNameButton" data-dropdown-toggle="dropdownAvatarName" class="flex items-center text-sm pe-1 font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:me-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white" type="button">
+            <span class="sr-only">Open user menu</span>
+            <p class="btn-nav"><%= "Olá, #{current_user.name}" %></p>
+            <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+            </svg>
+            </button>
+
+            <!-- Dropdown menu -->
+            <div id="dropdownAvatarName" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600">
+              <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                <div class="font-medium "><%= current_user.name %></div>
+                <div class="truncate"><%= current_user.email %></div>
+              </div>
+              <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
+                <li>
+                  <%= link_to 'Meu Perfil', user_profile_path(user_id: current_user.id, id: current_user.profile), class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
+                </li>
+                <li>
+                  <%= link_to t('.my_favorites'), favorites_path, class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
+                </li>
+              </ul>
+              <div class="py-2">
+                <%= button_to t('.log_out'), destroy_user_session_path, method: :delete, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white w-full" %>
+              </div>
+            </div>
+          </li>
+        <% end %>
+          <li>
+            <%= link_to 'Português', url_for(locale: :'pt-BR'), class: "btn-confirm" if I18n.locale == :en  %>
+            <%= link_to 'English', url_for(locale: :en), class: "btn-confirm" if I18n.locale == :'pt-BR' %>
+          </li>
       </ul>
     </div>
     <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
