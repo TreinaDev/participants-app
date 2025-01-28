@@ -38,7 +38,9 @@ describe 'Usuário acessa página de detalhes de um evento' do
 
     login_as(user)
     visit root_path(locale: :'pt-BR')
-    click_on 'Eventos'
+    within('nav') do
+      click_on 'Eventos'
+    end
     click_on 'Dev Week'
 
     expect(current_path).to eq event_path(id: 1, locale: :'pt-BR')

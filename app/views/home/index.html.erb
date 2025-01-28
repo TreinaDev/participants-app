@@ -1,0 +1,67 @@
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 bg-gradient-to-br from-purple-600 to-indigo-600 mx-auto">
+        <div class="container px-6 ">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 text-white main-links px-8 ml-2">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                        Seu Próximo Evento Começa Aqui
+                    </h1>
+                    <p class="text-xl mb-8">
+                        Prepare-se para Aprender e se Inspirar!
+                    </p>
+                    <%= link_to t('.events'), events_path, class: "bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100" %>
+                </div>
+                <div class="md:w-1/2 mt-10 md:mt-0">
+                    <img src="https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg?auto=compress&cs=tinysrgb&w=600" alt="EventHub Preview" class="rounded-lg shadow-xl" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-16">Recursos Principais</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="p-6 bg-white rounded-lg shadow-md">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Ingressos Digitais</h3>
+                    <p class="text-gray-600">QR Code único para cada ingresso com controle de acesso inteligente para múltiplos dias de evento.</p>
+                </div>
+
+                <div class="p-6 bg-white rounded-lg shadow-md">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Feed Social</h3>
+                    <p class="text-gray-600">Interaja com outros participantes, compartilhe experiências e receba atualizações oficiais do evento.</p>
+                </div>
+
+                <div class="p-6 bg-white rounded-lg shadow-md">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Lembretes Inteligentes</h3>
+                    <p class="text-gray-600">Receba notificações quando as vendas de ingressos iniciarem para seus eventos favoritos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-20 bg-purple-600">
+        <div class="container mx-auto px-6 text-center links-sign-up">
+            <h2 class="text-3xl font-bold text-white mb-8">Comece a usar hoje mesmo</h2>
+            <p class="text-xl text-purple-100 mb-8">Junte-se a milhares de pessoas que já estão conectadas através de eventos incríveis.</p>
+            <%= link_to t('.sign_up'), new_user_registration_path, class: "btn-confirm" %>
+        </div>
+    </section>

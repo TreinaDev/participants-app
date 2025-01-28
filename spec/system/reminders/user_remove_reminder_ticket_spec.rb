@@ -10,7 +10,9 @@ describe 'Usuário remove lembrete' do
     allow(Event).to receive(:request_event_by_id).and_return(events[0])
 
     visit root_path
-    click_on 'Eventos'
+    within('nav') do
+      click_on 'Eventos'
+    end
     click_on 'Evento Teste 01'
 
     expect(page).not_to have_button 'Remover Lembrete'
@@ -27,7 +29,9 @@ describe 'Usuário remove lembrete' do
 
     login_as user
     visit root_path
-    click_on 'Eventos'
+    within('nav') do
+      click_on 'Eventos'
+    end
     click_on 'Evento Teste 01'
 
     expect(page).not_to have_button 'Remover Lembrete'
