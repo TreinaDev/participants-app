@@ -1,0 +1,9 @@
+<h1><%=t('.title')%> <%=@event.name%></h1>
+
+<% @batches.keys.each do |batch_id|%>
+    <h2><%= @batches[batch_id].name %> x<%= @tickets_by_batch_id[batch_id].count%></h2>
+    <% @tickets_by_batch_id[batch_id].each do |ticket| %>
+      <%= I18n.l(ticket.date_of_purchase, format: :short) %>
+      <%= ticket.token %>
+    <% end %>
+<% end %>

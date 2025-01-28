@@ -2,3 +2,5 @@ en:
   my_events:
     index:
       no_tickets: You have not purchased any tickets yet
+    show:
+      title: Tickets for the event

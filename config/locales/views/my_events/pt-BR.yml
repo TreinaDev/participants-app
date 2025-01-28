@@ -2,3 +2,5 @@ pt-BR:
   my_events:
     index:
       no_tickets: Você ainda não possui ingressos comprados
+    show:
+      title: Ingressos para o evento

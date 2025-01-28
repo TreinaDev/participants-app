@@ -15,8 +15,8 @@ describe 'Usuário acessa página de meus eventos' do
     visit root_path
     click_on 'Meus Eventos'
 
-    expect(page).to have_content('DevWeek')
-    expect(page).to have_content('Ruby')
+    expect(page).to have_link('DevWeek')
+    expect(page).to have_link('Ruby')
   end
 
   it 'e não está logado' do
@@ -59,5 +59,22 @@ describe 'Usuário acessa página de meus eventos' do
     visit my_events_path(locale: :'pt-BR')
 
     expect(page).to have_content 'Você ainda não possui ingressos comprados'
+  end
+
+  it 'e não vê eventos repetidos' do
+    user = create(:user)
+    event1 = build(:event, name: 'DevWeek')
+    event2 = build(:event, name: 'Ruby')
+    events = [ event1, event2 ]
+    create(:ticket, event_id: event1.event_id, user: user)
+    create(:ticket, event_id: event1.event_id, user: user)
+
+    allow(Event).to receive(:request_my_events).and_return(events)
+
+    login_as user
+    visit root_path
+    click_on 'Meus Eventos'
+
+    expect(page).to have_link('DevWeek').once
   end
 end

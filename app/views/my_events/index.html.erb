@@ -4,8 +4,10 @@
     <%= t('.no_tickets') %>
 <% else %>
     <% @my_events.each do |event| %>
-
-    <%= event.name %>
-
+        <div id="event_id_<%=event.event_id%>">
+            <%= link_to my_event_path(id: event.event_id)  do  %>
+                <%= event.name %>
+            <% end %>
+        </div>
     <% end %>
 <% end %>

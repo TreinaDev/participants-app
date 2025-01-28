@@ -25,7 +25,8 @@ Rails.application.routes.draw do
         resources :tickets, only: [ :new, :create ]
       end
     end
-    resources :my_events, only: [ :index ]
+
+    resources :my_events, only: [ :show, :index ]
     resources :reminders, only: [ :create ]
     resources :favorites, only: [ :index, :create, :destroy ]
   end

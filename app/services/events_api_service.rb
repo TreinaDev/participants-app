@@ -20,4 +20,8 @@ class EventsApiService
   def self.get_batches_by_event_id(event_id)
     self.request("#{BASE_URL}/#{event_id}/batches", :get)
   end
+
+  def self.get_batch_by_id(event_id, batch_id)
+    self.request("#{BASE_URL}/#{event_id}/batches/#{batch_id}", :get)
+  end
 end

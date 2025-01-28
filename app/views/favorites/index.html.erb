@@ -5,7 +5,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       <% @favorites.each do |event| %>
         <div id="event_id_<%=event.event_id%>" class="card-event relative">
-          <%= render '/events/event', event: event %>       
+          <%= render '/events/event', event: event %>
           <%= delete_favorite('x', favorite_path(Favorite.find_by(event_id: event.event_id))) %>
         </div>    
       <% end %> 
