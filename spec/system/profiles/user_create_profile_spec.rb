@@ -8,7 +8,7 @@ describe 'usuário cria perfil' do
     login_as user
     visit root_path
 
-    expect(page).to have_link 'teste@email.com'
+    expect(page).to have_content "Olá, #{user.name}"
   end
 
   it 'automaticamente após se cadastrar' do
@@ -21,7 +21,8 @@ describe 'usuário cria perfil' do
     fill_in 'Senha',	with: '123456'
     fill_in 'Confirmar Senha',	with: '123456'
     click_on 'Salvar Conta'
-    click_on 'cristiano@email.com'
+    click_on 'Olá, Cristiano'
+    click_on "Meu Perfil"
 
     profile = Profile.last
     expect(profile).not_to eq nil
