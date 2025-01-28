@@ -11,10 +11,10 @@
 
         <%= form_with(model: @ticket, method: 'post', url: event_batch_tickets_path(batch_id: @batch_id, event_id: @event_id), class: "space-y-6") do |f| %>
         <div>
-            <%= f.label :payment_method, class: "form-label"  %> 
+            <%= f.label :payment_method, class: "form-label"  %>
             <%= f.select :payment_method,
-            options_for_select(Ticket.payment_methods.keys.map { |key| [t(key), key]}), prompt: true,
-            class: "px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"  %>
+            options_for_select(Ticket.payment_methods.keys.map { |key| [t(key), key]}), { prompt: true },
+            { class: "form-field" } %>
         </div>
         <div>
             <%= f.submit class: "px-4 py-2 text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-700 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>

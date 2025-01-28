@@ -24,7 +24,7 @@
   }
 
   .card-event {
-    @apply max-w-lg rounded-lg shadow border-purple-900 border-2 
+    @apply max-w-lg rounded-lg shadow border-purple-900 border-2 hover:-translate-y-2 hover:shadow-purple-500
   }
 
   .notice {
