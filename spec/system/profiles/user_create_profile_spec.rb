@@ -2,13 +2,13 @@ require 'rails_helper'
 
 describe 'usuário cria perfil' do
   it 'pela barra de navegação' do
-    user = create(:user, email: 'teste@email.com')
+    user = create(:user, name: 'Cristiano', email: 'teste@email.com')
     create(:profile, user: user)
 
     login_as user
     visit root_path
 
-    expect(page).to have_link 'teste@email.com'
+    expect(page).to have_link 'Olá, Cristiano'
   end
 
   it 'automaticamente após se cadastrar' do
@@ -21,7 +21,7 @@ describe 'usuário cria perfil' do
     fill_in 'Senha',	with: '123456'
     fill_in 'Confirmar Senha',	with: '123456'
     click_on 'Salvar Conta'
-    click_on 'cristiano@email.com'
+    click_on 'Olá, Cristiano'
 
     profile = Profile.last
     expect(profile).not_to eq nil

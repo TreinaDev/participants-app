@@ -6,7 +6,7 @@ describe 'usuário vê perfil' do
 
     login_as user
     visit root_path
-    click_on 'teste@email.com'
+    click_on "Olá, #{user.name}"
 
     expect(current_path).to eq user_profile_path(user_id: user, id: Profile.first, locale: :'pt-BR')
   end

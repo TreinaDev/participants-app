@@ -6,7 +6,7 @@ describe 'usuário edita perfil' do
 
     login_as user
     visit root_path
-    click_on 'teste@email.com'
+    click_on "Olá, #{user.name}"
 
     expect(page).to have_link 'Editar Perfil'
   end
