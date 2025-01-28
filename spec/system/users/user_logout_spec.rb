@@ -6,6 +6,8 @@ describe 'usuário faz logout' do
 
     login_as user
     visit root_path
+    click_on "Olá, #{user.name}"
+
 
     expect(page).to have_button 'Sair'
   end
@@ -15,6 +17,7 @@ describe 'usuário faz logout' do
 
     login_as user
     visit root_path
+    click_on "Olá, #{user.name}"
     click_on 'Sair'
 
     expect(page).not_to have_button 'Sair'
