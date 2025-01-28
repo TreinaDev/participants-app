@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'usuário cria perfil' do
   it 'pela barra de navegação' do
-    user = create(:user, name: 'Cristiano', email: 'teste@email.com')
+    user = create(:user, email: 'teste@email.com')
     create(:profile, user: user)
 
     login_as user
@@ -21,8 +21,12 @@ describe 'usuário cria perfil' do
     fill_in 'Senha',	with: '123456'
     fill_in 'Confirmar Senha',	with: '123456'
     click_on 'Salvar Conta'
+<<<<<<< HEAD
     click_on 'Olá, Cristiano'
     click_on "Meu Perfil"
+=======
+    click_on 'cristiano@email.com'
+>>>>>>> parent of 0c79972 (refactor: muda link da navbar de email para mensagem de olá)
 
     profile = Profile.last
     expect(profile).not_to eq nil
