@@ -20,7 +20,7 @@ describe 'visitante cria conta' do
 
     expect(current_path).to eq root_path
     expect(page).to have_content 'Bem vindo! Você realizou seu registro com sucesso.'
-    expect(page).to have_content 'cristiano@email.com'
+    expect(page).to have_content "Olá, Cristiano"
   end
 
   it 'com campos obrigatórios' do
