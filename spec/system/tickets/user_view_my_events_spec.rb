@@ -5,11 +5,10 @@ describe 'Usuário acessa página de meus eventos' do
     user = create(:user)
     event1 = build(:event, name: 'DevWeek')
     event2 = build(:event, name: 'Ruby')
-    events = [ event1, event2 ]
     create(:ticket, event_id: event1.event_id, user: user)
     create(:ticket, event_id: event2.event_id, user: user)
 
-    allow(Event).to receive(:request_my_events).and_return(events)
+    allow(Event).to receive(:request_event_by_id).and_return(event1, event2)
 
     login_as user
     visit root_path
@@ -34,9 +33,8 @@ describe 'Usuário acessa página de meus eventos' do
     user = create(:user)
     event1 = build(:event, name: 'DevWeek')
     event2 = build(:event, name: 'Ruby')
-    events = [ event1, event2 ]
     create(:ticket, event_id: event1.event_id, user: user)
-    allow(Event).to receive(:request_my_events).and_return(events)
+    allow(Event).to receive(:request_event_by_id).and_return(event1, event2)
 
     login_as user
     visit root_path
@@ -63,18 +61,19 @@ describe 'Usuário acessa página de meus eventos' do
 
   it 'e não vê eventos repetidos' do
     user = create(:user)
-    event1 = build(:event, name: 'DevWeek')
-    event2 = build(:event, name: 'Ruby')
-    events = [ event1, event2 ]
-    create(:ticket, event_id: event1.event_id, user: user)
-    create(:ticket, event_id: event1.event_id, user: user)
-
-    allow(Event).to receive(:request_my_events).and_return(events)
+    event1 = build(:event, name: 'DevWeek', event_id: 1)
+    event2 = build(:event, name: 'Ruby', event_id: 2)
+    events = { 1 => event1, 2 => event2 }
+    create(:ticket, event_id: event1.event_id, user: user, batch_id: 1)
+    create(:ticket, event_id: event1.event_id, user: user, batch_id: 2)
+    event_ids = user.tickets.pluck(:event_id).uniq
+    allow(Event).to receive(:request_event_by_id).and_return(*event_ids.map { |event_id| events[event_id] })
 
     login_as user
     visit root_path
     click_on 'Meus Eventos'
-
+    save_page
     expect(page).to have_link('DevWeek').once
+    expect(page).not_to have_link('Ruby')
   end
 end

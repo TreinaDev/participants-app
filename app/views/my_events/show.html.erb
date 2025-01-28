@@ -6,7 +6,7 @@
         <%= link_to event_batch_ticket_path(event_id: @event.event_id, batch_id: ticket.batch_id, id: ticket.id) do %>
             <%= I18n.l(ticket.date_of_purchase, format: :short) %>
             <%= ticket.token %>
-            <h4>Ver QrCode</h4>
+            <h4>QrCode</h4>
         <% end %>
       <% end %>
 <% end %>

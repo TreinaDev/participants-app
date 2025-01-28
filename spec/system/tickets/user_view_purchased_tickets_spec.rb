@@ -128,7 +128,7 @@ describe 'Usuário acessa ingressos de um evento' do
 
     login_as user
     visit my_event_path(id: event.event_id, locale: :'pt-BR')
-    click_on 'Ver QrCode'
+    click_on 'QrCode'
 
     expect(current_path).to eq event_batch_ticket_path(event_id: event.event_id, batch_id: ticket.batch_id, id: ticket.id, locale: :'pt-BR')
   end

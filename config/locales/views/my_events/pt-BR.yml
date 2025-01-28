@@ -1,6 +1,8 @@
 pt-BR:
   my_events:
+    negate_access: Você não participa deste evento!
     index:
+      title: Meus Eventos
       no_tickets: Você ainda não possui ingressos comprados
     show:
       title: Ingressos para o evento

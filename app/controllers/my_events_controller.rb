@@ -2,8 +2,8 @@ class MyEventsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_user, only: [ :show ]
   def index
-    tickets = current_user.tickets.pluck(:event_id)
-    @my_events = Event.request_my_events(current_user.tickets).select { |event| tickets.include?(event.event_id) }
+    event_ids = current_user.tickets.pluck(:event_id).uniq
+    @my_events = event_ids.map { |event_id| Event.request_event_by_id(event_id) }.select { |event| event_ids.include?(event.event_id) }
   end
 
   def show
@@ -13,6 +13,6 @@ class MyEventsController < ApplicationController
   end
 
   def check_user
-    redirect_to root_path, alert: "Você não participa deste evento!" if Ticket.where(user: current_user, event_id: params[:id]).empty?
+    redirect_to root_path, alert: t(".negate_access") if Ticket.where(user: current_user, event_id: params[:id]).empty?
   end
 end
