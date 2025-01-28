@@ -18,7 +18,7 @@ describe 'visitante faz login' do
       click_on 'Entrar'
     end
 
-    expect(page).to have_content 'teste@email.com'
+    expect(page).to have_content "Olá, #{user.name}"
     expect(page).to have_content 'Login efetuado com sucesso.'
     expect(page).not_to have_button 'Entrar'
   end
