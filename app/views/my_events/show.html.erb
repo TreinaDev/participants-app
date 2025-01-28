@@ -1,9 +1,12 @@
-<h1><%=t('.title')%> <%=@event.name%></h1>
+<%=page_title("#{t('.title')} #{@event.name}")%>
 
-<% @batches.keys.each do |batch_id|%>
-    <h2><%= @batches[batch_id].name %> x<%= @tickets_by_batch_id[batch_id].count%></h2>
-    <% @tickets_by_batch_id[batch_id].each do |ticket| %>
-      <%= I18n.l(ticket.date_of_purchase, format: :short) %>
-      <%= ticket.token %>
-    <% end %>
+<% @batches.keys.each do |batch_id| %>
+    <h2><%= @batches[batch_id].name %> x<%= @tickets_by_batch_id[batch_id].count %></h2>
+      <% @tickets_by_batch_id[batch_id].each do |ticket| %>
+        <%= link_to event_batch_ticket_path(event_id: @event.event_id, batch_id: ticket.batch_id, id: ticket.id) do %>
+            <%= I18n.l(ticket.date_of_purchase, format: :short) %>
+            <%= ticket.token %>
+            <h4>Ver QrCode</h4>
+        <% end %>
+      <% end %>
 <% end %>

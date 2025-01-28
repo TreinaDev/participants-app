@@ -121,12 +121,15 @@ describe 'Usuário acessa ingressos de um evento' do
     ]
     event = build(:event, name: 'DevWeek', batches: batches, event_id: 1)
     events = [ event ]
-    create(:ticket, event_id: event.event_id, batch_id: 1, user: user)
+    ticket = create(:ticket, event_id: event.event_id, batch_id: 1, user: user)
     batches.map! { |batch| build(:batch, **batch) }
     allow(Batch).to receive(:request_batch_by_id).with("1", 1).and_return(batches[0])
     allow(Event).to receive(:request_event_by_id).and_return(events[0])
 
     login_as user
     visit my_event_path(id: event.event_id, locale: :'pt-BR')
+    click_on 'Ver QrCode'
+
+    expect(current_path).to eq event_batch_ticket_path(event_id: event.event_id, batch_id: ticket.batch_id, id: ticket.id, locale: :'pt-BR')
   end
 end

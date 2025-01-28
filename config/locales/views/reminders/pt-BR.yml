@@ -1,0 +1,8 @@
+pt-BR:
+  reminders:
+    create:
+      success: Lembrete adicionado com sucesso
+    destroy:
+      success: Lembrete removido com sucesso
+      alert: Você não tem permissão para excluir este lembrete.
+    

@@ -132,4 +132,40 @@ describe 'Usuário adiciona lembrete' do
     expect(page).to have_content 'Lembrete adicionado com sucesso'
     expect(page).to have_button 'Remover Lembrete'
   end
+
+  it 'e agenda envio do email' do
+    user = create(:user)
+    batch = [ {
+      id: 1,
+      name: 'Lote Teste',
+      limit_tickets: 30,
+      start_date: 1.day.from_now.to_date,
+      value: 10.00,
+      end_date: 1.day.from_now.to_date,
+      event_id: 1
+    }, {
+      id: 2,
+      name: 'Mesmo Lote Teste',
+      limit_tickets: 50,
+      start_date: 2.day.from_now.to_date,
+      value: 20.00,
+      end_date: 2.day.from_now.to_date,
+      event_id: 1
+    } ]
+    event = build(:event, name: 'Evento Teste 01', batches: batch)
+    allow(Event).to receive(:request_event_by_id).and_return(event, event)
+    mail = double('mail', deliver_later: true)
+    mailer_double = double('RemindersMailer', ticket_reminder: mail)
+    allow(RemindersMailer).to receive(:with).and_return(mailer_double)
+    allow(mail).to receive(:ticket_reminder).and_return(mail)
+
+    login_as user
+    visit event_path(id: event, locale: :'pt-BR')
+    click_on 'Adicionar Lembrete'
+
+    travel_to 1.day.from_now do
+      expect(mailer_double).to have_received(:ticket_reminder).once
+      expect(mail).to have_received(:deliver_later)
+    end
+  end
 end

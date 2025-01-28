@@ -6,7 +6,7 @@
     <% if event.logo.present? %>
       <img class="w-20 h-20 mb-3 rounded-full" src="<%= event.logo %>" alt="Logo do evento"/>
     <% end %>
-    <h5 class="mb-2 text-2xl font-bold tracking-tigh text-black"><%= link_to event.name, event_path(event.event_id) %></h5>
+    <h5 class="mb-2 text-2xl font-bold tracking-tigh text-black"><%= event.name %></h5>
   </div>
   <p class="text-md text-black mt-4"><%=t('.start_date')%>:  <%=I18n.l(event.start_date.to_date, format: :long)%></p>
 </div>

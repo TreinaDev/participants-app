@@ -4,8 +4,10 @@
   <div class="container mx-auto">
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       <% @events.each do |event| %>
-        <div class="card-event">
-          <%= render '/events/event', event: event %>
+        <div class="card-event cursor-pointer">
+          <%= link_to event_path(event.event_id) do %>
+            <%= render '/events/event', event: event %>
+          <% end %>
         </div>
       <% end %>
     </div>

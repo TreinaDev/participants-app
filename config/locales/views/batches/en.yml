@@ -1,7 +1,21 @@
-pt-BR:
+en:
   batches:
     index:
-      title: Available Ticktets
+      title: Available Tickets
+      buy: Buy
+      sold_coming_soon: Sales coming soon
+      sold_closed: Sales closed
+      sold out: 'Sold out'
+    batch:
+      name: 'Name'
+      limit_tickets: 'Quantity'
+      start_date: 'Start of sale'
+      end_date: 'Sale clause'
+      value: Value
+      event_id: Event
+      currency: 'R$ %{price}'
+    show:
+      title: Tickets available
       buy: Buy
       sold_coming_soon: Sales coming soon
       sold_closed: Sales closed

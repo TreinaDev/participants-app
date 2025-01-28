@@ -1,15 +1,25 @@
 
-<% if @ticket.errors.any? %>
-    <ul> 
-        <% @ticket.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
+<div class= "flex items-center justify-center min-h-screen">
+    <div class= "w-full max-w-md p-6 bg-gray rounded-2x1 shadow-lg">
+        <% if @ticket.errors.any? %>
+        <ul class="error-messages"> 
+            <% @ticket.errors.full_messages.each do |msg| %>
+                <li class="alert"><%= msg %></li>
+            <% end %>
+        </ul>
         <% end %>
-    </ul>
-<% end %>
 
-<%= form_with(model: @ticket, method: 'post', url: event_batch_tickets_path(batch_id: @batch_id, event_id: @event_id)) do |f| %>
-  <%= f.label :payment_method  %> 
-  <%= f.select :payment_method,
-    options_for_select(Ticket.payment_methods.keys.map { |key| [t(key), key]}), prompt: true  %>
-    <%= f.submit %>
-<% end %>
+        <%= form_with(model: @ticket, method: 'post', url: event_batch_tickets_path(batch_id: @batch_id, event_id: @event_id), class: "space-y-6") do |f| %>
+        <div>
+            <%= f.label :payment_method, class: "form-label"  %>
+            <%= f.select :payment_method,
+            options_for_select(Ticket.payment_methods.keys.map { |key| [t(key), key]}), { prompt: true },
+            { class: "form-field" } %>
+        </div>
+        <div>
+            <%= f.submit class: "px-4 py-2 text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-700 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+        </div>
+        <% end %>
+    </div>
+</div>
+
