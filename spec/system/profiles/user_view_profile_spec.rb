@@ -1,12 +1,13 @@
 require 'rails_helper'
 
 describe 'usuário vê perfil' do
-  it 'pela menu de navegação' do
+  it 'pelo menu de navegação' do
     user = create(:user, email: 'teste@email.com')
 
     login_as user
     visit root_path
     click_on "Olá, #{user.name}"
+    click_on "Meu Perfil"
 
     expect(current_path).to eq user_profile_path(user_id: user, id: Profile.first, locale: :'pt-BR')
   end

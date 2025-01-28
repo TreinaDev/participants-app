@@ -102,6 +102,7 @@ describe 'Usuário acessa página de favoritos' do
 
     login_as user
     visit root_path
+    click_on "Olá, #{user.name}"
     click_on 'Meus Favoritos'
 
     expect(page).to have_link 'Aprendendo a cozinhar'

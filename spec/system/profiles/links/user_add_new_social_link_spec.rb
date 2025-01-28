@@ -7,6 +7,7 @@ describe 'usuário adiciona link social ao perfil' do
     login_as user
     visit root_path
     click_on "Olá, #{user.name}"
+    click_on "Meu Perfil"
 
     expect(page).to have_link 'Adicionar Link Social'
   end
