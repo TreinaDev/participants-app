@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Tickets API' do
-  context '[GET] /api/v1/batches/[:batch_id]' do
+  context 'Retorna quantidade de Ingressos vendidos por Lote' do
     it 'com sucesso' do
       batches = [
         {
