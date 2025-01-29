@@ -14,7 +14,7 @@ class EventsController < ApplicationController
   private
 
   def check_event
-    @event = Event.request_event_by_id(params[:id])
+    @event = Event.request_event_by_id(params[:event_id])
     redirect_to root_path, alert: I18n.t("custom.generic.event_not_found") if @event.nil?
   end
 end
