@@ -23,13 +23,13 @@ describe 'Tickets API' do
         event_id: 1
         }
       ]
-      target_batch_id = batches[1][:id]
-
+      target_batch = batches[1]
       build(:event, name: 'DevWeek',  event_id: 1, batches: batches)
-      create(:ticket, batch_id: target_batch_id)
-      create(:ticket, batch_id: target_batch_id)
+      create(:ticket, batch_id: target_batch[:id])
+      create(:ticket, batch_id: target_batch[:id])
+      allow(Batch).to receive(:get_batch_by_id).and_return(target_batch)
 
-      get "/api/v1/batches/#{target_batch_id}"
+      get "/api/v1/events/1/batches/#{target_batch[:id]}"
 
       expect(response.status).to eq 200
       expect(response.content_type).to include 'application/json'
@@ -40,7 +40,7 @@ describe 'Tickets API' do
       expect(json_response["id"]).to eq 2
     end
 
-    it 'e retorna zero ingerssos vendidos quando não encontra o lote' do
+    it 'e retorna error 404 quando não encontra o lote' do
       batches = [
         {
         id: 2,
@@ -52,19 +52,20 @@ describe 'Tickets API' do
         event_id: 1
         }
       ]
-      target_batch_id = batches[0][:id]
-      create(:ticket, batch_id: target_batch_id)
+      build(:event, name: 'DevWeek',  event_id: 1, batches: batches)
+      target_batch = batches[0]
+      create(:ticket, batch_id: target_batch[:id])
       invalid_batch_id = 12345678
+      allow(Batch).to receive(:get_batch_by_id).and_return(nil)
 
-      get "/api/v1/batches/#{invalid_batch_id}"
+      get "/api/v1/events/1/batches/#{invalid_batch_id}"
 
-      expect(response.status).to eq 200
+      expect(response.status).to eq 404
       expect(response.content_type).to include 'application/json'
 
       json_response = JSON.parse(response.body)
 
-      expect(json_response["sold_tickets"]).to eq 0
-      expect(json_response["id"]).to eq 12345678
+      expect(json_response["error"]).to eq 'Batch not found'
     end
 
     it 'e não conta tickets de outro lote' do
@@ -88,15 +89,15 @@ describe 'Tickets API' do
         event_id: 1
         }
       ]
-      target_batch_id = batches[1][:id]
-      other_batch_id = batches[0][:id]
-
+      target_batch = batches[1]
+      other_batch = batches[0]
       build(:event, name: 'DevWeek',  event_id: 1, batches: batches)
-      create(:ticket, batch_id: target_batch_id)
-      create(:ticket, batch_id: target_batch_id)
-      create(:ticket, batch_id: other_batch_id)
+      create(:ticket, batch_id: target_batch[:id])
+      create(:ticket, batch_id: target_batch[:id])
+      create(:ticket, batch_id: other_batch[:id])
+      allow(Batch).to receive(:get_batch_by_id).and_return(target_batch)
 
-      get "/api/v1/batches/#{target_batch_id}"
+      get "/api/v1/events/1/batches/#{target_batch[:id]}"
 
       expect(response.status).to eq 200
       expect(response.content_type).to include 'application/json'
@@ -119,12 +120,13 @@ describe 'Tickets API' do
         event_id: 1
         }
       ]
-      target_batch_id = batches[0][:id]
-      create(:ticket, batch_id: target_batch_id)
+      target_batch = batches[0]
+      create(:ticket, batch_id: target_batch[:id])
       invalid_batch_id = 12345678
       allow(Ticket).to receive(:where).and_raise(ActiveRecord::QueryCanceled)
+      allow(Batch).to receive(:get_batch_by_id).and_return(target_batch)
 
-      get "/api/v1/batches/#{invalid_batch_id}"
+      get "/api/v1/events/1/batches/#{invalid_batch_id}"
 
       expect(response.status).to eq 500
     end
