@@ -23,7 +23,6 @@
             </svg>
             </button>
 
-            <!-- Dropdown menu -->
             <div id="dropdownAvatarName" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600">
               <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
                 <div class="font-medium "><%= current_user.name %></div>
@@ -32,6 +31,9 @@
               <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
                 <li>
                   <%= link_to 'Meu Perfil', user_profile_path(user_id: current_user.id, id: current_user.profile), class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
+                </li>
+                <li>
+                  <%= link_to t('.my_events'), my_events_path, class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
                 </li>
                 <li>
                   <%= link_to t('.my_favorites'), favorites_path, class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
@@ -52,7 +54,7 @@
     <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
       <ul class="flex flex-col md:p-0 font-medium border md:space-x-8 md:flex-row md:mt-0 md:border-0 ">
         <li>
-          <%= link_to t('.events'), events_path, class: "btn-nav" %> 
+          <%= link_to t('.events'), events_path, class: "btn-nav" %>
         </li>
       </ul>
     </div>

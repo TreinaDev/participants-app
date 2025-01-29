@@ -5,7 +5,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       <% @events.each do |event| %>
         <div class="card-event cursor-pointer">
-          <%= link_to event_path(event.event_id) do %>
+          <%= link_to event_by_name_path(event_id: event.event_id, name: event.name.parameterize) do %>
             <%= render '/events/event', event: event %>
           <% end %>
         </div>

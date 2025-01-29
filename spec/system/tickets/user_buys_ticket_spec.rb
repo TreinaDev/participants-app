@@ -23,7 +23,9 @@ describe 'Usuário é redirecionado para a tela de confimação de compra de ing
 
     login_as(user)
     visit root_path
-    click_on 'Eventos'
+    within('nav') do
+      click_on 'Eventos'
+    end
     click_on 'DevWeek'
     click_on 'Ver Ingressos'
     click_on 'Comprar'

@@ -14,7 +14,7 @@ describe 'Visitante acessa página de detalhes de um evento' do
     )
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
-    visit event_path(event.event_id, locale: :'pt-BR')
+    visit event_by_name_path(event_id: event, name: event.name.parameterize, locale: :'pt-BR')
 
     expect(page).to have_content 'Aprendedo a cozinhar'
     expect(page).to have_content 'Local: Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil', normalize_ws: true
@@ -33,10 +33,12 @@ describe 'Visitante acessa página de detalhes de um evento' do
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
     visit root_path
-    click_on 'Eventos'
+    within('nav') do
+      click_on 'Eventos'
+    end
     click_on 'Dev Week'
 
-    expect(current_path).to eq event_path(id: 1,  locale: :'pt-BR')
+    expect(current_path).to eq "/pt-BR/events/1/dev-week"
   end
 
   it 'e consegue ver os detalhes da agenda do evento' do
@@ -68,7 +70,7 @@ describe 'Visitante acessa página de detalhes de um evento' do
 
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
-    visit event_path(event.event_id, locale: :'pt-BR')
+    visit event_by_name_path(event_id: event, name: event.name.parameterize, locale: :'pt-BR')
 
     expect(page).to have_content "Aprendendo a cozinhar massas"
     expect(page).to have_content "lorem ipsum"
@@ -102,7 +104,7 @@ describe 'Visitante acessa página de detalhes de um evento' do
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
 
-    visit event_path(event.event_id, locale: :'pt-BR')
+    visit event_by_name_path(event_id: event, name: event.name.parameterize, locale: :'pt-BR')
 
     expect(page).to have_link 'Ver Ingressos'
   end
@@ -112,7 +114,7 @@ describe 'Visitante acessa página de detalhes de um evento' do
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
 
-    visit event_path(event.event_id, locale: :'pt-BR')
+    visit event_by_name_path(event_id: event, name: event.name.parameterize, locale: :'pt-BR')
 
     expect(page).to have_content 'Ainda não existe programação cadastrada para esse evento'
   end
@@ -122,7 +124,7 @@ describe 'Visitante acessa página de detalhes de um evento' do
     allow(Faraday).to receive(:get).and_return(response)
     allow(response).to receive(:success?).and_return(false)
 
-    visit event_path(1, locale: :'pt-BR')
+    visit event_by_name_path(event_id: 1, name: "Xablau", locale: :'pt-BR')
 
     expect(page).to have_content "Evento não encontrado"
     expect(current_path).to eq root_path

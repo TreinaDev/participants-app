@@ -9,7 +9,9 @@ describe 'visitante cria conta' do
 
   it 'com sucesso' do
     visit root_path
-    click_on 'Inscrever-se'
+    within('nav') do
+      click_on 'Inscrever-se'
+    end
     fill_in 'Nome',	with: 'Cristiano'
     fill_in 'Sobrenome',	with: 'Santana'
     fill_in 'E-mail',	with: 'cristiano@email.com'
@@ -41,7 +43,9 @@ describe 'visitante cria conta' do
   it 'com cpf e email únicos' do
     create(:user, email: 'cristiano@email.com', cpf: '22099395004')
     visit root_path
-    click_on 'Inscrever-se'
+    within('nav') do
+      click_on 'Inscrever-se'
+    end
     fill_in 'Nome',	with: 'Cristiano'
     fill_in 'Sobrenome',	with: 'Santana'
     fill_in 'E-mail',	with: 'cristiano@email.com'

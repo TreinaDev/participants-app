@@ -23,7 +23,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="min-h-88 h-auto">
     <main class="container mx-auto mt-28 px-5">
       <%= render 'shared/nav' %>
       <div>
@@ -33,5 +33,6 @@
         <%= yield %>
       </div>
     </main>
+      <%= render 'shared/footer' %>
   </body>
 </html>

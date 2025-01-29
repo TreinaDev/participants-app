@@ -40,6 +40,10 @@ class Event
     favorites_data
   end
 
+  def self.request_my_events(tickets)
+    tickets.map { |ticket| Event.request_event_by_id(ticket.event_id) }
+  end
+
   private
 
   def build_event_agenda(event_agendas)

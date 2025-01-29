@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "flowbite": "^3.0.0"
+    "flowbite": "^3.0.0",
+    "preline": "^2.7.0"
   }
 }
