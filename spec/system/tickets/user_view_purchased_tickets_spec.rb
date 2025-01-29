@@ -25,20 +25,22 @@ describe 'Usuário acessa ingressos de um evento' do
     event = build(:event, name: 'DevWeek', batches: batches, event_id: 1)
     events = [ event ]
     allow(SecureRandom).to receive(:alphanumeric).with(36).and_return('AAAAAABBBBBBCCCCCCDDDDDDDDDDDDDDDDDD')
-    travel_to 5.days.ago
-    create(:ticket, event_id: event.event_id, batch_id: 1, user: user)
+    travel_to 5.days.ago do
+      create(:ticket, event_id: event.event_id, batch_id: 1, user: user)
+    end
     allow(SecureRandom).to receive(:alphanumeric).with(36).and_return('AAAAAABBBBBBCCCCCCEEEEEEEEEEEEEEEEEE')
-    travel_to 5.days.ago
-    create(:ticket, event_id: event.event_id, batch_id: 1, user: user)
+    travel_to 10.days.ago do 
+      create(:ticket, event_id: event.event_id, batch_id: 1, user: user)
+    end
     allow(SecureRandom).to receive(:alphanumeric).with(36).and_return('AAAAAABBBBBBCCCCCCFFFFFFFFFFFFFFFFFF')
-    travel_to 5.days.ago
-    create(:ticket, event_id: event.event_id, batch_id: 2, user: user)
+    travel_to 15.days.ago do 
+      create(:ticket, event_id: event.event_id, batch_id: 2, user: user)
+    end
     allow(Event).to receive(:request_my_events).and_return(events)
     batches.map! { |batch| build(:batch, **batch) }
     allow(Batch).to receive(:request_batch_by_id).with("1", 1).and_return(batches[0])
     allow(Batch).to receive(:request_batch_by_id).with("1", 2).and_return(batches[1])
     allow(Event).to receive(:request_event_by_id).and_return(events[0])
-    travel_back
 
     login_as user
     visit root_path
