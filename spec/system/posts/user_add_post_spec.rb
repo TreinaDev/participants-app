@@ -40,7 +40,7 @@ describe 'Participante adiciona nova postagem a um evento' do
     login_as user
     visit new_event_post_path(event_id: event.event_id, locale: :'pt-BR')
     fill_in 'Título', with: 'Título Teste'
-    fill_in_rich_text_area 'Conteúdo', with: 'Conteúdo Teste'
+    find(:xpath, "//*[@id='post_content_trix_input_post']", visible: false).set('Conteúdo Teste')
     click_on 'Salvar'
 
     expect(current_path).to eq event_path(id: event.event_id, locale: :'pt-BR')
@@ -58,7 +58,7 @@ describe 'Participante adiciona nova postagem a um evento' do
     login_as user
     visit new_event_post_path(event_id: event.event_id, locale: :'pt-BR')
     fill_in 'Título', with: ''
-    fill_in_rich_text_area 'Conteúdo', with: ''
+    find(:xpath, "//*[@id='post_content_trix_input_post']", visible: false).set('')
     click_on 'Salvar'
 
     expect(page).to have_content 'Falha ao salvar a postagem'
