@@ -41,7 +41,6 @@ class Event
   end
 
   def self.request_my_events(tickets)
-    p tickets
     tickets.map { |ticket| Event.request_event_by_id(ticket.event_id) }
   end
 

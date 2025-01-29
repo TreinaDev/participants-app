@@ -31,10 +31,12 @@ describe 'Usuário acessa página de meus eventos' do
 
   it 'e não vê eventos para os quais não comprou ingresso' do
     user = create(:user)
+    other_user = create(:user)
     event1 = build(:event, name: 'DevWeek')
     event2 = build(:event, name: 'Ruby')
     create(:ticket, event_id: event1.event_id, user: user)
-    allow(Event).to receive(:request_event_by_id).and_return(event1, event2)
+    create(:ticket, event_id: event2.event_id, user: other_user)
+    allow(Event).to receive(:request_event_by_id).and_return(event1)
 
     login_as user
     visit root_path
@@ -44,7 +46,7 @@ describe 'Usuário acessa página de meus eventos' do
     expect(page).not_to have_content('Ruby')
   end
 
-  it 'e não vê botão de meus eventos' do
+  it 'e não vê botão de meus eventos quando não logado' do
     visit root_path
 
     expect(page).not_to have_link 'Meus Eventos'

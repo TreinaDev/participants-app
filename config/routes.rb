@@ -27,7 +27,6 @@ Rails.application.routes.draw do
     end
 
     resources :my_events, only: [ :show, :index ]
-    resources :reminders, only: [ :create ]
     resources :reminders, only: [ :create, :destroy ]
     resources :favorites, only: [ :index, :create, :destroy ]
   end
