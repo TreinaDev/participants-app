@@ -162,7 +162,7 @@ describe 'Usuário adiciona lembrete' do
       allow(mail).to receive(:ticket_reminder).and_return(mail)
 
       login_as user
-      visit event_path(id: event, locale: :'pt-BR')
+      visit event_by_name_path(event_id: event.event_id, name: event.name.parameterize, locale: :'pt-BR')
       click_on 'Adicionar Lembrete'
 
       travel_to 1.day.from_now do
@@ -177,7 +177,7 @@ describe 'Usuário adiciona lembrete' do
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
     login_as user
-    visit event_by_name_path(event_id: event, name: event.name.parameterize, locale: :'pt-BR')
+    visit event_by_name_path(event_id: event.event_id, name: event.name.parameterize, locale: :'pt-BR')
 
     expect(page).not_to have_button 'Adicionar Lembrete'
   end
