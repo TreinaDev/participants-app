@@ -8,8 +8,8 @@ class Event
     @start_date = start_date
     @end_date = end_date
     @event_owner = event_owner
-    @url_event = url_event
     @local_event = local_event
+    @url_event = url_event
     @limit_participants = limit_participants
     @description = description
     @event_agendas = build_event_agenda(event_agendas)
@@ -56,11 +56,26 @@ class Event
 
   def self.build_event(data)
     Event.new(
-      event_id: data[:id], name: data[:name], banner: data[:banner], logo: data[:logo], event_owner: data[:event_owner],
-      url_event: data[:url_event], local_event: data[:local_event], limit_participants: data[:limit_participants],
-       description: data[:description], event_agendas: data[:event_agendas] || [], start_date: data[:start_date].to_date, end_date: data[:end_date].to_date, batches: data[:batches] || []
+      event_id: data[:uuid], name: data[:name], banner: data[:banner_url], logo: data[:logo_url], event_owner: data[:event_owner],
+      local_event: data[:address], limit_participants: data[:participants_limit],  url_event: data[:url_event],
+      description: data[:description], event_agendas: data[:event_agendas] || [], start_date: data[:schedule][:start_date].to_date, end_date: data[:schedule][:end_date].to_date, batches: data[:batches] || []
     )
   end
+
+  # event = {
+  #   uuid:	"1",
+  #   name:	'Aprendedo a cozinhar',
+  #   description:	'Aprenda a fritar um ovo',
+  #   address:	'Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil',
+  #   banner_url:	'https://via.placeholder.com/300x200',
+  #   logo_url: 'https://via.placeholder.com/100x100',
+  #   participants_limit:	30,
+  #   event_owner:	'Samuel',
+  #   schedule: {
+  #     start_date:	"2025-02-01T12:00:00.000-03:00",
+  #     end_date:	"2025-02-04T12:00:00.000-03:00"
+  #   }
+  # }
 
   def build_batch(batches)
     batches.map { |data| Batch.new(batch_id: data[:id], name: data[:name], limit_tickets: data[:limit_tickets],

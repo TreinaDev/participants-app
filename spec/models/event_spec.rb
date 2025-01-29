@@ -5,33 +5,34 @@ RSpec.describe Event, type: :model do
     it "e retorna detalhes do evento" do
       travel_to(Time.zone.local(2024, 01, 01, 00, 04, 44))
       event = {
-        event_id: 1,
-        name: 'Aprendedo a cozinhar',
-        url_event: 'https://ecvitoria.com.br/public/Inicio/',
-        local_event: 'Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil',
-        limit_participants: 30,
-        banner: 'https://via.placeholder.com/300x200',
-        logo: 'https://via.placeholder.com/100x100',
-        description: 'Aprenda a fritar um ovo',
-        event_owner: 'Samuel',
-        event_agendas: [],
-        start_date: '2024-01-01',
-        end_date: '2024-02-01'
+        uuid:	"1",
+        name:	'Aprendedo a cozinhar',
+        description:	'Aprenda a fritar um ovo',
+        address:	'Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil',
+        banner_url:	'https://via.placeholder.com/300x200',
+        logo_url: 'https://via.placeholder.com/100x100',
+        participants_limit:	30,
+        event_owner:	'Samuel',
+        schedule: {
+          start_date:	"2025-02-01T12:00:00.000-03:00",
+          end_date:	"2025-02-04T12:00:00.000-03:00"
+        }
       }
 
       response = double('response', status: 200, body: event.to_json)
-      allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/events/1').and_return(response)
-      result = Event.request_event_by_id(event[:event_id])
+      allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/api/v1/events/1').and_return(response)
+      result = Event.request_event_by_id(event[:uuid])
 
+      expect(result.event_id).to eq '1'
       expect(result.name).to eq 'Aprendedo a cozinhar'
-      expect(result.url_event).to eq 'https://ecvitoria.com.br/public/Inicio/'
       expect(result.local_event).to eq 'Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil'
       expect(result.limit_participants).to eq 30
       expect(result.banner).to eq 'https://via.placeholder.com/300x200'
       expect(result.logo).to eq 'https://via.placeholder.com/100x100'
       expect(result.description).to eq 'Aprenda a fritar um ovo'
       expect(result.event_owner).to eq 'Samuel'
-      expect(result.event_agendas).to eq []
+      expect(result.start_date).to eq "2025-02-01T12:00:00.000-03:00".to_date
+      expect(result.end_date).to eq "2025-02-04T12:00:00.000-03:00".to_date
     end
 
     it "e retorna detalhes do evento com agenda" do
@@ -63,22 +64,23 @@ RSpec.describe Event, type: :model do
       }
       ]
       event = {
-        event_id: 1,
-        name: 'Aprendedo a cozinhar',
-        url_event: 'https://ecvitoria.com.br/public/Inicio/',
-        local_event: 'Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil',
-        limit_participants: 30,
-        banner: 'https://via.placeholder.com/300x200',
-        logo: 'https://via.placeholder.com/100x100',
-        description: 'Aprenda a fritar um ovo',
-        event_owner: 'Samuel',
-        event_agendas: event_agendas,
-        start_date: '2024-01-01',
-        end_date: '2024-02-01'
+        uuid:	"1",
+        name:	'Aprendedo a cozinhar',
+        description:	'Aprenda a fritar um ovo',
+        address:	'Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil',
+        banner_url:	'https://via.placeholder.com/300x200',
+        logo_url: 'https://via.placeholder.com/100x100',
+        participants_limit:	30,
+        event_owner:	'Samuel',
+        schedule: {
+          start_date:	"2025-02-01T12:00:00.000-03:00",
+          end_date:	"2025-02-04T12:00:00.000-03:00"
+        },
+        event_agendas: event_agendas
       }
       response = double('response', status: 200, body: event.to_json)
-      allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/events/1').and_return(response)
-      result = Event.request_event_by_id(event[:event_id])
+      allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/api/v1/events/1').and_return(response)
+      result = Event.request_event_by_id(event[:uuid])
 
 
       expect(result.event_agendas[0].event_agenda_id).to eq 1
@@ -104,7 +106,7 @@ RSpec.describe Event, type: :model do
 
     it "e retorna um array vazio, caso a API retorne status 500" do
       response = double('response', status: 500, body: "{}")
-      allow(Faraday).to receive(:get).with('http://localhost:3000/events/1').and_return(response)
+      allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/events/1').and_return(response)
       allow(Rails.logger).to receive(:error)
 
       result = Event.request_event_by_id(1)
@@ -118,7 +120,7 @@ RSpec.describe Event, type: :model do
     it 'Deveria receber toda a lista de eventos disponíveis' do
       travel_to(Time.zone.local(2024, 01, 01, 00, 04, 44))
       json = File.read(Rails.root.join('spec/support/json/events_list.json'))
-      url = 'http://localhost:3000/events'
+      url = 'http://localhost:3000/api/v1/events'
       response = double('faraday_response', body: json, status: 200)
       allow_any_instance_of(Faraday::Connection).to receive(:get).with(url).and_return(response)
       allow(response).to receive(:success?).and_return(true)
@@ -137,7 +139,7 @@ RSpec.describe Event, type: :model do
     end
 
     it 'e deveria receber array vazio em caso de erro na requisição' do
-      url = 'http://localhost:3000/events'
+      url = 'http://localhost:3000/api/v1/events/'
       response = double('faraday_response', body: "{}", status: 500)
       allow(Faraday).to receive(:get).with(url).and_return(response)
       allow(response).to receive(:success?).and_return(false)
@@ -149,7 +151,7 @@ RSpec.describe Event, type: :model do
     it 'só recebe eventos que não aconteceram' do
       travel_to(Time.zone.local(2024, 01, 01, 00, 04, 44))
       json = File.read(Rails.root.join('spec/support/json/error_events_list.json'))
-      url = 'http://localhost:3000/events'
+      url = 'http://localhost:3000/api/v1/events'
       response = double('faraday_response', body: json, status: 200)
       allow_any_instance_of(Faraday::Connection).to receive(:get).with(url).and_return(response)
       allow(response).to receive(:success?).and_return(true)

@@ -1,20 +1,33 @@
 [
-    { 
-      "id": 1, 
-      "name": "Dev Week",  
-      "banner": "http://localhost:3000/events/1/banner.jpg",
-      "logo": "http://localhost:3000/events/1/logo.jpg",
-      "start_date": "2024-11-17",
-      "end_date": "2024-11-19"
-    },
-
-    { 
-      "id": 2, 
-      "name": "Ruby Update",  
-      "banner": "http://localhost:3000/events/2/banner.jpg",
-      "logo": "http://localhost:3000/events/2/logo.jpg",
-      "start_date": "2024-11-17",
-      "end_date": "2024-11-19"
+  {
+    "uuid": 1,
+    "name": "Dev Week",
+    "banner_url": "http://localhost:3000/events/1/banner.jpg",
+    "logo_url": "http://localhost:3000/events/1/logo.jpg",
+    "schedule": {
+           "start_date":	"2025-11-17T12:00:00.000-03:00",
+           "end_date":	"2025-11-19T12:00:00.000-03:00"
+      },
+    "address": "Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil",
+    "description": "Aprenda a fritar um ovo",
+    "event_owner": "Samuel",
+    "participants_limit": 30,
+    "url_event": "http: //evento_fake.com"
+  },
+  {
+    "uuid": 2,
+    "name": "Ruby Update",
+    "banner_url": "http://localhost:3000/events/2/banner.jpg",
+    "logo_url": "http://localhost:3000/events/2/logo.jpg",
+    "schedule": {
+           "start_date":	"2025-11-25T12:00:00.000-03:00",
+           "end_date":	"2025-11-30T12:00:00.000-03:00"
+      },
+    "address": "Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil",
+    "description": "Aprenda a fritar um ovo",
+    "event_owner": "Samuel",
+    "participants_limit": 30,
+    "url_event": "http: //evento_fake.com"
     }
 
 ]
