@@ -2,6 +2,7 @@ en:
   reminders:
     create:
       success: Reminder added with success
+      no_batch_or_events_avaliable: Event still not avaliable for selling 
     destroy:
       success: Reminder removed with success
       alert: You do not have permission to delete this reminder.

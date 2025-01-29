@@ -2,6 +2,7 @@ pt-BR:
   reminders:
     create:
       success: Lembrete adicionado com sucesso
+      no_batch_or_events_avaliable: Evento ainda indisponível para venda
     destroy:
       success: Lembrete removido com sucesso
       alert: Você não tem permissão para excluir este lembrete.
