@@ -4,8 +4,8 @@ describe 'Usuário acessa página incial' do
   it 'com sucesso' do
     visit root_path
 
-    expect(page).to have_content 'Seu Próximo Evento Começa Aqui: Prepare-se para Aprender e se Inspirar!'
-    expect(page).to have_content 'Clique e Participe dos Melhores Eventos do Ano!'
+    expect(page).to have_content 'Seu Próximo Evento Começa Aqui'
+    expect(page).to have_content 'Prepare-se para Aprender e se Inspirar!'
     within('.main-links') do
       expect(page).to have_link 'Eventos'
     end
@@ -32,11 +32,21 @@ describe 'Usuário acessa página incial' do
     expect(page).to have_link 'Inscrever-se'
   end
 
+  it 'e vê o footer' do
+    visit root_path
+
+    within('footer') do
+      expect(page).to have_content '© Copyright 2025 Participants | Todos os direitos reservados'
+      expect(page).to have_css 'text', text: 'Participants'
+    end
+  end
+
   it 'e navega até a página de eventos' do
     visit root_path
     within('.main-links') do
       click_on 'Eventos'
     end
+
     expect(current_path).to eq events_path(locale: 'pt-BR')
   end
 

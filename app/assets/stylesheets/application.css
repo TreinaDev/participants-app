@@ -8,3 +8,7 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+ body main {
+  min-height: 74vh;
+ }
