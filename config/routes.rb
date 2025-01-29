@@ -28,4 +28,12 @@ Rails.application.routes.draw do
     resources :reminders, only: [ :create, :destroy ]
     resources :favorites, only: [ :index, :create, :destroy ]
   end
+
+  namespace :api do
+    namespace :v1 do
+      resources :events do
+        resources :batches,  only: [ :show ]
+      end
+    end
+  end
 end
