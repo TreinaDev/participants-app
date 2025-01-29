@@ -44,7 +44,7 @@ describe 'Usuário remove lembrete' do
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
     login_as user
-    visit event_path(id: event, locale: :'pt-BR')
+    visit event_by_name_path(event_id: event, name: event.name.parameterize, locale: :'pt-BR')
     click_on 'Remover Lembrete'
 
     expect(page).to have_content 'Lembrete removido com sucesso'

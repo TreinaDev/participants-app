@@ -1,5 +1,5 @@
 class EventsApiService
-  BASE_URL = "http://localhost:3000/events"
+  BASE_URL = "http://localhost:4000/api/events"
   def self.get_events
     self.request(BASE_URL, :get)
   end

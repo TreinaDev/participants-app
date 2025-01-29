@@ -20,10 +20,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :events, only: [ :index, :show ] do
+    resources :events, only: [ :index ] do
       resources :batches, only: [ :index ] do
         resources :tickets, only: [ :new, :create, :show ]
       end
+      get ":name", to: "events#show", as: "by_name"
     end
     resources :reminders, only: [ :create, :destroy ]
     resources :favorites, only: [ :index, :create, :destroy ]
