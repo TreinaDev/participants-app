@@ -10,6 +10,7 @@ RSpec.describe Ticket, type: :model do
       ticket = Ticket.create(
         user: user,
         batch_id: batch.batch_id,
+        event_id: batch.event_id,
         payment_method: 'pix',
       )
       expect(ticket.token).to be_present
@@ -24,6 +25,7 @@ RSpec.describe Ticket, type: :model do
       ticket = Ticket.create(
         user: user,
         batch_id: batch.batch_id,
+        event_id: batch.event_id,
         payment_method: 'pix',
       )
       expect(ticket.date_of_purchase).to be_present
@@ -38,7 +40,8 @@ RSpec.describe Ticket, type: :model do
 
       ticket = Ticket.create(
         user: user,
-        batch_id: batch.batch_id
+        batch_id: batch.batch_id,
+        event_id: batch.event_id
       )
 
       expect(ticket).not_to be_valid
@@ -54,6 +57,7 @@ RSpec.describe Ticket, type: :model do
       ticket_1 = Ticket.create(
         user: user,
         batch_id: batch.batch_id,
+        event_id: batch.event_id,
         payment_method: 'pix',
       )
 
@@ -90,6 +94,7 @@ RSpec.describe Ticket, type: :model do
       ticket = Ticket.create(
         user: user,
         batch_id: batch.batch_id,
+        event_id: batch.event_id,
         payment_method: 'pix',
       )
       expect(ticket.status_confirmed?).to eq true

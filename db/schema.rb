@@ -111,6 +111,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_29_162909) do
     t.integer "batch_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "event_id", null: false
     t.index ["user_id"], name: "index_tickets_on_user_id"
   end
 

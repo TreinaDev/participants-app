@@ -7,5 +7,6 @@ FactoryBot.define do
     token { SecureRandom.alphanumeric(36) }
     user
     batch_id { 1 }
+    event_id { 1 }
   end
 end
