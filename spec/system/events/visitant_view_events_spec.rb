@@ -10,8 +10,9 @@ describe 'Visitante abre a app e ve lista de eventos', type: :system do
     allow(Event).to receive(:all).and_return(events)
 
     visit root_path
-    click_on 'Eventos'
-
+    within('nav') do
+      click_on 'Eventos'
+    end
     expect(page).to have_content 'Eventos'
     expect(page).to have_link 'Dev Week'
     expect(page).to have_css 'img[src="http://localhost:3000/events/1/banner.jpg"]'
@@ -26,7 +27,9 @@ describe 'Visitante abre a app e ve lista de eventos', type: :system do
     allow(response).to receive(:all).and_return(events)
 
     visit root_path
-    click_on 'Eventos'
+    within('nav') do
+      click_on 'Eventos'
+    end
 
     expect(page).to have_content 'Nenhum evento disponível'
   end

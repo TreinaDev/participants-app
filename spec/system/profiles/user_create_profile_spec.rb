@@ -13,7 +13,9 @@ describe 'usuário cria perfil' do
 
   it 'automaticamente após se cadastrar' do
     visit root_path
-    click_on 'Inscrever-se'
+    within('nav') do
+      click_on 'Inscrever-se'
+    end
     fill_in 'Nome',	with: 'Cristiano'
     fill_in 'Sobrenome',	with: 'Santana'
     fill_in 'E-mail',	with: 'cristiano@email.com'

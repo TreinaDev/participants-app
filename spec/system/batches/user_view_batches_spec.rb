@@ -53,7 +53,9 @@ describe 'Usuário acessa página de tipos de ingresso de um evento' do
 
     login_as(user)
     visit root_path(locale: :'pt-BR')
-    click_on 'Eventos'
+    within('nav') do
+      click_on 'Eventos'
+    end
     click_on 'Dev Week'
     click_on 'Ver Ingressos'
 
@@ -156,7 +158,9 @@ describe 'Usuário acessa página de tipos de ingresso de um evento' do
 
     login_as(user)
     visit root_path(locale: :'pt-BR')
-    click_on 'Eventos'
+    within('nav') do
+      click_on 'Eventos'
+    end
     click_on 'Dev Week'
     click_on 'Ver Ingressos'
 

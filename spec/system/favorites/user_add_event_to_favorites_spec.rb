@@ -14,7 +14,9 @@ describe 'Usuário adiciona um evento a seus favoritos' do
 
     login_as(user)
     visit root_path
-    click_on 'Eventos'
+    within('nav') do
+      click_on 'Eventos'
+    end
     click_on 'Dev Week'
     click_on 'Adicionar a favoritos'
 
@@ -33,7 +35,9 @@ describe 'Usuário adiciona um evento a seus favoritos' do
     allow(Event).to receive(:request_event_by_id).and_return(first_event)
 
     visit root_path
-    click_on 'Eventos'
+    within('nav') do
+      click_on 'Eventos'
+    end
     click_on 'Dev Week'
     click_on 'Adicionar a favoritos'
 

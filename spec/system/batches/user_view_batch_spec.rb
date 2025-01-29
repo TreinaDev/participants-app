@@ -27,7 +27,9 @@ describe 'usuário vê botão de compra de ingressos' do
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
     visit root_path
-    click_on 'Eventos'
+    within('nav') do
+      click_on 'Eventos'
+    end
     click_on 'Evento Teste 01'
 
     expect(page).to have_link 'Ver Ingressos'
