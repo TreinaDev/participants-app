@@ -80,7 +80,11 @@
             <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('event_agenda.email') %>:</span> <%= event_agenda.email %></p>
           </div>
         <% end %>
-      </div>        
-    <% end %>    
-  </div>  
+      </div>
+    <% end %>
+  </div>
+  <section>
+    <%= link_to t('.add_post'), new_event_post_path(event_id: @event.event_id), class:"btn-confirm"%>
+    <%= render @posts %>
+  </section> 
 </div>

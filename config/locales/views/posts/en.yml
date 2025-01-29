@@ -1,5 +1,9 @@
 en:
   posts:
+    negate_access: You can not do that
     new:
       title: Add New Post
       save: Save
+    create:
+      success: Post created
+      alert: Post was not saved

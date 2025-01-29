@@ -1,5 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'validations' do
+    context 'Título' do
+      it { is_expected.to validate_presence_of(:title) }
+    end
+
+    context 'Conteúdo' do
+      it { is_expected.to validate_presence_of(:content) }
+    end
+  end
 end
