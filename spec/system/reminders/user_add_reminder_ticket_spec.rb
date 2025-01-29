@@ -135,7 +135,7 @@ describe 'Usuário adiciona lembrete' do
 
   it 'e agenda envio do email' do
     user = create(:user)
-    batch = [ {
+    batches = [ {
       id: 1,
       name: 'Lote Teste',
       limit_tickets: 30,
@@ -152,20 +152,31 @@ describe 'Usuário adiciona lembrete' do
       end_date: 2.day.from_now.to_date,
       event_id: 1
     } ]
-    event = build(:event, name: 'Evento Teste 01', batches: batch)
-    allow(Event).to receive(:request_event_by_id).and_return(event, event)
-    mail = double('mail', deliver_later: true)
-    mailer_double = double('RemindersMailer', ticket_reminder: mail)
-    allow(RemindersMailer).to receive(:with).and_return(mailer_double)
-    allow(mail).to receive(:ticket_reminder).and_return(mail)
+      event = build(:event, name: 'Evento Teste 01', batches: batches)
+      allow(Event).to receive(:request_event_by_id).and_return(event, event)
+      mail = double('mail', deliver_later: true)
+      mailer_double = double('RemindersMailer', ticket_reminder: mail)
+      allow(RemindersMailer).to receive(:with).and_return(mailer_double)
+      allow(mail).to receive(:ticket_reminder).and_return(mail)
+
+      login_as user
+      visit event_path(id: event, locale: :'pt-BR')
+      click_on 'Adicionar Lembrete'
+
+      travel_to 1.day.from_now do
+        expect(mailer_double).to have_received(:ticket_reminder).once
+        expect(mail).to have_received(:deliver_later)
+      end
+  end
+
+  it 'e lembrente não pode ser criado para evento sem lotes' do
+    user = create(:user)
+    event = build(:event, name: 'Evento Teste 01')
+    allow(Event).to receive(:request_event_by_id).and_return(event)
 
     login_as user
-    visit event_path(id: event, locale: :'pt-BR')
-    click_on 'Adicionar Lembrete'
+    visit event_path(event.event_id, locale: :'pt-BR')
 
-    travel_to 1.day.from_now do
-      expect(mailer_double).to have_received(:ticket_reminder).once
-      expect(mail).to have_received(:deliver_later)
-    end
+    expect(page).not_to have_button 'Adicionar Lembrete'
   end
 end
