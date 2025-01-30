@@ -6,7 +6,7 @@ FactoryBot.define do
     payment_method { 1 }
     token { SecureRandom.alphanumeric(36) }
     user
-    batch_id { 1 }
-    event_id { 1 }
+    batch_id { '1' }
+    event_id { '1' }
   end
 end
