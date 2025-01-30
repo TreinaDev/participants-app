@@ -4,6 +4,7 @@ en:
     new:
       title: Add a Link
       save: Save
+      back: Go Back
     create: 
       notice: Link saved
       alert: Unable to save Link

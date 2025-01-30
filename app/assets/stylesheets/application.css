@@ -10,5 +10,7 @@
  */
 
  body main {
-  min-height: 74vh;
+  min-height: 80vh;
+  margin-top: 58px;
+  padding-top: 20px;
  }

@@ -7,4 +7,6 @@ pt-BR:
       log_in: Entrar
       my_favorites: Meus Favoritos
       my_events: Meus Eventos
+      my_profile: Meu Perfil
+      hello: "Olá, %{name}"
 

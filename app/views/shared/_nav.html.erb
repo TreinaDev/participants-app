@@ -5,6 +5,28 @@
     <% end %>
     <div class="flex md:order-2 space-x-2 md:space-x-0">
       <ul class="flex flex-col md:p-0 font-medium border md:space-x-2 md:flex-row md:mt-0 md:border-0 ">
+        <li class="flex">
+          <button id="dropdownLangueButton" data-dropdown-toggle="dropdownLangue" class="flex items-center text-sm pe-1 font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:me-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white" type="button">
+          <p class="btn-nav flex gap-1 items-center">
+            <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.54 15H17a2 2 0 0 0-2 2v4.54"/><path d="M7 3.34V5a3 3 0 0 0 3 3v0a2 2 0 0 1 2 2v0c0 1.1.9 2 2 2v0a2 2 0 0 0 2-2v0c0-1.1.9-2 2-2h3.17"/><path d="M11 21.95V18a2 2 0 0 0-2-2v0a2 2 0 0 1-2-2v-1a2 2 0 0 0-2-2H2.05"/><circle cx="12" cy="12" r="10"/></svg>
+            <%= I18n.locale == :'pt-BR' ? 'pt-BR' : 'en (US)' %>
+          </p>
+          <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+          </svg>
+          </button>
+
+          <div id="dropdownLangue" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600">
+            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200 " aria-labelledby="dropdownInformdropdownLangueButtonationButton">
+              <li>
+                <%= link_to 'Português', url_for(locale: :'pt-BR'), class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
+              </li>
+              <li>
+                <%= link_to 'English', url_for(locale: :en), class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
+              </li>
+            </ul>
+          </div>
+        </li>
         <% unless user_signed_in?%>
           <li>
             <%= link_to t('.sign_up'), new_user_registration_path, class: "btn-confirm" %>
@@ -15,9 +37,9 @@
         <% end %>
         <% if user_signed_in? %>
           <li>
-            <button id="dropdownAvatarNameButton" data-dropdown-toggle="dropdownAvatarName" class="flex items-center text-sm pe-1 font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:me-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white" type="button">
+            <button id="dropdownAvatarNameButton" data-dropdown-toggle="dropdownAvatarName" class="ml-3 flex items-center text-sm pe-1 font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:me-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white" type="button">
             <span class="sr-only">Open user menu</span>
-            <p class="btn-nav"><%= "Olá, #{current_user.name}" %></p>
+            <p class="btn-nav"><%= t('.hello', name: current_user.name) %></p>
             <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
             </svg>
@@ -30,7 +52,7 @@
               </div>
               <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
                 <li>
-                  <%= link_to 'Meu Perfil', user_profile_path(user_id: current_user.id, id: current_user.profile), class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
+                  <%= link_to t('.my_profile'), user_profile_path(user_id: current_user.id, id: current_user.profile), class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
                 </li>
                 <li>
                   <%= link_to t('.my_events'), my_events_path, class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
@@ -45,10 +67,6 @@
             </div>
           </li>
         <% end %>
-          <li>
-            <%= link_to 'Português', url_for(locale: :'pt-BR'), class: "btn-confirm" if I18n.locale == :en  %>
-            <%= link_to 'English', url_for(locale: :en), class: "btn-confirm" if I18n.locale == :'pt-BR' %>
-          </li>
       </ul>
     </div>
     <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">

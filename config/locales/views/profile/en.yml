@@ -5,8 +5,10 @@ en:
       title: Profile
       edit_profile: Edit Profile
       add_social_link: Add Social Link
+      description: Details and information about the user.
     edit:
       title: Edit Your Profile
       save: Save Information
+      back: Go Back
     update: 
       notice: Profile updated

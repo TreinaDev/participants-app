@@ -1,0 +1,7 @@
+en:
+  tickets:
+    create:
+      approved: Purchase approved
+      error: Unable to make purchase
+    check_batch_is_sold_out?:
+      alert: Tickets sold out

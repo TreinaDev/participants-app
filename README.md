@@ -97,6 +97,9 @@ rails db:migrate
 # Também é possível rodar as seeds para popular o banco com dados iniciais:
 rails db:seed
 
+# Pré-compile os assets estáticos para melhorar visualização do css
+rails assets:precompile
+
 # Execute o servidor:
 bin/dev
 ```
