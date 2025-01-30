@@ -24,7 +24,7 @@ class PostsController < ApplicationController
   private
 
   def check_user_is_participant
-    unless Ticket.where(user: current_user, event_id: params[:event_id]).any?
+    unless current_user.participates_in_event?(params[:event_id])
       redirect_to root_path, alert: t(".negate_access")
     end
   end

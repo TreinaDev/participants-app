@@ -14,6 +14,10 @@ class User < ApplicationRecord
 
   after_create :create_profile
 
+  def participates_in_event? (event_id)
+    Ticket.where(user: self, event_id: event_id).any?
+  end
+
   private
 
   def create_profile

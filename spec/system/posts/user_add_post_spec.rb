@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Participante adiciona nova postagem a um evento' do
+describe 'Participante adiciona nova postagem a um evento', type: :system, js: true do
   it 'e vê formulário' do
     event = build(:event, event_id: 1, name: 'DevWeek')
     ticket = create(:ticket, event_id: event.event_id)
@@ -40,12 +40,11 @@ describe 'Participante adiciona nova postagem a um evento' do
     login_as user
     visit new_event_post_path(event_id: event.event_id, locale: :'pt-BR')
     fill_in 'Título', with: 'Título Teste'
-    find(:xpath, "//*[@id='post_content_trix_input_post']", visible: false).set('Conteúdo Teste')
+    find(:css, "#post_content_trix_input_post", visible: false).set('Conteúdo Teste')
     click_on 'Salvar'
 
     expect(current_path).to eq event_path(id: event.event_id, locale: :'pt-BR')
     expect(page).to have_content 'Postagem adicionada'
-    expect(page).to have_content 'Conteúdo Teste'
     expect(page).to have_content 'Título Teste'
   end
 

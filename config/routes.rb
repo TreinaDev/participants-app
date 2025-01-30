@@ -24,7 +24,7 @@ Rails.application.routes.draw do
       resources :batches, only: [ :index ] do
         resources :tickets, only: [ :new, :create, :show ]
       end
-      resources :posts, only: [ :new, :create ]
+      resources :posts, only: [ :new, :create, :show ]
     end
 
     resources :my_events, only: [ :show, :index ]
