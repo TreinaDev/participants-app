@@ -10,7 +10,7 @@ describe 'Usuário acessa ingressos de um evento' do
       start_date: 5.days.ago.to_date,
       value: 20.00,
       end_date: 2.month.from_now.to_date,
-      event_id: 1
+      event_id: '1'
       },
       {
       batch_id: 2,
@@ -19,10 +19,10 @@ describe 'Usuário acessa ingressos de um evento' do
       start_date: 5.day.ago.to_date,
       value: 10.00,
       end_date: 10.day.from_now.to_date,
-      event_id: 1
+      event_id: '1'
     }
     ]
-    event = build(:event, name: 'DevWeek', batches: batches, event_id: 1)
+    event = build(:event, name: 'DevWeek', batches: batches, event_id: '1')
     events = [ event ]
     allow(SecureRandom).to receive(:alphanumeric).with(36).and_return('AAAAAABBBBBBCCCCCCDDDDDDDDDDDDDDDDDD')
     travel_to 5.days.ago do

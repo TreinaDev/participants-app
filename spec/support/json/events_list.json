@@ -1,7 +1,7 @@
 {"events":
   [
     {
-      "uuid": 1,
+      "uuid": "1",
       "name": "Dev Week",
       "banner_url": "http://localhost:3000/events/1/banner.jpg",
       "logo_url": "http://localhost:3000/events/1/logo.jpg",
@@ -16,7 +16,7 @@
       "url_event": "http: //evento_fake.com"
     },
     {
-      "uuid": 2,
+      "uuid": "2",
       "name": "Ruby Update",
       "banner_url": "http://localhost:3000/events/2/banner.jpg",
       "logo_url": "http://localhost:3000/events/2/logo.jpg",

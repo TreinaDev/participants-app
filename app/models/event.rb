@@ -63,21 +63,6 @@ class Event
     )
   end
 
-  # event = {
-  #   uuid:	"1",
-  #   name:	'Aprendedo a cozinhar',
-  #   description:	'Aprenda a fritar um ovo',
-  #   address:	'Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil',
-  #   banner_url:	'https://via.placeholder.com/300x200',
-  #   logo_url: 'https://via.placeholder.com/100x100',
-  #   participants_limit:	30,
-  #   event_owner:	'Samuel',
-  #   schedule: {
-  #     start_date:	"2025-02-01T12:00:00.000-03:00",
-  #     end_date:	"2025-02-04T12:00:00.000-03:00"
-  #   }
-  # }
-
   def build_batch(batches)
     batches.map { |data| Batch.new(batch_id: data[:id], name: data[:name], limit_tickets: data[:limit_tickets],
               start_date: data[:start_date].to_date, value: data[:value], end_date: data[:end_date].to_date,
