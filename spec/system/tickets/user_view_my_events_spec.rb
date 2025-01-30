@@ -63,9 +63,9 @@ describe 'Usuário acessa página de meus eventos' do
 
   it 'e não vê eventos repetidos' do
     user = create(:user)
-    event1 = build(:event, name: 'DevWeek', event_id: 1)
-    event2 = build(:event, name: 'Ruby', event_id: 2)
-    events = { 1 => event1, 2 => event2 }
+    event1 = build(:event, name: 'DevWeek', event_id: '1')
+    event2 = build(:event, name: 'Ruby', event_id: '2')
+    events = { '1' => event1, '2' => event2 }
     create(:ticket, event_id: event1.event_id, user: user, batch_id: 1)
     create(:ticket, event_id: event1.event_id, user: user, batch_id: 2)
     event_ids = user.tickets.pluck(:event_id).uniq
