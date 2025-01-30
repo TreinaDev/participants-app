@@ -35,7 +35,7 @@ describe 'Participante adiciona nova postagem a um evento', type: :system, js: t
     event = build(:event, event_id: 1, name: 'DevWeek')
     ticket = create(:ticket, event_id: event.event_id)
     user = ticket.user
-    allow(Event).to receive(:request_event_by_id).and_return(event)
+    allow(Event).to receive(:request_event_by_id).and_return(event).exactly(2)
 
     login_as user
     visit new_event_post_path(event_id: event.event_id, locale: :'pt-BR')
@@ -43,7 +43,7 @@ describe 'Participante adiciona nova postagem a um evento', type: :system, js: t
     find(:css, "#post_content_trix_input_post", visible: false).set('Conteúdo Teste')
     click_on 'Salvar'
 
-    expect(current_path).to eq event_path(id: event.event_id, locale: :'pt-BR')
+    expect(current_path).to eq event_by_name_path(event_id: event.event_id, name: event.name.parameterize, locale: :'pt-BR')
     expect(page).to have_content 'Postagem adicionada'
     expect(page).to have_content 'Título Teste'
   end
