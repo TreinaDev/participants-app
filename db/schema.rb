@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_27_201412) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_30_142528) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -41,9 +41,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_27_201412) do
 
   create_table "favorites", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "event_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "event_id", null: false
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
@@ -60,9 +60,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_27_201412) do
   create_table "reminders", force: :cascade do |t|
     t.integer "user_id", null: false
     t.date "start_date"
-    t.integer "event_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "event_id", null: false
     t.index ["user_id"], name: "index_reminders_on_user_id"
   end
 
@@ -92,7 +92,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_27_201412) do
     t.integer "batch_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "event_id", null: false
+    t.string "event_id", null: false
     t.index ["user_id"], name: "index_tickets_on_user_id"
   end
 
