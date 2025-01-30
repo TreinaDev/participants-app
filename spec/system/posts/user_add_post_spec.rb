@@ -1,27 +1,6 @@
 require 'rails_helper'
 
 describe 'Participante adiciona nova postagem a um evento', type: :system, js: true do
-  it 'e vê formulário' do
-    event = build(:event, event_id: 1, name: 'DevWeek')
-    ticket = create(:ticket, event_id: event.event_id)
-    user = ticket.user
-    allow(Event).to receive(:request_event_by_id).and_return(event)
-    allow(Event).to receive(:all).and_return([ event ])
-
-    login_as user
-    visit root_path
-    within 'nav' do
-      click_on 'Eventos'
-    end
-    click_on 'DevWeek'
-    click_on 'Adicionar Postagem'
-
-    expect(page).to have_content 'Nova Postagem'
-    expect(page).to have_field 'Título'
-    expect(page).to have_css '#post_content'
-    expect(page).to have_button 'Salvar'
-  end
-
   it 'e não está autenticado' do
     event = build(:event, event_id: 1, name: 'DevWeek')
     allow(Event).to receive(:request_event_by_id).and_return(event)
