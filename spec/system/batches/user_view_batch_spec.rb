@@ -66,7 +66,7 @@ describe 'usuário vê botão de compra de ingressos' do
     event = build(:event, name: 'Evento Teste 01', batches: batch)
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
-    visit event_path(id: event, locale: :'pt-BR')
+    visit event_by_name_path(event_id: event, name: event.name.parameterize, locale: :'pt-BR')
 
     expect(page).not_to have_link 'Ver Ingressos'
     expect(page).not_to have_link 'Ingressos Esgotados'
@@ -79,7 +79,7 @@ describe 'usuário vê botão de compra de ingressos' do
     event = build(:event, name: 'Evento Teste 01', batches: [])
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
-    visit event_path(id: event, locale: :'pt-BR')
+    visit event_by_name_path(event_id: event, name: event.name.parameterize, locale: :'pt-BR')
 
     expect(page).not_to have_link 'Ver Ingressos'
     expect(page).not_to have_link 'Ingressos Esgotados'
@@ -124,7 +124,7 @@ describe 'usuário vê botão de compra de ingressos' do
     event = build(:event, name: 'Evento Teste 01', batches: batch, limit_participants: 50)
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
-    visit event_path(id: event, locale: :'pt-BR')
+    visit event_by_name_path(event_id: event, name: event.name.parameterize, locale: :'pt-BR')
 
     expect(page).not_to have_link 'Ver Ingressos'
     expect(page).not_to have_content 'Sem ingressos disponíveis'

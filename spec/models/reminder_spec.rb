@@ -12,6 +12,10 @@ RSpec.describe Reminder, type: :model do
     end
 
     context 'start_date' do
+      it { is_expected.to validate_presence_of(:start_date) }
+    end
+
+    context 'start_date' do
       it { is_expected.to validate_comparison_of(:start_date).is_greater_than(Date.today) }
     end
   end

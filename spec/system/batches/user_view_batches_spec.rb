@@ -114,7 +114,7 @@ describe 'Usuário acessa página de tipos de ingresso de um evento' do
     login_as(user)
     visit event_batches_path(event.event_id, locale: :'pt-BR')
 
-    expect(current_path).to eq event_path(event.event_id, locale: :'pt-BR')
+    expect(current_path).to eq event_by_name_path(event_id: event.event_id, name: event.name.parameterize, locale: :'pt-BR')
     expect(page).to have_content 'Evento ainda não possui ingressos'
   end
 
