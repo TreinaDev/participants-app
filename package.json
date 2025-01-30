@@ -1,6 +1,8 @@
 {
   "dependencies": {
+    "@rails/actiontext": "^8.0.100",
     "flowbite": "^3.0.0",
+    "trix": "^2.1.12",
     "preline": "^2.7.0"
   }
 }

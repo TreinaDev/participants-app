@@ -5,6 +5,7 @@ class EventsController < ApplicationController
       batch_ids = @event.batches.map(&:batch_id)
       @total_tickets_sales = Ticket.where(batch_id: batch_ids).count
     end
+    @posts = Post.where(event_id: params[:event_id])
   end
 
   def index

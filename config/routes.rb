@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       resources :batches, only: [ :index ] do
         resources :tickets, only: [ :new, :create, :show ]
       end
+      resources :posts, only: [ :new, :create, :show ]
       get ":name", to: "events#show", as: "by_name"
     end
 

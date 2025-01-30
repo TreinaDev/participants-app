@@ -27,6 +27,27 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '#participates_in_event?' do
+    it 'retorna true se participa do evento' do
+      event = build(:event, event_id: 1)
+      ticket = create(:ticket, event_id: event.event_id)
+      user = ticket.user
+
+      result = user.participates_in_event?(event.event_id)
+
+      expect(result).to eq true
+    end
+
+    it 'retorna false se não participa do evento' do
+      event = build(:event, event_id: 1)
+      user = create(:user)
+
+      result = user.participates_in_event?(event.event_id)
+
+      expect(result).to eq false
+    end
+  end
+
   describe 'validations' do
     context 'Nome de Usuário' do
       it { is_expected.to validate_presence_of(:name) }
