@@ -6,6 +6,7 @@ en:
       sold_coming_soon: Sales coming soon
       sold_closed: Sales closed
       sold out: 'Sold out'
+      back: Go Back
     batch:
       name: 'Name'
       limit_tickets: 'Quantity'

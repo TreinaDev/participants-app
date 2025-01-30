@@ -1,7 +1,7 @@
 <%= page_title(t('.available_events'))%>
 
 <% if @events.present? %>
-  <div class="container mx-auto">
+  <div class="container mx-auto p-6">
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       <% @events.each do |event| %>
         <div class="card-event cursor-pointer">

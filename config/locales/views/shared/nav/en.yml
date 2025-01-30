@@ -7,3 +7,5 @@ en:
       log_in: LogIn
       my_favorites: My Favorites
       my_events: My Events
+      my_profile: My Profile
+      hello: "Hello, %{name}"

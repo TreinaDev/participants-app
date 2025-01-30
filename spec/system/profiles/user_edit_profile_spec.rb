@@ -47,4 +47,14 @@ describe 'usuário edita perfil' do
     expect(current_path).to eq root_path
     expect(page).to have_content 'Você não tem autorização para acessar está página.'
   end
+
+  it 'e volta pa página de perfil' do
+    user = create(:user, email: 'teste@email.com')
+
+    login_as user
+    visit edit_user_profile_path(user_id: user, id: user.profile)
+    click_on 'Voltar'
+
+    expect(current_path).to eq user_profile_path(user_id: user, id: user.profile, locale: :'pt-BR')
+  end
 end

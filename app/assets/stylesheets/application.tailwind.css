@@ -11,6 +11,10 @@
     @apply bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition
   }
 
+  .btn-back {
+    @apply w-full rounded-md bg-blue-600 hover:bg-blue-700 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-blue-600 focus:shadow-none active:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none
+  }
+
   .btn-nav {
     @apply block py-2 px-3 md:p-0 md:hover:text-purple-400 text-white hover:text-white md:hover:bg-transparent 
   }
@@ -24,7 +28,7 @@
   }
 
   .card-event {
-    @apply max-w-lg rounded-lg shadow border-purple-900 border-2 hover:-translate-y-2 hover:shadow-purple-500
+    @apply max-w-lg rounded-lg shadow-xl border-purple-900 border-2 hover:-translate-y-2 hover:shadow-indigo-500/50
   }
 
   .notice {

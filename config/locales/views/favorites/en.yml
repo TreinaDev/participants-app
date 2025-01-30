@@ -1,5 +1,12 @@
 en:
   favorites:
     index:
-      title: 'Events Favorites'
-      no_favorites: 'Not Favorites'
+      title: Events Favorites
+      no_favorites: You don't have any favorite events yet
+    create:
+      success: Event successfully added to favorite
+    destroy:
+      success: Unfavorite Event
+      alert: You do not have permission to perform this action
+    check_user_is_authenticated:
+      alert: 
