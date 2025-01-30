@@ -109,7 +109,7 @@ RSpec.describe Event, type: :model do
       allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/events/1').and_return(response)
       allow(Rails.logger).to receive(:error)
 
-      result = Event.request_event_by_id(1)
+      result = Event.request_event_by_id("1")
 
       expect(result).to eq nil
       expect(Rails.logger).to have_received(:error)
@@ -128,11 +128,11 @@ RSpec.describe Event, type: :model do
       result = Event.all
 
       expect(result.length).to eq 2
-      expect(result[0].event_id).to eq 1
+      expect(result[0].event_id).to eq "1"
       expect(result[0].name).to eq 'Dev Week'
       expect(result[0].banner).to eq "http://localhost:3000/events/1/banner.jpg"
       expect(result[0].logo).to eq "http://localhost:3000/events/1/logo.jpg"
-      expect(result[1].event_id).to eq 2
+      expect(result[1].event_id).to eq "2"
       expect(result[1].name).to eq 'Ruby Update'
       expect(result[1].banner).to eq "http://localhost:3000/events/2/banner.jpg"
       expect(result[1].logo).to eq "http://localhost:3000/events/2/logo.jpg"
