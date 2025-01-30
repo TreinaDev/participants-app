@@ -20,7 +20,7 @@ describe 'Usuário adiciona um evento a seus favoritos' do
     click_on 'Dev Week'
     click_on 'Adicionar a favoritos'
 
-    expect(page).to have_content 'Evento adicionado a favorito com sucesso'
+    expect(page).to have_content 'Evento adicionado a favoritos com sucesso'
     expect(page).not_to have_button 'Adicionar a favoritos'
   end
 

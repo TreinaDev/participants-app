@@ -5,8 +5,10 @@ pt-BR:
       title: Perfil
       edit_profile: Editar Perfil
       add_social_link: Adicionar Link Social
+      description: Detalhes e informações sobre o usuário.
     edit:
       title: Edite seu Perfil
       save: Salvar Informações
+      back: Voltar
     update: 
       notice: Perfil atualizado

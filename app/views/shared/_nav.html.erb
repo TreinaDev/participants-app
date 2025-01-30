@@ -39,7 +39,7 @@
           <li>
             <button id="dropdownAvatarNameButton" data-dropdown-toggle="dropdownAvatarName" class="ml-3 flex items-center text-sm pe-1 font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:me-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white" type="button">
             <span class="sr-only">Open user menu</span>
-            <p class="btn-nav"><%= "Olá, #{current_user.name}" %></p>
+            <p class="btn-nav"><%= t('.hello', name: current_user.name) %></p>
             <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
             </svg>
@@ -52,7 +52,7 @@
               </div>
               <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
                 <li>
-                  <%= link_to 'Meu Perfil', user_profile_path(user_id: current_user.id, id: current_user.profile), class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
+                  <%= link_to t('.my_profile'), user_profile_path(user_id: current_user.id, id: current_user.profile), class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
                 </li>
                 <li>
                   <%= link_to t('.my_events'), my_events_path, class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>

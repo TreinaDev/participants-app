@@ -12,7 +12,7 @@
     <div class="space-y-4 text-right">
       <div class="space-y-2">
         <% if current_user && current_user.favorites.find_by(event_id: @event.event_id).present? %>
-          <p><%= Favorite.model_name.human %></p>
+          <p class='text-green-800'><%= Favorite.model_name.human %></p>
         <% else %> 
           <%= form_with(url: favorites_path) do |f| %>
             <%= f.hidden_field :event_id, value: @event.event_id %>
@@ -32,7 +32,7 @@
         <% else %>
           <%= button_to t('.add_reminder'), reminders_path(event_id: @event.event_id), method: :create, class: "btn-confirm" if user_signed_in? && !current_user.reminders.pluck(:event_id).include?(@event.event_id) %>
           <%= button_to t('.remove_reminder'), reminder_path(current_user.reminders.find_by(event_id: @event.event_id).id), method: :delete, class: "btn-buy" if user_signed_in? && current_user.reminders.pluck(:event_id).include?(@event.event_id) %>
-          <p><%=t('.no_tickets_registered')%></p>
+          <p class='text-red-700'><%=t('.no_tickets_registered')%></p>
         <% end %>
       </div>
     </div>
