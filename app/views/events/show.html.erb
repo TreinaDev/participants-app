@@ -1,6 +1,8 @@
 <div class='flex flex-col justify-center items-center w-full bg-white'>
   <div class="w-full">
-    <%= image_tag @event.banner, class: 'w-full h-96 object-cover' %>
+    <% if @event.banner.present? %>
+      <%= image_tag @event.banner, class: 'w-full h-96 object-cover' %>
+    <% end %>
   </div>
   <div class="flex justify-between bg-white p-6 w-full">
     <div class="flex items-center space-x-4">
