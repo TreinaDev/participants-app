@@ -1,9 +1,14 @@
 en:
   posts:
     negate_access: You can not do that
+    form:
+      save: Save
     new:
       title: Add New Post
-      save: Save
+    edit:
+      title: Edit Post
     create:
       success: Post created
       alert: Post was not saved
+    update:
+      success: Post edit with success

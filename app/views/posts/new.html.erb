@@ -2,15 +2,4 @@
 
 <%= render 'shared/errors_messages', model: @post %>
 
-<%= form_with(model: @post, method: :post, url: event_posts_path(event_id: @event_id)) do |f| %>
-
-  <%=f.label :title, class: 'form-label' %>
-  <%=f.text_field :title, class: 'form-field' %>
-  
-  <%=f.label :content, class: 'form-label' %>
-  <%=f.rich_text_area :content, class: 'form-field' %>
-
-  <div>
-    <%=f.submit t('.save')%>
-  </div>
-<% end %>
+<%= render 'form', post: @post, event_id: @event_id, url: event_posts_path(event_id: @event_id)%>
