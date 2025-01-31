@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_31_175608) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_31_195536) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -59,10 +59,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_31_175608) do
 
   create_table "posts", force: :cascade do |t|
     t.string "title"
-    t.integer "event_id"
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "event_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
