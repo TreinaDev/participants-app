@@ -24,7 +24,7 @@ describe 'Tickets API' do
         }
       ]
       target_batch = batches[1]
-      build(:event, name: 'DevWeek',  event_id: 1, batches: batches)
+      build(:event, name: 'DevWeek',  event_id: '1', batches: batches)
       create(:ticket, batch_id: target_batch[:id])
       create(:ticket, batch_id: target_batch[:id])
       allow(Batch).to receive(:get_batch_by_id).and_return(target_batch)
