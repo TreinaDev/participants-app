@@ -7,8 +7,11 @@ class ApplicationController < ActionController::Base
   before_action do
     ActiveStorage::Current.url_options = { host: request.base_url }
   end
-
   around_action :switch_locale
+
+  def after_sign_in_path_for(resource)
+    dashboard_index_path
+  end
 
   protected
 

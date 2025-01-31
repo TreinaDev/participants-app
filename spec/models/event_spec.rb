@@ -13,10 +13,8 @@ RSpec.describe Event, type: :model do
         logo_url: 'https://via.placeholder.com/100x100',
         participants_limit:	30,
         event_owner:	'Samuel',
-        schedule: {
-          start_date:	"2025-02-01T12:00:00.000-03:00",
-          end_date:	"2025-02-04T12:00:00.000-03:00"
-        }
+        start_date:	"2025-02-01T12:00:00.000-03:00",
+        end_date:	"2025-02-04T12:00:00.000-03:00"
       }
 
       response = double('response', status: 200, body: event.to_json)
@@ -72,10 +70,8 @@ RSpec.describe Event, type: :model do
         logo_url: 'https://via.placeholder.com/100x100',
         participants_limit:	30,
         event_owner:	'Samuel',
-        schedule: {
-          start_date:	"2025-02-01T12:00:00.000-03:00",
-          end_date:	"2025-02-04T12:00:00.000-03:00"
-        },
+        start_date:	"2025-02-01T12:00:00.000-03:00",
+        end_date:	"2025-02-04T12:00:00.000-03:00",
         event_agendas: event_agendas
       }
       response = double('response', status: 200, body: event.to_json)

@@ -1,4 +1,4 @@
-<div>
-  <h2><%=post.title%></h2>
-  <p><%=post.content%></p>
-</div>
+<%= link_to event_post_path(event_id: post.event_id, id: post.id), class: "block p-6" do %>
+  <h3 class="text-xl font-semibold text-gray-900"><%= post.title %></h3>
+  <p class="mt-1 text-sm text-gray-500"><%= l(post.created_at, format: :short) %></p>
+<% end %>
