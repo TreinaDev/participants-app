@@ -6,27 +6,27 @@ RSpec.describe Batch, type: :model do
       travel_to(Time.zone.local(2024, 01, 01, 12, 04, 44))
       batches = [
         {
-          id: 1,
+          code: '1',
           name: 'Entrada - VIP',
-          limit_tickets: 50,
+          tickets_limit: 50,
           start_date: '2024-12-30',
-          value: 40.00,
+          ticket_price: 40.00,
           end_date: '2024-02-01',
-          event_id: 1
+          event_id: '1'
         },
         {
-          id: 2,
+          id: '2',
           name: 'Entrada - Meia',
-          limit_tickets: 20,
+          tickets_limit: 20,
           start_date: '2024-12-27',
-          value: 20.00,
+          ticket_price: 20.00,
           end_date: '2024-03-01',
-          event_id: 1
+          event_id: '1'
         }
       ]
 
       event = {
-        uuid:	"1",
+        code:	"1",
         name:	'Aprendedo a cozinhar',
         description:	'Aprenda a fritar um ovo',
         address:	'Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil',
@@ -34,16 +34,14 @@ RSpec.describe Batch, type: :model do
         logo_url: 'https://via.placeholder.com/100x100',
         participants_limit:	30,
         event_owner:	'Samuel',
-        schedule: {
-          start_date:	"2025-02-01T12:00:00.000-03:00",
-          end_date:	"2025-02-04T12:00:00.000-03:00"
-        },
+        start_date:	"2025-02-01T12:00:00.000-03:00",
+        end_date:	"2025-02-04T12:00:00.000-03:00",
         batches: batches
       }
 
       response = double('response', status: 200, body: batches.to_json)
-      allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/api/v1/events/1/batches').and_return(response)
-      result = Batch.request_batches_by_event_id(event[:uuid])
+      allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/api/v1/events/1/ticket_batches').and_return(response)
+      result = Batch.request_batches_by_event_id(event[:code])
 
       expect(result[0].name).to eq 'Entrada - VIP'
       expect(result[0].limit_tickets).to eq 50
@@ -58,12 +56,12 @@ RSpec.describe Batch, type: :model do
     end
 
     it 'e deveria receber array vazio em caso de erro na requisição' do
-      url = 'http://localhost:3000/api/v1/events/1/batches'
+      url = 'http://localhost:3000/api/v1/events/1/ticket_batches'
       response = double('faraday_response', body: "{}", status: 500)
       allow(Faraday).to receive(:get).with(url).and_return(response)
       allow(response).to receive(:success?).and_return(false)
       event = {
-        uuid:	"1",
+        code:	"1",
         name:	'Aprendedo a cozinhar',
         description:	'Aprenda a fritar um ovo',
         address:	'Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil',
@@ -71,14 +69,12 @@ RSpec.describe Batch, type: :model do
         logo_url: 'https://via.placeholder.com/100x100',
         participants_limit:	30,
         event_owner:	'Samuel',
-        schedule: {
-          start_date:	"2025-02-01T12:00:00.000-03:00",
-          end_date:	"2025-02-04T12:00:00.000-03:00"
-        },
+        start_date:	"2025-02-01T12:00:00.000-03:00",
+        end_date:	"2025-02-04T12:00:00.000-03:00",
         batches: []
       }
 
-      result = Batch.request_batches_by_event_id(event[:uuid])
+      result = Batch.request_batches_by_event_id(event[:code])
 
       expect(result.length).to eq 0
     end
@@ -103,50 +99,51 @@ RSpec.describe Batch, type: :model do
   context 'Verificação de limite com base apenas no id do lote' do
     it ' retorna verdadeiro se os ingressos estão esgotados para um certo lote' do
       batch = {
-          id: 1,
+          code: "1",
           name: 'Entrada - VIP',
-          limit_tickets: 2,
+          tickets_limit: 2,
           start_date: '2024-12-30',
-          value: 40.00,
+          ticket_price: 40.00,
           end_date: '2024-02-01',
-          event_id: 1
+          event_id: "1"
         }
-      create_list(:ticket, 2, batch_id: batch[:id])
+
+      create_list(:ticket, 2, batch_id: batch[:code] )
       allow(EventsApiService).to receive(:get_batch_by_id).and_return(batch)
 
-      expect(Batch.check_if_batch_is_sold_out(batch[:event_id], batch[:id])).to eq true
+      expect(Batch.check_if_batch_is_sold_out(batch[:event_id], batch[:code])).to eq true
     end
 
     it 'retorna falso se os ingressos não estão esgotados para um certo lote' do
       batch = {
-          id: 1,
+          code: "1",
           name: 'Entrada - VIP',
-          limit_tickets: 2,
+          tickets_limit: 2,
           start_date: '2024-12-30',
-          value: 40.00,
+          ticket_price: 40.00,
           end_date: '2024-02-01',
-          event_id: 1
+          event_id: "1"
         }
 
       allow(EventsApiService).to receive(:get_batch_by_id).and_return(batch)
 
-      expect(Batch.check_if_batch_is_sold_out(batch[:event_id], batch[:id])).to eq false
+      expect(Batch.check_if_batch_is_sold_out(batch[:event_id], batch[:code])).to eq false
     end
 
     it 'retorna verdadeiro em caso de erro na requisição à API de Eventos' do
       batch = {
-          id: 1,
+          code: '1',
           name: 'Entrada - VIP',
-          limit_tickets: 2,
+          tickets_limit: 2,
           start_date: '2024-12-30',
-          value: 40.00,
+          ticket_price: 40.00,
           end_date: '2024-02-01',
-          event_id: 1
+          event_id: "1"
         }
 
       allow(EventsApiService).to receive(:get_batch_by_id).and_raise(Faraday::Error)
 
-      expect(Batch.check_if_batch_is_sold_out(batch[:event_id], batch[:id])).to eq true
+      expect(Batch.check_if_batch_is_sold_out(batch[:event_id], batch[:code])).to eq true
     end
   end
 end

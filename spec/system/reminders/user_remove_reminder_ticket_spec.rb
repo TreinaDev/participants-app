@@ -4,21 +4,21 @@ describe 'Usuário remove lembrete' do
   it 'e deve estar logado' do
     events = []
     batches = [ {
-      id: 1,
+      code: '1',
       name: 'Lote Teste',
-      limit_tickets: 30,
+      tickets_limit: 30,
       start_date: 1.day.from_now.to_date,
-      value: 10.00,
+      ticket_price: 10.00,
       end_date: 1.day.from_now.to_date,
-      event_id: 1
+      event_id: '1'
     }, {
-      id: 2,
+      code: '2',
       name: 'Mesmo Lote Teste',
-      limit_tickets: 50,
+      tickets_limit: 50,
       start_date: 2.day.from_now.to_date,
-      value: 20.00,
+      ticket_price: 20.00,
       end_date: 2.day.from_now.to_date,
-      event_id: 1
+      event_id: '1'
     } ]
     events << build(:event, name: 'Evento Teste 01', batches: batches)
     events << build(:event, name: 'Evento Teste 02')
@@ -39,21 +39,21 @@ describe 'Usuário remove lembrete' do
     user = create(:user)
     events = []
     batches = [ {
-      id: 1,
+      code: '1',
       name: 'Lote Teste',
-      limit_tickets: 30,
+      tickets_limit: 30,
       start_date: 1.day.from_now.to_date,
-      value: 10.00,
+      ticket_price: 10.00,
       end_date: 1.day.from_now.to_date,
-      event_id: 1
+      event_id: '1'
     }, {
-      id: 2,
+      code: '2',
       name: 'Mesmo Lote Teste',
-      limit_tickets: 50,
+      tickets_limit: 50,
       start_date: 2.day.from_now.to_date,
-      value: 20.00,
+      ticket_price: 20.00,
       end_date: 2.day.from_now.to_date,
-      event_id: 1
+      event_id: '1'
     } ]
     events << build(:event, name: 'Evento Teste 01', batches: batches)
     events << build(:event, name: 'Evento Teste 02')
@@ -74,21 +74,21 @@ describe 'Usuário remove lembrete' do
   it 'com sucesso' do
     user = create(:user)
     batches = [ {
-      id: 1,
+      code: '1',
       name: 'Lote Teste',
-      limit_tickets: 30,
+      tickets_limit: 30,
       start_date: 1.day.from_now.to_date,
-      value: 10.00,
+      ticket_price: 10.00,
       end_date: 1.day.from_now.to_date,
-      event_id: 1
+      event_id: '1'
     }, {
-      id: 2,
+      code: '2',
       name: 'Mesmo Lote Teste',
-      limit_tickets: 50,
+      tickets_limit: 50,
       start_date: 2.day.from_now.to_date,
-      value: 20.00,
+      ticket_price: 20.00,
       end_date: 2.day.from_now.to_date,
-      event_id: 1
+      event_id: '1'
     } ]
     event = build(:event, batches: batches)
     create(:reminder, event_id: event.event_id, user: user)
