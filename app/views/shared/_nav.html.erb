@@ -1,8 +1,8 @@
 <nav class="bg-violet-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-    <%= link_to root_path, class: "flex items-center space-x-3 rtl:space-x-reverse" do%>
-      <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white text-white">Participants</span>
-    <% end %>
+      <%= link_to user_signed_in? ? dashboard_index_path : root_path, class: "flex items-center space-x-3 rtl:space-x-reverse" do%>
+        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white text-white">Participants</span>
+      <% end %>
     <div class="flex md:order-2 space-x-2 md:space-x-0">
       <ul class="flex flex-col md:p-0 font-medium border md:space-x-2 md:flex-row md:mt-0 md:border-0 ">
         <li class="flex">
