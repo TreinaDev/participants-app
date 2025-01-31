@@ -2,14 +2,12 @@
   "events":
   [
     {
-      "uuid": "1",
+      "code": "1",
       "name": "Dev Week",
       "banner_url": "http://localhost:3000/events/1/banner.jpg",
       "logo_url": "http://localhost:3000/events/1/logo.jpg",
-      "schedule": {
-            "start_date":	"2025-11-17T12:00:00.000-03:00",
-            "end_date":	"2025-11-19T12:00:00.000-03:00"
-        },
+      "start_date":	"2025-11-17T12:00:00.000-03:00",
+      "end_date":	"2025-11-19T12:00:00.000-03:00",
       "address": "Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil",
       "description": "Aprenda a fritar um ovo",
       "event_owner": "Samuel",
@@ -17,14 +15,12 @@
       "url_event": "http: //evento_fake.com"
     },
     {
-      "uuid": "2",
+      "code": "2",
       "name": "Ruby Update",
       "banner_url": "http://localhost:3000/events/2/banner.jpg",
       "logo_url": "http://localhost:3000/events/2/logo.jpg",
-      "schedule": {
-            "start_date":	"2025-11-25T12:00:00.000-03:00",
-            "end_date":	"2025-11-30T12:00:00.000-03:00"
-        },
+      "start_date":	"2025-11-25T12:00:00.000-03:00",
+      "end_date":	"2025-11-30T12:00:00.000-03:00",
       "address": "Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil",
       "description": "Aprenda a fritar um ovo",
       "event_owner": "Samuel",
@@ -33,14 +29,12 @@
       },
 
     { 
-      "uuid": "3", 
+      "code": "3", 
       "name": "Natal Python",  
       "banner": "http://localhost:3000/events/3/banner.jpg",
       "logo_url": "http://localhost:3000/events/3/logo.jpg",
-      "schedule": {
-        "start_date": "2023-01-25",
-        "end_date": "2023-11-30"
-      },
+      "start_date": "2023-01-25",
+      "end_date": "2023-11-30",
       "address": "Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil",
       "description": "Aprenda a fritar um ovo",
       "event_owner": "Samuel",

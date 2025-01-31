@@ -19,7 +19,7 @@ class Event
   def self.all
     response = EventsApiService.get_events
     events = response[:events]
-    events.select { |event| DateTime.now.before?(event[:schedule][:start_date].to_date) if event[:schedule] }.map { |event| build_event(event) }
+    events.select { |event| DateTime.now.before?(event[:start_date].to_date) }.map { |event| build_event(event) }
   rescue Faraday::Error => error
     Rails.logger.error(error)
     []
@@ -57,9 +57,9 @@ class Event
 
   def self.build_event(data)
     Event.new(
-      event_id: data[:uuid], name: data[:name], banner: data[:banner_url], logo: data[:logo_url], event_owner: data[:event_owner],
+      event_id: data[:code], name: data[:name], banner: data[:banner_url], logo: data[:logo_url], event_owner: data[:event_owner],
       local_event: data[:address], limit_participants: data[:participants_limit],  url_event: data[:url_event],
-      description: data[:description], event_agendas: data[:event_agendas] || [], start_date: data[:schedule][:start_date].to_date, end_date: data[:schedule][:end_date].to_date, batches: data[:batches] || []
+      description: data[:description], event_agendas: data[:event_agendas] || [], start_date: data[:start_date].to_date, end_date: data[:end_date].to_date, batches: data[:batches] || []
     )
   end
 
