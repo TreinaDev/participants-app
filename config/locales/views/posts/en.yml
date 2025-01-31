@@ -1,14 +1,18 @@
 en:
   posts:
-    negate_access: You can not do that
+    not_post_owner: You can not access this page
+    not_participant: You can not do that
     form:
       save: Save
     new:
       title: Add New Post
     edit:
       title: Edit Post
+    show:
+      edit_post: Edit
     create:
       success: Post created
       alert: Post was not saved
     update:
       success: Post edit with success
+      alert: Post was not updated

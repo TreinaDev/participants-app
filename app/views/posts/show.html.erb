@@ -2,3 +2,4 @@
 
 <%= @post.content %>
 <%= l(@post.created_at, format: :short)%>
+<%= link_to t('.edit_post'), edit_event_post_path(@event_id, @post), class: "btn-confirm" %>
