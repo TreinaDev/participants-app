@@ -96,7 +96,7 @@
       <ul class="space-y-4">
         <% @posts.each do |post| %>
           <li class="bg-white shadow-md rounded-lg transition hover:shadow-lg">
-            <%= link_to event_post_path(@event, post), class: "block p-6" do %>
+            <%= link_to event_post_path(@event.event_id, post), class: "block p-6" do %>
               <h3 class="text-xl font-semibold text-gray-900"><%= post.title %></h3>
               <p class="mt-1 text-sm text-gray-500">
                 <%= l(post.created_at, format: :short) %>
