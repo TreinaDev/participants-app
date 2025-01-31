@@ -19,7 +19,7 @@ class Event
   def self.all
     response = EventsApiService.get_events
     events = response[:events]
-    events.select { |event| DateTime.now < DateTime.parse(event[:start_date]) }.map { |event| build_event(event) }
+    events.select { |event| DateTime.now.before?(event[:start_date].to_date) }.map { |event| build_event(event) }
   rescue Faraday::Error => error
     Rails.logger.error(error)
     []
@@ -37,6 +37,7 @@ class Event
     favorites_data = []
     favorites.each do |favorite|
       favorites_data << Event.request_event_by_id(favorite.event_id)
+      puts favorites_data
     end
     favorites_data
   end
@@ -57,15 +58,15 @@ class Event
 
   def self.build_event(data)
     Event.new(
-      event_id: data[:uuid], name: data[:name], banner: data[:banner_url], logo: data[:logo_url], event_owner: data[:event_owner],
+      event_id: data[:code], name: data[:name], banner: data[:banner_url], logo: data[:logo_url], event_owner: data[:event_owner],
       local_event: data[:address], limit_participants: data[:participants_limit],  url_event: data[:url_event],
-      description: data[:description], event_agendas: data[:event_agendas] || [], start_date: data[:start_date].to_date, end_date: data[:end_date].to_date, batches: data[:batches] || []
+      description: data[:description], event_agendas: data[:event_agendas] || [], start_date: data[:start_date].to_date, end_date: data[:end_date].to_date, batches: data[:ticket_batches] || []
     )
   end
 
   def build_batch(batches)
-    batches.map { |data| Batch.new(batch_id: data[:id], name: data[:name], limit_tickets: data[:limit_tickets],
-              start_date: data[:start_date].to_date, value: data[:value], end_date: data[:end_date].to_date,
-              event_id: data[:event_id]) }
+    batches.map { |data| Batch.new(batch_id: data[:code], name: data[:name], limit_tickets: data[:tickets_limit],
+              start_date: data[:start_date].to_date, value: data[:ticket_price], end_date: data[:end_date].to_date,
+              event_id: event_id) }
   end
 end

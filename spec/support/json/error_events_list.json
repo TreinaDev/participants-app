@@ -2,7 +2,7 @@
   "events":
   [
     {
-      "uuid": "1",
+      "code": "1",
       "name": "Dev Week",
       "banner_url": "http://localhost:3000/events/1/banner.jpg",
       "logo_url": "http://localhost:3000/events/1/logo.jpg",
@@ -15,7 +15,7 @@
       "url_event": "http: //evento_fake.com"
     },
     {
-      "uuid": "2",
+      "code": "2",
       "name": "Ruby Update",
       "banner_url": "http://localhost:3000/events/2/banner.jpg",
       "logo_url": "http://localhost:3000/events/2/logo.jpg",
@@ -29,7 +29,7 @@
       },
 
     { 
-      "uuid": "3", 
+      "code": "3", 
       "name": "Natal Python",  
       "banner": "http://localhost:3000/events/3/banner.jpg",
       "logo_url": "http://localhost:3000/events/3/logo.jpg",
