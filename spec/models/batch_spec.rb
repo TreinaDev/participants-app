@@ -4,7 +4,7 @@ RSpec.describe Batch, type: :model do
   context 'Tipos de ingresso' do
     it "e retorna Tipos de ingresso" do
       travel_to(Time.zone.local(2024, 01, 01, 12, 04, 44))
-      batches = { 
+      batches = {
         ticket_batches:
           [
             {
@@ -111,15 +111,15 @@ RSpec.describe Batch, type: :model do
           event_id: "1"
         }
 
-      create_list(:ticket, 2, batch_id: batch[:code] )
+      create_list(:ticket, 2, batch_id: batch[:code])
       allow(EventsApiService).to receive(:get_batch_by_id).and_return(batch)
 
       expect(Batch.check_if_batch_is_sold_out(batch[:event_id], batch[:code])).to eq true
     end
 
     it 'retorna falso se os ingressos não estão esgotados para um certo lote' do
-      batch = {
-          code: "1",
+      batch = { ticket_batch: {
+        code: "1",
           name: 'Entrada - VIP',
           tickets_limit: 2,
           start_date: '2024-12-30',
@@ -127,6 +127,8 @@ RSpec.describe Batch, type: :model do
           end_date: '2024-02-01',
           event_id: "1"
         }
+      }
+
 
       allow(EventsApiService).to receive(:get_batch_by_id).and_return(batch)
 

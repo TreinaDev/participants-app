@@ -52,7 +52,7 @@ class Batch
 
   def self.check_if_batch_is_sold_out(event_id, batch_id)
     number_of_tickets_sold = Ticket.where(batch_id: batch_id).count
-    EventsApiService.get_batch_by_id(event_id, batch_id)[:tickets_limit] <= number_of_tickets_sold
+    EventsApiService.get_batch_by_id(event_id, batch_id)[:ticket_batch][:tickets_limit] <= number_of_tickets_sold
   rescue
     true
   end
