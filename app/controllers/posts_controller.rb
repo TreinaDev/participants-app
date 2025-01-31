@@ -1,6 +1,11 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_user_is_participant
+
+  def show
+    @post = Post.find(params[:id])
+  end
+
   def new
     @post = Post.new
     @event_id = params[:event_id]

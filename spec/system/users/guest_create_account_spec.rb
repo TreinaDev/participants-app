@@ -20,7 +20,7 @@ describe 'visitante cria conta' do
     fill_in 'Confirmar Senha',	with: '123456'
     click_on 'Salvar Conta'
 
-    expect(current_path).to eq root_path
+    expect(current_path).to eq dashboard_index_path
     expect(page).to have_content 'Bem vindo! Você realizou seu registro com sucesso.'
     expect(page).to have_content "Olá, Cristiano"
   end
