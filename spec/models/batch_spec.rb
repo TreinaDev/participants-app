@@ -4,26 +4,29 @@ RSpec.describe Batch, type: :model do
   context 'Tipos de ingresso' do
     it "e retorna Tipos de ingresso" do
       travel_to(Time.zone.local(2024, 01, 01, 12, 04, 44))
-      batches = [
-        {
-          code: '1',
-          name: 'Entrada - VIP',
-          tickets_limit: 50,
-          start_date: '2024-12-30',
-          ticket_price: 40.00,
-          end_date: '2024-02-01',
-          event_id: '1'
-        },
-        {
-          id: '2',
-          name: 'Entrada - Meia',
-          tickets_limit: 20,
-          start_date: '2024-12-27',
-          ticket_price: 20.00,
-          end_date: '2024-03-01',
-          event_id: '1'
+      batches = { 
+        ticket_batches:
+          [
+            {
+              code: '1',
+              name: 'Entrada - VIP',
+              tickets_limit: 50,
+              start_date: '2024-12-30',
+              ticket_price: 40.00,
+              end_date: '2024-02-01',
+              event_id: '1'
+            },
+            {
+              id: '2',
+              name: 'Entrada - Meia',
+              tickets_limit: 20,
+              start_date: '2024-12-27',
+              ticket_price: 20.00,
+              end_date: '2024-03-01',
+              event_id: '1'
+            }
+          ]
         }
-      ]
 
       event = {
         code:	"1",
