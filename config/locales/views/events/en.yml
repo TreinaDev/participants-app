@@ -12,6 +12,7 @@ en:
       tickets: Tickets
       ticket_date: Ticket Date
       no_tickets_registered: No tickets available yet
+      no_posts: No post registered yet
       soldout: Tickets Soldout
       add_reminder: Add Reminder
       add_post: Add Post

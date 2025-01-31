@@ -85,25 +85,28 @@
       </div>
     <% end %>
   </div>
-    <section class="w-full mt-10 mb-10">
-      <div class="flex items-center justify-between mb-6 px-6">
-        <h2 class="text-3xl font-bold text-gray-900">Feed</h2>
-        <%= link_to new_event_post_path(event_id: @event.event_id), class: "btn-confirm" do %>
-          <span><%=t('.add_post')%></span>
-        <% end %>
-      </div>
-
-      <ul class="space-y-4">
-        <% @posts.each do |post| %>
-          <li class="bg-white shadow-md rounded-lg transition hover:shadow-lg">
-            <%= link_to event_post_path(@event.event_id, post), class: "block p-6" do %>
-              <h3 class="text-xl font-semibold text-gray-900"><%= post.title %></h3>
-              <p class="mt-1 text-sm text-gray-500">
-                <%= l(post.created_at, format: :short) %>
-              </p>
+    <% if user_signed_in? && current_user.participates_in_event?(@event.event_id)%>
+      <section class="w-full mt-10 mb-10">
+        <div class="flex items-center justify-between mb-6 px-6">
+          <h2 class="text-3xl font-bold text-gray-900">Feed</h2>
+          <%= link_to new_event_post_path(event_id: @event.event_id), class: "btn-confirm" do %>
+            <span><%=t('.add_post')%></span>
+          <% end %>
+        </div>
+        <ul class="space-y-4">
+          <% if @posts.any? %>
+            <% @posts.each do |post| %>
+              <li class="bg-white shadow-md rounded-lg transition hover:shadow-lg">
+                <%= link_to event_post_path(@event, post), class: "block p-6" do %>
+                  <h3 class="text-xl font-semibold text-gray-900"><%= post.title %></h3>
+                  <p class="mt-1 text-sm text-gray-500"><%= l(post.created_at, format: :short) %></p>
+                <% end %>
+              </li>
             <% end %>
-          </li>
-        <% end %>
-      </ul>
-    </section>
+          <% else %>
+            <p><%=t('.no_posts')%></p>
+          <% end %>
+        </ul>
+      </section>
+    <% end %>
 </div>
