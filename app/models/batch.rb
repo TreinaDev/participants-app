@@ -37,7 +37,8 @@ class Batch
   end
 
   def self.request_batch_by_id(event_id, batch_id)
-    batch_params = EventsApiService.get_batch_by_id(event_id, batch_id)
+    batch = EventsApiService.get_batch_by_id(event_id, batch_id)
+    batch_params = batch[:ticket_batch]
     build_batches([ batch_params ], event_id).first
   rescue Faraday::Error => error
     Rails.logger.error(error)

@@ -37,6 +37,7 @@ class Event
     favorites_data = []
     favorites.each do |favorite|
       favorites_data << Event.request_event_by_id(favorite.event_id)
+      puts favorites_data
     end
     favorites_data
   end
