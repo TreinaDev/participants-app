@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_30_142528) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_31_175608) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -108,10 +108,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_30_142528) do
     t.integer "payment_method"
     t.string "token"
     t.integer "user_id", null: false
-    t.integer "batch_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "event_id", null: false
+    t.string "batch_id"
     t.index ["user_id"], name: "index_tickets_on_user_id"
   end
 

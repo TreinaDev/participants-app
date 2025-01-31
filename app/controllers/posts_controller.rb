@@ -1,7 +1,9 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_user_is_participant
-  before_action :set_post_and_event_id, only: [ :edit, :update ]
+  before_action :set_post_and_event_id, only: [ :show, :edit, :update ]
+
+  def show; end
 
   def new
     @post = Post.new

@@ -5,7 +5,7 @@ RSpec.describe Event, type: :model do
     it "e retorna detalhes do evento" do
       travel_to(Time.zone.local(2024, 01, 01, 00, 04, 44))
       event = {
-        uuid:	"1",
+        code:	"1",
         name:	'Aprendedo a cozinhar',
         description:	'Aprenda a fritar um ovo',
         address:	'Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil',
@@ -13,15 +13,13 @@ RSpec.describe Event, type: :model do
         logo_url: 'https://via.placeholder.com/100x100',
         participants_limit:	30,
         event_owner:	'Samuel',
-        schedule: {
-          start_date:	"2025-02-01T12:00:00.000-03:00",
-          end_date:	"2025-02-04T12:00:00.000-03:00"
-        }
+        start_date:	"2025-02-01T12:00:00.000-03:00",
+        end_date:	"2025-02-04T12:00:00.000-03:00"
       }
 
       response = double('response', status: 200, body: event.to_json)
       allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/api/v1/events/1').and_return(response)
-      result = Event.request_event_by_id(event[:uuid])
+      result = Event.request_event_by_id(event[:code])
 
       expect(result.event_id).to eq '1'
       expect(result.name).to eq 'Aprendedo a cozinhar'
@@ -64,7 +62,7 @@ RSpec.describe Event, type: :model do
       }
       ]
       event = {
-        uuid:	"1",
+        code:	"1",
         name:	'Aprendedo a cozinhar',
         description:	'Aprenda a fritar um ovo',
         address:	'Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil',
@@ -72,15 +70,13 @@ RSpec.describe Event, type: :model do
         logo_url: 'https://via.placeholder.com/100x100',
         participants_limit:	30,
         event_owner:	'Samuel',
-        schedule: {
-          start_date:	"2025-02-01T12:00:00.000-03:00",
-          end_date:	"2025-02-04T12:00:00.000-03:00"
-        },
+        start_date:	"2025-02-01T12:00:00.000-03:00",
+        end_date:	"2025-02-04T12:00:00.000-03:00",
         event_agendas: event_agendas
       }
       response = double('response', status: 200, body: event.to_json)
       allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/api/v1/events/1').and_return(response)
-      result = Event.request_event_by_id(event[:uuid])
+      result = Event.request_event_by_id(event[:code])
 
 
       expect(result.event_agendas[0].event_agenda_id).to eq 1
@@ -139,7 +135,7 @@ RSpec.describe Event, type: :model do
     end
 
     it 'e deveria receber array vazio em caso de erro na requisição' do
-      url = 'http://localhost:3000/api/v1/events/'
+      url = 'http://localhost:3000/api/v1/events'
       response = double('faraday_response', body: "{}", status: 500)
       allow(Faraday).to receive(:get).with(url).and_return(response)
       allow(response).to receive(:success?).and_return(false)

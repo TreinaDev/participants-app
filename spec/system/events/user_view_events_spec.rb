@@ -35,9 +35,9 @@ describe 'Usuário abre a app e vê lista de eventos', type: :system do
   it 'E não visualiza eventos que já aconteceram.' do
     events = []
     events << build(:event, name: 'Dev Week', banner: 'http://localhost:3000/events/1/banner.jpg',
-                                     logo: 'http://localhost:3000/events/1/logo.jpg', event_id: 1, start_date: 2.days.from_now)
+                                     logo: 'http://localhost:3000/events/1/logo.jpg', event_id: 1, start_date: (Time.now + 2.day).change(hour: 8, min: 0, sec: 0))
     events << build(:event, name: 'Ruby Update', banner: 'http://localhost:3000/events/2/banner.jpg',
-                                     logo: 'http://localhost:3000/events/2/logo.jpg', event_id: 2, start_date: 2.days.ago)
+                                     logo: 'http://localhost:3000/events/2/logo.jpg', event_id: 2, start_date: (Time.now - 2.day).change(hour: 8, min: 0, sec: 0))
     allow(Event).to receive(:all).and_return(events)
 
     visit root_path

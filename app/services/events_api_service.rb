@@ -9,11 +9,11 @@ class EventsApiService
   end
 
   def self.get_batches_by_event_id(event_id)
-    self.request("#{BASE_URL}/#{event_id}/batches", :get)
+    self.request("#{BASE_URL}/#{event_id}/ticket_batches", :get)
   end
 
   def self.get_batch_by_id(event_id, batch_id)
-    self.request("#{BASE_URL}/#{event_id}/batches/#{batch_id}", :get)
+    self.request("#{BASE_URL}/#{event_id}/ticket_batches/#{batch_id}", :get)
   end
 
   def self.request(url, method)

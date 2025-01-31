@@ -25,6 +25,7 @@
       <div>
         <% if @event.batches.any? && @event.batches.min_by { |batch| batch.start_date }.start_date <= DateTime.now.to_date %>
           <%= link_to t('.tickets'), event_batches_path(@event.event_id), class: "btn-buy" %>
+         
         <% elsif @event.batches.any? && @total_tickets_sales == @event.batches.reduce(0) {|acc, curr| acc + curr.limit_tickets } %>
           <%= link_to t('.soldout'), event_batches_path(@event.event_id), class: "btn-buy", disabled: true %>
         <% elsif @event.batches.any? %>
@@ -93,15 +94,11 @@
             <span><%=t('.add_post')%></span>
           <% end %>
         </div>
-
         <ul class="space-y-4">
           <% if @posts.any? %>
             <% @posts.each do |post| %>
-              <li class="bg-white shadow-md rounded-lg transition hover:shadow" id="<%=dom_id(post)%>">
-                <%= link_to event_post_path(@event.event_id, post), class: "block p-6" do %>
-                  <h3 class="text-xl font-semibold text-gray-900"><%= post.title %></h3>
-                  <p class="mt-1 text-sm text-gray-500"><%= l(post.created_at, format: :short) %></p>
-                <% end %>
+              <li class="bg-white shadow-md rounded-lg transition hover:shadow-lg" id="<%=dom_id(post)%>">
+                <%= render post %>
                 <%= link_to t('.edit_post'), edit_event_post_path(@event.event_id, post), class: "btn-confirm" %>
               </li>
             <% end %>

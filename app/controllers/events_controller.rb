@@ -9,7 +9,7 @@ class EventsController < ApplicationController
   end
 
   def index
-    @events = Event.all.select { |event| event.start_date > Date.today }
+    @events = Event.all.select { |event| DateTime.now < event.start_date.to_datetime }
   end
 
   private

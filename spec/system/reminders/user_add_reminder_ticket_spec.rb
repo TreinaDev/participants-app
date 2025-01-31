@@ -21,21 +21,21 @@ describe 'Usuário adiciona lembrete' do
   it 'e não existem ingressos disponíveis dentro da data atual' do
     user = create(:user)
     batch = [ {
-      id: 1,
+      code: '1',
       name: 'Lote Teste',
-      limit_tickets: 30,
+      tickets_limit: 30,
       start_date: 1.day.from_now.to_date,
-      value: 10.00,
+      ticket_price: 10.00,
       end_date: 1.day.from_now.to_date,
-      event_id: 1
+      event_id: '1'
     }, {
-      id: 2,
+      code: '2',
       name: 'Mesmo Lote Teste',
-      limit_tickets: 50,
+      tickets_limit: 50,
       start_date: 2.day.from_now.to_date,
-      value: 20.00,
+      ticket_price: 20.00,
       end_date: 2.day.from_now.to_date,
-      event_id: 1
+      event_id: '1'
     } ]
     event = build(:event, name: 'Evento Teste 01', batches: batch)
     allow(Event).to receive(:request_event_by_id).and_return(event)
@@ -48,27 +48,27 @@ describe 'Usuário adiciona lembrete' do
 
   it 'com ingressos já esgotados' do
     batch = [ {
-      id: 1,
+      code: '1',
       name: 'Lote Teste',
-      limit_tickets: 10,
+      tickets_limit: 10,
       start_date: 5.day.from_now.to_date,
-      value: 10.00,
+      ticket_price: 10.00,
       end_date: 1.month.from_now.to_date,
-      event_id: 1
+      event_id: '1'
     }, {
-      id: 2,
+      code: '2',
       name: 'Mesmo Lote Teste',
-      limit_tickets: 30,
+      tickets_limit: 30,
       start_date: 3.day.from_now.to_date,
-      value: 20.00,
+      ticket_price: 20.00,
       end_date: 3.month.from_now.to_date,
-      event_id: 1
+      event_id: '1'
     } ]
     create_list(:ticket, 10) do |t|
-      t.batch_id = batch[0][:batch_id]
+      t.batch_id = batch[0][:code]
     end
     create_list(:ticket, 30) do |t|
-      t.batch_id = batch[1][:batch_id]
+      t.batch_id = batch[1][:code]
     end
     event = build(:event, name: 'Evento Teste 01', batches: batch, limit_participants: 50)
     allow(Event).to receive(:request_event_by_id).and_return(event)
@@ -80,21 +80,21 @@ describe 'Usuário adiciona lembrete' do
 
   it 'caso ingressos não estejam à venda' do
     batch = [ {
-      id: 1,
+      code: '1',
       name: 'Lote Teste',
-      limit_tickets: 10,
+      tickets_limit: 10,
       start_date: 5.day.ago.to_date,
-      value: 10.00,
+      ticket_price: 10.00,
       end_date: 1.month.from_now.to_date,
-      event_id: 1
+      event_id: '1'
     }, {
-      id: 2,
+      code: '2',
       name: 'Mesmo Lote Teste',
-      limit_tickets: 30,
+      tickets_limit: 30,
       start_date: 3.day.from_now.to_date,
-      value: 20.00,
+      ticket_price: 20.00,
       end_date: 3.month.from_now.to_date,
-      event_id: 1
+      event_id: '1'
     } ]
     event = build(:event, name: 'Evento Teste 01', batches: batch, limit_participants: 50)
     allow(Event).to receive(:request_event_by_id).and_return(event)
@@ -107,21 +107,21 @@ describe 'Usuário adiciona lembrete' do
   it 'com sucesso' do
     user = create(:user)
     batch = [ {
-      id: 1,
+      code: '1',
       name: 'Lote Teste',
-      limit_tickets: 30,
+      tickets_limit: 30,
       start_date: 1.day.from_now.to_date,
-      value: 10.00,
+      ticket_price: 10.00,
       end_date: 1.day.from_now.to_date,
-      event_id: 1
+      event_id: '1'
     }, {
-      id: 2,
+      code: '2',
       name: 'Mesmo Lote Teste',
-      limit_tickets: 50,
+      tickets_limit: 50,
       start_date: 2.day.from_now.to_date,
-      value: 20.00,
+      ticket_price: 20.00,
       end_date: 2.day.from_now.to_date,
-      event_id: 1
+      event_id: '1'
     } ]
     event = build(:event, name: 'Evento Teste 01', batches: batch)
     allow(Event).to receive(:request_event_by_id).and_return(event, event)
@@ -138,21 +138,21 @@ describe 'Usuário adiciona lembrete' do
   it 'e agenda envio do email' do
     user = create(:user)
     batches = [ {
-      id: 1,
+      code: '1',
       name: 'Lote Teste',
-      limit_tickets: 30,
+      tickets_limit: 30,
       start_date: 1.day.from_now.to_date,
-      value: 10.00,
+      ticket_price: 10.00,
       end_date: 1.day.from_now.to_date,
-      event_id: 1
+      event_id: '1'
     }, {
-      id: 2,
+      code: '2',
       name: 'Mesmo Lote Teste',
-      limit_tickets: 50,
+      tickets_limit: 50,
       start_date: 2.day.from_now.to_date,
-      value: 20.00,
+      ticket_price: 20.00,
       end_date: 2.day.from_now.to_date,
-      event_id: 1
+      event_id: '1'
     } ]
       event = build(:event, name: 'Evento Teste 01', batches: batches)
       allow(Event).to receive(:request_event_by_id).and_return(event, event)
