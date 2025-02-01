@@ -9,6 +9,7 @@ class ScheduleItem
   end
 
   def duration
-    ((@end_time_raw - @start_time_raw) * 24 * 60).to_i
+    duration = ((@end_time_raw - @start_time_raw) * 24 * 60).to_i
+    duration > 0 ? duration : 0
   end
 end

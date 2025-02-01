@@ -75,13 +75,13 @@
         <% @event.schedules.each do |schedule| %>
           <p class="font-bold text-gray-800"><%= I18n.l(schedule.date) %></p>
           <% if schedule.schedule_items.empty? %>
-            <p class="mt-4 text-gray-600"><%= 'Ainda não existe programação cadastrada para esse dia' %></p>
+            <p class="mt-4 text-gray-600"><%= t('.no_schedule_item') %></p>
           <% else %>
             <% schedule.schedule_items.each do |item| %>
               <div class="bg-white p-4 rounded-lg shadow-md">
                 <p class="font-bold text-gray-800"><%= item.name %></p>
                 <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.start_time') %>:</span> <%= item.start_time %></p>
-                <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.duration') %>Duração:</span> <%= item.duration %>min</p>
+                <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.duration') %>:</span> <%= item.duration %>min</p>
               </div>
             <% end %>
           <% end %>

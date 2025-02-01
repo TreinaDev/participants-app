@@ -52,14 +52,6 @@ class Event
     schedules.map { |schedule| Schedule.new(date: schedule[:date], schedule_items: schedule[:schedule_items]) }
   end
 
-  def build_event_agenda(event_agendas)
-    event_agendas.map { |event_agenda| EventAgenda.new(title: event_agenda[:title], description: event_agenda[:description],
-                                                       email: event_agenda[:email], event_agenda_id: event_agenda[:event_agenda_id],
-                                                       date: event_agenda[:date], instructor: event_agenda[:instructor],
-                                                       start_time: event_agenda[:start_time], duration: event_agenda[:duration],
-                                                       type: event_agenda[:agenda_type]) }
-  end
-
   def self.build_event(data)
     Event.new(
       event_id: data[:code], name: data[:name], banner: data[:banner_url], logo: data[:logo_url], event_owner: data[:event_owner],
