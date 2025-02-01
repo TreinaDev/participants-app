@@ -5,7 +5,7 @@ class DashboardController < ApplicationController
     @posts = Post.where(event_id: event_ids).order(created_at: :desc).limit(10)
 
     if @posts.any?
-      @events = Event.request_events_posts(event_ids).select { |event| event_ids.include?(event.event_id) }
+      @events = Event.request_events_posts(event_ids).select { |event| event_ids.include?(event.event_id) if event.present? }
     end
   end
 end
