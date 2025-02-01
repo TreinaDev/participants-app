@@ -42,6 +42,14 @@ class Event
     favorites_data
   end
 
+  def self.request_events_posts(event_ids)
+    posts_events = []
+    event_ids.each do |id|
+      posts_events << Event.request_event_by_id(id)
+    end
+    posts_events
+  end
+
   def self.request_my_events(tickets)
     tickets.map { |ticket| Event.request_event_by_id(ticket.event_id) }
   end

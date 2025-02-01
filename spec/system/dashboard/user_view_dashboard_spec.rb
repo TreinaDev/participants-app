@@ -26,6 +26,7 @@ describe 'Usuário autenticado acessa o dashboard' do
     event_two = build(:event, name: 'DevWeek')
     event_three = build(:event, name: 'Soletrando')
     event_four = build(:event, name: 'Dev con')
+    events = [ event_one, event_two, event_three, event_four ]
 
     create(:ticket, user: user, event_id: event_one.event_id, status_confirmed: true)
     create(:ticket, user: user, event_id: event_two.event_id, status_confirmed: true)
@@ -44,6 +45,7 @@ describe 'Usuário autenticado acessa o dashboard' do
     create(:post, title: 'É baiano ou bahiano?', event_id: event_three.event_id, created_at: 2.days.ago)
     create(:post, title: 'Devs que não tomam café', event_id: event_four.event_id, created_at: 1.days.ago)
     create(:post, title: 'Devs que acordam 5 da manhã', event_id: event_four.event_id, created_at: 2.days.ago)
+    allow(Event).to receive(:request_events_posts).and_return(events)
 
     login_as user
     visit dashboard_index_path
@@ -62,6 +64,24 @@ describe 'Usuário autenticado acessa o dashboard' do
     expect(page).not_to have_content 'CSS: ame-o ou deixe-o'
   end
 
+
+  it 'e visualiza autor, data e evento das ultimas postagens' do
+    user = create(:user)
+    event_three = build(:event, name: 'Soletrando')
+    events = [ event_three ]
+
+
+    create(:ticket, user: user, event_id: event_three.event_id, status_confirmed: true)
+    post = create(:post, title: 'Português: um idioma problemático', event_id: event_three.event_id, created_at: 1.days.ago)
+    allow(Event).to receive(:request_events_posts).and_return(events)
+
+    login_as user
+    visit dashboard_index_path
+
+    expect(page).to have_content "Criado por #{post.user.name} em #{I18n.l(post.created_at, format: :short)}"
+    expect(page).to have_content "Evento: #{event_three.name}"
+  end
+
   it 'e não pode acessar se não estiver autenticado' do
     visit dashboard_index_path
 
@@ -75,6 +95,7 @@ describe 'Usuário autenticado acessa o dashboard' do
     event_two = build(:event, name: 'DevWeek')
     event_three = build(:event, name: 'Soletrando')
     event_four = build(:event, name: 'Dev con')
+    events = [ event_one, event_two, event_three, event_four ]
 
     create(:ticket, user: user, event_id: event_one.event_id, status_confirmed: true)
     create(:ticket, user: user, event_id: event_two.event_id, status_confirmed: true)
@@ -91,6 +112,7 @@ describe 'Usuário autenticado acessa o dashboard' do
     create(:post, title: 'É baiano ou bahiano?', event_id: event_three.event_id, created_at: 2.days.ago)
     create(:post, title: 'Devs que não tomam café', event_id: event_four.event_id, created_at: 1.days.ago)
     create(:post, title: 'Devs que acordam 5 da manhã', event_id: event_four.event_id, created_at: 2.days.ago)
+    allow(Event).to receive(:request_events_posts).and_return(events)
 
     login_as user
     visit dashboard_index_path
