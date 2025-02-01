@@ -1,7 +1,7 @@
 class Schedule
   attr_accessor :date, :schedule_items
   def initialize(date:, schedule_items:)
-    @date = date
+    @date = date.to_date
     @schedule_items = build_schedule_items(schedule_items)
   end
 

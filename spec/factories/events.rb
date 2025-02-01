@@ -11,7 +11,6 @@ FactoryBot.define do
     limit_participants { 30 }
     description { 'Aprenda a fritar um ovo' }
     event_owner { 'Samuel' }
-    event_agendas { [] }
     batches { [] }
     schedules { [] }
 
@@ -28,7 +27,6 @@ FactoryBot.define do
         limit_participants: limit_participants,
         description: description,
         event_owner: event_owner,
-        event_agendas: event_agendas,
         batches: batches,
         schedules: schedules
       )

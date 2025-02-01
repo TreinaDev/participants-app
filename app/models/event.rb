@@ -1,6 +1,6 @@
 class Event
-  attr_accessor :name, :banner, :logo, :event_id, :event_owner, :local_event, :description, :event_agendas, :url_event, :limit_participants, :start_date, :end_date, :batches, :schedules
-  def initialize(event_id:, name:, banner:, logo:, event_owner:, url_event:, local_event:, limit_participants:, description:, event_agendas:, start_date:, end_date:, batches:, schedules:)
+  attr_accessor :name, :banner, :logo, :event_id, :event_owner, :local_event, :description, :url_event, :limit_participants, :start_date, :end_date, :batches, :schedules
+  def initialize(event_id:, name:, banner:, logo:, event_owner:, url_event:, local_event:, limit_participants:, description:, start_date:, end_date:, batches:, schedules:)
     @event_id = event_id
     @name = name
     @banner = banner
@@ -13,7 +13,6 @@ class Event
     @limit_participants = limit_participants
     @description = description
     @schedules = build_schedules(schedules)
-    @event_agendas = build_event_agenda(event_agendas)
     @batches = build_batch(batches)
   end
 
@@ -65,7 +64,7 @@ class Event
     Event.new(
       event_id: data[:code], name: data[:name], banner: data[:banner_url], logo: data[:logo_url], event_owner: data[:event_owner],
       local_event: data[:address], limit_participants: data[:participants_limit],  url_event: data[:url_event], schedules: data[:schedules] || [],
-      description: data[:description], event_agendas: data[:event_agendas] || [], start_date: data[:start_date].to_date, end_date: data[:end_date].to_date, batches: data[:ticket_batches] || []
+      description: data[:description], start_date: data[:start_date].to_date, end_date: data[:end_date].to_date, batches: data[:ticket_batches] || []
     )
   end
 

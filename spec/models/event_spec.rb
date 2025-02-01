@@ -86,7 +86,7 @@ RSpec.describe Event, type: :model do
       allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/api/v1/events/1').and_return(response)
       result = Event.request_event_by_id(event[:code])
 
-      expect(result.schedules[0].date).to eq "2025-02-14"
+      expect(result.schedules[0].date).to eq "Fri, 14 Feb 2025".to_datetime
 
       expect(result.schedules[0].schedule_items[0].name).to eq 'Palestra'
       expect(result.schedules[0].schedule_items[0].start_time).to eq '09:00'
@@ -96,13 +96,13 @@ RSpec.describe Event, type: :model do
       expect(result.schedules[0].schedule_items[1].start_time).to eq '10:00'
       expect(result.schedules[0].schedule_items[1].end_time).to eq '11:00'
 
-      expect(result.schedules[1].date).to eq "2025-02-15"
+      expect(result.schedules[1].date).to eq "Fri, 15 Feb 2025".to_datetime
 
       expect(result.schedules[1].schedule_items[0].name).to eq 'Apresentação'
       expect(result.schedules[1].schedule_items[0].start_time).to eq '09:00'
       expect(result.schedules[1].schedule_items[0].end_time).to eq '10:00'
 
-      expect(result.schedules[2].date).to eq "2025-02-16"
+      expect(result.schedules[2].date).to eq "Fri, 16 Feb 2025".to_datetime
       expect(result.schedules[2].schedule_items).to eq []
     end
 

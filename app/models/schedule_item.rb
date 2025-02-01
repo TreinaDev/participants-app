@@ -4,5 +4,11 @@ class ScheduleItem
     @name = name
     @start_time = start_time.to_datetime.strftime("%H:%M")
     @end_time = end_time.to_datetime.strftime("%H:%M")
+    @start_time_raw = start_time.to_datetime
+    @end_time_raw = end_time.to_datetime
+  end
+
+  def duration
+    ((@end_time_raw - @start_time_raw) * 24 * 60).to_i
   end
 end
