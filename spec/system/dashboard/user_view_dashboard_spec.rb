@@ -10,6 +10,16 @@ describe 'Usuário autenticado acessa o dashboard' do
     expect(current_path).to eq dashboard_index_path
   end
 
+  it 'sem postagens realizadas' do
+    user = create(:user)
+
+    login_as user
+    visit dashboard_index_path
+
+    expect(page).to have_content '🚀 Explore eventos incríveis e faça parte da experiência!'
+    expect(page).to have_link 'Participar Agora'
+  end
+
   it 'e visualiza últimas dez postagens de todos os seus eventos' do
     user = create(:user)
     event_one = build(:event, name: 'Aprendendo a cozinhar')
