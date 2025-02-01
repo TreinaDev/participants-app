@@ -3,8 +3,20 @@
 <%= @post.content %>
 <%= l(@post.created_at, format: :short)%>
 
-<% if user_signed_in? && !@post.liked_by?(current_user) %>
-  <%= button_to t('.add_like'), event_post_likes_path(event_id: @event_id, post_id: @post.id)%>
+<% if user_signed_in? %>
+  <% if !@post.liked_by?(current_user) %>
+    <%= button_to event_post_likes_path(event_id: @event_id, post_id: @post.id), id: "like-button" do %>
+        <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"/>
+        </svg>
+    <% end %>
+  <% else %>
+    <%= button_to event_post_like_path(event_id: @event_id, post_id: @post.id, id: @like.id), method: :delete, id: "unlike-button" do %>
+      <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="full" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"/>
+      </svg>
+    <% end %>
+  <% end %>
 <% end %>
 
 <p><%=@number_of_likes%> <%=t('.likes', count: @number_of_likes)%></p>

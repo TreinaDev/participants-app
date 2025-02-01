@@ -1,0 +1,7 @@
+en:
+  activerecord:
+    errors:
+      models:
+        like:
+          unique_like: You have already liked this post
+          check_user_is_participant: You do not participate in this event

@@ -7,7 +7,7 @@ class Post < ApplicationRecord
 
   after_create :automatic_post_like
 
-  def liked_by? user
+  def liked_by?(user)
     likes.exists?(user: user)
   end
 
