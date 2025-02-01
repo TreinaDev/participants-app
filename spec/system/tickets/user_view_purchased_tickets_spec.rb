@@ -45,17 +45,19 @@ describe 'Usuário acessa ingressos de um evento' do
     login_as user
     visit root_path
     click_on 'Meus Eventos'
-    click_on 'DevWeek'
+    within("#event_id_#{event.event_id}") do
+      click_on 'Ver Ingresso'
+    end
 
     expect(page).to have_content "Ingressos para o evento #{event.name}"
     expect(page).to have_content 'Entrada - Meia x2'
     expect(page).to have_content I18n.l(5.days.ago, format: :short)
-    expect(page).to have_content 'AAAAAABBBBBBCCCCCCDDDDDDDDDDDDDDDDDD'
+    expect(page).to have_content 'TOKEN: AAAAAABBBBBBCCCCCCDDDDDDDDDDDDDDDDDD'
     expect(page).to have_content I18n.l(10.days.ago, format: :short)
-    expect(page).to have_content 'AAAAAABBBBBBCCCCCCEEEEEEEEEEEEEEEEEE'
+    expect(page).to have_content 'TOKEN: AAAAAABBBBBBCCCCCCEEEEEEEEEEEEEEEEEE'
     expect(page).to have_content 'Entrada - PDC x1'
     expect(page).to have_content I18n.l(15.days.ago, format: :short)
-    expect(page).to have_content 'AAAAAABBBBBBCCCCCCFFFFFFFFFFFFFFFFFF'
+    expect(page).to have_content 'TOKEN: AAAAAABBBBBBCCCCCCFFFFFFFFFFFFFFFFFF'
   end
 
   it 'e não está logado' do
@@ -130,7 +132,7 @@ describe 'Usuário acessa ingressos de um evento' do
 
     login_as user
     visit my_event_path(id: event.event_id, locale: :'pt-BR')
-    click_on 'QrCode'
+    click_on 'QR Code'
 
     expect(current_path).to eq event_batch_ticket_path(event_id: event.event_id, batch_id: ticket.batch_id, id: ticket.id, locale: :'pt-BR')
   end

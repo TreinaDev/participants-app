@@ -1,12 +1,26 @@
-<%=page_title("#{t('.title')} #{@event.name}")%>
+<div class="max-w-4xl mx-auto p-6">
+  <h1 class="text-2xl font-bold text-gray-900 mb-4">
+    <%= page_title("#{t('.title')} #{@event.name}") %>
+  </h1>
 
-<% @batches.keys.each do |batch_id| %>
-    <h2><%= @batches[batch_id].name %> x<%= @tickets_by_batch_id[batch_id].count %></h2>
-      <% @tickets_by_batch_id[batch_id].each do |ticket| %>
-        <%= link_to event_batch_ticket_path(event_id: @event.event_id, batch_id: ticket.batch_id, id: ticket.id) do %>
-            <%= I18n.l(ticket.date_of_purchase, format: :short) %>
-            <%= ticket.token %>
-            <h4>QrCode</h4>
+  <% @batches.keys.each do |batch_id| %>
+    <div class="bg-gray-100 p-4 rounded-lg shadow-md mb-6">
+      <h2 class="text-lg font-semibold text-gray-800">
+        <%= @batches[batch_id].name %> 
+        <span class="text-gray-600 text-sm">x<%= @tickets_by_batch_id[batch_id].count %></span>
+      </h2>
+
+      <div class="mt-3 space-y-4">
+        <% @tickets_by_batch_id[batch_id].each do |ticket| %>
+            <p class="text-gray-700">
+              <span class="font-semibold"><%= I18n.l(ticket.date_of_purchase, format: :short) %></span>
+              <span class="block text-sm text-gray-500"><span class="font-semibold">TOKEN: </spam><%= ticket.token %></span>
+            </p>
+            <div class="mt-2 text-center">
+              <%= link_to "QR Code", event_batch_ticket_path(event_id: @event.event_id, batch_id: ticket.batch_id, id: ticket.id), class: "inline-block bg-blue-500 text-white px-4 py-1 text-sm font-semibold rounded-lg"%>
+            </div>
         <% end %>
-      <% end %>
-<% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

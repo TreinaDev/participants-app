@@ -4,5 +4,6 @@ pt-BR:
     index:
       title: Meus Eventos
       no_tickets: Você ainda não possui ingressos comprados
+      see_ticket: Ver Ingresso
     show:
       title: Ingressos para o evento
