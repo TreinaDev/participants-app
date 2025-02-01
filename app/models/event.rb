@@ -64,7 +64,7 @@ class Event
   def self.build_event(data)
     Event.new(
       event_id: data[:code], name: data[:name], banner: data[:banner_url], logo: data[:logo_url], event_owner: data[:event_owner],
-      local_event: data[:address], limit_participants: data[:participants_limit],  url_event: data[:url_event], schedules: data[:schedules],
+      local_event: data[:address], limit_participants: data[:participants_limit],  url_event: data[:url_event], schedules: data[:schedules] || [],
       description: data[:description], event_agendas: data[:event_agendas] || [], start_date: data[:start_date].to_date, end_date: data[:end_date].to_date, batches: data[:ticket_batches] || []
     )
   end
