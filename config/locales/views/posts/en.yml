@@ -1,6 +1,11 @@
 en:
   posts:
     negate_access: You can not do that
+    show:
+      add_like: Like
+      likes:
+        one: like
+        other: likes
     new:
       title: Add New Post
       save: Save

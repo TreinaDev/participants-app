@@ -1,6 +1,11 @@
 pt-BR:
   posts:
     negate_access: Você não participa deste evento
+    show:
+      add_like: Curtir
+      likes:
+        one: curtida
+        other: curtidas
     new:
       title: Adicionar Nova Postagem
       save: Salvar

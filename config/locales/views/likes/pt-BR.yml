@@ -1,0 +1,5 @@
+pt-BR:
+  likes:
+    create:
+      success: Você curtiu a postagem com sucesso
+      alert: Falha ao salvar a postagem

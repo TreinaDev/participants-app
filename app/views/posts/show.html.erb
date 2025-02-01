@@ -2,3 +2,9 @@
 
 <%= @post.content %>
 <%= l(@post.created_at, format: :short)%>
+
+<% if user_signed_in? && !@post.liked_by?(current_user) %>
+  <%= button_to t('.add_like'), event_post_likes_path(event_id: @event_id, post_id: @post.id)%>
+<% end %>
+
+<p><%=@number_of_likes%> <%=t('.likes', count: @number_of_likes)%></p>

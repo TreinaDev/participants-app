@@ -1,0 +1,5 @@
+en:
+  likes:
+    create:
+      success: You liked the post
+      alert: Something went wrong
