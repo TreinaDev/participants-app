@@ -4,17 +4,23 @@
       <%= form_title(t('.title')) %>
       <%= form_with(model: [@user, @profile], class: 'mt-8 mb-2 w-80 max-w-screen-lg sm:w-96') do |f| %>
         <div class="mb-1 flex flex-col gap-6">
+
+          <div class="w-full" data-controller="cities">
+            <%= f.label :state, class: 'form-label' %>
+            <%= f.select :state, 
+                  options_for_select(@states), 
+                  { prompt: "Selecione um estado" }, 
+                  class: "form-field", 
+                  data: { action: "change->cities#selectCity" } %>
+          </div>
           <div class="w-full">
             <%= f.label :city, class: 'form-label' %>
-            <%= f.text_field :city, class: 'form-field' %>
+            <%= f.select :city, 
+                  options_for_select([]), 
+                  { prompt: "Selecione uma cidade" }, 
+                  class: "form-field cities", 
+                  data: { action: "change->cities#selectCity" } %>    
           </div>
-
-          <div class="w-full">
-            <%= f.label :state, class: 'form-label' %>
-            <%= f.select :payment_method, options_for_select(@states.map { |state| [state.name, state.code]}), { prompt: true },
-            { class: "form-field" } %>
-          </div>
-
           <div class="w-full">
             <%= f.label :phone_number, class: 'form-label' %>
             <%= f.text_field :phone_number, class: 'form-field' %>

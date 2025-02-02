@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'webmock/rspec'
 
 describe 'usuário edita perfil' do
   it 'pela página do perfil' do
@@ -12,22 +13,31 @@ describe 'usuário edita perfil' do
     expect(page).to have_link 'Editar Perfil'
   end
 
-  it 'com sucesso' do
+  it 'com sucesso', type: :system, js: true do
     user = create(:user, email: 'teste@email.com')
+
+    stub_request(:get, "https://brasilapi.com.br/api/ibge/uf/v1")
+      .to_return(status: 200, body: '[{"nome": "Bahia", "sigla": "BA"}]', headers: {})
+
+    stub_request(:get, "https://brasilapi.com.br/api/ibge/municipios/v1/BA")
+      .to_return(status: 200, body: '[{"nome": "Salvador"}, {"nome": "Feira de Santana"}]', headers: {})
 
     login_as user
     visit edit_user_profile_path(user_id: user, id: user.profile)
-    fill_in 'Cidade', with: 'TesteCidade'
-    fill_in 'Estado', with: 'TesteEstado'
+    select 'Bahia', from: 'Estado'
+
+    select 'SALVADOR', from: 'Cidade'
+
     fill_in 'Telefone', with: '11912125454'
     click_on 'Salvar Informações'
 
     expect(current_path).to eq user_profile_path(user_id: user, id: user.profile, locale: :'pt-BR')
     expect(page).to have_content 'Perfil atualizado'
-    expect(page).to have_content 'TesteCidade'
-    expect(page).to have_content 'TesteEstado'
+    expect(page).to have_content 'Bahia'
+    expect(page).to have_content 'SALVADOR'
     expect(page).to have_content '11912125454'
   end
+
 
   it 'e não está logado' do
     user = create(:user)
