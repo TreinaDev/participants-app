@@ -67,3 +67,5 @@ group :test do
 end
 
 gem "cpf_cnpj", "~> 1.0"
+
+gem "carmen"

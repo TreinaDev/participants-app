@@ -11,7 +11,8 @@
 
           <div class="w-full">
             <%= f.label :state, class: 'form-label' %>
-            <%= f.text_field :state, class: 'form-field' %>
+            <%= f.select :payment_method, options_for_select(@states.map { |state| [state.name, state.code]}), { prompt: true },
+            { class: "form-field" } %>
           </div>
 
           <div class="w-full">
