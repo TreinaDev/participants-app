@@ -1,0 +1,4 @@
+<%= form_with model: Comment.new, method: :post, url: event_post_comments_path(event_id: event_id, post_id: post_id) do |f| %>
+    <%= f.textarea :content %>
+    <%= f.submit t('.save_comment') %>
+<% end %>

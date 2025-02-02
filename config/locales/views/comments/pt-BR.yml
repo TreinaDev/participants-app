@@ -1,0 +1,8 @@
+pt-BR:
+  comments:
+    negate_access: Você não participa deste evento
+    new:
+      save_comment: Adicionar Comentário
+    create:
+      success: Comentário adicionado
+      alert: Falha ao salvar o comentário

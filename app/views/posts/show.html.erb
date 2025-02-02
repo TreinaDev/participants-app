@@ -2,3 +2,10 @@
 
 <%= @post.content %>
 <%= l(@post.created_at, format: :short)%>
+
+<%= render 'shared/errors_messages', model: @comment %>
+<%= render 'comments/new', post_id: @post.id, event_id: @event_id %>
+
+<% if @post.comments.any? %>
+  <%= render @post.comments %>
+<% end %>
