@@ -3,5 +3,5 @@
   <div class="prose prose-lg text-gray-700">
     <%= @post.content %>
   </div>
-  <p class="text-sm text-gray-500 mt-4">Publicado em: <%= l(@post.created_at, format: :short) %></p>
+  <p class="text-sm text-gray-500 mt-4"><%= t('.published_in') %> <%= l(@post.created_at, format: :short) %></p>
 </div>

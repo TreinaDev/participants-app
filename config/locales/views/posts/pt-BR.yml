@@ -7,3 +7,5 @@ pt-BR:
     create:
       success: Postagem adicionada
       alert: Falha ao salvar a postagem
+    show: 
+      published_in: 'Publicado em:'
