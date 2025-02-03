@@ -1,5 +1,5 @@
 en:
-  event_agenda:
+  schedule:
     start_time: Start time
     duration: Duration
     type: Type of Event
