@@ -10,7 +10,6 @@ export default class extends Controller {
       const nameSate =  event.target.value
       const states = await fetch("https://brasilapi.com.br/api/ibge/uf/v1")
       const dataStates = await states.json()
-
       const uf = dataStates.find((state) => state.nome == nameSate).sigla
       const cities = await fetch(`https://brasilapi.com.br/api/ibge/municipios/v1/${uf}`)
       const dataCities = await cities.json()
