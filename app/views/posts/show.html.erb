@@ -6,3 +6,10 @@
   </div>
   <p class="text-sm text-gray-500 mt-4"><%= t('.published_in') %> <%= l(@post.created_at, format: :short) %></p>
 </div>
+
+<%= render 'shared/errors_messages', model: @comment %>
+<%= render 'comments/new', post_id: @post.id, event_id: @event_id %>
+
+<% if @post.comments.any? %>
+  <%= render @post.comments %>
+<% end %>

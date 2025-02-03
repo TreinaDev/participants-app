@@ -1,0 +1,8 @@
+en:
+  comments:
+    negate_access: You do not participate in this event
+    new:
+      save_comment: Save Comment
+    create:
+      success: Comment saved with success
+      alert: Something went wrong
