@@ -51,13 +51,13 @@ describe 'Usuário acessa ingressos de um evento' do
 
     expect(page).to have_content "Ingressos para o evento #{event.name}"
     expect(page).to have_content 'Entrada - Meia x2'
-    expect(page).to have_content I18n.l(5.days.ago, format: :short)
-    expect(page).to have_content 'TOKEN: AAAAAABBBBBBCCCCCCDDDDDDDDDDDDDDDDDD'
-    expect(page).to have_content I18n.l(10.days.ago, format: :short)
-    expect(page).to have_content 'TOKEN: AAAAAABBBBBBCCCCCCEEEEEEEEEEEEEEEEEE'
+    expect(page).to have_content "Data\n#{I18n.l(5.days.ago, format: :date)}"
+    expect(page).to have_content "Horário\n#{I18n.l(5.days.ago, format: :hour)}"
+    expect(page).to have_content "Nº do Ingresso\nAAAAAABBBBBBCCCCCCDDDDDDDDDDDDDDDDD"
+    expect(page).to have_content "Local\n#{event.local_event}"
+    expect(page).to have_content 'AAAAAABBBBBBCCCCCCEEEEEEEEEEEEEEEEEE'
     expect(page).to have_content 'Entrada - PDC x1'
-    expect(page).to have_content I18n.l(15.days.ago, format: :short)
-    expect(page).to have_content 'TOKEN: AAAAAABBBBBBCCCCCCFFFFFFFFFFFFFFFFFF'
+    expect(page).to have_content 'AAAAAABBBBBBCCCCCCFFFFFFFFFFFFFFFFFF'
   end
 
   it 'e não está logado' do

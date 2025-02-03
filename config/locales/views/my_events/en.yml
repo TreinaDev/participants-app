@@ -7,3 +7,8 @@ en:
       see_ticket: See Ticket
     show:
       title: Tickets for the event
+      date: Date
+      time: Time
+      local: Local
+      ticket_number: Ticket Number
+      qr_code: QR Code
