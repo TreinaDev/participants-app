@@ -6,7 +6,7 @@ en:
     form:
       save: Save
     post:
-      created_by: Crearted by
+      created_by: Created by
       in: at
     new:
       title: Add New Post
