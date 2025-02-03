@@ -22,5 +22,11 @@
     <% end %>
   <% end %>
 <% end %>
-
 <p><%=@number_of_likes%> <%=t('.likes', count: @number_of_likes)%></p>
+
+<%= render 'shared/errors_messages', model: @comment %>
+<%= render 'comments/new', post_id: @post.id, event_id: @event_id %>
+
+<% if @post.comments.any? %>
+  <%= render @post.comments %>
+<% end %>

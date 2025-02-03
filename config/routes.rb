@@ -27,6 +27,7 @@ Rails.application.routes.draw do
       end
       resources :posts, only: [ :new, :create, :show, :edit, :update ] do
         resources :likes, only: [ :create, :destroy ]
+        resources :comments, only: [ :create ]
       end
       get ":name", to: "events#show", as: "by_name"
     end
