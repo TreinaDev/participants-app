@@ -27,7 +27,7 @@ RSpec.describe Like, type: :model do
   end
 
   describe '#check_user_is_participant' do
-    it 'usuário consegue curtir postagem de evento em que não participa' do
+    it 'usuário não consegue curtir postagem de evento em que não participa' do
       user = create(:user)
       event = build(:event, event_id: '1', name: 'DevWeek')
       create(:ticket, user: user, event_id: event.event_id)
