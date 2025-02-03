@@ -1,10 +1,12 @@
-<div class="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
-  <h1 class="text-3xl font-bold text-gray-800 mb-4"><%= page_title(@post.title) %></h1>
-  <%= link_to t('.edit_post'), edit_event_post_path(@event_id, @post), class: "btn-confirm" %>
-  <div class="prose prose-lg text-gray-700">
-    <%= @post.content %>
+<div class="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg flex justify-between border-x mb-3">
+  <div>
+    <div class="prose prose-lg text-gray-700">
+      <h1 class="text-3xl font-bold text-gray-800 mb-4"><%= page_title(@post.title) %></h1>
+      <%= @post.content %>
+    </div>
+    <p class="text-sm text-gray-500 mt-4"><%= t('.published_in') %> <%= l(@post.created_at, format: :short) %></p>
   </div>
-  <p class="text-sm text-gray-500 mt-4"><%= t('.published_in') %> <%= l(@post.created_at, format: :short) %></p>
+  <%= link_to t('.edit_post'), edit_event_post_path(@event_id, @post), class: "btn-confirm self-end" if @post.user == current_user%>
 </div>
 
 <% if user_signed_in? %>
