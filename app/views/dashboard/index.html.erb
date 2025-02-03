@@ -2,7 +2,7 @@
   <% if @posts.any? %>
     <% @posts.each do |post| %>
       <li class="bg-gradient-to-r from-white to-gray-100 shadow-lg rounded-xl transition transform hover:scale-105 hover:shadow-xl p-6">
-        <%= render 'posts/post', post: post %>
+        <%= render post %>
       </li>
      <% end %>
   <% else %>

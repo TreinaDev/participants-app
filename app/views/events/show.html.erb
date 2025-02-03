@@ -100,8 +100,9 @@
         <ul class="space-y-4">
           <% if @posts.any? %>
             <% @posts.each do |post| %>
-              <li class="bg-white shadow-md rounded-lg transition hover:shadow-lg">
-                <%= render 'posts/post', post: post %>
+              <li class="bg-white shadow-md rounded-lg transition hover:shadow-lg" id="<%=dom_id(post)%>">
+                <%= render post %>
+                <%= link_to t('.edit_post'), edit_event_post_path(@event.event_id, post), class: "btn-confirm" %>
               </li>
             <% end %>
           <% else %>
