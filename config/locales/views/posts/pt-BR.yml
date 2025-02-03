@@ -1,15 +1,20 @@
 pt-BR:
   posts:
+    negate_access: Você não participa deste evento
     not_post_owner: Você não tem acesso a essa página
     not_participant: Você não participa deste evento
     form:
       save: Salvar
     edit:
       title: Editar Postagem
+    post:
+      created_by: Criado por 
+      in: em
     new:
       title: Adicionar Nova Postagem
     show:
       edit_post: Editar
+      published_in: 'Publicado em:'
     create:
       success: Postagem adicionada
       alert: Falha ao salvar a postagem

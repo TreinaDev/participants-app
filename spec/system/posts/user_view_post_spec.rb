@@ -20,7 +20,7 @@ describe 'Participante vê postagem' do
 
     expect(page).to have_content 'Título Teste'
     expect(page).to have_content 'Conteúdo Teste'
-    expect(page).to have_content "#{I18n.l(post.created_at, format: :short)}"
+    expect(page).to have_content "Publicado em: #{I18n.l(post.created_at, format: :short)}"
   end
 
   it 'e não está autenticado' do

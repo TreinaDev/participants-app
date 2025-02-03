@@ -8,6 +8,7 @@ pt-BR:
     show:
       event_agenda: Agenda do evento
       no_schedule: Ainda não existe programação cadastrada para esse evento
+      no_schedule_item: Ainda não existe programação cadastrada para esse dia
       add_favorites: Adicionar a favoritos
       tickets: Ver Ingressos
       ticket_date: Ingressos disponíveis
@@ -18,3 +19,4 @@ pt-BR:
       add_post: Adicionar Postagem
       edit_post: Editar
       remove_reminder: Remover Lembrete
+      event_description: Descrição do evento

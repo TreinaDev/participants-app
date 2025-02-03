@@ -25,9 +25,14 @@ describe 'Event API' do
       ]
       target_batch = batches[1]
       event = build(:event, name: 'DevWeek',  event_id: '1', batches: batches)
-      create(:ticket, batch_id: target_batch[:id])
-      create(:ticket, batch_id: target_batch[:id])
-      create(:ticket, batch_id: target_batch[:id])
+      participants = []
+      participants << create(:user, name: "Cristiano", last_name: 'Santana', email: 'cristiano@email.com', cpf: CPF.generate)
+      participants << create(:user, name: "Samuel", last_name: 'Rocha', email: 'samuel@email.com', cpf: CPF.generate)
+      participants << create(:user, name: "João", last_name: 'Castelo', email: 'joao@email.com', cpf: CPF.generate)
+      create(:ticket, batch_id: target_batch[:id], user: participants[0])
+      create(:ticket, batch_id: target_batch[:id], user: participants[1])
+      create(:ticket, batch_id: target_batch[:id], user: participants[2])
+      participants = participants.map { |participant| { 'name' => participant.name, 'last_name' => participant.last_name, 'email' => participant.email, "cpf" => participant.cpf } }
       allow(Event).to receive(:request_event_by_id).and_return(event)
 
       get "/api/v1/events/#{event.event_id}"
@@ -39,6 +44,9 @@ describe 'Event API' do
 
       expect(json_response["id"]).to eq event.event_id
       expect(json_response["sold_tickets"]).to eq 3
+      expect(json_response["participants"].length).to eq 3
+      expect(json_response["participants"].class).to eq Array
+      expect(json_response["participants"]).to eq participants
     end
 
     it 'e retorna 404 quando não encontra o Evento' do
@@ -95,9 +103,15 @@ describe 'Event API' do
       other_batch= other_batches[0]
       event = build(:event, name: 'DevWeek',  event_id: '1', batches: batches)
       build(:event, name: 'Tailwind',  event_id: '2', batches: other_batches)
-      create(:ticket, batch_id: target_batch[:id], event_id: '1')
-      create(:ticket, batch_id: target_batch[:id], event_id: '1')
-      create(:ticket, batch_id: other_batch[:id], event_id: '2')
+
+      participants = []
+      participants << create(:user, name: "Cristiano", last_name: 'Santana', email: 'cristiano@email.com', cpf: CPF.generate)
+      participants << create(:user, name: "Samuel", last_name: 'Rocha', email: 'samuel@email.com', cpf: CPF.generate)
+      participants << create(:user, name: "João", last_name: 'Castelo', email: 'joao@email.com', cpf: CPF.generate)
+      create(:ticket, batch_id: target_batch[:id], user: participants[0], event_id: '1')
+      create(:ticket, batch_id: target_batch[:id], user: participants[1], event_id: '1')
+      create(:ticket, batch_id: other_batch[:id], user: participants[2], event_id: '2')
+      participants = participants.map { |participant| { 'name' => participant.name, 'last_name' => participant.last_name, 'email' => participant.email, "cpf" => participant.cpf } }.select { |user| user["name"] != 'João' }
 
 
       allow(Event).to receive(:request_event_by_id).and_return(event)
@@ -112,6 +126,7 @@ describe 'Event API' do
 
       expect(json_response["sold_tickets"]).to eq 2
       expect(json_response["id"]).to eq '1'
+      expect(json_response["participants"]).to eq participants
     end
 
     it 'E falha com um erro interno' do

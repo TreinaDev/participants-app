@@ -3,8 +3,8 @@ require 'rails_helper'
 describe 'Usuário acessa página de meus eventos' do
   it 'a partir da página inicial' do
     user = create(:user)
-    event1 = build(:event, name: 'DevWeek')
-    event2 = build(:event, name: 'Ruby')
+    event1 = build(:event, name: 'DevWeek', logo: 'http://localhost:3000/events/1/logo.jpg',  banner: 'http://localhost:3000/events/1/banner.jpg')
+    event2 = build(:event, name: 'Ruby', logo: 'http://localhost:3000/events/3/logo.jpg',  banner: 'http://localhost:3000/events/3/banner.jpg')
     create(:ticket, event_id: event1.event_id, user: user)
     create(:ticket, event_id: event2.event_id, user: user)
 
@@ -14,8 +14,18 @@ describe 'Usuário acessa página de meus eventos' do
     visit root_path
     click_on 'Meus Eventos'
 
-    expect(page).to have_link('DevWeek')
-    expect(page).to have_link('Ruby')
+     within("#event_id_#{event1.event_id}") do
+      expect(page).to have_content('DevWeek')
+      expect(page).to have_css 'img[src="http://localhost:3000/events/1/banner.jpg"]'
+      expect(page).to have_css 'img[src="http://localhost:3000/events/1/logo.jpg"]'
+      expect(page).to have_link('Ver Ingresso')
+    end
+    within("#event_id_#{event2.event_id}") do
+      expect(page).to have_content('Ruby')
+      expect(page).to have_css 'img[src="http://localhost:3000/events/3/banner.jpg"]'
+      expect(page).to have_css 'img[src="http://localhost:3000/events/3/logo.jpg"]'
+      expect(page).to have_link('Ver Ingresso')
+    end
   end
 
   it 'e não está logado' do
@@ -74,8 +84,11 @@ describe 'Usuário acessa página de meus eventos' do
     login_as user
     visit root_path
     click_on 'Meus Eventos'
-    save_page
-    expect(page).to have_link('DevWeek').once
-    expect(page).not_to have_link('Ruby')
+
+    within("#event_id_#{event1.event_id}") do
+      expect(page).to have_content('DevWeek')
+      expect(page).to have_link('Ver Ingresso')
+    end
+    expect(page).not_to have_content('Ruby')
   end
 end

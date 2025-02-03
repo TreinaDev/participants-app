@@ -68,20 +68,23 @@
   </div>          
   <div class="bg-white p-6 m-3 w-full">
     <h2><%= t('.event_agenda') %></h2>
-    <% if @event.event_agendas.empty? %>
+    <% if @event.schedules.empty? %>
       <p class="mt-4 text-gray-600"><%= t('.no_schedule') %></p>
     <% else %>
       <div class="mt-4 space-y-4">
-        <% @event.event_agendas.each do |event_agenda| %>
-          <div class="bg-white p-4 rounded-lg shadow-md">
-            <p class="font-bold text-gray-800"><%= event_agenda.title %></p>
-            <p class="text-sm text-gray-600 m-1"><%= event_agenda.description %></p>
-            <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('event_agenda.start_time') %>:</span> <%= event_agenda.start_time %></p>
-            <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('event_agenda.duration') %>:</span> <%= event_agenda.duration %>min</p>
-            <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('event_agenda.type') %>:</span> <%= event_agenda.type %></p>
-            <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('event_agenda.instructor') %>:</span> <%= event_agenda.instructor %></p>
-            <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('event_agenda.email') %>:</span> <%= event_agenda.email %></p>
-          </div>
+        <% @event.schedules.each do |schedule| %>
+          <p class="font-bold text-gray-800"><%= I18n.l(schedule.date) %></p>
+          <% if schedule.schedule_items.empty? %>
+            <p class="mt-4 text-gray-600"><%= t('.no_schedule_item') %></p>
+          <% else %>
+            <% schedule.schedule_items.each do |item| %>
+              <div class="bg-white p-4 rounded-lg shadow-md">
+                <p class="font-bold text-gray-800"><%= item.name %></p>
+                <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.start_time') %>:</span> <%= item.start_time %></p>
+                <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.duration') %>:</span> <%= item.duration %>min</p>
+              </div>
+            <% end %>
+          <% end %>
         <% end %>
       </div>
     <% end %>
