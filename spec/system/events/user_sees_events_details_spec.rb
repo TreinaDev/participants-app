@@ -48,30 +48,40 @@ describe 'Usuário acessa página de detalhes de um evento' do
 
   it 'e consegue ver os detalhes da agenda do evento' do
     user = create(:user)
-    event_agendas = [ {
-      event_agenda_id: 1,
-      date: '15/08/2025',
-      title: 'Aprendendo a cozinhar massas',
-      description: 'lorem ipsum',
-      instructor: 'Elefante',
-      email: 'elefante@email.com',
-      start_time: '07:00',
-      duration: 100,
-      agenda_type: 'Palestra'
-    }, {
-      event_agenda_id: 1,
-      date: '15/08/2025',
-      title: 'Aprendendo a fritar salgados',
-      description: 'lorem ipsum',
-      instructor: 'Jacaré',
-      email: 'jacare@email.com',
-      start_time: '11:00',
-      duration: 120,
-      agenda_type: 'Work-shop'
-    }
+    schedules = [
+      {
+        date: 	"2025-02-14",
+        schedule_items: [
+          {
+            name:	"Palestra",
+            start_time:	"2025-02-14T09:00:00.000-03:00",
+            end_time:	"2025-02-14T10:00:00.000-03:00"
+          },
+          {
+            name:	"Segunda Palestra",
+            start_time:	"2025-02-14T10:00:00.000-03:00",
+            end_time:	"2025-02-14T11:00:00.000-03:00"
+          }
+        ]
+      },
+      {
+        date: 	"2025-02-15",
+        schedule_items: [
+          {
+            name:	"Apresentação",
+            start_time:	"2025-02-15T09:00:00.000-03:00",
+            end_time:	"2025-02-15T10:00:00.000-03:00"
+          }
+        ]
+      },
+      {
+        date: 	"2025-02-16",
+        schedule_items: []
+      }
+
     ]
     event = build(:event,
-      event_agendas: event_agendas
+      schedules: schedules
     )
 
     allow(Event).to receive(:request_event_by_id).and_return(event)
@@ -79,21 +89,19 @@ describe 'Usuário acessa página de detalhes de um evento' do
     login_as(user)
     visit event_by_name_path(event_id: event, name: event.name.parameterize, locale: :'pt-BR')
 
-    expect(page).to have_content "Aprendendo a cozinhar massas"
-    expect(page).to have_content "lorem ipsum"
-    expect(page).to have_content "Instrutor: Elefante"
-    expect(page).to have_content "Contato: elefante@email.com"
-    expect(page).to have_content "Início: 07:00"
-    expect(page).to have_content "Duração: 120min"
-    expect(page).to have_content "Tipo do Evento: Palestra"
-
-    expect(page).to have_content "Aprendendo a fritar salgados"
-    expect(page).to have_content "lorem ipsum"
-    expect(page).to have_content "Instrutor: Jacaré"
-    expect(page).to have_content "Contato: jacare@email.com"
-    expect(page).to have_content "Início: 11:00"
-    expect(page).to have_content "Duração: 100min"
-    expect(page).to have_content "Tipo do Evento: Work-shop"
+    expect(page).to have_content "14/02/2025"
+    expect(page).to have_content "Palestra"
+    expect(page).to have_content "Início: 09:00"
+    expect(page).to have_content "Duração: 60min"
+    expect(page).to have_content "Segunda Palestra"
+    expect(page).to have_content "Início: 10:00"
+    expect(page).to have_content "Duração: 60min"
+    expect(page).to have_content "15/02/2025"
+    expect(page).to have_content "Apresentação"
+    expect(page).to have_content "Início: 09:00"
+    expect(page).to have_content "Duração: 60min"
+    expect(page).to have_content "16/02/2025"
+    expect(page).to have_content 'Ainda não existe programação cadastrada para esse dia'
   end
 
   it 'e visualiza opção de ver ingressos' do
@@ -108,7 +116,7 @@ describe 'Usuário acessa página de detalhes de um evento' do
       }
     ]
     user = create(:user)
-    event = build(:event,  event_agendas: [], batches: batch)
+    event = build(:event, batches: batch)
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
 
@@ -120,7 +128,7 @@ describe 'Usuário acessa página de detalhes de um evento' do
 
   it 'e visualiza que não há programação para o evento' do
     user = create(:user)
-    event = build(:event,  event_agendas: [])
+    event = build(:event)
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
     login_as(user)

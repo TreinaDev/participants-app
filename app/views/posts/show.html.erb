@@ -1,7 +1,11 @@
-<%= page_title(@post.title) %>
-
-<%= @post.content %>
-<%= l(@post.created_at, format: :short)%>
+<div class="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+  <h1 class="text-3xl font-bold text-gray-800 mb-4"><%= page_title(@post.title) %></h1>
+  <%= link_to t('.edit_post'), edit_event_post_path(@event_id, @post), class: "btn-confirm" %>
+  <div class="prose prose-lg text-gray-700">
+    <%= @post.content %>
+  </div>
+  <p class="text-sm text-gray-500 mt-4"><%= t('.published_in') %> <%= l(@post.created_at, format: :short) %></p>
+</div>
 
 <% if user_signed_in? %>
   <% if !@post.liked_by?(current_user) %>

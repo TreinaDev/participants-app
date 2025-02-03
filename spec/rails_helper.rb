@@ -49,6 +49,16 @@ RSpec.configure do |config|
   #     browser_options: { "no-sandbox" => nil }
   #   })
   # end
+  config.before(:each, type: :system, js: true) do
+    driven_by(:cuprite, screen_size: [ 1440, 810 ], options: {
+      js_errors: false,
+      headless: true,  # A opção headless faz o navegador rodar sem abrir uma janela visível
+      process_timeout: 25,
+      timeout: 20,
+      browser_options: { "no-sandbox" => nil }  # Recomendado para contornar problemas com Docker ou CI
+    })
+  end
+
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false

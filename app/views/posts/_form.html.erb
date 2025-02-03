@@ -1,0 +1,12 @@
+<%= form_with(model: post, url: url) do |f| %>
+
+  <%=f.label :title, class: 'form-label' %>
+  <%=f.text_field :title, class: 'form-field' %>
+  
+  <%=f.label :content, class: 'form-label' %>
+  <%=f.rich_text_area :content, class: 'form-field' %>
+
+  <div>
+    <%=f.submit t('.save')%>
+  </div>
+<% end %>

@@ -1,6 +1,6 @@
 class Event
-  attr_accessor :name, :banner, :logo, :event_id, :event_owner, :local_event, :description, :event_agendas, :url_event, :limit_participants, :start_date, :end_date, :batches
-  def initialize(event_id:, name:, banner:, logo:, event_owner:, url_event:, local_event:, limit_participants:, description:, event_agendas:, start_date:, end_date:, batches:)
+  attr_accessor :name, :banner, :logo, :event_id, :event_owner, :local_event, :description, :url_event, :limit_participants, :start_date, :end_date, :batches, :schedules
+  def initialize(event_id:, name:, banner:, logo:, event_owner:, url_event:, local_event:, limit_participants:, description:, start_date:, end_date:, batches:, schedules:)
     @event_id = event_id
     @name = name
     @banner = banner
@@ -12,7 +12,7 @@ class Event
     @url_event = url_event
     @limit_participants = limit_participants
     @description = description
-    @event_agendas = build_event_agenda(event_agendas)
+    @schedules = build_schedules(schedules)
     @batches = build_batch(batches)
   end
 
@@ -42,25 +42,29 @@ class Event
     favorites_data
   end
 
+  def self.request_events_posts(event_ids)
+    posts_events = []
+    event_ids.each do |id|
+      posts_events << Event.request_event_by_id(id)
+    end
+    posts_events
+  end
+
   def self.request_my_events(tickets)
     tickets.map { |ticket| Event.request_event_by_id(ticket.event_id) }
   end
 
   private
 
-  def build_event_agenda(event_agendas)
-    event_agendas.map { |event_agenda| EventAgenda.new(title: event_agenda[:title], description: event_agenda[:description],
-                                                       email: event_agenda[:email], event_agenda_id: event_agenda[:event_agenda_id],
-                                                       date: event_agenda[:date], instructor: event_agenda[:instructor],
-                                                       start_time: event_agenda[:start_time], duration: event_agenda[:duration],
-                                                       type: event_agenda[:agenda_type]) }
+  def build_schedules(schedules)
+    schedules.map { |schedule| Schedule.new(date: schedule[:date], schedule_items: schedule[:schedule_items]) }
   end
 
   def self.build_event(data)
     Event.new(
       event_id: data[:code], name: data[:name], banner: data[:banner_url], logo: data[:logo_url], event_owner: data[:event_owner],
-      local_event: data[:address], limit_participants: data[:participants_limit],  url_event: data[:url_event],
-      description: data[:description], event_agendas: data[:event_agendas] || [], start_date: data[:start_date].to_date, end_date: data[:end_date].to_date, batches: data[:ticket_batches] || []
+      local_event: data[:address], limit_participants: data[:participants_limit],  url_event: data[:url_event], schedules: data[:schedules] || [],
+      description: data[:description], start_date: data[:start_date].to_date, end_date: data[:end_date].to_date, batches: data[:ticket_batches] || []
     )
   end
 

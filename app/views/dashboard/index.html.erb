@@ -1,9 +1,16 @@
 <ul class="space-y-4">
   <% if @posts.any? %>
     <% @posts.each do |post| %>
-      <li class="bg-white shadow-md rounded-lg transition hover:shadow-lg">
-        <%= render 'posts/post', post: post %>
+      <li class="bg-gradient-to-r from-white to-gray-100 shadow-lg rounded-xl transition transform hover:scale-105 hover:shadow-xl p-6">
+        <%= render post %>
       </li>
      <% end %>
+  <% else %>
+    <div class="text-center py-10 bg-white shadow-md rounded-lg">
+      <h3 class="text-xl font-semibold text-gray-900"><%= t('.no_posts')%></h3>
+      <div class="mt-4">
+        <%= link_to t('.join_now'), events_path, class: "bg-blue-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-700 transition" %>
+      </div>
+    </div>
    <% end %>
 </ul>

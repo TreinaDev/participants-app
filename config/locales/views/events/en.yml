@@ -8,6 +8,7 @@ en:
     show:
       event_agenda: Event Agenda
       no_schedule: There is no schedule registered for this event yet.
+      no_schedule_item: There is no schedule registered for this day yet.
       add_favorites: Add Favorites
       tickets: Tickets
       ticket_date: Ticket Date
@@ -16,4 +17,6 @@ en:
       soldout: Tickets Soldout
       add_reminder: Add Reminder
       add_post: Add Post
+      edit_post: Edit Post
       remove_reminder: Remove Reminder
+      event_description: Event Description
