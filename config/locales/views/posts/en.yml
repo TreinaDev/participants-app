@@ -7,3 +7,5 @@ en:
     create:
       success: Post created
       alert: Post was not saved
+    show: 
+      published_in: 'Published in:'
