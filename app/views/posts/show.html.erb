@@ -6,7 +6,7 @@
     </div>
     <p class="text-sm text-gray-500 mt-4"><%= t('.published_in') %> <%= l(@post.created_at, format: :short) %></p>
   </div>
-  <%= link_to t('.edit_post'), edit_event_post_path(@event_id, @post), class: "btn-confirm self-end" %>
+  <%= link_to t('.edit_post'), edit_event_post_path(@event_id, @post), class: "btn-confirm self-end" if @post.user == current_user%>
 </div>
 
 <div class="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg mb-3">
