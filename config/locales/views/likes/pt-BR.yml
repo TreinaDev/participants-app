@@ -1,0 +1,8 @@
+pt-BR:
+  likes:
+    negate_access: Você não participa deste evento
+    not_like_owner: Você não pode remover a curtida desta postagem
+    create:
+      success: Você curtiu a postagem com sucesso
+    destroy:
+      success: Curtida removida com sucesso

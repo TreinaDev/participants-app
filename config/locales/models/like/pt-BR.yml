@@ -1,0 +1,7 @@
+pt-BR:
+  activerecord:
+    errors:
+      models:
+        like:
+          unique_like: Você já curtiu esta postagem
+          check_user_is_participant: Você não participa do evento

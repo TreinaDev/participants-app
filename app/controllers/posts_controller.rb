@@ -2,18 +2,21 @@ class PostsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_post_and_event_id, only: [ :show, :edit, :update ]
   before_action :check_user_is_participant
+  before_action :set_event_id, only: [ :new, :create ]
   before_action :check_user_owns_post, only: [ :edit, :update ]
 
-  def show; end
+  def show
+    @number_of_likes = @post.likes.count
+    @like = Like.find_by(user: current_user, post: @post)
+  end
 
   def new
     @post = Post.new
-    @event_id = params[:event_id]
   end
 
   def create
     @post = Post.new(post_params)
-    @post.event_id = params[:event_id]
+    @post.event_id = @event_id
     @post.user = current_user
 
     if @post.save
@@ -38,6 +41,10 @@ class PostsController < ApplicationController
   end
 
   private
+
+  def set_event_id
+    @event_id = params[:event_id]
+  end
 
   def post_params
     params.require(:post).permit(:title, :content)

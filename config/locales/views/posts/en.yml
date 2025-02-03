@@ -1,8 +1,14 @@
 en:
   posts:
-    negate_access: You can not do that
     not_post_owner: You can not access this page
     not_participant: You can not do that
+    negate_access: You can not do that
+    show:
+      edit_post: Edit
+      published_in: 'Published in:'
+      likes:
+        one: like
+        other: likes
     form:
       save: Save
     post:
@@ -12,9 +18,6 @@ en:
       title: Add New Post
     edit:
       title: Edit Post
-    show:
-      edit_post: Edit
-      published_in: 'Published in:'
     create:
       success: Post created
       alert: Post was not saved

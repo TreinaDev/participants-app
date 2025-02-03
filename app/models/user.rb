@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :tickets
   has_many :reminders
   has_one :profile
+  has_many :likes
   has_many :comments
 
   validates :name, :last_name, :cpf, presence: true

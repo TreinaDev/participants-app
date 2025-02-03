@@ -3,6 +3,12 @@ pt-BR:
     negate_access: Você não participa deste evento
     not_post_owner: Você não tem acesso a essa página
     not_participant: Você não participa deste evento
+    show:
+      edit_post: Editar
+      published_in: 'Publicado em:'
+      likes:
+        one: curtida
+        other: curtidas
     form:
       save: Salvar
     edit:
@@ -12,9 +18,6 @@ pt-BR:
       in: em
     new:
       title: Adicionar Nova Postagem
-    show:
-      edit_post: Editar
-      published_in: 'Publicado em:'
     create:
       success: Postagem adicionada
       alert: Falha ao salvar a postagem

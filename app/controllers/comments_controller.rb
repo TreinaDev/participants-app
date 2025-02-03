@@ -9,7 +9,7 @@ class CommentsController < ApplicationController
       flash[:notice] = t(".success")
       redirect_to event_post_path(event_id: @event_id, id: @post.id)
     else
-      flash.now[:alert] = t(".alert")
+      flash[:alert] = t(".alert")
       render "posts/show", status: :unprocessable_entity
     end
   end
