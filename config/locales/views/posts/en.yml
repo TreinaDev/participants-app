@@ -5,9 +5,14 @@ en:
       likes:
         one: like
         other: likes
+    post:
+      created_by: Crearted by
+      in: at
     new:
       title: Add New Post
       save: Save
     create:
       success: Post created
       alert: Post was not saved
+    show: 
+      published_in: 'Published in:'

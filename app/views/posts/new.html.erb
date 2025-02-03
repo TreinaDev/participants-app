@@ -10,7 +10,7 @@
   <%=f.label :content, class: 'form-label' %>
   <%=f.rich_text_area :content, class: 'form-field' %>
 
-  <div>
-    <%=f.submit t('.save')%>
+  <div class="flex justify-center mt-4">
+    <%= f.submit t('.save'), class: 'btn-confirm px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700' %>
   </div>
 <% end %>

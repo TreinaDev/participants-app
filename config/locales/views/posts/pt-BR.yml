@@ -5,9 +5,14 @@ pt-BR:
       likes:
         one: curtida
         other: curtidas
+    post:
+      created_by: Criado por 
+      in: em
     new:
       title: Adicionar Nova Postagem
       save: Salvar
     create:
       success: Postagem adicionada
       alert: Falha ao salvar a postagem
+    show: 
+      published_in: 'Publicado em:'
