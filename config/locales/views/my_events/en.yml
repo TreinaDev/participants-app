@@ -4,5 +4,11 @@ en:
     index:
       title: My Events
       no_tickets: You have not purchased any tickets yet
+      see_ticket: See Ticket
     show:
       title: Tickets for the event
+      date: Date
+      time: Time
+      local: Local
+      ticket_number: Ticket Number
+      qr_code: QR Code

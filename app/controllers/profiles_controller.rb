@@ -5,7 +5,11 @@ class ProfilesController < ApplicationController
 
   def show; end
 
-  def edit; end
+  def edit
+    br = Carmen::Country.coded("BR")
+
+    @states = br.subregions
+  end
 
   def update
     if @profile.update(profile_params)

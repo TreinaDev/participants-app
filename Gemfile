@@ -64,6 +64,9 @@ gem "faraday", "~> 2.12"
 
 group :test do
   gem "shoulda-matchers", "~> 6.4"
+  gem "webmock"
 end
 
 gem "cpf_cnpj", "~> 1.0"
+
+gem "carmen"
