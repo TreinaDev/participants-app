@@ -5,6 +5,7 @@ pt-BR:
       title: Meus Eventos
       no_tickets: Você ainda não possui ingressos comprados
       see_ticket: Ver Ingresso
+      add_feedback: Adicionar Feedback
     show:
       title: Ingressos para o evento
       date: Data
