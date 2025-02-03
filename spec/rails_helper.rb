@@ -50,7 +50,7 @@ RSpec.configure do |config|
   #   })
   # end
   config.before(:each, type: :system, js: true) do
-    driven_by(:cuprite, screen_size: [1440, 810], options: {
+    driven_by(:cuprite, screen_size: [ 1440, 810 ], options: {
       js_errors: false,
       headless: true,  # A opção headless faz o navegador rodar sem abrir uma janela visível
       process_timeout: 25,
