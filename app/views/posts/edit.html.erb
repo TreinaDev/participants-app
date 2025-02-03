@@ -1,0 +1,5 @@
+<%= page_title(t('.title')) %>
+
+<%= render 'shared/errors_messages', model: @post %>
+
+<%= render 'form', post: @post, url: event_post_path(event_id: @event_id, id: @post.id) %>

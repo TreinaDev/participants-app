@@ -36,7 +36,7 @@ describe 'Participante adiciona nova postagem a um evento', type: :system, js: t
     login_as user
     visit new_event_post_path(event_id: event.event_id, locale: :'pt-BR')
     fill_in 'Título', with: ''
-    find(:xpath, "//*[@id='post_content_trix_input_post']", visible: false).set('')
+    find(:css, "#post_content_trix_input_post", visible: false).set('')
     click_on 'Salvar'
 
     expect(page).to have_content 'Falha ao salvar a postagem'
