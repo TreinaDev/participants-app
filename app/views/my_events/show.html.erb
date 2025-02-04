@@ -1,9 +1,58 @@
 <div class="max-w-4xl mx-auto p-6">
   <h1 class="text-2xl font-bold text-gray-900 mb-4">
-    <%= page_title("#{t('.title')} #{@event.name}") %>
+    <%= page_title("#{@event.name}") %>
   </h1>
 
-  <% @batches.keys.each do |batch_id| %>
+  <div class="bg-white p-6 m-3 w-full">
+    <h2 class="text-3xl font-bold text-gray-900"><%= t('.event_agenda') %></h2>
+    <% if @event.schedules.empty? %>
+      <p class="mt-4 text-gray-600"><%= t('.no_schedule') %></p>
+    <% else %>
+      <div class="mt-4 space-y-4">
+        <% @event.schedules.each do |schedule| %>
+          <p class="font-bold text-gray-800 text-lg"><%= I18n.l(schedule.date) %></p>
+          <% if schedule.schedule_items.empty? %>
+            <p class="mt-4 text-gray-600"><%= t('.no_schedule_item') %></p>
+          <% else %>
+            <% schedule.schedule_items.each do |item| %>
+              <div class="bg-white p-4 rounded-lg shadow-md border-l-4 border-purple-700">
+                <p class="font-bold text-gray-800 text-lg"><%= item.name %></p>
+                <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.start_time') %>:</span> <%= item.start_time %></p>
+                <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.duration') %>:</span> <%= item.duration %>min</p>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <% if user_signed_in? && current_user.participates_in_event?(@event.event_id) %>
+    <section class="w-full mt-10 mb-10">
+      <div class="flex items-center justify-between mb-6 px-6">
+        <h2 class="text-3xl font-bold text-gray-900">Feed</h2>
+        <%= link_to new_event_post_path(event_id: @event.event_id), class: "btn-confirm" do %>
+          <span><%= t('.add_post') %></span>
+        <% end %>
+      </div>
+      <ul class="space-y-4">
+        <% if @posts.any? %>
+          <% @posts.each do |post| %>
+            <li class="bg-white shadow-md rounded-lg transition hover:shadow-lg px-6 py-4 border-l-4 border-indigo-500 flex flex-col" id="<%= dom_id(post) %>">
+              <%= render post %>
+              <div class="mt-2 text-right">
+                <%= link_to t('.edit_post'), edit_event_post_path(@event.event_id, post), class: "btn-confirm" if post.user == current_user %>
+              </div>
+            </li>
+          <% end %>
+        <% else %>
+          <p class="text-gray-600 text-center"><%= t('.no_posts') %></p>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
+
+<% @batches.keys.each do |batch_id| %>
     <div class="max-w-md mx-auto bg-white rounded-lg overflow-hidden shadow-lg">
       <div class="bg-gradient-to-r from-purple-600 to-indigo-600 p-6 text-white">
         <h1 class="text-2xl font-bold"><%= @event.name %></h1>

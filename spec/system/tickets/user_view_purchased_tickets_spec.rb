@@ -46,10 +46,10 @@ describe 'Usuário acessa ingressos de um evento' do
     visit root_path
     click_on 'Meus Eventos'
     within("#event_id_#{event.event_id}") do
-      click_on 'Ver Ingresso'
+      click_on 'Acessar Conteúdo do Evento'
     end
 
-    expect(page).to have_content "Ingressos para o evento #{event.name}"
+    expect(page).to have_content event.name
     expect(page).to have_content 'Entrada - Meia x2'
     expect(page).to have_content "Data\n#{I18n.l(5.days.ago, format: :date)}"
     expect(page).to have_content "Horário\n#{I18n.l(5.days.ago, format: :hour)}"

@@ -11,5 +11,6 @@ class MyEventsController < ApplicationController
     @tickets_by_batch_id = Ticket.where(user: current_user, event_id: params[:id]).group_by { |event| event.batch_id }
     @batches = @tickets_by_batch_id.keys.each_with_object(Hash.new) { |batch_id, hash| hash[batch_id] = Batch.request_batch_by_id(params[:id], batch_id) }
     @event = Event.request_event_by_id(params[:id])
+    @posts = Post.where(event_id: params[:id])
   end
 end

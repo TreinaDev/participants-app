@@ -4,6 +4,7 @@ en:
       title: My Events
       no_tickets: You have not purchased any tickets yet
       see_ticket: See Ticket
+      event_details: Access Event Content
       add_feedback: Add Feedback
     show:
       title: Tickets for the event
@@ -12,3 +13,9 @@ en:
       local: Local
       ticket_number: Ticket Number
       qr_code: QR Code
+      no_schedule: There is no schedule registered for this event yet.
+      no_schedule_item: There is no schedule registered for this day yet.
+      event_agenda: Event Agenda
+      no_posts: No post registered yet
+      add_post: Add Post
+      edit_post: Edit Post      
