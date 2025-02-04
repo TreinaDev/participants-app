@@ -1,7 +1,8 @@
 class EventsApiService
   BASE_URL = "http://localhost:3000/api/v1/events"
-  def self.get_events
-    self.request(BASE_URL, :get)
+  def self.get_events(query_string="")
+    url = query_string ? BASE_URL + "?query=" + query_string : BASE_URL
+    self.request(url, :get)
   end
 
   def self.get_event_by_id(event_id)
