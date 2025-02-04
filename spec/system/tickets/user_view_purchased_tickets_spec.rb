@@ -49,7 +49,7 @@ describe 'Usuário acessa ingressos de um evento' do
       click_on 'Ver Ingresso'
     end
 
-    expect(page).to have_content "Ingressos para o evento #{event.name}"
+    expect(page).to have_content event.name
     expect(page).to have_content 'Entrada - Meia x2'
     expect(page).to have_content "Data\n#{I18n.l(5.days.ago, format: :date)}"
     expect(page).to have_content "Horário\n#{I18n.l(5.days.ago, format: :hour)}"

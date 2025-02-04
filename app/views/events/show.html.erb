@@ -11,9 +11,11 @@
       <% end %>
       <h5 class="mb-2 text-2xl font-bold tracking-tigh text-black"><%= @event.name %></h5>
     </div>
-    <div>
-      <% if user_signed_in? && current_user.tickets.find_by(event_id: @event.event_id).present? %>
-        <%= link_to 'Detalhes do Evento', my_event_path(id: @event.event_id) %>
+    <div class="flex items-center space-x-4">
+      <% if user_signed_in? && current_user.participates_in_event?(@event.event_id) %>
+        <%= link_to my_event_path(id: @event.event_id), class: "btn-event" do %>
+          <span><%= t('.event_details') %></span>
+        <% end %>
       <% end %>
     </div>
   

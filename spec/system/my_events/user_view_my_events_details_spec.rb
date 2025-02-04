@@ -10,7 +10,7 @@ describe "Participante de um evento acessa mais detalhes do evento", type: :syst
     login_as user
     visit event_by_name_path(event_id: event, name: event.name.parameterize, locale: :'pt-BR')
 
-    expect(page).to have_link 'Detalhes do Evento'
+    expect(page).to have_link 'Acessar Conteúdo do Evento'
   end
 
   it 'e não vê o botão caso não possua ingresso para esse evento' do
@@ -46,7 +46,7 @@ describe "Participante de um evento acessa mais detalhes do evento", type: :syst
 
     login_as user
     visit event_by_name_path(event_id: event, name: event.name.parameterize, locale: :'pt-BR')
-    click_on 'Detalhes do Evento'
+    click_on 'Acessar Conteúdo do Evento'
 
     expect(current_path).to eq my_event_path(event.event_id, locale: :'pt-BR')
     expect(page).to have_content 'DevWeek'
@@ -169,10 +169,24 @@ describe "Participante de um evento acessa mais detalhes do evento", type: :syst
   end
 
   it "e consegue ver o feed de postagens" do
-    event = build(:event, event_id: '1', name: 'DevWeek')
+    user = create(:user)
+    batches = [ {
+        batch_id: '1',
+        name: 'Entrada - Meia',
+        limit_tickets: 20,
+        start_date: 5.days.ago.to_date,
+        value: 20.00,
+        end_date: 2.month.from_now.to_date,
+        event_id: '1'
+      }
+    ]
+    event = build(:event, name: 'DevWeek', batches: batches, event_id: '1')
     events = [ event ]
-    ticket = create(:ticket, event_id: event.event_id)
-    user = ticket.user
+    ticket = create(:ticket, event_id: event.event_id, batch_id: '1', user: user)
+    batches.map! { |batch| build(:batch, **batch) }
+    allow(Batch).to receive(:request_batch_by_id).with("1", '1').and_return(batches[0])
+    allow(Event).to receive(:request_event_by_id).and_return(events[0])
+  
     post = create(:post, user: user, event_id: event.event_id, title: 'Título Teste', content: '<b>Conteúdo Teste</b>')
     allow(Event).to receive(:request_event_by_id).and_return(event)
     allow(Event).to receive(:all).and_return(events)

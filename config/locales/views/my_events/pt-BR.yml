@@ -14,4 +14,9 @@ pt-BR:
       qr_code: QR Code
       no_schedule: Ainda não existe programação cadastrada para esse evento
       no_schedule_item: Ainda não existe programação cadastrada para esse dia
+      event_agenda: Agenda do evento
+      no_schedule: Ainda não existe programação cadastrada para esse evento
+      no_schedule_item: Ainda não existe programação cadastrada para esse dia
       no_posts: Não existem postagens para esse evento
+      add_post: Adicionar Postagem
+      edit_post: Editar
