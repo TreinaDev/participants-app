@@ -162,5 +162,15 @@ RSpec.describe Event, type: :model do
 
       expect(result.length).to eq 2
     end
+
+    it 'e deveria receber array vazio em caso de erro na requisição com query string' do
+      url = 'http://localhost:3000/api/v1/events?query=dev'
+      response = double('faraday_response', body: "{}", status: 500)
+      allow(Faraday).to receive(:get).with(url).and_return(response)
+      allow(response).to receive(:success?).and_return(false)
+
+      result = Event.search_events('dev')
+      expect(result.length).to eq 0
+    end
   end
 end
