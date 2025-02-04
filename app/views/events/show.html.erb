@@ -11,6 +11,12 @@
       <% end %>
       <h5 class="mb-2 text-2xl font-bold tracking-tigh text-black"><%= @event.name %></h5>
     </div>
+    <div>
+      <% if user_signed_in? && current_user.tickets.find_by(event_id: @event.event_id).present? %>
+        <%= link_to 'Detalhes do Evento', my_event_path(id: @event.event_id) %>
+      <% end %>
+    </div>
+  
     <div class="space-y-4 text-right">
       <div class="space-y-2">
         <% if current_user && current_user.favorites.find_by(event_id: @event.event_id).present? %>
