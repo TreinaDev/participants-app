@@ -44,6 +44,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :events, only: [ :show ] do
         resources :batches,  only: [ :show ]
+        resources :feedbacks,  only: [ :index ]
       end
     end
   end
