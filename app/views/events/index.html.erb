@@ -1,4 +1,14 @@
-<%= page_title(t('.available_events'))%>
+<div class="w-full flex items-center justify-between">
+  <div class="w-1/4"></div>
+  <%= page_title(t('.available_events'))%>
+  <div class="w-1/4 relative">
+    <%= form_with(url: events_path, method: :get, class: "w-full") do |f| %>
+      <%= f.text_field :query, placeholder: t('.search_placeholder'), class: 'text-sm px-5 py-2.5 rounded-lg'%>
+      <%= f.submit t('.search_btn'), class: 'btn-confirm' %>
+    <% end %>
+  </div>
+</div>
+
 
 <% if @events.present? %>
   <div class="container mx-auto p-6">

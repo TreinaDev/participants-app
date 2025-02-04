@@ -9,7 +9,11 @@ class EventsController < ApplicationController
   end
 
   def index
-    @events = Event.all.select { |event| DateTime.now < event.start_date.to_datetime }
+    if params[:query]
+      @events = Event.search_events(params[:query]).select { |event| DateTime.now < event.start_date.to_datetime }
+    else
+      @events = Event.all.select { |event| DateTime.now < event.start_date.to_datetime }
+    end
   end
 
   private

@@ -3,6 +3,8 @@ en:
     index:
       available_events: Available Events
       unavailable_events: Unavailable events
+      search_btn: Search
+      search_placeholder: Filter your event here
     event:
       start_date: Start Date
     show:
