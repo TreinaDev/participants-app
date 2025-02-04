@@ -27,4 +27,10 @@ class ApplicationController < ActionController::Base
   def default_url_options
     { locale: I18n.locale }
   end
+
+  def check_user_is_participant(event_id)
+    unless current_user.participates_in_event?(event_id)
+      redirect_to root_path, alert: I18n.t("custom.generic.negate_access")
+    end
+  end
 end

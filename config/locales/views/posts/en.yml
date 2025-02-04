@@ -2,7 +2,6 @@ en:
   posts:
     not_post_owner: You can not access this page
     not_participant: You can not do that
-    negate_access: You can not do that
     show:
       edit_post: Edit
       published_in: 'Published in:'

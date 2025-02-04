@@ -17,7 +17,7 @@ class TicketsController < ApplicationController
     @ticket.event_id = @event_id
 
     if @ticket.save
-      redirect_to event_batch_ticket_path(@event_id, @batch_id, @ticket.id), notice: "Compra aprovada"
+      redirect_to event_batch_ticket_path(@event_id, @batch_id, @ticket.id), notice: t(".success")
     else
       flash.now[:notice] = t(".error")
       render :new, status: :unprocessable_entity

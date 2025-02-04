@@ -1,5 +1,6 @@
 class FavoritesController < ApplicationController
   before_action :check_if_user_is_authenticated, only: [ :create, :index, :destroy ]
+
   def create
     @favorite = current_user.favorites.build(event_id: params[:event_id])
     if @favorite.save

@@ -1,6 +1,5 @@
 en:
   likes:
-    negate_access: You do not participate in this event
     not_like_owner: You can not remove this like
     create:
       success: You liked the post

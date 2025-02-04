@@ -79,7 +79,7 @@ describe 'Usuário cria feedback de um evento' do
       visit new_my_event_feedback_path(my_event_id: event.event_id)
 
       expect(current_path).to eq root_path
-      expect(page).to have_content 'Vocẽ não participa deste evento'
+      expect(page).to have_content 'Você não participa deste evento'
     end
   end
 
