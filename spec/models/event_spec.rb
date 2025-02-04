@@ -14,7 +14,8 @@ RSpec.describe Event, type: :model do
         participants_limit:	30,
         event_owner:	'Samuel',
         start_date:	"2025-02-01T12:00:00.000-03:00",
-        end_date:	"2025-02-04T12:00:00.000-03:00"
+        end_date:	"2025-02-04T12:00:00.000-03:00",
+        announcements: []
       }
 
       response = double('response', status: 200, body: event.to_json)
@@ -80,7 +81,8 @@ RSpec.describe Event, type: :model do
         event_owner:	'Samuel',
         start_date:	"2025-02-01T12:00:00.000-03:00",
         end_date:	"2025-02-04T12:00:00.000-03:00",
-        schedules: schedules
+        schedules: schedules,
+        announcements: []
       }
       response = double('response', status: 200, body: event.to_json)
       allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/api/v1/events/1').and_return(response)

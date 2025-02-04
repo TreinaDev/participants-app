@@ -13,6 +13,7 @@ FactoryBot.define do
     event_owner { 'Samuel' }
     batches { [] }
     schedules { [] }
+    announcements { [] }
 
     initialize_with do
       new(
@@ -28,7 +29,8 @@ FactoryBot.define do
         description: description,
         event_owner: event_owner,
         batches: batches,
-        schedules: schedules
+        schedules: schedules,
+        announcements: announcements
       )
     end
   end
