@@ -3,3 +3,7 @@ pt-BR:
     new:
       title: Adicione sua avaliação
       save: Adicionar Feedback
+    index: 
+      title: Avaliações do Evento
+      public: Público
+      anonymous: Anônimo

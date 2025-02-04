@@ -1,5 +1,7 @@
 <%= page_title(t('.title')) %>
 
+<%= render 'shared/errors_messages', model: @feedback %>
+
 <%= form_with model: @feedback, method: 'post', url: my_event_feedbacks_path(my_event_id: @my_event_id) do |f| %>
 
   <%=f.label :title, class: 'form-label' %>
