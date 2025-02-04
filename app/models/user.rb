@@ -20,6 +20,10 @@ class User < ApplicationRecord
     Ticket.where(user: self, event_id: event_id).any?
   end
 
+  def full_name
+    self.name + " "  + self.last_name
+  end
+
   private
 
   def create_profile

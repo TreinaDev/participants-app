@@ -1,11 +1,13 @@
 class EventsController < ApplicationController
   before_action :check_event, only: [ :show ]
+
   def show
     if @event.batches.any?
       batch_ids = @event.batches.map(&:batch_id)
       @total_tickets_sales = Ticket.where(batch_id: batch_ids).count
     end
     @posts = Post.where(event_id: params[:event_id])
+    @announcements = Announcement.where(event_id: params[:event_id])
   end
 
   def index

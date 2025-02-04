@@ -1,0 +1,6 @@
+en:
+  activerecord:
+    models:
+      announcement: 
+        one: Announcement
+        other: Announcements

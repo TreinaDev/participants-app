@@ -1,7 +1,6 @@
 en:
   feedbacks:
     new:
-      no_ticket: You are not participating in this event
       title: Add your review
       save: Add Feedback
       no_finished: This event is still ongoing
