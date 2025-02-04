@@ -12,3 +12,4 @@ pt-BR:
       local: Local
       ticket_number: Nº do Ingresso
       qr_code: QR Code
+      no_schedule_item: Ainda não existe programação cadastrada para esse dia

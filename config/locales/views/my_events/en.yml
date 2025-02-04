@@ -12,3 +12,4 @@ en:
       local: Local
       ticket_number: Ticket Number
       qr_code: QR Code
+      no_schedule_item: There is no schedule registered for this day yet.
