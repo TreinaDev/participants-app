@@ -3,6 +3,8 @@ pt-BR:
     index:
       available_events: Eventos disponíveis
       unavailable_events: Nenhum evento disponível
+      search_btn: Pesquisar
+      search_placeholder: Filtre aqui seu evento
     event:
       start_date: Data de início
     show:

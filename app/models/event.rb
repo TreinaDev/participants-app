@@ -25,6 +25,15 @@ class Event
     []
   end
 
+  def self.search_events(query_string)
+    response = EventsApiService.get_events(query_string)
+    events = response[:events]
+    events.select { |event| DateTime.now.before?(event[:start_date].to_date) }.map { |event| build_event(event) }
+  rescue Faraday::Error => error
+    Rails.logger.error(error)
+    []
+  end
+
   def self.request_event_by_id(event_id)
     event_params = EventsApiService.get_event_by_id event_id
     build_event(event_params)
