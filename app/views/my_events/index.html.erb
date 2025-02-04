@@ -11,7 +11,6 @@
             <% if event.end_date < Date.today %>
                 <%= link_to t('.add_feedback'), new_my_event_feedback_path(event.event_id), class: 'mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition block p-6 text-center' %>
             <% end %>
-
         </div>
     <% end %>
 <% end %>

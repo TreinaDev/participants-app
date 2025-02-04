@@ -233,4 +233,14 @@ describe "Participante de um evento acessa mais detalhes do evento", type: :syst
     expect(page).to have_content 'Entrada - Meia'
     expect(page).to have_content 'Agenda do evento'
   end
+
+  it "e não possui nenhum evento" do
+    user = create(:user)
+
+    login_as user
+    visit root_path
+    click_on 'Meus Eventos'
+
+    expect(page).to have_content 'Você ainda não possui ingressos comprados'
+  end
 end
