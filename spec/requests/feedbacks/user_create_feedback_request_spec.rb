@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Visitante cria feedback', type: :request do
+describe 'Usuario cria feedback', type: :request do
   it 'e deve estar autenticado' do
     event = build(:event, event_id: '1', start_date: 5.days.ago, end_date: 5.days.from_now, name: 'DevWeek')
     allow(Event).to receive(:request_event_by_id).and_return(event)

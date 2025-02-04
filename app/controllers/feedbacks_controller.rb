@@ -12,10 +12,10 @@ class FeedbacksController < ApplicationController
     @feedback.event_id = @my_event_id
     @feedback.user = current_user
     if @feedback.save
-      flash[:notice] = "Feedback adicionado com sucesso"
+      flash[:notice] = t(".success")
       redirect_to my_event_feedbacks_path(my_event_id: @my_event_id)
     else
-      flash.now[:alert] = "Falha ao salvar o Feedback"
+      flash.now[:alert] = t(".alert")
       render :new, status: :unprocessable_entity
     end
   end
@@ -32,13 +32,13 @@ class FeedbacksController < ApplicationController
 
   def check_user_is_participant
     unless current_user.participates_in_event?(@my_event_id)
-      redirect_to root_path, alert: "Vocẽ não participa deste evento"
+      redirect_to root_path, alert: t(".no_ticket")
     end
   end
 
   def set_and_check_my_event_id
     @my_event_id = params[:my_event_id]
     @event = Event.request_event_by_id(@my_event_id)
-    redirect_to root_path, alert: "Este evento ainda está em andamento" if @event.end_date > Date.today
+    redirect_to root_path, alert: t(".no_finished") if @event.end_date > Date.today
   end
 end
