@@ -69,4 +69,28 @@
       </div>
     <% end %>
   </div>
+   <% if user_signed_in? && current_user.participates_in_event?(@event.event_id)%>
+      <section class="w-full mt-10 mb-10">
+        <div class="flex items-center justify-between mb-6 px-6">
+          <h2 class="text-3xl font-bold text-gray-900">Feed</h2>
+          <%= link_to new_event_post_path(event_id: @event.event_id), class: "btn-confirm" do %>
+            <span><%=t('.add_post')%></span>
+          <% end %>
+        </div>
+        <ul class="space-y-4">
+          <% if @posts.any? %>
+            <% @posts.each do |post| %>
+              <li class="bg-white shadow-md rounded-lg transition hover:shadow-lg flex justify-between w-50" id="<%=dom_id(post)%>">
+                <%= render post %>
+                <div>
+                  <%= link_to t('.edit_post'), edit_event_post_path(@event.event_id, post), class: "btn-confirm" if post.user == current_user %>
+                </div>
+              </li>
+            <% end %>
+          <% else %>
+            <p><%=t('.no_posts')%></p>
+          <% end %>
+        </ul>
+      </section>
+    <% end %>
 </div>

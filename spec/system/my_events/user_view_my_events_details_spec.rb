@@ -118,4 +118,70 @@ describe "Participante de um evento acessa mais detalhes do evento", type: :syst
     expect(page).to have_content "16/02/2025"
     expect(page).to have_content 'Ainda não existe programação cadastrada para esse dia'
   end
+
+  it 'e visualiza que não há programação para o evento' do
+    user = create(:user)
+    batches = [ {
+        batch_id: '1',
+        name: 'Entrada - Meia',
+        limit_tickets: 20,
+        start_date: 5.days.ago.to_date,
+        value: 20.00,
+        end_date: 2.month.from_now.to_date,
+        event_id: '1'
+      }
+    ]
+    event = build(:event, name: 'DevWeek', batches: batches, event_id: '1')
+    ticket = create(:ticket, event_id: event.event_id, batch_id: '1', user: user)
+    batches.map! { |batch| build(:batch, **batch) }
+    allow(Batch).to receive(:request_batch_by_id).with("1", '1').and_return(batches[0])
+    allow(Event).to receive(:request_event_by_id).and_return(event)
+
+    login_as user
+    visit my_event_path(event.event_id, locale: :'pt-BR')
+
+    expect(page).to have_content 'Ainda não existe programação cadastrada para esse evento'
+  end
+
+  it 'e consegue ver o feed do evento, ainda sem postagens' do
+    user = create(:user)
+    batches = [ {
+        batch_id: '1',
+        name: 'Entrada - Meia',
+        limit_tickets: 20,
+        start_date: 5.days.ago.to_date,
+        value: 20.00,
+        end_date: 2.month.from_now.to_date,
+        event_id: '1'
+      }
+    ]
+    event = build(:event, name: 'DevWeek', batches: batches, event_id: '1')
+    ticket = create(:ticket, event_id: event.event_id, batch_id: '1', user: user)
+    batches.map! { |batch| build(:batch, **batch) }
+    allow(Batch).to receive(:request_batch_by_id).with("1", '1').and_return(batches[0])
+    allow(Event).to receive(:request_event_by_id).and_return(event)
+
+    login_as user
+    visit my_event_path(event.event_id, locale: :'pt-BR')
+
+    expect(page).to have_content('Feed')
+    expect(page).to have_content 'Não existem postagens para esse evento'
+  end
+
+  it "e consegue ver o feed de postagens" do
+    event = build(:event, event_id: '1', name: 'DevWeek')
+    events = [ event ]
+    ticket = create(:ticket, event_id: event.event_id)
+    user = ticket.user
+    post = create(:post, user: user, event_id: event.event_id, title: 'Título Teste', content: '<b>Conteúdo Teste</b>')
+    allow(Event).to receive(:request_event_by_id).and_return(event)
+    allow(Event).to receive(:all).and_return(events)
+
+    login_as user
+    visit my_event_path(event.event_id, locale: :'pt-BR')
+
+    expect(page).to have_content 'Título Teste'
+    expect(page).to have_content 'Conteúdo Teste'
+    expect(page).to have_content "Publicado em: #{I18n.l(post.created_at, format: :short)}"
+  end
 end
