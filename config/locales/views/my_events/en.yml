@@ -6,6 +6,7 @@ en:
       no_tickets: You have not purchased any tickets yet
       see_ticket: See Ticket
       event_details: Access Event Content
+      add_feedback: Add Feedback
     show:
       title: Tickets for the event
       date: Date

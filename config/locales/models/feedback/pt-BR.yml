@@ -1,0 +1,12 @@
+pt-BR:
+  activerecord:
+    models:
+      feedback:
+        one: Feedback
+        other: Feedbacks
+    attributes:
+      feedback:
+        title: Título
+        comment: Comentário
+        mark: Nota
+        public: Público

@@ -1,0 +1,18 @@
+en:
+  feedbacks:
+    new:
+      no_ticket: You are not participating in this event
+      title: Add your review
+      save: Add Feedback
+      no_finished: This event is still ongoing
+    index: 
+      no_ticket: You are not participating in this event
+      title: Event Reviews
+      public: Public
+      anonymous: Anonymous
+      no_finished: This event is still ongoing
+    create: 
+      no_ticket: You are not participating in this event
+      success: Feedback successfully added
+      alert: Failed to save Feedback
+      no_finished: This event is still ongoing
