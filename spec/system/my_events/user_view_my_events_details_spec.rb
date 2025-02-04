@@ -16,7 +16,7 @@ describe "Participante de um evento acessa mais detalhes do evento", type: :syst
   it 'e não vê o botão caso não possua ingresso para esse evento' do
     user = create(:user)
     event = build(:event)
-  
+
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
     login_as user
@@ -51,7 +51,7 @@ describe "Participante de um evento acessa mais detalhes do evento", type: :syst
     expect(current_path).to eq my_event_path(event.event_id, locale: :'pt-BR')
     expect(page).to have_content 'DevWeek'
   end
-  
+
   it "e consegue ver a agenda do evento" do
     user = create(:user)
     schedules = [
@@ -186,16 +186,51 @@ describe "Participante de um evento acessa mais detalhes do evento", type: :syst
     batches.map! { |batch| build(:batch, **batch) }
     allow(Batch).to receive(:request_batch_by_id).with("1", '1').and_return(batches[0])
     allow(Event).to receive(:request_event_by_id).and_return(events[0])
-  
+
     post = create(:post, user: user, event_id: event.event_id, title: 'Título Teste', content: '<b>Conteúdo Teste</b>')
     allow(Event).to receive(:request_event_by_id).and_return(event)
     allow(Event).to receive(:all).and_return(events)
 
     login_as user
     visit my_event_path(event.event_id, locale: :'pt-BR')
+    click_on 'Título Teste'
 
     expect(page).to have_content 'Título Teste'
     expect(page).to have_content 'Conteúdo Teste'
     expect(page).to have_content "Publicado em: #{I18n.l(post.created_at, format: :short)}"
+  end
+
+  it "e consegue chegar na página de conteudos de eventos através de meus eventos" do
+    user = create(:user)
+    batches = [ {
+        batch_id: '1',
+        name: 'Entrada - Meia',
+        limit_tickets: 20,
+        start_date: 5.days.ago.to_date,
+        value: 20.00,
+        end_date: 2.month.from_now.to_date,
+        event_id: '1'
+      }
+    ]
+    event = build(:event, name: 'DevWeek', batches: batches, event_id: '1')
+    events = [ event ]
+    ticket = create(:ticket, event_id: event.event_id, batch_id: '1', user: user)
+    batches.map! { |batch| build(:batch, **batch) }
+    allow(Batch).to receive(:request_batch_by_id).with("1", '1').and_return(batches[0])
+    allow(Event).to receive(:request_event_by_id).and_return(events[0])
+    allow(Event).to receive(:request_event_by_id).and_return(event)
+    allow(Event).to receive(:all).and_return(events)
+
+    login_as user
+    visit root_path
+    click_on 'Meus Eventos'
+
+    within("#event_id_#{event.event_id}") do
+      click_on 'Acessar Conteúdo do Evento'
+    end
+
+    expect(page).to have_content 'DevWeek'
+    expect(page).to have_content 'Entrada - Meia'
+    expect(page).to have_content 'Agenda do evento'
   end
 end

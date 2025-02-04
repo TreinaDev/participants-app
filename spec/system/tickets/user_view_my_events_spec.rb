@@ -18,13 +18,13 @@ describe 'Usuário acessa página de meus eventos' do
       expect(page).to have_content('DevWeek')
       expect(page).to have_css 'img[src="http://localhost:3000/events/1/banner.jpg"]'
       expect(page).to have_css 'img[src="http://localhost:3000/events/1/logo.jpg"]'
-      expect(page).to have_link('Ver Ingresso')
+      expect(page).to have_link('Acessar Conteúdo do Evento')
     end
     within("#event_id_#{event2.event_id}") do
       expect(page).to have_content('Ruby')
       expect(page).to have_css 'img[src="http://localhost:3000/events/3/banner.jpg"]'
       expect(page).to have_css 'img[src="http://localhost:3000/events/3/logo.jpg"]'
-      expect(page).to have_link('Ver Ingresso')
+      expect(page).to have_link('Acessar Conteúdo do Evento')
     end
   end
 
@@ -87,7 +87,7 @@ describe 'Usuário acessa página de meus eventos' do
 
     within("#event_id_#{event1.event_id}") do
       expect(page).to have_content('DevWeek')
-      expect(page).to have_link('Ver Ingresso')
+      expect(page).to have_link('Acessar Conteúdo do Evento')
     end
     expect(page).not_to have_content('Ruby')
   end
