@@ -47,7 +47,7 @@ describe 'Usuário acessa a página de conteúdos do evento' do
     get my_event_path(event.event_id, locale: :'pt-BR')
 
     expect(response.status).to eq 302
-    expect(flash[:alert]).to eq 'Você não participa deste evento!'
+    expect(flash[:alert]).to eq 'Você não participa deste evento'
   end
 
   it 'e falha, por não estar logado' do
