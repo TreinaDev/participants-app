@@ -32,7 +32,10 @@ Rails.application.routes.draw do
       get ":name", to: "events#show", as: "by_name"
     end
 
-    resources :my_events, only: [ :show, :index ]
+    resources :my_events, only: [ :show, :index ] do
+      resources :feedbacks, only: [ :new, :create, :index ]
+    end
+    resources :my_feedbacks, only: [ :index ]
     resources :reminders, only: [ :create, :destroy ]
     resources :favorites, only: [ :index, :create, :destroy ]
   end

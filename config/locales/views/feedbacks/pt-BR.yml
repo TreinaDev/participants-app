@@ -1,0 +1,18 @@
+pt-BR:
+  feedbacks:
+    new:
+      no_ticket: Vocẽ não participa deste evento
+      title: Adicione sua avaliação
+      save: Adicionar Feedback
+      no_finished: Este evento ainda está em andamento
+    index: 
+      no_ticket: Vocẽ não participa deste evento
+      title: Avaliações do Evento
+      public: Público
+      anonymous: Anônimo
+      no_finished: Este evento ainda está em andamento
+    create: 
+      no_ticket: Vocẽ não participa deste evento
+      success: Feedback adicionado com sucesso
+      alert: Falha ao salvar o Feedback
+      no_finished: Este evento ainda está em andamento

@@ -1,0 +1,19 @@
+<%= page_title(t('.title')) %>
+
+<% @feedbacks.each do |feedback| %>
+  <dl>
+    <dt> <%= I18n.t('event.one') %>:</dt>
+    <dd> <%= @event.name %> </dd>
+
+    <dt> <%= Feedback.human_attribute_name :title %>:</dt>
+    <dd> <%= feedback.title %> </dd>
+
+    <dt> <%= Feedback.human_attribute_name :comment %>: </dt>
+    <dd> <%= feedback.comment %> </dd>
+
+    <dt> <%= Feedback.human_attribute_name :mark %>: </dt>
+    <dd> <%= feedback.mark %> </dd>
+
+    <p> <%= Feedback.model_name.human %> <%= feedback.public ? t('.public') : t('.anonymous') %> </p>
+  </dl>
+<% end %>
