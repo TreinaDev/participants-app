@@ -2,10 +2,11 @@ require 'rails_helper'
 
 describe 'Usuário acessa feed do evento e vê comunicados oficiais' do
   it 'com sucesso' do
-    event = build(:event, name: 'DevWeek')
+    announcement = build(:announcement, title: 'Taxa extra de R$100,00', content: 'NOVA TAXA: PAGUEM!')
+
+    event = build(:event, name: 'DevWeek', announcements: [ announcement ])
     ticket = create(:ticket, event_id: event.event_id)
     user = ticket.user
-    create(:announcement, title: 'Taxa extra de R$100,00', event_id: event.event_id, content: 'NOVA TAXA: PAGUEM!')
     allow(Event).to receive(:all).and_return([ event ])
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
