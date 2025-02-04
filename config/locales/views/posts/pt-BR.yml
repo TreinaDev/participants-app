@@ -1,6 +1,5 @@
 pt-BR:
   posts:
-    negate_access: Você não participa deste evento
     not_post_owner: Você não tem acesso a essa página
     not_participant: Você não participa deste evento
     show:

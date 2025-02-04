@@ -1,6 +1,6 @@
 class LikesController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_user_is_participant
+  before_action -> { check_user_is_participant(params[:event_id]) }
   before_action :check_user_owns_like, only: [ :destroy ]
 
   def create
@@ -18,10 +18,6 @@ class LikesController < ApplicationController
   end
 
   private
-
-  def check_user_is_participant
-    redirect_to root_path, alert: t(".negate_access") unless current_user.participates_in_event?(params[:event_id])
-  end
 
   def check_user_owns_like
     unless current_user == Like.find(params[:id]).user

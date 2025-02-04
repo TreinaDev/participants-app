@@ -1,7 +1,7 @@
 class FeedbacksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_and_check_my_event_id
-  before_action :check_user_is_participant
+  before_action -> { check_user_is_participant(@my_event_id) }
 
   def new
     @feedback = Feedback.new
@@ -28,12 +28,6 @@ class FeedbacksController < ApplicationController
 
   def feedback_params
     params.require(:feedback).permit(:title, :comment, :mark, :public)
-  end
-
-  def check_user_is_participant
-    unless current_user.participates_in_event?(@my_event_id)
-      redirect_to root_path, alert: t(".no_ticket")
-    end
   end
 
   def set_and_check_my_event_id

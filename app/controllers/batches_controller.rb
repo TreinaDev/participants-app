@@ -1,5 +1,6 @@
 class BatchesController < ApplicationController
   before_action :authenticate_user!
+
   def index
     @batches = Batch.request_batches_by_event_id(params[:event_id])
     @event = Event.request_event_by_id(params[:event_id])

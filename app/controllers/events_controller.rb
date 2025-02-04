@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   before_action :check_event, only: [ :show ]
+
   def show
     if @event.batches.any?
       batch_ids = @event.batches.map(&:batch_id)

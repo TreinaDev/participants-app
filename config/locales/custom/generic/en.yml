@@ -1,6 +1,7 @@
 en:
   custom:
     generic:
+      negate_access: You do not participate in this event
       event_not_found: Event not found
       batches_not_found: This event do not have tickets yet
       copyright: © Copyright 2025 Participants | All rights reserved

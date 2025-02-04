@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_post_and_event_id, only: [ :show, :edit, :update ]
-  before_action :check_user_is_participant
+  before_action -> { check_user_is_participant(params[:event_id]) }
   before_action :set_event_id, only: [ :new, :create ]
   before_action :check_user_owns_post, only: [ :edit, :update ]
 
@@ -58,12 +58,6 @@ class PostsController < ApplicationController
   def check_user_owns_post
     unless @post.user == current_user
       redirect_to root_path, alert: t(".not_post_owner")
-    end
-  end
-
-  def check_user_is_participant
-    unless current_user.participates_in_event?(params[:event_id])
-      redirect_to root_path, alert: t(".not_participant")
     end
   end
 end

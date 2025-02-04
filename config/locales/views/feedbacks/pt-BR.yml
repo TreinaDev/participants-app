@@ -1,7 +1,6 @@
 pt-BR:
   feedbacks:
     new:
-      no_ticket: Vocẽ não participa deste evento
       title: Adicione sua avaliação
       save: Adicionar Feedback
       no_finished: Este evento ainda está em andamento

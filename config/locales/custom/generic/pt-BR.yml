@@ -1,6 +1,7 @@
 pt-BR:
   custom:
     generic:
+      negate_access: Você não participa deste evento
       event_not_found: Evento não encontrado
       batches_not_found: Evento ainda não possui ingressos
       copyright: © Copyright 2025 Participants | Todos os direitos reservados
