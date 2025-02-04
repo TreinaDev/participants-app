@@ -18,7 +18,8 @@ class Batch
   private
 
   def self.get_batch_by_id(event_id, batch_id)
-    batch = EventsApiService.get_batch_by_id(event_id, batch_id)
+    ticket_batch = EventsApiService.get_batch_by_id(event_id, batch_id)
+    batch = ticket_batch[:ticket_batch]
     Batch.new(batch_id: batch[:code], name: batch[:name], limit_tickets: batch[:tickets_limit],
               start_date: batch[:start_date].to_date, value: batch[:ticket_price], end_date: batch[:end_date].to_date,
               event_id: event_id)

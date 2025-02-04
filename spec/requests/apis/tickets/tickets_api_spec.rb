@@ -5,22 +5,22 @@ describe 'Tickets API' do
     it 'com sucesso' do
       batches = [
         {
-        id: 1,
+        id: '1',
         name: 'Entrada - Meia',
         limit_tickets: 20,
         start_date: 5.days.ago.to_date,
         value: 20.00,
         end_date: 2.month.from_now.to_date,
-        event_id: 1
+        event_id: '1'
         },
         {
-        id: 2,
+        id: '2',
         name: 'PCD - Meia',
         limit_tickets: 50,
         start_date: 6.days.ago.to_date,
         value: 10.00,
         end_date: 2.month.from_now.to_date,
-        event_id: 1
+        event_id: '1'
         }
       ]
       target_batch = batches[1]
@@ -37,19 +37,19 @@ describe 'Tickets API' do
       json_response = JSON.parse(response.body)
 
       expect(json_response["sold_tickets"]).to eq 2
-      expect(json_response["id"]).to eq 2
+      expect(json_response["id"]).to eq '2'
     end
 
     it 'e retorna error 404 quando não encontra o lote' do
       batches = [
         {
-        id: 2,
+        id: '2',
         name: 'PCD - Meia',
         limit_tickets: 50,
         start_date: 6.days.ago.to_date,
         value: 10.00,
         end_date: 2.month.from_now.to_date,
-        event_id: 1
+        event_id: '1'
         }
       ]
       build(:event, name: 'DevWeek',  event_id: 1, batches: batches)
@@ -71,22 +71,22 @@ describe 'Tickets API' do
     it 'e não conta tickets de outro lote' do
       batches = [
         {
-        id: 1,
+        id: '1',
         name: 'Entrada - Meia',
         limit_tickets: 20,
         start_date: 5.days.ago.to_date,
         value: 20.00,
         end_date: 2.month.from_now.to_date,
-        event_id: 1
+        event_id: '1'
         },
         {
-        id: 2,
+        id: '2',
         name: 'PCD - Meia',
         limit_tickets: 50,
         start_date: 6.days.ago.to_date,
         value: 10.00,
         end_date: 2.month.from_now.to_date,
-        event_id: 1
+        event_id: '1'
         }
       ]
       target_batch = batches[1]
@@ -105,19 +105,19 @@ describe 'Tickets API' do
       json_response = JSON.parse(response.body)
 
       expect(json_response["sold_tickets"]).to eq 2
-      expect(json_response["id"]).to eq 2
+      expect(json_response["id"]).to eq '2'
     end
 
     it 'E falha com um erro interno' do
       batches = [
         {
-        id: 2,
+        id: '2',
         name: 'PCD - Meia',
         limit_tickets: 50,
         start_date: 6.days.ago.to_date,
         value: 10.00,
         end_date: 2.month.from_now.to_date,
-        event_id: 1
+        event_id: '1'
         }
       ]
       target_batch = batches[0]

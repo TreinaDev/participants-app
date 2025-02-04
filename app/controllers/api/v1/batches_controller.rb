@@ -12,7 +12,7 @@ class Api::V1::BatchesController < Api::V1::ApiController
   private
 
   def set_batch_and_event
-    @event_id = params[:event_id].to_i
-    @batch_id = params[:id].to_i
+    @event_id = params[:event_id]
+    @batch_id = params[:id]
   end
 end
