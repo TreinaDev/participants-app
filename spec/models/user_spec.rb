@@ -48,6 +48,16 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '#full_name' do
+    it 'retorna o nome completo do usuário' do
+      user = create(:user, name: 'teste', last_name: 'não teste')
+
+      result = user.full_name
+
+      expect(result).to eq 'teste não teste'
+    end
+  end
+
   describe 'validations' do
     context 'Nome de Usuário' do
       it { is_expected.to validate_presence_of(:name) }
