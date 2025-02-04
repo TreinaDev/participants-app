@@ -14,7 +14,7 @@ RSpec.describe Event, type: :model do
         participants_limit:	30,
         event_owner:	'Samuel',
         start_date:	"2025-02-01T12:00:00.000-03:00",
-        end_date:	"2025-02-04T12:00:00.000-03:00",
+        end_date:	"2025-02-04T12:00:00.000-03:00"
       }
 
       response = double('response', status: 200, body: event.to_json)
