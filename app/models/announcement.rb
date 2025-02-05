@@ -7,4 +7,8 @@ class Announcement
     @description = description
     @announcement_id = announcement_id
   end
+
+  def rich_text_description
+    ActionText::Content.new(@description)
+  end
 end
