@@ -72,7 +72,9 @@
   </div>
   <div class="bg-white p-6 m-3 w-full">
     <h2><%= t('.event_description') %>:</h2>
-    <p class="text-sm text-gray-500 mt-1"><%= @event.description %></p>
+    <%= render 'layouts/action_text/contents/content' do %>
+      <%= @event.rich_text_description %>
+    <% end %>
   </div>          
   <div class="bg-white p-6 m-3 w-full">
     <h2><%= t('.event_agenda') %></h2>
