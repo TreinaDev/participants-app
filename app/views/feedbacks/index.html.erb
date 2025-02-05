@@ -17,3 +17,21 @@
     <p> <%= Feedback.model_name.human %> <%= feedback.public ? t('.public') : t('.anonymous') %> </p>
   </dl>
 <% end %>
+
+<% @item_feedbacks.each do |feedback| %>
+  <dl>
+    <dt> <%=  %>:</dt>
+    <dd> <%= feedback.name %> </dd>
+
+    <dt> <%= Feedback.human_attribute_name :title %>:</dt>
+    <dd> <%= feedback.title %> </dd>
+
+    <dt> <%= Feedback.human_attribute_name :comment %>: </dt>
+    <dd> <%= feedback.comment %> </dd>
+
+    <dt> <%= Feedback.human_attribute_name :mark %>: </dt>
+    <dd> <%= feedback.mark %> </dd>
+
+    <p> <%= Feedback.model_name.human %> <%= feedback.public ? t('.public') : t('.anonymous') %> </p>
+  </dl>
+<% end %>

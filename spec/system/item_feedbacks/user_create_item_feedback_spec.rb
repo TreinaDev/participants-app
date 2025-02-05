@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Usuário cria feedback de um evento' do
+describe 'Usuário cria feedback de um item de um evento' do
   it 'pela página de meus eventos' do
     schedules = [
       {
@@ -94,7 +94,7 @@ describe 'Usuário cria feedback de um evento' do
             name:	"Palestra",
             start_time:	4.day.ago.beginning_of_day + 15.hours,
             end_time:	4.day.ago.beginning_of_day + 16.hours,
-            code: '1'
+            code: '3'
           }
         ]
       }
@@ -114,17 +114,16 @@ describe 'Usuário cria feedback de um evento' do
     end
 
     fill_in 'Título', with: 'Avaliação do Iten'
-    fill_in 'Comentário', with: 'O evento foi genial, mais a comida foi péssima'
+    fill_in 'Comentário', with: 'A atividade foi genial, mais a comida foi péssima'
     select '4', from: 'Nota'
     check 'Público'
     click_on 'Adicionar Feedback'
 
     expect(page).to have_content 'Feedback adicionado com sucesso'
-    expect(page).to have_content 'Evento: DevWeek'
-    expect(page).to have_content 'Iten do evento: DevWeek'
-    expect(page).to have_content 'Título: Avaliação da DevWeek'
+    expect(page).to have_content 'Iten do evento: Palestra'
+    expect(page).to have_content 'Título: Avaliação do Iten'
     expect(page).to have_content 'Feedback Público'
-    expect(page).to have_content 'Comentário: O evento foi genial, mais a comida foi péssima'
+    expect(page).to have_content 'Comentário: A atividade foi genial, mais a comida foi péssima'
     expect(page).to have_content 'Nota: 4'
   end
 end

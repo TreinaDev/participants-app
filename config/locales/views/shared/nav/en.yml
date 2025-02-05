@@ -9,3 +9,5 @@ en:
       my_events: My Events
       my_profile: My Profile
       hello: "Hello, %{name}"
+    feedback_form:
+      save: Add Feedback

@@ -1,0 +1,8 @@
+en:
+  item_feedbacks:
+    no_finished: This event is still ongoing
+    new:
+      title: Add you feedback
+    create:       
+      success: Feedback added with success
+      alert: Failed to save feedback

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_04_211415) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_05_205330) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -77,6 +77,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_04_211415) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_feedbacks_on_user_id"
+  end
+
+  create_table "item_feedbacks", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "comment", null: false
+    t.string "answer"
+    t.integer "mark", default: 0, null: false
+    t.boolean "public", null: false
+    t.string "event_id", null: false
+    t.integer "user_id", null: false
+    t.string "schedule_item_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_item_feedbacks_on_user_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -167,6 +181,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_04_211415) do
   add_foreign_key "comments", "users"
   add_foreign_key "favorites", "users"
   add_foreign_key "feedbacks", "users"
+  add_foreign_key "item_feedbacks", "users"
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
   add_foreign_key "posts", "users"

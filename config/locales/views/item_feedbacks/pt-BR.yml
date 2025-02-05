@@ -1,12 +1,8 @@
 pt-BR:
-  feedbacks:
+  item_feedbacks:
     no_finished: Este evento ainda está em andamento
     new:
       title: Adicione sua avaliação
-    index: 
-      title: Avaliações do Evento
-      public: Público
-      anonymous: Anônimo
-    create: 
+    create:       
       success: Feedback adicionado com sucesso
       alert: Falha ao salvar o Feedback
