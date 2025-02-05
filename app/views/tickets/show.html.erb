@@ -1,6 +1,9 @@
 
 
-<div class="w-80 mx-auto bg-white p-4 rounded-[1.25rem] mb-5 shadow-lg ">
+<div class="w-80 mx-auto bg-white p-4 rounded-[1.25rem] mb-5 shadow-lg relative mt-5">
+  <div class="actions my-5 flex">
+    <%= form_link_to_back %>
+  </div>
   <div class="text-center w-72 card-event">
     <div class="flex justify-center items-center mb-5 h-72 mt-5 text-center">
         <%= @svg.html_safe %>

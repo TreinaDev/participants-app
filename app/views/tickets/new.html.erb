@@ -1,14 +1,16 @@
 
 <div class= "flex items-center justify-center min-h-screen">
-    <div class= "w-full max-w-md p-6 bg-gray rounded-2x1 shadow-lg">
+    <div class= "w-full max-w-md p-6 bg-gray rounded-2x1 shadow-lg relative">
         <% if @ticket.errors.any? %>
-        <ul class="error-messages"> 
+        <ul class="error-messages">
             <% @ticket.errors.full_messages.each do |msg| %>
-                <li class="alert"><%= msg %></li>
+              <li class="alert"><%= msg %></li>
             <% end %>
         </ul>
         <% end %>
-
+        <div class="actions my-5 flex">
+          <%= form_link_to_back %>
+        </div>
         <%= form_with(model: @ticket, method: 'post', url: event_batch_tickets_path(batch_id: @batch_id, event_id: @event_id), class: "space-y-6") do |f| %>
         <div>
             <%= f.label :payment_method, class: "form-label"  %>

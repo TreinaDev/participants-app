@@ -4,7 +4,6 @@ pt-BR:
     new:
       title: Adicione um link
       save: Salvar Link
-      back: 'Voltar'
     create: 
       notice: Link salvo
       alert: Não foi possível salvar o Link
