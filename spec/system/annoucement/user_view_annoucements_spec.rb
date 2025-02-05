@@ -5,7 +5,6 @@ describe 'Usuário acessa feed do evento e vê comunicados oficiais' do
     announcement = build(:announcement, title: 'Taxa extra de R$100,00', description: 'NOVA TAXA: PAGUEM!')
 
     event = build(:event, name: 'DevWeek')
-    p event
     event.announcements << announcement
     ticket = create(:ticket, event_id: event.event_id)
     user = ticket.user
