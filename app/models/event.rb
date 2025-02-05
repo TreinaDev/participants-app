@@ -16,6 +16,10 @@ class Event
     @batches = build_batch(batches)
   end
 
+  def rich_text_description
+    ActionText::Content.new(@description)
+  end
+
   def self.all
     response = EventsApiService.get_events
     events = response[:events]
