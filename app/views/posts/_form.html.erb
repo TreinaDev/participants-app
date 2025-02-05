@@ -1,12 +1,21 @@
-<%= form_with(model: post, url: url) do |f| %>
+<div class='flex item-center justify-center'>
+  <div class="relative p-4 flex flex-col item-center justify-center shadow-sm border border-purple-900 w-100 rounded-lg my-6">
+    <div class="relative flex flex-col rounded-xl bg-transparent">
+        <div class="actions my-5 flex">
+          <%= form_link_to_back %>
+        </div>
+    </div>
+    <%= form_with(model: post, url: url) do |f| %>
 
-  <%=f.label :title, class: 'form-label' %>
-  <%=f.text_field :title, class: 'form-field' %>
-  
-  <%=f.label :content, class: 'form-label' %>
-  <%=f.rich_text_area :content, class: 'form-field' %>
+      <%=f.label :title, class: 'form-label' %>
+      <%=f.text_field :title, class: 'form-field' %>
+      
+      <%=f.label :content, class: 'form-label' %>
+      <%=f.rich_text_area :content, class: 'form-field' %>
 
-  <div>
-    <%=f.submit t('.save'), class: 'btn-confirm' %>
+      <div>
+        <%=f.submit t('.save'), class: 'btn-confirm' %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>
