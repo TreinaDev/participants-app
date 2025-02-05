@@ -49,4 +49,35 @@ describe 'Usuário acessa página de detalhes de comunicados oficiais' do
 
     expect(current_path).to eq event_by_name_path(event_id: event.event_id, name: event.name.parameterize, locale: 'pt-BR')
   end
+
+  it 'e deve estar logado' do
+    event = build(:event, name: 'DevWeek')
+    announcement = build(:announcement, title: 'Taxa extra de R$100,00', description: 'NOVA TAXA: PAGUEM!', event_id: event.event_id)
+    event.announcements << announcement
+    create(:ticket, event_id: event.event_id)
+    allow(Event).to receive(:all).and_return([ event ])
+    allow(Event).to receive(:request_event_by_id).and_return(event)
+    allow(Announcement).to receive(:request_announcement_by_id).and_return(announcement)
+
+    visit event_announcement_path(event_id: event.event_id, id: announcement.announcement_id)
+
+    expect(current_path).to eq new_user_session_path
+  end
+
+  it 'e deve ter um ingresso comprado' do
+    event = build(:event, name: 'DevWeek')
+    announcement = build(:announcement, title: 'Taxa extra de R$100,00', description: 'NOVA TAXA: PAGUEM!', event_id: event.event_id)
+    announcement_two = build(:announcement, title: 'Taxa extra de R$500,00', description: 'NOVA TAXA: PAGUEM! PAGUEM COM A ALMA. PAGUEM OU O FUTURO NÃO LHES PERTENCERÁ. SEJAM PAGANTES E NÃO DEVEDORES', event_id: event.event_id)
+    event.announcements << announcement << announcement_two
+    user = create(:user)
+    allow(Event).to receive(:all).and_return([ event ])
+    allow(Event).to receive(:request_event_by_id).and_return(event)
+    allow(Announcement).to receive(:request_announcement_by_id).and_return(announcement_two)
+
+    login_as user
+    visit event_announcement_path(event_id: event.event_id, id: announcement.announcement_id)
+
+    expect(current_path).to eq root_path
+    expect(page).to have_content "Você não participa deste evento"
+  end
 end
