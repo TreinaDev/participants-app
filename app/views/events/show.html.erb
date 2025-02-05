@@ -109,7 +109,9 @@
         </div>
         <ul class="space-y-4">
           <% if @announcements.any? %>
-            <%= render @announcements %>
+            <% @announcements.each do |announcement| %>
+              <%= render 'announcements/announcement', announcement: announcement %>
+            <% end %>
           <% end %>
         </ul>
         <ul class="space-y-4">
