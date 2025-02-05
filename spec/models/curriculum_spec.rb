@@ -96,4 +96,13 @@ RSpec.describe Curriculum, type: :model do
       expect(results.tasks[0].attached_contents[0][:attached_content_code]).to eq 'MH0IBQ8O'
     end
   end
+
+  it 'e deveria retornar um currículo sem atividades e sem conteudos em caso de erro na requisição' do
+    response = double('faraday_response', body: "{}", status: 500)
+    allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3003/api/v1/curriculums/ABCD1234").and_return(response)
+    result = Curriculum.request_curriculum_by_schedule_item_code("ABCD1234")
+
+    expect(result.contents).to eq []
+    expect(result.tasks).to eq []
+  end
 end
