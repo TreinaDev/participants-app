@@ -34,7 +34,11 @@ Rails.application.routes.draw do
 
     resources :my_events, only: [ :show, :index ] do
       resources :feedbacks, only: [ :new, :create, :index ]
+      resources :schedule_items do
+        resources :item_feedbacks, only: [ :new, :create ]
+      end
     end
+
     resources :my_feedbacks, only: [ :index ]
     resources :reminders, only: [ :create, :destroy ]
     resources :favorites, only: [ :index, :create, :destroy ]
