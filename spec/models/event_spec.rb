@@ -41,11 +41,13 @@ RSpec.describe Event, type: :model do
           date: 	"2025-02-14",
           schedule_items: [
             {
-                name:	"Palestra",
+              code:	"1",
+              name:	"Palestra",
               start_time:	"2025-02-14T09:00:00.000-03:00",
               end_time:	"2025-02-14T10:00:00.000-03:00"
             },
             {
+              code:	"2",
               name:	"Segunda Palestra",
               start_time:	"2025-02-14T10:00:00.000-03:00",
               end_time:	"2025-02-14T11:00:00.000-03:00"
@@ -56,6 +58,7 @@ RSpec.describe Event, type: :model do
           date: 	"2025-02-15",
           schedule_items: [
             {
+              code:	"3",
               name:	"Apresentação",
               start_time:	"2025-02-15T09:00:00.000-03:00",
               end_time:	"2025-02-15T10:00:00.000-03:00"
@@ -89,16 +92,19 @@ RSpec.describe Event, type: :model do
 
       expect(result.schedules[0].date).to eq "Fri, 14 Feb 2025".to_datetime
 
+      expect(result.schedules[0].schedule_items[0].schedule_item_id).to eq '1'
       expect(result.schedules[0].schedule_items[0].name).to eq 'Palestra'
       expect(result.schedules[0].schedule_items[0].start_time).to eq '09:00'
       expect(result.schedules[0].schedule_items[0].end_time).to eq '10:00'
 
+      expect(result.schedules[0].schedule_items[1].schedule_item_id).to eq '2'
       expect(result.schedules[0].schedule_items[1].name).to eq 'Segunda Palestra'
       expect(result.schedules[0].schedule_items[1].start_time).to eq '10:00'
       expect(result.schedules[0].schedule_items[1].end_time).to eq '11:00'
 
       expect(result.schedules[1].date).to eq "Fri, 15 Feb 2025".to_datetime
 
+      expect(result.schedules[1].schedule_items[0].schedule_item_id).to eq '3'
       expect(result.schedules[1].schedule_items[0].name).to eq 'Apresentação'
       expect(result.schedules[1].schedule_items[0].start_time).to eq '09:00'
       expect(result.schedules[1].schedule_items[0].end_time).to eq '10:00'

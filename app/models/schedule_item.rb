@@ -1,9 +1,10 @@
 class ScheduleItem
-  attr_accessor :name, :start_time, :end_time
-  def initialize(name:, start_time:, end_time:)
+  attr_accessor :name, :start_time, :end_time, :schedule_item_id
+  def initialize(name:, start_time:, end_time:, schedule_item_id:)
     @name = name
     @start_time = start_time.to_datetime.strftime("%H:%M")
     @end_time = end_time.to_datetime.strftime("%H:%M")
+    @schedule_item_id = schedule_item_id
     @start_time_raw = start_time.to_datetime
     @end_time_raw = end_time.to_datetime
   end

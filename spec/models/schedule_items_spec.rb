@@ -8,6 +8,7 @@ RSpec.describe ScheduleItem, type: :model do
           date: 	"2025-02-14",
           schedule_items: [
             {
+              code: "1",
               name:	"Palestra",
               start_time:	"2025-02-14T09:00:00.000-03:00",
               end_time:	"2025-02-14T10:00:00.000-03:00"
@@ -28,6 +29,7 @@ RSpec.describe ScheduleItem, type: :model do
           date: 	"2025-02-14",
           schedule_items: [
             {
+              code: "1",
               name:	"Palestra",
               start_time:	"2025-02-14T10:00:00.000-03:00",
               end_time:	"2025-02-14T09:00:00.000-03:00"

@@ -8,7 +8,7 @@ class Schedule
   private
 
   def build_schedule_items(schedule_items)
-    schedule_items.map { |schedule_item| ScheduleItem.new(name: schedule_item[:name], start_time: schedule_item[:start_time],
+    schedule_items.map { |schedule_item| ScheduleItem.new(schedule_item_id: schedule_item[:code], name: schedule_item[:name], start_time: schedule_item[:start_time],
                                                    end_time: schedule_item[:end_time])}
   end
 end
