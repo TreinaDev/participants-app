@@ -14,7 +14,7 @@ class Api::V1::FeedbackAnswersController < Api::V1::ApiController
   private
 
   def feedback_answers_params
-    params.require(:feedback_answers).permit(:name, :email, :comment)
+    params.permit(:name, :email, :comment)
   end
 
   def set_and_check_item_feedback
