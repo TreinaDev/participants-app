@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_06_184046) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_06_192041) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -65,6 +65,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_06_184046) do
     t.datetime "updated_at", null: false
     t.string "event_id", null: false
     t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
+  create_table "feedback_answers", force: :cascade do |t|
+    t.string "name"
+    t.string "comment"
+    t.string "email"
+    t.integer "item_feedback_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_feedback_id"], name: "index_feedback_answers_on_item_feedback_id"
   end
 
   create_table "feedbacks", force: :cascade do |t|
@@ -179,6 +189,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_06_184046) do
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "favorites", "users"
+  add_foreign_key "feedback_answers", "item_feedbacks"
   add_foreign_key "feedbacks", "users"
   add_foreign_key "item_feedbacks", "users"
   add_foreign_key "likes", "posts"

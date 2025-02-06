@@ -51,6 +51,9 @@ Rails.application.routes.draw do
         resources :batches,  only: [ :show ]
         resources :feedbacks,  only: [ :index ]
       end
+      resources :item_feedbacks do
+        resources :feedback_answers, only: [ :create ]
+      end
     end
   end
 end
