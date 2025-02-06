@@ -48,19 +48,19 @@ describe 'Usuário acessa página de detalhes de um evento' do
 
   it 'e consegue ver os detalhes da agenda do evento' do
     user = create(:user)
-    schedules = [
+     schedules = [
       {
         date: 	"2025-02-14",
         schedule_items: [
           {
             name:	"Palestra",
             start_time:	"2025-02-14T09:00:00.000-03:00",
-            end_time:	"2025-02-14T10:00:00.000-03:00"
-          },
-          {
-            name:	"Segunda Palestra",
-            start_time:	"2025-02-14T10:00:00.000-03:00",
-            end_time:	"2025-02-14T11:00:00.000-03:00"
+            end_time:	"2025-02-14T10:00:00.000-03:00",
+            code: "ABCD1423",
+            description: 'novo teste pra  passar',
+            schedule_type: 'activity',
+            responsible_name: 'Sílvio Santos',
+            responsible_email: 'silvio@sbt.com'
           }
         ]
       },
@@ -70,7 +70,12 @@ describe 'Usuário acessa página de detalhes de um evento' do
           {
             name:	"Apresentação",
             start_time:	"2025-02-15T09:00:00.000-03:00",
-            end_time:	"2025-02-15T10:00:00.000-03:00"
+            end_time:	"2025-02-15T10:00:00.000-03:00",
+            code: "ABCD1424",
+            description: 'apresentação de slides',
+            schedule_type: 'activity',
+            responsible_name: 'Hebe Soares',
+            responsible_email: 'soareshebe@sbt.com'
           }
         ]
       },
@@ -93,13 +98,18 @@ describe 'Usuário acessa página de detalhes de um evento' do
     expect(page).to have_content "Palestra"
     expect(page).to have_content "Início: 09:00"
     expect(page).to have_content "Duração: 60min"
-    expect(page).to have_content "Segunda Palestra"
-    expect(page).to have_content "Início: 10:00"
-    expect(page).to have_content "Duração: 60min"
+    expect(page).to have_content "Tipo: atividade"
+    expect(page).to have_content "Responsável: Sílvio Santos"
+    expect(page).to have_content "Email: silvio@sbt.com"
+
     expect(page).to have_content "15/02/2025"
     expect(page).to have_content "Apresentação"
     expect(page).to have_content "Início: 09:00"
     expect(page).to have_content "Duração: 60min"
+    expect(page).to have_content "Tipo: atividade"
+    expect(page).to have_content "Responsável: Hebe Soares"
+    expect(page).to have_content "Email: soareshebe@sbt.com"
+
     expect(page).to have_content "16/02/2025"
     expect(page).to have_content 'Ainda não existe programação cadastrada para esse dia'
   end

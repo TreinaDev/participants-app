@@ -1,4 +1,6 @@
 require 'rails_helper'
+WebMock.disable_net_connect!(allow_localhost: true)
+WebMock.enable!
 
 describe 'usuário edita perfil' do
   it 'pela página do perfil' do
@@ -14,6 +16,7 @@ describe 'usuário edita perfil' do
 
   it 'com sucesso', type: :system, js: true do
     user = create(:user, email: 'teste@email.com')
+    stub_request(:get, 'https://brasilapi.com.br/api/ibge/uf/v1').to_return(body: "")
 
     login_as user
     visit edit_user_profile_path(user_id: user, id: user.profile)

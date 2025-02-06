@@ -122,9 +122,22 @@ describe EventsApiService, type: :model do
         logo_url: 'https://via.placeholder.com/100x100',
         participants_limit:	30,
         event_owner:	'Samuel',
-        schedule: {
-          start_date:	"2025-02-01T12:00:00.000-03:00",
-          end_date:	"2025-02-04T12:00:00.000-03:00"
+        start_date:	"2025-02-01T12:00:00.000-03:00",
+        end_date:	"2025-02-04T12:00:00.000-03:00",
+        schedules: {
+          date: "2025-02-01",
+          schedule_items: [
+            {
+              code: 'AAAAA',
+              name: 'PROVA',
+              description: 'VALENDO 10',
+              start_time: '2025-02-02T12:00:00.000-03:00',
+              end_time: '2025-02-02T12:00:00.000-03:00',
+              responsible_name: 'Palestrante',
+              responsible_email:  'palestrante@email',
+              schedule_type: 'activity'
+            }
+          ]
         }
       }
 
@@ -139,8 +152,15 @@ describe EventsApiService, type: :model do
       expect(result[:logo_url]).to eq 'https://via.placeholder.com/100x100'
       expect(result[:description]).to eq 'Aprenda a fritar um ovo'
       expect(result[:event_owner]).to eq 'Samuel'
-      expect(result[:schedule][:start_date]).to eq "2025-02-01T12:00:00.000-03:00"
-      expect(result[:schedule][:end_date]).to eq "2025-02-04T12:00:00.000-03:00"
+      expect(result[:schedules][:date]).to eq "2025-02-01"
+      expect(result[:schedules][:schedule_items][0][:code]).to eq "AAAAA"
+      expect(result[:schedules][:schedule_items][0][:name]).to eq "PROVA"
+      expect(result[:schedules][:schedule_items][0][:description]).to eq "VALENDO 10"
+      expect(result[:schedules][:schedule_items][0][:start_time]).to eq "2025-02-02T12:00:00.000-03:00"
+      expect(result[:schedules][:schedule_items][0][:end_time]).to eq "2025-02-02T12:00:00.000-03:00"
+      expect(result[:schedules][:schedule_items][0][:responsible_name]).to eq "Palestrante"
+      expect(result[:schedules][:schedule_items][0][:responsible_email]).to eq "palestrante@email"
+      expect(result[:schedules][:schedule_items][0][:schedule_type]).to eq "activity"
     end
   end
 
