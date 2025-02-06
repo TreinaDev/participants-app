@@ -19,7 +19,6 @@ describe 'usuário edita perfil' do
     visit edit_user_profile_path(user_id: user, id: user.profile)
     select 'Bahia', from: 'Estado'
 
-    sleep(1)
     select 'SALVADOR', from: 'Cidade'
     fill_in 'Telefone', with: '11912125454'
     click_on 'Salvar Informações'
