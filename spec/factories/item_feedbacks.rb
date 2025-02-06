@@ -1,12 +1,10 @@
 FactoryBot.define do
   factory :item_feedback do
-    title { "MyString" }
-    comment { "MyString" }
-    answer { "MyString" }
+    event_id { "1" }
+    user
+    title { "Título Padrão" }
+    comment { "Comentário Padrão" }
     mark { 1 }
-    public { false }
-    event_id { "MyString" }
-    user { nil }
-    schedule_item_id { "MyString" }
+    schedule_item_id { "1" }
   end
 end
