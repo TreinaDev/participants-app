@@ -1,0 +1,4 @@
+<%= page_title(t('.title')) %>
+
+<%= render 'shared/errors_messages', model: @item_feedback %>
+<%= render 'shared/feedback_form', model: @item_feedback, url: my_event_schedule_item_item_feedbacks_path(my_event_id: @event.event_id, schedule_item_id: @schedule_item_id) %>

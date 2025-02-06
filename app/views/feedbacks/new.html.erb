@@ -1,39 +1,4 @@
 <%= page_title(t('.title')) %>
 <%= render 'shared/errors_messages', model: @feedback %>
-<div class='flex item-center justify-center'>
-  <div class="relative p-4 flex flex-col item-center justify-center shadow-sm border border-purple-900 w-100 rounded-lg my-6">
-    <div class="relative flex flex-col rounded-xl bg-transparent">
-      <%= form_with model: @feedback, method: 'post', url: my_event_feedbacks_path(my_event_id: @my_event_id), class: 'mt-8 mb-2 w-80 max-w-screen-lg sm:w-96' do |f| %>
-        <div class="mb-1 flex flex-col gap-6">
-          <div class="w-full">
-            <%=f.label :title, class: 'form-label' %>
-            <%=f.text_field :title, class: 'form-field' %>
-          </div>
-          <div class="w-full">
-            <%=f.label :comment, class: 'form-label' %>
-            <%=f.text_area :comment, class: 'form-field' %>
-          </div>
-          <div class="w-full">
-            <%=f.label :mark, class: 'form-label' %>
-            <%= f.select :mark, [["1", 1], ["2", 2], ["3", 3], ["4", 4], ["5", 5]], class: 'form-label' %>
-          </div>
-          <label class="flex items-center cursor-pointer relative" for="check-2">
-            <%= f.check_box :public, class: "peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-purple-900 checked:bg-slate-800 checked:border-slate-800", id: "check-2" %>
-            <span class="absolute text-white opacity-0 pointer-events-none peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="1">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-              </svg>
-            </span>
-          </label>
-          <%= f.label :public, class: "cursor-pointer ml-2 text-slate-600 text-sm", for: "check-2" %>
-          <div>
-            <%=f.submit t('.save'), class: 'btn-confirm' %>
-          </div>
-        </div>
-      <% end %>
-      <div class="actions my-5 flex">
-          <%= form_link_to_back %>
-      </div>
-    </div>
-  </div>
-</div>
+
+<%= render 'shared/feedback_form', model: @feedback, url: my_event_feedbacks_path(my_event_id: @my_event_id) %>
