@@ -57,4 +57,36 @@ describe SpeakersApiService, type: :model do
       expect { SpeakersApiService.get_curriculum("ABCD1234") }.to raise_error(Faraday::ServerError)
     end
   end
+
+
+  describe 'Usuário faz uma requisição de um palestrante' do
+    it 'e recebe um palestrante com sucesso' do
+      speaker = {
+            "speaker":
+              {
+                "first_name": "Sílvio",
+                "last_name": "Santos",
+                "photo_url": "\u003Cstrong\u003EDescrição Ruby PDF\u003C/strong\u003E",
+                "occupation": "Apresentador",
+                "profile_link": "https://globo.com"
+              }
+          }
+
+      response = double('response', status: 200, body: speaker.to_json)
+      allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3003/api/v1/schedule_items/ABCD1234").and_return(response)
+      results = SpeakersApiService.get_speaker("ABCD1234")
+
+      expect(results[:speaker][:first_name]).to eq 'Sílvio'
+      expect(results[:speaker][:last_name]).to eq 'Santos'
+      expect(results[:speaker][:photo_url]).to eq "\u003Cstrong\u003EDescrição Ruby PDF\u003C/strong\u003E"
+      expect(results[:speaker][:occupation]).to eq "Apresentador"
+      expect(results[:speaker][:profile_link]).to eq "https://globo.com"
+    end
+
+    it 'e ocorre um erro na requisição' do
+      allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3003/api/v1/schedule_items/ABCD1234").and_raise(Faraday::ServerError)
+
+      expect { SpeakersApiService.get_speaker("ABCD1234") }.to raise_error(Faraday::ServerError)
+    end
+  end
 end
