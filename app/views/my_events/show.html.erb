@@ -8,6 +8,7 @@
     <% if @event.schedules.empty? %>
       <p class="mt-4 text-gray-600"><%= t('.no_schedule') %></p>
     <% else %>
+
       <div class="mt-4 space-y-4">
         <% @event.schedules.each do |schedule| %>
           <p class="font-bold text-gray-800 text-lg"><%= I18n.l(schedule.date) %></p>
@@ -15,11 +16,13 @@
             <p class="mt-4 text-gray-600"><%= t('.no_schedule_item') %></p>
           <% else %>
             <% schedule.schedule_items.each do |item| %>
-              <div class="bg-white p-4 rounded-lg shadow-md border-l-4 border-purple-700">
-                <p class="font-bold text-gray-800 text-lg"><%= item.name %></p>
-                <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.start_time') %>:</span> <%= item.start_time %></p>
-                <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.duration') %>:</span> <%= item.duration %>min</p>
-              </div>
+                <div id='<%= "schedule_item_code_#{item.code}" %>' class="bg-white p-4 rounded-lg shadow-md border-l-4 border-purple-700">
+                  <%= link_to schedule_item_path(item.code) do %>
+                  <p class="font-bold text-gray-800 text-lg"><%= item.name %></p>
+                  <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.start_time') %>:</span> <%= item.start_time %></p>
+                  <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.duration') %>:</span> <%= item.duration %>min</p>
+                  <% end %>
+                </div>
             <% end %>
           <% end %>
         <% end %>

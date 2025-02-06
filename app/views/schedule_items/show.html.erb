@@ -1,0 +1,12 @@
+<h2>Atividades:</h2>
+<% @curriculum.tasks.each do |task| %>
+ <p><%= task.title  %> </p>
+ <p><%= task.description  %> </p>
+ <p><%= task.certificate_requirement  %> </p>
+<% end %>
+<h2>Conteúdos:</h2>
+<% @curriculum.contents.each do |content| %>
+ <p><%= content.title  %> </p>
+ <p><%= content.description  %> </p>
+ <p><%= content.external_video_url  %> </p>
+<% end %>

@@ -10,7 +10,7 @@ class Curriculum
     build_curriculum(curriculum_params)
   rescue Faraday::Error => error
     Rails.logger.error(error)
-    nil
+    build_curriculum({})
   end
 
   private

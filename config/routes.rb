@@ -40,6 +40,8 @@ Rails.application.routes.draw do
     resources :favorites, only: [ :index, :create, :destroy ]
   end
 
+  resources :schedule_items, only: [ :show ]
+
   namespace :api do
     namespace :v1 do
       resources :events, only: [ :show ] do
