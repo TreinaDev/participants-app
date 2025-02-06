@@ -150,3 +150,29 @@ describe EventsApiService, type: :model do
     expect { EventsApiService.get_event_by_id(1) }.to raise_error(Faraday::Error)
   end
 end
+
+describe 'Requisição para um comunicado de um evento' do
+  it 'e recebe um comunicado com sucesso' do
+    announcement = {
+      id: 1,
+      title: 'PAGUEM A TAXA',
+      description: 'PAGUEM LOGO',
+      event_id: 1
+
+    }
+    response = double('response', status: 200, body: announcement.to_json)
+    allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/api/v1/events/1/announcements/1').and_return(response)
+    result = EventsApiService.get_announcement_by_id(announcement[:event_id], announcement[:id])
+
+    expect(result[:id]).to eq 1
+    expect(result[:title]).to eq 'PAGUEM A TAXA'
+    expect(result[:description]).to eq 'PAGUEM LOGO'
+    expect(result[:event_id]).to eq 1
+  end
+
+  it 'e ocorre erro na requisição' do
+    allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/api/v1/events/1/announcements/1').and_raise(Faraday::Error)
+
+    expect { EventsApiService.get_announcement_by_id(1, 1) }.to raise_error(Faraday::Error)
+  end
+end
