@@ -20,8 +20,8 @@
 
 <% @item_feedbacks.each do |feedback| %>
   <dl>
-    <dt> <%=  %>:</dt>
-    <dd> <%= feedback.name %> </dd>
+    <dt> <%= I18n.t('schedule_item.one') %>:</dt>
+    <dd> <%= feedback.schedule_item.name %> </dd>
 
     <dt> <%= Feedback.human_attribute_name :title %>:</dt>
     <dd> <%= feedback.title %> </dd>

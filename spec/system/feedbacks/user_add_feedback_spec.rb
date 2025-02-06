@@ -13,7 +13,7 @@ describe 'Usuário cria feedback de um evento' do
   end
 
   it 'pela página de meus eventos' do
-    event = build(:event, event_id: '1', start_date: 5.days.ago, end_date: 5.days.from_now, name: 'DevWeek')
+    event = build(:event, event_id: '1', start_date: 5.days.ago, end_date: 4.days.from_now, name: 'DevWeek')
     ticket = create(:ticket, event_id: event.event_id)
     allow(Event).to receive(:request_event_by_id).and_return(event)
 

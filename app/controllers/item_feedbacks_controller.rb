@@ -1,7 +1,8 @@
 class ItemFeedbacksController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_and_check_my_event_id
-  before_action :set_schedule_item_id
+  before_action :set_and_check_my_event
+  before_action :set_and_check_schedule
+  before_action -> { check_user_is_participant(@my_event_id) }
 
   def new
     @item_feedback = ItemFeedback.new()
@@ -27,14 +28,15 @@ class ItemFeedbacksController < ApplicationController
     params.require(:item_feedback).permit(:title, :comment, :mark, :public)
   end
 
-  def set_and_check_my_event_id
+  def set_and_check_my_event
     @my_event_id = params[:my_event_id]
     @event = Event.request_event_by_id(@my_event_id)
-    redirect_to root_path, alert: t(".no_finished") if @event.end_date > Date.today
+    redirect_to root_path, alert: t(".no_finished") if @event.end_date > DateTime.now
   end
 
-  def set_schedule_item_id
+  def set_and_check_schedule
     @schedule_item_id = params[:schedule_item_id]
-    @schedule_item = @event.schedules.map { |schedule| schedule.schedule_item.map { |item_schedule| item_schedule.schedule_item_id } }
+    @schedule_item = @event.schedules.flat_map(&:schedule_items).find { |item_schedule| item_schedule.schedule_item_id == @schedule_item_id }
+    redirect_to root_path, alert: t(".no_schedule") unless @schedule_item
   end
 end

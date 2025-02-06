@@ -18,6 +18,6 @@ class Api::V1::FeedbacksController < Api::V1::ApiController
   def set_and_check_event
     @event = Event.request_event_by_id(params[:event_id])
     return render status: :not_found, json: { error: "Event not found" } unless @event
-    render status: :not_found, json: { event_id: @event.event_id, error: "This event is still ongoing" } if @event.end_date >= Date.today
+    render status: :not_found, json: { event_id: @event.event_id, error: "This event is still ongoing" } if @event.end_date >= DateTime.now
   end
 end
