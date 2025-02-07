@@ -8,6 +8,10 @@ class Task
     @attached_contents = attached_contents || []
   end
 
+  def need_certificate
+    @certificate_requirement == "Obrigatória"
+  end
+
   private
 
   def self.build_tasks(data)
