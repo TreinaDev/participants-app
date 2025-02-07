@@ -136,10 +136,9 @@
 </div>
 
 <% if @speakers.any? %>
-  <h2 class="ms-2 font-semibold text-4xl mb-6
- text-violet-900 dark:text-violet-900 text-center"><%= t('.meet_our_guests') %></h2>
+  <%= page_sub_title(t('.meet_our_guests')) %>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 h">
+  <div class="card-grid">
     <% @speakers.each do |speaker| %>
       <%= render 'speakers/speaker_card', speaker: speaker %>
     <% end %>
