@@ -207,6 +207,7 @@ describe 'Usuário acessa página de detalhes de um evento' do
     login_as(user)
     visit event_by_name_path(event_id: event, name: event.name.parameterize, locale: :'pt-BR')
 
+    expect(page).to have_content 'Conheça nossos convidados!'
     within(:xpath, "//a[@href='http://localhost:3000/speaker/1/profile.jpg']") do
       expect(page).to have_content 'Sílvio Santos'
       expect(page).to have_content 'Profissão: Professor'
