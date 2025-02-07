@@ -217,7 +217,7 @@ describe 'Requisição para comunicados de um evento' do
   ]
     response = double('response', status: 200, body: announcements.to_json)
     allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3000/api/v1/events/#{event_code}/announcements").and_return(response)
-    result = EventsApiService.get_announcements_by_event_code(event_code)
+    result = EventsApiService.get_announcements_by_event_id(event_code)
 
     expect(result.length).to eq 2
 
@@ -235,6 +235,6 @@ describe 'Requisição para comunicados de um evento' do
   it 'e ocorre erro na requisição' do
     allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3000/api/v1/events/#{event_code}/announcements").and_raise(Faraday::Error)
 
-    expect { EventsApiService.get_announcements_by_event_code(event_code) }.to raise_error(Faraday::Error)
+    expect { EventsApiService.get_announcements_by_event_id(event_code) }.to raise_error(Faraday::Error)
   end
 end

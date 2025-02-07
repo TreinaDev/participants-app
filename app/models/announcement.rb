@@ -16,7 +16,7 @@ class Announcement
     nil
   end
 
-  def request_announcements_by_event_id(event_id)
+  def self.request_announcements_by_event_id(event_id)
     announcement_params = EventsApiService.get_announcements_by_event_id(event_id)
     announcement_params.map { |announcement| build_announcement(announcement) }
   rescue Faraday::Error => error
