@@ -92,14 +92,14 @@ describe 'Usuário acessa página de detalhes de um evento' do
     speakers = []
     speakers << build(:speaker, first_name: "Sílvio",
     last_name: "Santos",
-    photo_url: "http://localhost:3000/speaker/1/speaker.jpg",
-    profile_link: "http://localhost:3000/speaker/1/profile.jpg", occupation: "Professor")
+    profile_image_url: "http://localhost:3000/speaker/1/speaker.jpg",
+    profile_url: "http://localhost:3000/speaker/1/profile.jpg", role: "Professor")
     speakers << build(:speaker, first_name: "Goku",
     last_name: "Kakaroto",
-    photo_url: "http://localhost:3000/speaker/2/speaker.jpg",
-    profile_link: "http://localhost:3000/speaker/2/profile.jpg", occupation: "Lutador")
+    profile_image_url: "http://localhost:3000/speaker/2/speaker.jpg",
+    profile_url: "http://localhost:3000/speaker/2/profile.jpg", role: "Lutador")
     allow(Event).to receive(:request_event_by_id).and_return(event)
-    allow(Speaker).to receive(:request_speaker_by_schedule_item_id).and_return(speakers)
+    allow(Speaker).to receive(:request_speakers_by_email).and_return(speakers)
 
     login_as(user)
     visit event_by_name_path(event_id: event, name: event.name.parameterize, locale: :'pt-BR')
@@ -194,15 +194,15 @@ describe 'Usuário acessa página de detalhes de um evento' do
     speakers = []
     speakers << build(:speaker, first_name: "Sílvio",
     last_name: "Santos",
-    photo_url: "http://localhost:3000/speaker/1/speaker.jpg",
-    profile_link: "http://localhost:3000/speaker/1/profile.jpg", occupation: "Professor")
+    profile_image_url: "http://localhost:3000/speaker/1/speaker.jpg",
+    profile_url: "http://localhost:3000/speaker/1/profile.jpg", role: "Professor")
     speakers << build(:speaker, first_name: "Goku",
     last_name: "Kakaroto",
-    photo_url: "http://localhost:3000/speaker/2/speaker.jpg",
-    profile_link: "http://localhost:3000/speaker/2/profile.jpg", occupation: "Lutador")
+    profile_image_url: "http://localhost:3000/speaker/2/speaker.jpg",
+    profile_url: "http://localhost:3000/speaker/2/profile.jpg", role: "Lutador")
 
     allow(Event).to receive(:request_event_by_id).and_return(event)
-    allow(Speaker).to receive(:request_speaker_by_schedule_item_id).and_return(speakers)
+    allow(Speaker).to receive(:request_speakers_by_email).and_return(speakers)
 
     login_as(user)
     visit event_by_name_path(event_id: event, name: event.name.parameterize, locale: :'pt-BR')

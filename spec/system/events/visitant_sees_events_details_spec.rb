@@ -84,6 +84,7 @@ describe 'Visitante acessa página de detalhes de um evento' do
     )
 
     allow(Event).to receive(:request_event_by_id).and_return(event)
+    allow(Speaker).to receive(:request_speakers_by_email).and_return([])
 
     visit event_by_name_path(event_id: event, name: event.name.parameterize, locale: :'pt-BR')
 

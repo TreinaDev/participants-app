@@ -62,31 +62,31 @@ describe SpeakersApiService, type: :model do
   describe 'Usuário faz uma requisição de um palestrante' do
     it 'e recebe um palestrante com sucesso' do
       speaker = {
-            "speaker":
-              {
-                "first_name": "Sílvio",
-                "last_name": "Santos",
-                "photo_url": "\u003Cstrong\u003EDescrição Ruby PDF\u003C/strong\u003E",
-                "occupation": "Apresentador",
-                "profile_link": "https://globo.com"
-              }
+        "speaker":
+          {
+            "first_name": "Sílvio",
+            "last_name": "Santos",
+            "profile_image_url": "\u003Cstrong\u003EDescrição Ruby PDF\u003C/strong\u003E",
+            "role": "Apresentador",
+            "profile_url": "https://globo.com"
           }
+      }
 
       response = double('response', status: 200, body: speaker.to_json)
-      allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3003/api/v1/schedule_items/ABCD1234").and_return(response)
-      result = SpeakersApiService.get_speaker("ABCD1234")
+      allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3003/api/v1/speakers/silvio@sbt.com").and_return(response)
+      result = SpeakersApiService.get_speaker("silvio@sbt.com")
 
       expect(result[:speaker][:first_name]).to eq 'Sílvio'
       expect(result[:speaker][:last_name]).to eq 'Santos'
-      expect(result[:speaker][:photo_url]).to eq "\u003Cstrong\u003EDescrição Ruby PDF\u003C/strong\u003E"
-      expect(result[:speaker][:occupation]).to eq "Apresentador"
-      expect(result[:speaker][:profile_link]).to eq "https://globo.com"
+      expect(result[:speaker][:profile_image_url]).to eq "\u003Cstrong\u003EDescrição Ruby PDF\u003C/strong\u003E"
+      expect(result[:speaker][:role]).to eq "Apresentador"
+      expect(result[:speaker][:profile_url]).to eq "https://globo.com"
     end
 
     it 'e ocorre um erro na requisição' do
-      allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3003/api/v1/schedule_items/ABCD1234").and_raise(Faraday::ServerError)
+      allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3003/api/v1/speakers/silvio@sbt.com").and_raise(Faraday::ServerError)
 
-      expect { SpeakersApiService.get_speaker("ABCD1234") }.to raise_error(Faraday::ServerError)
+      expect { SpeakersApiService.get_speaker("silvio@sbt.com") }.to raise_error(Faraday::ServerError)
     end
   end
 end

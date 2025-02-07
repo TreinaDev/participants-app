@@ -2,17 +2,17 @@ FactoryBot.define do
   factory :speaker do
     first_name { "Sílvio" }
     last_name { "Santos" }
-    sequence(:photo_url) { |n| "http://localhost:3000/speaker/#{n}/speaker.jpg" }
-    sequence(:profile_link) { |n| "http://localhost:3000/speaker/#{n}/profile.jpg" }
-    occupation { "Professor" }
+    sequence(:profile_image_url) { |n| "http://localhost:3000/speaker/#{n}/speaker.jpg" }
+    sequence(:profile_url) { |n| "http://localhost:3000/speaker/#{n}/profile.jpg" }
+    role { "Professor" }
 
     initialize_with do
       new(
         first_name: first_name,
         last_name: last_name,
-        photo_url: photo_url,
-        profile_link: profile_link,
-        occupation: occupation
+        profile_image_url: profile_image_url,
+        profile_url: profile_url,
+        role: role
       )
     end
   end
