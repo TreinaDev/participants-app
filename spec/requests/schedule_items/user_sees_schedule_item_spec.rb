@@ -97,8 +97,10 @@ RSpec.describe "ScheduleItems", type: :request do
       event = build(:event,
         schedules: schedules
       )
-      curriculum = Curriculum.new(contents: [],
-       tasks: [
+      curriculum = Curriculum.new(
+        contents: [],
+        tasks_available: true,
+        tasks: [
           {
             "code": "FNRVUEUB",
             "title": "Exercício Rails",

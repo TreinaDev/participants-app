@@ -6,6 +6,7 @@ pt-BR:
       external_video_url: Vídeo
       description: Descrição
       no_task_avaliable: Nenhuma tarefa disponível
+      no_task_avaliable_yet: Atividades ainda indisponíveis
       no_content_avaliable: Nenhum conteúdo disponível
       contents: Conteúdos
       activites: Atividades

@@ -1,8 +1,9 @@
 class Curriculum
-  attr_accessor :contents, :tasks
-  def initialize(contents: [], tasks: [])
+  attr_accessor :contents, :tasks, :tasks_available
+  def initialize(contents: [], tasks: [], tasks_available:)
     @contents = build_contents(contents)
     @tasks = build_tasks(tasks)
+    @tasks_available = tasks_available
   end
 
   def self.request_curriculum_by_schedule_item_code(schedule_item_id)
@@ -19,7 +20,8 @@ class Curriculum
     curriculum_data = curriculum_params && curriculum_params[:curriculum] ? curriculum_params[:curriculum] : {}
     Curriculum.new(
       contents: curriculum_data[:curriculum_contents] || [],
-      tasks: curriculum_data[:curriculum_tasks] || []
+      tasks: curriculum_data[:curriculum_tasks] || [],
+      tasks_available: curriculum_data[:tasks_available] || nil
     )
   end
 
