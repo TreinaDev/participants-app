@@ -71,7 +71,7 @@ describe 'Usuário acessa página de detalhes de comunicados oficiais' do
     user = create(:user)
     allow(Event).to receive(:all).and_return([ event ])
     allow(Event).to receive(:request_event_by_id).and_return(event)
-    allow(Announcement).to receive(:request_announcements_by_event_id).and_return([announcement_two, announcement])
+    allow(Announcement).to receive(:request_announcements_by_event_id).and_return([ announcement_two, announcement ])
 
     login_as user
     visit event_announcement_path(event_id: event.event_id, id: announcement.announcement_id)
