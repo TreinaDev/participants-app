@@ -11,8 +11,7 @@ describe 'Usuário acessa página de detalhes de um evento' do
       description: 'Aprenda a fritar um ovo',
       event_owner: 'Samuel',
       limit_participants: 30,
-      banner: 'http://localhost:3000/events/1/banner.jpg',
-      url_event: 'http://evento_fake.com'
+      banner: 'http://localhost:3000/events/1/banner.jpg'
     )
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
@@ -25,7 +24,6 @@ describe 'Usuário acessa página de detalhes de um evento' do
     expect(page).to have_content 'Dono do evento: Samuel', normalize_ws: true
     expect(page).to have_content 'Limite de Participantes: 30', normalize_ws: true
     expect(page).to have_css 'img[src="http://localhost:3000/events/1/banner.jpg"]'
-    expect(page).to have_content 'http://evento_fake.com'
   end
 
   it 'a partir da pagina inicial' do

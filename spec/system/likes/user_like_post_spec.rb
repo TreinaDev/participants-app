@@ -38,6 +38,18 @@ describe 'Usuário curte postagem' do
     event = build(:event, event_id: '1', name: 'DevWeek')
     create(:ticket, user: user, event_id: event.event_id)
     allow(Event).to receive(:request_event_by_id).and_return(event)
+    batches = [ {
+        batch_id: '1',
+        name: 'Entrada - Meia',
+        limit_tickets: 20,
+        start_date: 5.days.ago.to_date,
+        value: 20.00,
+        end_date: 2.month.from_now.to_date,
+        event_id: '1'
+      }
+    ]
+    batches.map! { |batch| build(:batch, **batch) }
+    allow(Batch).to receive(:request_batch_by_id).with(event.event_id, '1').and_return(batches[0])
 
     login_as user
     visit new_event_post_path(event_id: event.event_id, locale: :'pt-BR')

@@ -16,13 +16,25 @@ describe 'Usuário visita página de detalhes de um evento' do
       create(:post, user: user2, event_id: event2.event_id.to_i, title: 'Título Teste 3')
       allow(Event).to receive(:request_event_by_id).and_return(event1)
       allow(Event).to receive(:all).and_return(events)
+      batches = [ {
+          batch_id: '1',
+          name: 'Entrada - Meia',
+          limit_tickets: 20,
+          start_date: 5.days.ago.to_date,
+          value: 20.00,
+          end_date: 2.month.from_now.to_date,
+          event_id: '1'
+        }
+      ]
+      batches.map! { |batch| build(:batch, **batch) }
+      allow(Batch).to receive(:request_batch_by_id).with(event1.event_id, '1').and_return(batches[0])
 
       login_as user1
       visit root_path
       within('nav') do
-        click_on 'Eventos'
+        click_on 'Meus Eventos'
       end
-      click_on 'DevWeek'
+      click_on 'Acessar Conteúdo do Evento'
 
       expect(page).to have_content('Feed')
       expect(page).to have_link('Título Teste 1')
@@ -37,9 +49,21 @@ describe 'Usuário visita página de detalhes de um evento' do
       event = build(:event, event_id: '1', name: 'DevWeek')
       create(:ticket, user: user, event_id: event.event_id)
       allow(Event).to receive(:request_event_by_id).and_return(event)
+      batches = [ {
+          batch_id: '1',
+          name: 'Entrada - Meia',
+          limit_tickets: 20,
+          start_date: 5.days.ago.to_date,
+          value: 20.00,
+          end_date: 2.month.from_now.to_date,
+          event_id: '1'
+        }
+      ]
+      batches.map! { |batch| build(:batch, **batch) }
+      allow(Batch).to receive(:request_batch_by_id).with(event.event_id, '1').and_return(batches[0])
 
       login_as user
-      visit event_by_name_path(event_id: event.event_id, name: event.name.parameterize, locale: :'pt-BR')
+      visit my_event_path(id: event.event_id)
 
       expect(page).to have_content('Feed')
       expect(page).to have_content 'Não existem postagens para esse evento'

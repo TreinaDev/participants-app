@@ -36,6 +36,13 @@
         <% end %>
       </div>
       <ul class="space-y-4">
+        <% if @announcements.any? %>
+          <% @announcements.each do |announcement| %>
+            <%= render 'announcements/announcement', announcement: announcement %>
+          <% end %>
+        <% end %>
+      </ul>
+      <ul class="space-y-4">
         <% if @posts.any? %>
           <% @posts.each do |post| %>
             <li class="bg-white shadow-md rounded-lg transition hover:shadow-lg px-6 py-4 border-l-4 border-indigo-500 flex flex-col" id="<%= dom_id(post) %>">

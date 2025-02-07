@@ -48,25 +48,10 @@
       </div>
     </div>
   </div>
-  <div class="grid grid-cols-4 gap-4 bg-white w-full">
+  <div class="grid grid-cols-4 gap-4 bg-white w-full mb-6">
     <div class="col-span-2 flex w-auto">
-      <dl class="pl-6">
-        <dt class="text-sm text-gray-500 mt-1"><%= I18n.t('event.start_date') %>:</dt>
-        <dd class="text-sm text-black-500 mt-1 font-bold"><%= I18n.l(@event.start_date, format: :long) %></dd>
-        <dt class="text-sm text-gray-500 mt-1"><%= I18n.t('event.end_date') %>:</dt>
-        <dd class="text-sm text-black-500 mt-1 font-bold"><%= I18n.l(@event.end_date, format: :long) %> </dd>
-        <% if @event.event_type != "online" %>
-          <dt class="text-sm text-gray-500 mt-1"><%= I18n.t('event.local_event') %>:</dt>
-          <dd class="text-sm text-black-500 mt-1 font-bold"><%= @event.local_event %> </dd>
-        <% end %>
-      </dl>
-      <dl class="pl-6">
-        <dt class="text-sm text-gray-500 mt-1"><%= I18n.t('event.limit_participants') %>:</dt>
-        <dd class="text-sm text-black-500 mt-1 font-bold"><%= @event.limit_participants %></dd>
-        <dt class="text-sm text-gray-500 mt-1"><%= I18n.t('event.event_owner') %>:</dt>
-        <dd class="text-sm text-black-500 mt-1 font-bold"><%= @event.event_owner %>  </dd>
-        <dt class="text-sm text-gray-500 mt-1"><%= I18n.t('event.event_type') %>:</dt>
-        <dd class="text-sm text-black-500 mt-1 font-bold">
+      <dl class="pl-6"> <dt class="text-sm text-gray-500 mt-1"><%= I18n.t('event.event_type') %>:</dt>
+        <dd class="text-xl text-green-500 mt-1 font-bold">
           <%= case @event.event_type
               when "inperson" then I18n.t('event.types.inperson')
               when "online" then I18n.t('event.types.online')
@@ -74,6 +59,20 @@
             end
           %>
         </dd>
+        <dt class="text-sm text-gray-500 mt-1"><%= I18n.t('event.start_date') %>:</dt>
+        <dd class="text-sm text-black-500 mt-1 font-bold"><%= I18n.l(@event.start_date, format: :long) %></dd>
+        <dt class="text-sm text-gray-500 mt-1"><%= I18n.t('event.end_date') %>:</dt>
+        <dd class="text-sm text-black-500 mt-1 font-bold"><%= I18n.l(@event.end_date, format: :long) %> </dd>
+      </dl>
+      <dl class="pl-6">
+        <% if @event.event_type != "online" %>
+          <dt class="text-sm text-gray-500 mt-1"><%= I18n.t('event.local_event') %>:</dt>
+          <dd class="text-sm text-black-500 mt-1 font-bold"><%= @event.local_event %> </dd>
+        <% end %>
+        <dt class="text-sm text-gray-500 mt-1"><%= I18n.t('event.limit_participants') %>:</dt>
+        <dd class="text-sm text-black-500 mt-1 font-bold"><%= @event.limit_participants %></dd>
+        <dt class="text-sm text-gray-500 mt-1"><%= I18n.t('event.event_owner') %>:</dt>
+        <dd class="text-sm text-black-500 mt-1 font-bold"><%= @event.event_owner %>  </dd>
       </dl>
     </div>
     <div class="col-span-2">
@@ -88,7 +87,7 @@
 
 
   <%# agenda %>
-  <div class="flex flex-col items-center bg-white p-6 m-3 w-full">
+  <div class="flex flex-col items-center bg-white p-6 m-3 mt-8 w-full">
     <h2 class="text-4xl font-bold text-violet-800 pb-10"><%= t('.event_agenda') %></h2>
 
     <%= render 'agenda', event: @event %>

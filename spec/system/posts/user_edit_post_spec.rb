@@ -18,15 +18,27 @@ describe 'Participante edita postagem' do
     ticket = create(:ticket, event_id: event.event_id)
     user = ticket.user
     post = create(:post, event_id: event.event_id, user: user, title: 'Título Original', content: 'Conteúdo Original')
-    allow(Event).to receive(:request_event_by_id).and_return(event).exactly(3)
+    batches = [ {
+        batch_id: '1',
+        name: 'Entrada - Meia',
+        limit_tickets: 20,
+        start_date: 5.days.ago.to_date,
+        value: 20.00,
+        end_date: 2.month.from_now.to_date,
+        event_id: event.event_id
+      }
+    ]
+    batches.map! { |batch| build(:batch, **batch) }
+    allow(Batch).to receive(:request_batch_by_id).with(event.event_id, '1').and_return(batches[0])
+    allow(Event).to receive(:request_event_by_id).and_return(event).exactly(4)
     allow(Event).to receive(:all).and_return(events)
 
     login_as user
     visit root_path
     within('nav') do
-      click_on 'Eventos'
+      click_on 'Meus Eventos'
     end
-    click_on 'DevWeek'
+    click_on 'Acessar Conteúdo do Evento'
     within("##{dom_id(post)}") do
       click_on 'Editar'
     end
