@@ -16,7 +16,7 @@ class Speaker
     build_speakers(speakers)
   rescue Faraday::Error => error
     Rails.logger.error(error)
-    nil
+    []
   end
 
   private

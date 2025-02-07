@@ -35,7 +35,7 @@ RSpec.describe Speaker, type: :model do
       allow(Rails.logger).to receive(:error)
       result = Speaker.request_speakers_by_email([ email ])
 
-      expect(result).to eq nil
+      expect(result).to eq []
       expect(Rails.logger).to have_received(:error)
     end
   end
