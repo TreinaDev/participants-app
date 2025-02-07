@@ -134,3 +134,11 @@
       </section>
     <% end %>
 </div>
+
+
+<div class="flex flex-wrap">
+  <% @speakers.each do |speaker| %>
+    <%= render 'speakers/speaker_card', speaker: speaker %>
+  <% end %>
+</div>
+ 
