@@ -83,8 +83,7 @@ RSpec.describe Event, type: :model do
         event_owner:	'Samuel',
         start_date:	"2025-02-01T12:00:00.000-03:00",
         end_date:	"2025-02-04T12:00:00.000-03:00",
-        schedules: schedules,
-        announcements: []
+        schedules: schedules
       }
       response = double('response', status: 200, body: event.to_json)
       allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/api/v1/events/1').and_return(response)
@@ -111,45 +110,6 @@ RSpec.describe Event, type: :model do
 
       expect(result.schedules[2].date).to eq "Fri, 16 Feb 2025".to_datetime
       expect(result.schedules[2].schedule_items).to eq []
-    end
-
-    it "e retorna detalhes do evento com announcements" do
-      event = {
-        code:	"1",
-        name:	'Aprendedo a cozinhar',
-        description:	'Aprenda a fritar um ovo',
-        address:	'Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil',
-        banner_url:	'https://via.placeholder.com/300x200',
-        logo_url: 'https://via.placeholder.com/100x100',
-        participants_limit:	30,
-        event_owner:	'Samuel',
-        start_date:	"2025-02-01T12:00:00.000-03:00",
-        end_date:	"2025-02-04T12:00:00.000-03:00",
-        announcements: [ {
-          id: 1,
-          title: "Quem quer dinheiro",
-          description: 'Todos nós'
-        },
-        {
-          id: 2,
-          title: "Taxa adicional",
-          description: 'R$ 100,00'
-        }
-      ]
-      }
-      response = double('response', status: 200, body: event.to_json)
-      allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/api/v1/events/1').and_return(response)
-      result = Event.request_event_by_id(event[:code])
-
-      expect(result.announcements[0].announcement_id).to eq 1
-      expect(result.announcements[0].title).to eq 'Quem quer dinheiro'
-      expect(result.announcements[0].description).to eq 'Todos nós'
-
-      expect(result.announcements[1].announcement_id).to eq 2
-      expect(result.announcements[1].title).to eq 'Taxa adicional'
-      expect(result.announcements[1].description).to eq 'R$ 100,00'
-
-      expect(result.announcements.length).to eq 2
     end
 
     it "e retorna um array vazio, caso a API retorne status 500" do

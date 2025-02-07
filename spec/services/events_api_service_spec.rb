@@ -172,27 +172,69 @@ describe EventsApiService, type: :model do
 end
 
 describe 'Requisição para um comunicado de um evento' do
+  event_code = 'BSSDASD'
   it 'e recebe um comunicado com sucesso' do
     announcement = {
-      id: 1,
       title: 'PAGUEM A TAXA',
       description: 'PAGUEM LOGO',
-      event_id: 1
-
+      code: "ABDJDS",
+      created_at: "2025-02-01T12:00:00.000-03:00"
     }
     response = double('response', status: 200, body: announcement.to_json)
-    allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/api/v1/events/1/announcements/1').and_return(response)
-    result = EventsApiService.get_announcement_by_id(announcement[:event_id], announcement[:id])
+    allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3000/api/v1/events/#{event_code}/announcements/#{announcement[:code]}").and_return(response)
+    result = EventsApiService.get_announcement_by_id(event_code, announcement[:code])
 
-    expect(result[:id]).to eq 1
+    expect(result[:code]).to eq "ABDJDS"
     expect(result[:title]).to eq 'PAGUEM A TAXA'
     expect(result[:description]).to eq 'PAGUEM LOGO'
-    expect(result[:event_id]).to eq 1
+    expect(result[:created_at]).to eq "2025-02-01T12:00:00.000-03:00"
   end
 
   it 'e ocorre erro na requisição' do
-    allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/api/v1/events/1/announcements/1').and_raise(Faraday::Error)
+    allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3000/api/v1/events/#{event_code}/announcements/9999").and_raise(Faraday::Error)
 
-    expect { EventsApiService.get_announcement_by_id(1, 1) }.to raise_error(Faraday::Error)
+    expect { EventsApiService.get_announcement_by_id(event_code, 9999) }.to raise_error(Faraday::Error)
+  end
+end
+
+describe 'Requisição para comunicados de um evento' do
+  event_code = 'BSSDASD'
+
+  it 'e recebe uma lista de comunicados com sucesso' do
+    announcements = [
+      {
+      title: 'PAGUEM A TAXA',
+      description: 'PAGUEM LOGO',
+      code: "ABDJDS",
+      created_at: "2025-02-01T12:00:00.000-03:00"
+    },
+    {
+      title: 'LUTAS DE SUMÔ',
+      description: 'ARTES MARCIAIS SERÃO PARTE DO EVENTO',
+      code: "ABDJDT",
+      created_at: "2025-02-02T12:00:00.000-03:00"
+    }
+  ]
+    response = double('response', status: 200, body: announcements.to_json)
+    allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3000/api/v1/events/#{event_code}/announcements").and_return(response)
+    result = EventsApiService.get_announcements_by_event_id(event_code)
+
+    expect(result.length).to eq 2
+
+    expect(result[0][:title]).to eq 'PAGUEM A TAXA'
+    expect(result[0][:description]).to eq 'PAGUEM LOGO'
+    expect(result[0][:code]).to eq "ABDJDS"
+    expect(result[0][:created_at]).to eq "2025-02-01T12:00:00.000-03:00"
+
+    expect(result[1][:title]).to eq 'LUTAS DE SUMÔ'
+    expect(result[1][:description]).to eq 'ARTES MARCIAIS SERÃO PARTE DO EVENTO'
+    expect(result[1][:code]).to eq "ABDJDT"
+    expect(result[0][:created_at]).to eq "2025-02-01T12:00:00.000-03:00"
+  end
+
+  it 'e ocorre erro na requisição' do
+    allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3000/api/v1/events/#{event_code}/announcements").and_raise(Faraday::Error)
+
+    expect { EventsApiService.get_announcements_by_event_id(event_code) }.to raise_error(Faraday::Error)
   end
 end
