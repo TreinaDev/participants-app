@@ -21,6 +21,22 @@ describe 'Usuário deleta postagem de um evento' do
     expect(page).to have_content 'Excluir Postagem'
   end
 
+  it 'e botão de deletar somente aparece para o dono do post' do
+    other_user = create(:user)
+    event = build(:event, event_id: '1', name: 'DevWeek')
+    events = [ event ]
+    ticket = create(:ticket, event_id: event.event_id)
+    create(:ticket, event_id: event.event_id, user: other_user)
+    post = create(:post, event_id: event.event_id, user: ticket.user, title: 'Título Original', content: 'Conteúdo Original')
+    allow(Event).to receive(:request_event_by_id).and_return(event).exactly(3)
+    allow(Event).to receive(:all).and_return(events)
+
+    login_as other_user
+    visit event_post_path(event_id: event.event_id, id: post)
+
+    expect(page).not_to have_content 'Excluir Postagem'
+  end
+
   it 'com sucesso' do
     event = build(:event, event_id: '1', name: 'DevWeek')
     events = [ event ]
