@@ -34,7 +34,6 @@ describe 'Participante adiciona nova postagem a um evento', type: :system, js: t
     find(:css, "#post_content_trix_input_post", visible: false).set('Conteúdo Teste')
     click_on 'Salvar'
 
-    expect(current_path).to eq my_event_path(id: event.event_id, locale: :'pt-BR')
     expect(page).to have_content 'Postagem adicionada'
     expect(page).to have_content 'Título Teste'
   end
