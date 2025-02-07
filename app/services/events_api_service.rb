@@ -17,6 +17,10 @@ class EventsApiService
     self.request("#{BASE_URL}/#{event_id}/ticket_batches/#{batch_id}", :get)
   end
 
+  def self.get_announcements_by_event_id(event_id)
+    self.request("#{BASE_URL}/#{event_id}/announcements", :get)
+  end
+
   def self.get_announcement_by_id(event_id, announcement_id)
     self.request("#{BASE_URL}/#{event_id}/announcements/#{announcement_id}", :get)
   end

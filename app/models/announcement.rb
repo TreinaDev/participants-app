@@ -1,8 +1,8 @@
 class Announcement
-  attr_accessor :event_id, :announcement_id, :title, :description
+  attr_accessor :created_at, :announcement_id, :title, :description
 
-  def initialize(event_id:, announcement_id:, title:, description:)
-    @event_id = event_id
+  def initialize(created_at:, announcement_id:, title:, description:)
+    @created_at = created_at
     @title = title
     @description = description
     @announcement_id = announcement_id
@@ -10,10 +10,18 @@ class Announcement
 
   def self.request_announcement_by_id(event_id, announcement_id)
     announcement_params = EventsApiService.get_announcement_by_id(event_id, announcement_id)
-    build_announcement(announcement_params)
+    build_announcement(announcement_params[:announcement])
   rescue Faraday::Error => error
     Rails.logger.error(error)
     nil
+  end
+
+  def self.request_announcements_by_event_id(event_id)
+    announcement_params = EventsApiService.get_announcements_by_event_id(event_id)
+    announcement_params[:announcements].map { |announcement| build_announcement(announcement) }
+  rescue Faraday::Error => error
+    Rails.logger.error(error)
+    []
   end
 
   def rich_text_description
@@ -22,7 +30,7 @@ class Announcement
 
   private
 
-  def build_announcement(announcement)
-    Announcement.new(announcement_id: announcement[:id], title: announcement[:title], description: announcement[:description], event_id: announcement[:event_id])
+  def self.build_announcement(announcement)
+    Announcement.new(announcement_id: announcement[:code], title: announcement[:title], description: announcement[:description], created_at: announcement[:created_at])
   end
 end

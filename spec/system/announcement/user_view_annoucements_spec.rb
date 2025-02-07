@@ -3,9 +3,7 @@ require 'rails_helper'
 describe 'Usuário acessa feed do evento e vê comunicados oficiais' do
   it 'com sucesso' do
     announcement = build(:announcement, title: 'Taxa extra de R$100,00', description: 'NOVA TAXA: PAGUEM!')
-
     event = build(:event, name: 'DevWeek')
-    event.announcements << announcement
     ticket = create(:ticket, event_id: event.event_id)
     user = ticket.user
     allow(Event).to receive(:all).and_return([ event ])
@@ -22,6 +20,7 @@ describe 'Usuário acessa feed do evento e vê comunicados oficiais' do
     ]
     batches.map! { |batch| build(:batch, **batch) }
     allow(Batch).to receive(:request_batch_by_id).with(event.event_id, '1').and_return(batches[0])
+    allow(Announcement).to receive(:request_announcements_by_event_id).and_return([ announcement ])
 
     login_as user
     visit root_path
@@ -39,7 +38,6 @@ describe 'Usuário acessa feed do evento e vê comunicados oficiais' do
     announcement = build(:announcement, title: 'Taxa extra de R$100,00', description: 'NOVA TAXA: PAGUEM OU SERÃO PRIVADOS DA MELHOR EXPERIÊNCIA DE TODA A SUA VIDA OXENTE. É PAGAR OU LARGAR. ESCOLHA LOGO!!!!!!')
 
     event = build(:event, name: 'DevWeek')
-    event.announcements << announcement
     ticket = create(:ticket, event_id: event.event_id)
     user = ticket.user
     allow(Event).to receive(:all).and_return([ event ])
@@ -56,6 +54,7 @@ describe 'Usuário acessa feed do evento e vê comunicados oficiais' do
     ]
     batches.map! { |batch| build(:batch, **batch) }
     allow(Batch).to receive(:request_batch_by_id).with(event.event_id, '1').and_return(batches[0])
+    allow(Announcement).to receive(:request_announcements_by_event_id).and_return([ announcement ])
 
     login_as user
     visit root_path
@@ -73,7 +72,6 @@ describe 'Usuário acessa feed do evento e vê comunicados oficiais' do
     announcement = build(:announcement, title: 'Taxa extra de R$100,00', description: 'NOVA TAXA: PAGUEM!')
 
     event = build(:event, name: 'DevWeek')
-    event.announcements << announcement
     allow(Event).to receive(:all).and_return([ event ])
     allow(Event).to receive(:request_event_by_id).and_return(event)
     batches = [ {
