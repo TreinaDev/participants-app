@@ -13,12 +13,12 @@ class Ticket < ApplicationRecord
   before_save :mark_status_as_confirmed
 
   def used!
-    return errors.add(:usage_status, "não pode ser usado um ticket não usável") unless usable?
+    return errors.add(:usage_status, I18n.t("activerecord.errors.models.ticket.not_usable")) unless usable?
     super
   end
 
   def usable!
-    return errors.add(:usage_status, "não pode ser usável quando não é a data do evento") unless check_event
+    return errors.add(:usage_status, I18n.t("activerecord.errors.models.ticket.not_the_date")) unless check_event
     super
   end
 
