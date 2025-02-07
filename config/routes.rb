@@ -35,9 +35,9 @@ Rails.application.routes.draw do
 
     resources :my_events, only: [ :show, :index ] do
       resources :schedule_items, only: [ :show ]
-      resources :feedbacks, only: [ :new, :create, :index ]
+      resources :feedbacks, only: [ :new, :create, :index, :show ]
       resources :schedule_items do
-        resources :item_feedbacks, only: [ :new, :create ]
+        resources :item_feedbacks, only: [ :new, :create, :show ]
       end
     end
 
