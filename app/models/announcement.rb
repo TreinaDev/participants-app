@@ -30,7 +30,7 @@ class Announcement
 
   private
 
-  def build_announcement(announcement)
+  def self.build_announcement(announcement)
     Announcement.new(announcement_id: announcement[:code], title: announcement[:title], description: announcement[:description], created_at: announcement[:created_at])
   end
 end

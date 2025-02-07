@@ -11,8 +11,7 @@
       "description": "Aprenda a fritar um ovo",
       "event_owner": "Samuel",
       "participants_limit": 30,
-      "url_event": "http: //evento_fake.com",
-      "announcements": []
+      "url_event": "http: //evento_fake.com"
     },
     {
       "code": "2",
@@ -25,8 +24,7 @@
       "description": "Aprenda a fritar um ovo",
       "event_owner": "Samuel",
       "participants_limit": 30,
-      "url_event": "http: //evento_fake.com",
-      "announcements": []
+      "url_event": "http: //evento_fake.com"
     }
   ]
 }
