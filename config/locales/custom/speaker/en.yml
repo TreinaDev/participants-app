@@ -1,0 +1,9 @@
+en:
+  speaker:
+    one: Speaker
+    other: Speakers
+    first_name: Name
+    last_name: Last Name
+    role: Role
+    profile_image_url: Profile image
+    profile_url: Pofile page
