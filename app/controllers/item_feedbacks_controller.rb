@@ -22,6 +22,10 @@ class ItemFeedbacksController < ApplicationController
     end
   end
 
+  def show
+    @item_feedback = ItemFeedback.find(params[:id])
+  end
+
   private
 
   def item_feedback_params
