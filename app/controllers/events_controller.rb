@@ -7,7 +7,7 @@ class EventsController < ApplicationController
       @total_tickets_sales = Ticket.where(batch_id: batch_ids).count
     end
     @posts = Post.where(event_id: params[:event_id])
-    @announcements = @event.announcements
+    @announcements = Announcement.request_announcements_by_event_id(@event.event_id)
     @speakers = Speaker.request_speakers_by_email(@event.schedules.flat_map { |schedule| schedule.schedule_items.map(&:responsible_email) })
   end
 

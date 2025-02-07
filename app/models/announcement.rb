@@ -16,6 +16,14 @@ class Announcement
     nil
   end
 
+  def request_announcements_by_event_id(event_id)
+    announcement_params = EventsApiService.get_announcements_by_event_id(event_id)
+    announcement_params.map { |announcement| build_announcement(announcement) }
+  rescue Faraday::Error => error
+    Rails.logger.error(error)
+    []
+  end
+
   def rich_text_description
     ActionText::Content.new(@description)
   end
