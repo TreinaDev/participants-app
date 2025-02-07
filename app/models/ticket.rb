@@ -10,6 +10,8 @@ class Ticket < ApplicationRecord
   before_validation :set_ticket_token, :set_date_of_purchase, on: :create
   before_save :mark_status_as_confirmed
 
+  enum :usage_status, not_the_date: 0, usable: 2, used: 4
+
   private
   def set_ticket_token
     self.token = SecureRandom.alphanumeric(36)

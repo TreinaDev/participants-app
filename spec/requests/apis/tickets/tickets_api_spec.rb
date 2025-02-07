@@ -130,5 +130,119 @@ describe 'Tickets API' do
 
       expect(response.status).to eq 500
     end
+
+    context 'E retorna usado ao receber o token do ticket' do
+      it 'com sucesso' do
+        batches = [
+          {
+          id: '1',
+          name: 'Entrada - Meia',
+          limit_tickets: 20,
+          start_date: 5.days.ago.to_date,
+          value: 20.00,
+          end_date: 2.month.from_now.to_date,
+          event_id: '1'
+          },
+          {
+          id: '2',
+          name: 'PCD - Meia',
+          limit_tickets: 50,
+          start_date: 6.days.ago.to_date,
+          value: 10.00,
+          end_date: 2.month.from_now.to_date,
+          event_id: '1'
+          }
+        ]
+        target_batch = batches[1]
+        event = build(:event, name: 'DevWeek',  event_id: '1', batches: batches,
+                              start_date: Date.today, end_date: 3.days.from_now)
+        ticket = create(:ticket, event_id: '1', batch_id: target_batch[:id])
+        allow(Event).to receive(:request_event_by_id).and_return(event)
+        allow(Batch).to receive(:get_batch_by_id).and_return(target_batch)
+
+        post "/api/v1/tickets/#{ticket.token}/used"
+
+        expect(response.status).to eq 200
+        expect(response.content_type).to include 'application/json'
+        json_response = JSON.parse(response.body)
+        expect(json_response["usage_status"]).to eq 'used'
+      end
+
+      it 'e não pode ser usado mais de duas vezes por dia' do
+        batches = [
+          {
+          id: '1',
+          name: 'Entrada - Meia',
+          limit_tickets: 20,
+          start_date: 5.days.ago.to_date,
+          value: 20.00,
+          end_date: 2.month.from_now.to_date,
+          event_id: '1'
+          },
+          {
+          id: '2',
+          name: 'PCD - Meia',
+          limit_tickets: 50,
+          start_date: 6.days.ago.to_date,
+          value: 10.00,
+          end_date: 2.month.from_now.to_date,
+          event_id: '1'
+          }
+        ]
+        target_batch = batches[1]
+        event = build(:event, name: 'DevWeek',  event_id: '1', batches: batches,
+                              start_date: Date.today, end_date: 3.days.from_now)
+        ticket = create(:ticket, event_id: '1', batch_id: target_batch[:id])
+        allow(Event).to receive(:request_event_by_id).and_return(event).exactly(2)
+        allow(Batch).to receive(:get_batch_by_id).and_return(target_batch).exactly(2)
+
+        post "/api/v1/tickets/#{ticket.token}/used"
+        post "/api/v1/tickets/#{ticket.token}/used"
+
+        expect(response.status).to eq 422
+        expect(response.content_type).to include 'application/json'
+        json_response = JSON.parse(response.body)
+        expect(json_response["error"]).to eq 'This ticket is already used for this day'
+      end
+
+      it 'e pode ser usado em dias diferente de um evento' do
+        batches = [
+          {
+          id: '1',
+          name: 'Entrada - Meia',
+          limit_tickets: 20,
+          start_date: 5.days.ago.to_date,
+          value: 20.00,
+          end_date: 2.month.from_now.to_date,
+          event_id: '1'
+          },
+          {
+          id: '2',
+          name: 'PCD - Meia',
+          limit_tickets: 50,
+          start_date: 6.days.ago.to_date,
+          value: 10.00,
+          end_date: 2.month.from_now.to_date,
+          event_id: '1'
+          }
+        ]
+        target_batch = batches[1]
+        event = build(:event, name: 'DevWeek',  event_id: '1', batches: batches,
+                              start_date: Date.today, end_date: 3.days.from_now)
+        ticket = create(:ticket, event_id: '1', batch_id: target_batch[:id])
+        allow(Event).to receive(:request_event_by_id).and_return(event).exactly(2)
+        allow(Batch).to receive(:get_batch_by_id).and_return(target_batch).exactly(2)
+
+        post "/api/v1/tickets/#{ticket.token}/used"
+        travel_to 1.day.from_now do
+          post "/api/v1/tickets/#{ticket.token}/used"
+
+          expect(response.status).to eq 200
+          expect(response.content_type).to include 'application/json'
+          json_response = JSON.parse(response.body)
+          expect(json_response["usage_status"]).to eq 'used'
+        end
+      end
+    end
   end
 end
