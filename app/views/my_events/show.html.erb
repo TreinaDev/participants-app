@@ -17,7 +17,7 @@
           <% else %>
             <% schedule.schedule_items.each do |item| %>
                 <div id='<%= "schedule_item_code_#{item.schedule_item_id}" %>' class="bg-white p-4 rounded-lg shadow-md border-l-4 border-purple-700">
-                  <%= link_to schedule_item_path(item.schedule_item_id) do %>
+                  <%= link_to my_event_schedule_item_path(my_event_id: @event.event_id, id: item.schedule_item_id) do %>
                   <p class="font-bold text-gray-800 text-lg"><%= item.name %></p>
                   <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.start_time') %>:</span> <%= item.start_time %></p>
                   <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.duration') %>:</span> <%= item.duration %>min</p>

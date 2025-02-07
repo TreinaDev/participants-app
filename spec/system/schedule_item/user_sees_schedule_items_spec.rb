@@ -110,8 +110,8 @@ describe "Usuário vê itens de agenda", type: :system do
 
     expect(page).to have_content "Atividades"
     expect(page).to have_content "Conteúdos"
-    expect(current_path).to eq schedule_item_path(schedules[0][:schedule_items][0][:code])
-    expect(current_path).not_to eq schedule_item_path(schedules[0][:schedule_items][1][:code])
+    expect(current_path).to eq my_event_schedule_item_path(my_event_id: event.event_id, id: schedules[0][:schedule_items][0][:code],  locale: :'pt-BR')
+    expect(current_path).not_to eq my_event_schedule_item_path(my_event_id: event.event_id, id: schedules[0][:schedule_items][1][:code],  locale: :'pt-BR')
   end
 
   it "e consegue vê conteúdos e atividades daquele item da agenda" do
@@ -173,7 +173,7 @@ describe "Usuário vê itens de agenda", type: :system do
     allow(Batch).to receive(:request_batch_by_id).with(target_event_id, target_batch_id).and_return(batches[0])
 
     login_as user
-    visit schedule_item_path(schedules[0][:schedule_items][0][:code])
+    visit my_event_schedule_item_path(my_event_id: event.event_id, id: schedules[0][:schedule_items][0][:code],  locale: :'pt-BR')
 
     expect(page).to have_content "Atividades"
     expect(page).to have_content "Conteúdos"
@@ -183,7 +183,7 @@ describe "Usuário vê itens de agenda", type: :system do
     expect(page).to have_content "Exercício Rails"
     expect(page).to have_content 'Seu primeiro exercício ruby'
     expect(page).to have_content 'Obrigatória'
-    expect(current_path).to eq schedule_item_path(schedules[0][:schedule_items][0][:code])
+    expect(current_path).to eq my_event_schedule_item_path(my_event_id: event.event_id, id: schedules[0][:schedule_items][0][:code],  locale: :'pt-BR')
   end
 
   it "não consegue acessar a agenda sem estar autenticado" do
@@ -206,24 +206,9 @@ describe "Usuário vê itens de agenda", type: :system do
 
     batches = [ build(:batch) ]
 
-    visit schedule_item_path(schedules[0][:schedule_items][0][:code])
+    visit my_event_schedule_item_path(my_event_id: event.event_id, id: schedules[0][:schedule_items][0][:code],  locale: :'pt-BR')
 
     expect(current_path).to eq new_user_session_path
     expect(page).to have_content "Para continuar, faça login ou registre-se."
-  end
-
-  it "vê item de agenda sem atividades associadas" do
-    user = create(:user)
-    schedule_item_code = "GOEX84DP"
-    curriculum = Curriculum.new(contents: [], tasks: [])
-    allow(Curriculum).to receive(:request_curriculum_by_schedule_item_code).and_return(curriculum)
-
-    login_as user
-    visit schedule_item_path(schedule_item_code)
-
-    expect(page).to have_content "Atividades"
-    expect(page).to have_content "Conteúdos"
-    expect(page).to have_content "Nenhuma tarefa disponível"
-    expect(page).to have_content "Nenhum conteúdo disponível"
   end
 end

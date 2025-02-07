@@ -33,14 +33,13 @@ Rails.application.routes.draw do
     end
 
     resources :my_events, only: [ :show, :index ] do
+      resources :schedule_items, only: [ :show ]
       resources :feedbacks, only: [ :new, :create, :index ]
     end
     resources :my_feedbacks, only: [ :index ]
     resources :reminders, only: [ :create, :destroy ]
     resources :favorites, only: [ :index, :create, :destroy ]
   end
-
-  resources :schedule_items, only: [ :show ]
 
   namespace :api do
     namespace :v1 do
