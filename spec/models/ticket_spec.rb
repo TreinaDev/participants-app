@@ -99,5 +99,79 @@ RSpec.describe Ticket, type: :model do
       )
       expect(ticket.status_confirmed?).to eq true
     end
+
+    context 'e pode ser marcado como usado' do
+      it 'com sucesso' do
+        user = create(:user)
+        event = build(:event, event_id: '1', start_date: 2.days.ago, end_date: 2.days.from_now)
+        batch = build(:batch, batch_id: '1', name: "Meia-Entrada")
+        allow(Event).to receive(:request_event_by_id).and_return(event)
+
+        ticket = Ticket.create(
+          user: user,
+          batch_id: batch.batch_id,
+          event_id: event.event_id,
+          payment_method: 'pix',
+        )
+        ticket.usable!
+        ticket.used!
+
+        expect(ticket.used?).to eq true
+      end
+
+      it 'só quando ele é usable' do
+        user = create(:user)
+        event = build(:event, event_id: '1', start_date: 2.days.ago, end_date: 2.days.from_now)
+        batch = build(:batch, batch_id: '1', name: "Meia-Entrada")
+        allow(Event).to receive(:request_event_by_id).and_return(event)
+
+        ticket = Ticket.create(
+          user: user,
+          batch_id: batch.batch_id,
+          event_id: event.event_id,
+          payment_method: 'pix',
+        )
+        ticket.not_the_date!
+        ticket.used!
+
+        expect(ticket.used?).to eq false
+      end
+    end
+
+    context 'e pode ser marcado como usável' do
+      it 'com sucesso' do
+        user = create(:user)
+        event = build(:event, event_id: '1', start_date: 2.days.ago, end_date: 2.days.from_now)
+        batch = build(:batch, batch_id: '1', name: "Meia-Entrada")
+        allow(Event).to receive(:request_event_by_id).and_return(event)
+
+        ticket = Ticket.create(
+          user: user,
+          batch_id: batch.batch_id,
+          event_id: event.event_id,
+          payment_method: 'pix',
+        )
+        ticket.usable!
+
+        expect(ticket.usable?).to eq true
+      end
+
+      it 'só quando é o dia do evento' do
+        user = create(:user)
+        event = build(:event, event_id: '1', start_date: 2.days.from_now, end_date: 5.days.from_now)
+        batch = build(:batch, batch_id: '1', name: "Meia-Entrada")
+        allow(Event).to receive(:request_event_by_id).and_return(event)
+
+        ticket = Ticket.create(
+          user: user,
+          batch_id: batch.batch_id,
+          event_id: event.event_id,
+          payment_method: 'pix',
+        )
+        ticket.usable!
+
+        expect(ticket.usable?).to eq false
+      end
+    end
   end
 end

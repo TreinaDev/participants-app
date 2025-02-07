@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_07_135643) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_07_144207) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -156,6 +156,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_07_135643) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "ticket_usages", force: :cascade do |t|
+    t.integer "ticket_id", null: false
+    t.datetime "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ticket_id"], name: "index_ticket_usages_on_ticket_id"
+  end
+
   create_table "tickets", force: :cascade do |t|
     t.boolean "status_confirmed", default: false
     t.datetime "date_of_purchase"
@@ -200,5 +208,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_07_135643) do
   add_foreign_key "reminders", "users"
   add_foreign_key "social_links", "profiles"
   add_foreign_key "social_links", "social_media"
+  add_foreign_key "ticket_usages", "tickets"
   add_foreign_key "tickets", "users"
 end
