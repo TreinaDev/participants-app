@@ -3,7 +3,8 @@ en:
     not_post_owner: You can not access this page
     not_participant: You can not do that
     show:
-      edit_post: Edit
+      edit_post: Edit Post
+      delete_post: Delete Post
       published_in: 'Published in:'
       likes:
         one: like
@@ -23,3 +24,6 @@ en:
     update:
       success: Post edit with success
       alert: Post was not updated
+    destroy:
+      success: Post deleted with success
+      alert: Failed to delete the post
