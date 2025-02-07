@@ -1,8 +1,8 @@
 class Announcement
-  attr_accessor :event_id, :announcement_id, :title, :description
+  attr_accessor :created_at, :announcement_id, :title, :description
 
-  def initialize(event_id:, announcement_id:, title:, description:)
-    @event_id = event_id
+  def initialize(created_at:, announcement_id:, title:, description:)
+    @created_at = created_at
     @title = title
     @description = description
     @announcement_id = announcement_id
@@ -23,6 +23,6 @@ class Announcement
   private
 
   def build_announcement(announcement)
-    Announcement.new(announcement_id: announcement[:id], title: announcement[:title], description: announcement[:description], event_id: announcement[:event_id])
+    Announcement.new(announcement_id: announcement[:code], title: announcement[:title], description: announcement[:description], created_at: announcement[:created_at])
   end
 end

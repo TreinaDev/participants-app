@@ -1,6 +1,6 @@
 class Event
-  attr_accessor :name, :banner, :logo, :event_id, :event_owner, :local_event, :description, :url_event, :limit_participants, :start_date, :end_date, :batches, :schedules, :announcements
-  def initialize(event_id:, name:, banner:, logo:, event_owner:, url_event:, local_event:, limit_participants:, description:, start_date:, end_date:, batches:, schedules:, announcements:)
+  attr_accessor :name, :banner, :logo, :event_id, :event_owner, :local_event, :description, :url_event, :limit_participants, :start_date, :end_date, :batches, :schedules
+  def initialize(event_id:, name:, banner:, logo:, event_owner:, url_event:, local_event:, limit_participants:, description:, start_date:, end_date:, batches:, schedules:)
     @event_id = event_id
     @name = name
     @banner = banner
@@ -14,7 +14,6 @@ class Event
     @description = description
     @schedules = build_schedules(schedules)
     @batches = build_batch(batches)
-    @announcements = build_announcement(announcements)
   end
 
   def rich_text_description
@@ -78,8 +77,7 @@ class Event
     Event.new(
       event_id: data[:code], name: data[:name], banner: data[:banner_url], logo: data[:logo_url], event_owner: data[:event_owner],
       local_event: data[:address], limit_participants: data[:participants_limit],  url_event: data[:url_event], schedules: data[:schedules] || [],
-      description: data[:description], start_date: data[:start_date].to_date, end_date: data[:end_date].to_date, batches: data[:ticket_batches] || [],
-      announcements: data[:announcements] || []
+      description: data[:description], start_date: data[:start_date].to_date, end_date: data[:end_date].to_date, batches: data[:ticket_batches] || []
     )
   end
 
@@ -87,9 +85,5 @@ class Event
     batches.map { |data| Batch.new(batch_id: data[:code], name: data[:name], limit_tickets: data[:tickets_limit],
               start_date: data[:start_date].to_date, value: data[:ticket_price], end_date: data[:end_date].to_date,
               event_id: event_id) }
-  end
-
-  def build_announcement(announcements)
-    announcements.map { |data| Announcement.new(announcement_id: data[:id], title: data[:title], description: data[:description], event_id: data[:event_id]) }
   end
 end
