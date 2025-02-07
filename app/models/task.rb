@@ -11,12 +11,4 @@ class Task
   def need_certificate
     @certificate_requirement == "Obrigatória"
   end
-
-  private
-
-  def self.build_tasks(data)
-    data.map { |task| Task.new(code: task[:code], title: task[:title],
-                description: task[:description], certificate_requirement: task[:certificate_requirement],
-                attached_contents: task[:attached_contents]) }
-  end
 end
