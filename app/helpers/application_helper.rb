@@ -5,6 +5,12 @@ module ApplicationHelper
     end
   end
 
+  def page_sub_title(text)
+    content_tag(:h2, class: "ms-2 font-semibold text-4xl mb-6 text-violet-900 dark:text-violet-900 text-center") do
+      text
+    end
+  end
+
   def form_title(text)
     content_tag(:h3, class: "text-2xl font-extrabold text-center text-black mt-8 mb-6") do
       text

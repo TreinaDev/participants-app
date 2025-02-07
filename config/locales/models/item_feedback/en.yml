@@ -1,0 +1,13 @@
+en:
+  activerecord:
+    models:
+      item_feedback:
+        one: Feedback
+        other: Feedbacks
+    attributes:
+      item_feedback:
+        title: Title
+        comment: Comment
+        mark: Mark
+        public: Public
+          

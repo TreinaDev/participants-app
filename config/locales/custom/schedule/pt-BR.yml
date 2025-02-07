@@ -5,3 +5,9 @@ pt-BR:
     type: Tipo do Evento
     instructor: Instrutor
     email: Contato
+    schedule_type: Tipo
+    responsible_email: Email
+    responsible_name: Responsável
+    schedule_types:
+      activity: atividade
+      interval: intervalo

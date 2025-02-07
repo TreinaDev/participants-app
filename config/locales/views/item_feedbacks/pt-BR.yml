@@ -1,0 +1,9 @@
+pt-BR:
+  item_feedbacks:
+    no_schedule : Essa atividade não existe
+    no_finished: Este evento ainda está em andamento
+    new:
+      title: Adicione sua avaliação
+    create:       
+      success: Feedback adicionado com sucesso
+      alert: Falha ao salvar o Feedback

@@ -29,13 +29,18 @@ Rails.application.routes.draw do
         resources :likes, only: [ :create, :destroy ]
         resources :comments, only: [ :create ]
       end
+      resources :announcements, only: [ :show ]
       get ":name", to: "events#show", as: "by_name"
     end
 
     resources :my_events, only: [ :show, :index ] do
       resources :schedule_items, only: [ :show ]
       resources :feedbacks, only: [ :new, :create, :index ]
+      resources :schedule_items do
+        resources :item_feedbacks, only: [ :new, :create ]
+      end
     end
+
     resources :my_feedbacks, only: [ :index ]
     resources :reminders, only: [ :create, :destroy ]
     resources :favorites, only: [ :index, :create, :destroy ]
@@ -46,6 +51,9 @@ Rails.application.routes.draw do
       resources :events, only: [ :show ] do
         resources :batches,  only: [ :show ]
         resources :feedbacks,  only: [ :index ]
+      end
+      resources :item_feedbacks do
+        resources :feedback_answers, only: [ :create ]
       end
     end
   end

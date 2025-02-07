@@ -21,6 +21,7 @@
                   <p class="font-bold text-gray-800 text-lg"><%= item.name %></p>
                   <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.start_time') %>:</span> <%= item.start_time %></p>
                   <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.duration') %>:</span> <%= item.duration %>min</p>
+                  <%= link_to 'Adicionar Feedback', new_my_event_schedule_item_item_feedback_path(my_event_id: @event.event_id, schedule_item_id: item.schedule_item_id), class: 'mt-2 text-blue-500 underline' if @event.end_date < DateTime.now%>
                   <% end %>
                 </div>
             <% end %>

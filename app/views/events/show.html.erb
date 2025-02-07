@@ -92,6 +92,9 @@
                 <p class="font-bold text-gray-800"><%= item.name %></p>
                 <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.start_time') %>:</span> <%= item.start_time %></p>
                 <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.duration') %>:</span> <%= item.duration %>min</p>
+                 <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.responsible_email') %>:</span> <%= item.responsible_email %></p>
+                <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.responsible_name') %>:</span> <%= item.responsible_name %></p>
+                <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.schedule_type') %>:</span> <%=  I18n.t("schedule.schedule_types.#{item.schedule_type}") %></p>
               </div>
             <% end %>
           <% end %>
@@ -131,3 +134,14 @@
       </section>
     <% end %>
 </div>
+
+<% if @speakers.any? %>
+  <%= page_sub_title(t('.meet_our_speakers')) %>
+
+  <div class="card-grid">
+    <% @speakers.each do |speaker| %>
+      <%= render 'speakers/speaker_card', speaker: speaker %>
+    <% end %>
+  </div>
+<% end %>
+ 
