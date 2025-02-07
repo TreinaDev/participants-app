@@ -47,6 +47,9 @@
                 </svg>
                 <%= item.name %>
               </h3>
+              <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.responsible_email') %>:</span> <%= item.responsible_email %></p>
+              <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.responsible_name') %>:</span> <%= item.responsible_name %></p>
+              <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.schedule_type') %>:</span> <%=  I18n.t("schedule.schedule_types.#{item.schedule_type}") %></p>
               <p class="mt-1 -ms-1 p-1 inline-flex items-center text-sm text-gray-600">
                 <span class="font-bold"><%= I18n.t('schedule.duration') %>: </span> <%= item.duration %>min
               </p>

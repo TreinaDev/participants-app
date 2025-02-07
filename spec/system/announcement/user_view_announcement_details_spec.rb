@@ -11,13 +11,25 @@ describe 'Usuário acessa página de detalhes de comunicados oficiais' do
     allow(Event).to receive(:all).and_return([ event ])
     allow(Event).to receive(:request_event_by_id).and_return(event)
     allow(Announcement).to receive(:request_announcement_by_id).and_return(announcement_two)
+    batches = [ {
+        batch_id: '1',
+        name: 'Entrada - Meia',
+        limit_tickets: 20,
+        start_date: 5.days.ago.to_date,
+        value: 20.00,
+        end_date: 2.month.from_now.to_date,
+        event_id: '1'
+      }
+    ]
+    batches.map! { |batch| build(:batch, **batch) }
+    allow(Batch).to receive(:request_batch_by_id).with(event.event_id, '1').and_return(batches[0])
 
     login_as user
     visit root_path
     within('nav') do
-      click_on 'Eventos'
+      click_on 'Meus Eventos'
     end
-    click_on 'DevWeek'
+    click_on 'Acessar Conteúdo do Evento'
     within(".card-announcement-#{announcement_two.announcement_id}") do
       click_on 'Ver Comunicado'
     end
@@ -35,19 +47,31 @@ describe 'Usuário acessa página de detalhes de comunicados oficiais' do
     allow(Event).to receive(:all).and_return([ event ])
     allow(Event).to receive(:request_event_by_id).and_return(event, event)
     allow(Announcement).to receive(:request_announcement_by_id).and_return(announcement_two)
+    batches = [ {
+        batch_id: '1',
+        name: 'Entrada - Meia',
+        limit_tickets: 20,
+        start_date: 5.days.ago.to_date,
+        value: 20.00,
+        end_date: 2.month.from_now.to_date,
+        event_id: '1'
+      }
+    ]
+    batches.map! { |batch| build(:batch, **batch) }
+    allow(Batch).to receive(:request_batch_by_id).with(event.event_id, '1').and_return(batches[0])
 
     login_as user
     visit root_path
     within('nav') do
-      click_on 'Eventos'
+      click_on 'Meus Eventos'
     end
-    click_on 'DevWeek'
+    click_on 'Acessar Conteúdo do Evento'
     within(".card-announcement-#{announcement_two.announcement_id}") do
       click_on 'Ver Comunicado'
     end
     click_on 'Voltar'
 
-    expect(current_path).to eq event_by_name_path(event_id: event.event_id, name: event.name.parameterize, locale: 'pt-BR')
+    expect(current_path).to eq my_event_path(id: event.event_id, locale: :'pt-BR')
   end
 
   it 'e deve estar logado' do
