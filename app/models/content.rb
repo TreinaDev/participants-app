@@ -5,7 +5,7 @@ class Content
     @title = title
     @description = description
     @external_video_url = external_video_url
-    @files = files files || []
+    @files = files || []
   end
 
   private

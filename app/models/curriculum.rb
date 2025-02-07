@@ -16,9 +16,10 @@ class Curriculum
   private
 
   def self.build_curriculum(curriculum_params)
+    curriculum_data = curriculum_params && curriculum_params[:curriculum] ? curriculum_params[:curriculum] : {}
     Curriculum.new(
-      contents: curriculum_params[:curriculum][:curriculum_contents] || [],
-      tasks: curriculum_params[:curriculum][:curriculum_tasks] || []
+      contents: curriculum_data[:curriculum_contents] || [],
+      tasks: curriculum_data[:curriculum_tasks] || []
     )
   end
 

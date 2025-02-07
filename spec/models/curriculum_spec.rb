@@ -18,21 +18,23 @@ RSpec.describe Curriculum, type: :model do
 
     it "e retorna com conteudo" do
       curriculum = {
-        "curriculum_contents": [
-          {
-            "code": "MH0IBQ8O",
-            "title": "Ruby PDF",
-            "description": "\u003Cstrong\u003EDescrição Ruby PDF\u003C/strong\u003E",
-            "external_video_url": "\u003Ciframe id='external-video' width='800' height='450' src='https://www.youtube.com/embed/idaXF2Er4TU' frameborder='0' allowfullscreen\u003E\u003C/iframe\u003E",
-            "files": [
-              {
-                "filename": "puts.png",
-                "file_download_url": "http://127.0.0.1:3003/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--97207adb5d87fac1fb977c3ae5b3896f2de5fe1a/puts.png"
-              }
-            ]
-          }
-        ],
-        "curriculum_tasks": []
+        "curriculum": {
+          "curriculum_contents": [
+            {
+              "code": "MH0IBQ8O",
+              "title": "Ruby PDF",
+              "description": "\u003Cstrong\u003EDescrição Ruby PDF\u003C/strong\u003E",
+              "external_video_url": "\u003Ciframe id='external-video' width='800' height='450' src='https://www.youtube.com/embed/idaXF2Er4TU' frameborder='0' allowfullscreen\u003E\u003C/iframe\u003E",
+              "files": [
+                {
+                  "filename": "puts.png",
+                  "file_download_url": "http://127.0.0.1:3003/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--97207adb5d87fac1fb977c3ae5b3896f2de5fe1a/puts.png"
+                }
+              ]
+            }
+          ],
+          "curriculum_tasks": []
+        }
       }
 
       response = double('response', status: 200, body: curriculum.to_json)
@@ -49,33 +51,35 @@ RSpec.describe Curriculum, type: :model do
 
     it 'e retornar curriculum com tarefas' do
       curriculum = {
-        "curriculum_contents": [
-          {
-            "code": "MH0IBQ8O",
-            "title": "Ruby PDF",
-            "description": "\u003Cstrong\u003EDescrição Ruby PDF\u003C/strong\u003E",
-            "external_video_url": "\u003Ciframe id='external-video' width='800' height='450' src='https://www.youtube.com/embed/idaXF2Er4TU' frameborder='0' allowfullscreen\u003E\u003C/iframe\u003E",
-            "files": [
-              {
-                "filename": "puts.png",
-                "file_download_url": "http://127.0.0.1:3003/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--97207adb5d87fac1fb977c3ae5b3896f2de5fe1a/puts.png"
-              }
-            ]
-          }
-        ],
-        "curriculum_tasks": [
-          {
-            "code": "FNRVUEUB",
-            "title": "Exercício Rails",
-            "description": "Seu primeiro exercício ruby",
-            "certificate_requirement": "Obrigatória",
-            "attached_contents": [
-              {
-                "attached_content_code": "MH0IBQ8O"
-              }
-            ]
-          }
-        ]
+        "curriculum": {
+          "curriculum_contents": [
+            {
+              "code": "MH0IBQ8O",
+              "title": "Ruby PDF",
+              "description": "\u003Cstrong\u003EDescrição Ruby PDF\u003C/strong\u003E",
+              "external_video_url": "\u003Ciframe id='external-video' width='800' height='450' src='https://www.youtube.com/embed/idaXF2Er4TU' frameborder='0' allowfullscreen\u003E\u003C/iframe\u003E",
+              "files": [
+                {
+                  "filename": "puts.png",
+                  "file_download_url": "http://127.0.0.1:3003/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--97207adb5d87fac1fb977c3ae5b3896f2de5fe1a/puts.png"
+                }
+              ]
+            }
+          ],
+          "curriculum_tasks": [
+            {
+              "code": "FNRVUEUB",
+              "title": "Exercício Rails",
+              "description": "Seu primeiro exercício ruby",
+              "certificate_requirement": "Obrigatória",
+              "attached_contents": [
+                {
+                  "attached_content_code": "MH0IBQ8O"
+                }
+              ]
+            }
+          ]
+        }
       }
 
       response = double('response', status: 200, body: curriculum.to_json)
