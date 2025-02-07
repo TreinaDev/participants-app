@@ -4,7 +4,7 @@ describe 'Usuário acessa página de detalhes de comunicados oficiais' do
   it 'com sucesso' do
     event = build(:event, name: 'DevWeek')
     announcement = build(:announcement, title: 'Taxa extra de R$100,00', description: 'NOVA TAXA: PAGUEM!')
-    announcement_two = build(:announcement, title: 'Taxa extra de R$500,00', description: 'NOVA TAXA: PAGUEM! PAGUEM COM A ALMA. PAGUEM OU O FUTURO NÃO LHES PERTENCERÁ. SEJAM PAGANTES E NÃO DEVEDORES')
+    announcement_two = build(:announcement, title: 'Taxa extra de R$500,00', description: 'NOVA TAXA: PAGUEM! PAGUEM COM A ALMA. PAGUEM OU O FUTURO NÃO LHES PERTENCERÁ. SEJAM PAGANTES E NÃO DEVEDORES', announcement_id: 'ABGJLJ7')
     ticket = create(:ticket, event_id: event.event_id)
     user = ticket.user
     allow(Event).to receive(:all).and_return([ event ])
@@ -29,7 +29,7 @@ describe 'Usuário acessa página de detalhes de comunicados oficiais' do
   it 'e volta à página do evento' do
     event = build(:event, name: 'DevWeek')
     announcement = build(:announcement, title: 'Taxa extra de R$100,00', description: 'NOVA TAXA: PAGUEM!')
-    announcement_two = build(:announcement, title: 'Taxa extra de R$500,00', description: 'NOVA TAXA: PAGUEM! PAGUEM COM A ALMA. PAGUEM OU O FUTURO NÃO LHES PERTENCERÁ. SEJAM PAGANTES E NÃO DEVEDORES')
+    announcement_two = build(:announcement, title: 'Taxa extra de R$500,00', description: 'NOVA TAXA: PAGUEM! PAGUEM COM A ALMA. PAGUEM OU O FUTURO NÃO LHES PERTENCERÁ. SEJAM PAGANTES E NÃO DEVEDORES', announcement_id: 'ABGJLJ7')
     ticket = create(:ticket, event_id: event.event_id)
     user = ticket.user
     allow(Event).to receive(:all).and_return([ event ])

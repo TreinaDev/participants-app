@@ -4,20 +4,22 @@ RSpec.describe Announcement, type: :model do
   context 'Requisição para listar comunicados de um evento' do
     it "com sucesso" do
       event = build(:event)
-      announcements = [
-        {
-          title: 'PAGUEM A TAXA',
-          description: 'PAGUEM LOGO',
-          code: "ABDJDS",
-          created_at: "2025-02-01T12:00:00.000-03:00"
-        },
-        {
-          title: 'LUTAS DE SUMÔ',
-          description: 'ARTES MARCIAIS SERÃO PARTE DO EVENTO',
-          code: "ABDJDT",
-          created_at: "2025-02-02T12:00:00.000-03:00"
-        }
-      ]
+      announcements = { announcements:
+        [
+          {
+            title: 'PAGUEM A TAXA',
+            description: 'PAGUEM LOGO',
+            code: "ABDJDS",
+            created_at: "2025-02-01T12:00:00.000-03:00"
+          },
+          {
+            title: 'LUTAS DE SUMÔ',
+            description: 'ARTES MARCIAIS SERÃO PARTE DO EVENTO',
+            code: "ABDJDT",
+            created_at: "2025-02-02T12:00:00.000-03:00"
+          }
+        ]
+       }
 
       response = double('response', status: 200, body: announcements.to_json)
       allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3000/api/v1/events/#{event.event_id}/announcements").and_return(response)
@@ -52,11 +54,13 @@ RSpec.describe Announcement, type: :model do
     it "com sucesso" do
       event = build(:event)
 
-      announcement = {
+      announcement = { announcement:
+        {
           title: 'PAGUEM A TAXA',
           description: 'PAGUEM LOGO',
           code: "ABDJDS",
           created_at: "2025-02-01T12:00:00.000-03:00"
+        }
       }
 
       response = double('response', status: 200, body: announcement.to_json)

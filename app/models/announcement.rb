@@ -10,7 +10,7 @@ class Announcement
 
   def self.request_announcement_by_id(event_id, announcement_id)
     announcement_params = EventsApiService.get_announcement_by_id(event_id, announcement_id)
-    build_announcement(announcement_params)
+    build_announcement(announcement_params[:announcement])
   rescue Faraday::Error => error
     Rails.logger.error(error)
     nil
@@ -18,7 +18,7 @@ class Announcement
 
   def self.request_announcements_by_event_id(event_id)
     announcement_params = EventsApiService.get_announcements_by_event_id(event_id)
-    announcement_params.map { |announcement| build_announcement(announcement) }
+    announcement_params[:announcements].map { |announcement| build_announcement(announcement) }
   rescue Faraday::Error => error
     Rails.logger.error(error)
     []
