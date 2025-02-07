@@ -42,23 +42,13 @@ describe "Usuário vê itens de agenda", type: :system do
       schedules: schedules
     )
 
-    batches = [ {
-        batch_id: '1',
-        name: 'Entrada - Meia',
-        limit_tickets: 20,
-        start_date: 5.days.ago.to_date,
-        value: 20.00,
-        end_date: 2.month.from_now.to_date,
-        event_id: '1'
-      }
-    ]
+    batches = [ build(:batch) ]
 
     target_event_id = event.event_id
-    target_batch_id =  batches[0][:batch_id]
+    target_batch_id =  batches[0].batch_id
 
     allow(Event).to receive(:request_event_by_id).and_return(event)
-    ticket = create(:ticket, event_id: event.event_id, batch_id: '1', user: user)
-    batches.map! { |batch| build(:batch, **batch) }
+    create(:ticket, event_id: event.event_id, batch_id:  target_batch_id, user: user)
     allow(Batch).to receive(:request_batch_by_id).with(target_event_id, target_batch_id).and_return(batches[0])
 
     login_as user
@@ -98,44 +88,18 @@ describe "Usuário vê itens de agenda", type: :system do
             code: "6XD2I9RA"
           }
         ]
-      },
-      {
-        date: 	"2025-02-15",
-        schedule_items: [
-          {
-            name:	"Apresentação",
-            start_time:	"2025-02-15T09:00:00.000-03:00",
-            end_time:	"2025-02-15T10:00:00.000-03:00",
-            code: "8XDGREWQ"
-          }
-        ]
-      },
-      {
-        date: 	"2025-02-16",
-        schedule_items: []
       }
-
     ]
     event = build(:event,
       schedules: schedules
     )
 
-    batches = [ {
-        batch_id: '1',
-        name: 'Entrada - Meia',
-        limit_tickets: 20,
-        start_date: 5.days.ago.to_date,
-        value: 20.00,
-        end_date: 2.month.from_now.to_date,
-        event_id: event.event_id
-      }
-    ]
+    batches = [ build(:batch) ]
     target_event_id = event.event_id
-    target_batch_id =  batches[0][:batch_id]
+    target_batch_id =  batches[0].batch_id
 
     allow(Event).to receive(:request_event_by_id).and_return(event)
-    ticket = create(:ticket, event_id: event.event_id, batch_id: '1', user: user)
-    batches.map! { |batch| build(:batch, **batch) }
+    create(:ticket, event_id: event.event_id, batch_id: target_batch_id, user: user)
     allow(Batch).to receive(:request_batch_by_id).with(target_event_id, target_batch_id).and_return(batches[0])
 
     login_as user
@@ -147,6 +111,7 @@ describe "Usuário vê itens de agenda", type: :system do
     expect(page).to have_content "Atividades"
     expect(page).to have_content "Conteúdos"
     expect(current_path).to eq schedule_item_path(schedules[0][:schedule_items][0][:code])
+    expect(current_path).not_to eq schedule_item_path(schedules[0][:schedule_items][1][:code])
   end
 
   it "e consegue vê conteúdos e atividades daquele item da agenda" do
@@ -160,49 +125,17 @@ describe "Usuário vê itens de agenda", type: :system do
             start_time:	"2025-02-14T09:00:00.000-03:00",
             end_time:	"2025-02-14T10:00:00.000-03:00",
             code: "GOEX84DP"
-          },
-          {
-            name:	"Segunda Palestra",
-            start_time:	"2025-02-14T10:00:00.000-03:00",
-            end_time:	"2025-02-14T11:00:00.000-03:00",
-            code: "6XD2I9RA"
           }
         ]
-      },
-      {
-        date: 	"2025-02-15",
-        schedule_items: [
-          {
-            name:	"Apresentação",
-            start_time:	"2025-02-15T09:00:00.000-03:00",
-            end_time:	"2025-02-15T10:00:00.000-03:00",
-            code: "8XDGREWQ"
-          }
-        ]
-      },
-      {
-        date: 	"2025-02-16",
-        schedule_items: []
       }
-
     ]
     event = build(:event,
       schedules: schedules
     )
 
-    batches = [ {
-        batch_id: '1',
-        name: 'Entrada - Meia',
-        limit_tickets: 20,
-        start_date: 5.days.ago.to_date,
-        value: 20.00,
-        end_date: 2.month.from_now.to_date,
-        event_id: event.event_id
-      }
-    ]
-
-    curriculum_api = {
-      "curriculum_contents": [
+    batches = [ build(:batch) ]
+    curriculum = Curriculum.new(
+      contents: [
         {
           "code": "MH0IBQ8O",
           "title": "Ruby PDF",
@@ -216,7 +149,7 @@ describe "Usuário vê itens de agenda", type: :system do
           ]
         }
       ],
-      "curriculum_tasks": [
+      tasks: [
         {
           "code": "FNRVUEUB",
           "title": "Exercício Rails",
@@ -229,17 +162,14 @@ describe "Usuário vê itens de agenda", type: :system do
           ]
         }
       ]
-    }
-
-    curriculum = Curriculum.new(contents: curriculum_api[:curriculum_contents], tasks: curriculum_api[:curriculum_tasks])
+    )
 
     target_event_id = event.event_id
-    target_batch_id =  batches[0][:batch_id]
+    target_batch_id =  batches[0].batch_id
 
     allow(Event).to receive(:request_event_by_id).and_return(event)
     allow(Curriculum).to receive(:request_curriculum_by_schedule_item_code).and_return(curriculum)
-    ticket = create(:ticket, event_id: event.event_id, batch_id: '1', user: user)
-    batches.map! { |batch| build(:batch, **batch) }
+    create(:ticket, event_id: event.event_id, batch_id: batches[0].batch_id, user: user)
     allow(Batch).to receive(:request_batch_by_id).with(target_event_id, target_batch_id).and_return(batches[0])
 
     login_as user
@@ -252,5 +182,48 @@ describe "Usuário vê itens de agenda", type: :system do
     expect(page).to have_content "\u003Ciframe id='external-video' width='800' height='450' src='https://www.youtube.com/embed/idaXF2Er4TU' frameborder='0' allowfullscreen\u003E\u003C/iframe\u003E"
     expect(page).to have_content "Exercício Rails"
     expect(page).to have_content 'Seu primeiro exercício ruby'
+    expect(page).to have_content 'Obrigatória'
+    expect(current_path).to eq schedule_item_path(schedules[0][:schedule_items][0][:code])
+  end
+
+  it "não consegue acessar a agenda sem estar autenticado" do
+    schedules = [
+      {
+        date: 	"2025-02-14",
+        schedule_items: [
+          {
+            name:	"Palestra",
+            start_time:	"2025-02-14T09:00:00.000-03:00",
+            end_time:	"2025-02-14T10:00:00.000-03:00",
+            code: "GOEX84DP"
+          }
+        ]
+      }
+    ]
+    event = build(:event,
+      schedules: schedules
+    )
+
+    batches = [ build(:batch) ]
+
+    visit schedule_item_path(schedules[0][:schedule_items][0][:code])
+
+    expect(current_path).to eq new_user_session_path
+    expect(page).to have_content "Para continuar, faça login ou registre-se."
+  end
+
+  it "vê item de agenda sem atividades associadas" do
+    user = create(:user)
+    schedule_item_code = "GOEX84DP"
+    curriculum = Curriculum.new(contents: [], tasks: [])
+    allow(Curriculum).to receive(:request_curriculum_by_schedule_item_code).and_return(curriculum)
+
+    login_as user
+    visit schedule_item_path(schedule_item_code)
+
+    expect(page).to have_content "Atividades"
+    expect(page).to have_content "Conteúdos"
+    expect(page).to have_content "Nenhuma tarefa disponível"
+    expect(page).to have_content "Nenhum conteúdo disponível"
   end
 end

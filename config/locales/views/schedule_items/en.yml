@@ -1,0 +1,10 @@
+en:
+  schedule_items:
+    negate_access: You cannot access this page.
+    show:
+      title: Título
+      external_video_url: Vídeo
+      description: Descrição
+      no_task_avaliable: No task avaliables
+      no_content_avaliable: No content avaliable
+    

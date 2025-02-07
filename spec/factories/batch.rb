@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :batch do
-    sequence(:batch_id)
+    sequence(:batch_id) { |n| n.to_s }
     name { "Ticket Test" }
     limit_tickets { 50 }
     start_date { 1.day.from_now.to_date }

@@ -1,12 +1,21 @@
 <h2>Atividades:</h2>
-<% @curriculum.tasks.each do |task| %>
- <p><%= task.title  %> </p>
- <p><%= task.description  %> </p>
- <p><%= task.certificate_requirement  %> </p>
+<% if @curriculum.tasks.any? %>
+  <% @curriculum.tasks.each do |task| %>
+  <p><%= task.title  %> </p>
+  <p><%= task.description  %> </p>
+  <p><%= task.certificate_requirement  %> </p>
+  <% end %>
+<% else %>
+  <p><%= t(".no_task_avaliable") %></p>
 <% end %>
+
 <h2>Conteúdos:</h2>
-<% @curriculum.contents.each do |content| %>
- <p><%= content.title  %> </p>
- <p><%= content.description  %> </p>
- <p><%= content.external_video_url  %> </p>
+<% if @curriculum.contents.any? %>
+  <% @curriculum.contents.each do |content| %>
+    <p><%= content.title  %> </p>
+    <p><%= content.description  %> </p>
+    <p><%= content.external_video_url  %> </p>
+  <% end %>
+<% else %>
+  <p><%= t(".no_content_avaliable") %></p>
 <% end %>
