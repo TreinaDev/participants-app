@@ -3,7 +3,8 @@ pt-BR:
     not_post_owner: Você não tem acesso a essa página
     not_participant: Você não participa deste evento
     show:
-      edit_post: Editar
+      edit_post: Editar Postagem
+      delete_post: Excluir Postagem
       published_in: 'Publicado em:'
       likes:
         one: curtida
@@ -23,3 +24,6 @@ pt-BR:
     update:
       success: Postagem editada com sucesso
       alert: Falha ao salvar a postagem
+    destroy:
+      success: Postagem excluida com sucesso
+      alert: Falha ao excluir a postagem
