@@ -84,14 +84,14 @@ describe 'Visitante acessa página de detalhes de um evento' do
 
     expect(page).to have_content "14/02/2025"
     expect(page).to have_content "Palestra"
-    expect(page).to have_content "Início: 09:00"
+    expect(page).to have_content "09:00"
     expect(page).to have_content "Duração: 60min"
     expect(page).to have_content "Segunda Palestra"
-    expect(page).to have_content "Início: 10:00"
+    expect(page).to have_content "10:00"
     expect(page).to have_content "Duração: 60min"
     expect(page).to have_content "15/02/2025"
     expect(page).to have_content "Apresentação"
-    expect(page).to have_content "Início: 09:00"
+    expect(page).to have_content "09:00"
     expect(page).to have_content "Duração: 60min"
     expect(page).to have_content "16/02/2025"
     expect(page).to have_content 'Ainda não existe programação cadastrada para esse dia'

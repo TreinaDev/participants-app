@@ -8,3 +8,8 @@ pt-BR:
     url_event: Link do Evento
     event_owner: Dono do evento
     limit_participants: Limite de Participantes
+    event_type: Tipo do Evento
+    types:
+      inperson: Presencial
+      online: Online
+      hybrid: Híbrido

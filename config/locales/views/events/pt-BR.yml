@@ -23,3 +23,6 @@ pt-BR:
       remove_reminder: Remover Lembrete
       event_description: Descrição do evento
       event_details: Acessar Conteúdo do Evento
+    agenda:
+      no_schedule: Ainda não existe programação cadastrada para esse evento
+      no_schedule_item: Ainda não existe programação cadastrada para esse dia
