@@ -148,4 +148,51 @@ describe 'Visitante acessa página de detalhes de um evento' do
     expect(page).to have_content "Evento não encontrado"
     expect(current_path).to eq root_path
   end
+
+  it 'e vê informações sobre os palestrantes' do
+    event = build(:event,
+      event_id: "1",
+      name: 'Aprendedo a cozinhar',
+      local_event: 'Rua dos morcegos, 137, CEP: 40000000, Salvador, Bahia, Brasil',
+      description: 'Aprenda a fritar um ovo',
+      event_owner: 'Samuel',
+      limit_participants: 30,
+      banner: 'http://localhost:3000/events/1/banner.jpg',
+      url_event: 'http://evento_fake.com',
+      schedules: [
+        {
+        date: 1.day.from_now,
+        schedule_items: []
+        }
+        ]
+    )
+    event.schedules[0].schedule_items << build(:schedule_item) << build(:schedule_item)
+
+    speakers = []
+    speakers << build(:speaker, first_name: "Sílvio",
+    last_name: "Santos",
+    profile_image_url: "http://localhost:3000/speaker/1/speaker.jpg",
+    profile_url: "http://localhost:3000/speaker/1/profile.jpg", role: "Professor")
+    speakers << build(:speaker, first_name: "Goku",
+    last_name: "Kakaroto",
+    profile_image_url: "http://localhost:3000/speaker/2/speaker.jpg",
+    profile_url: "http://localhost:3000/speaker/2/profile.jpg", role: "Lutador")
+
+    allow(Event).to receive(:request_event_by_id).and_return(event)
+    allow(Speaker).to receive(:request_speakers_by_email).and_return(speakers)
+
+    visit event_by_name_path(event_id: event, name: event.name.parameterize, locale: :'pt-BR')
+
+    within(:xpath, "//a[@href='http://localhost:3000/speaker/1/profile.jpg']") do
+      expect(page).to have_content 'Sílvio Santos'
+      expect(page).to have_content 'Profissão: Professor'
+      expect(page).to have_css 'img[src="http://localhost:3000/speaker/1/speaker.jpg"]'
+    end
+
+    within(:xpath, "//a[@href='http://localhost:3000/speaker/2/profile.jpg']") do
+      expect(page).to have_content 'Goku Kakaroto'
+      expect(page).to have_content 'Profissão: Lutador'
+      expect(page).to have_css 'img[src="http://localhost:3000/speaker/2/speaker.jpg"]'
+    end
+  end
 end
