@@ -8,6 +8,7 @@
     <% if @event.schedules.empty? %>
       <p class="mt-4 text-gray-600"><%= t('.no_schedule') %></p>
     <% else %>
+
       <div class="mt-4 space-y-4">
         <% @event.schedules.each do |schedule| %>
           <p class="font-bold text-gray-800 text-lg"><%= I18n.l(schedule.date) %></p>
@@ -15,12 +16,14 @@
             <p class="mt-4 text-gray-600"><%= t('.no_schedule_item') %></p>
           <% else %>
             <% schedule.schedule_items.each do |item| %>
-              <div id="<%= item.schedule_item_id %>" class="bg-white p-4 rounded-lg shadow-md border-l-4 border-purple-700">
-                <p class="font-bold text-gray-800 text-lg"><%= item.name %></p>
-                <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.start_time') %>:</span> <%= item.start_time %></p>
-                <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.duration') %>:</span> <%= item.duration %>min</p>
-                <%= link_to 'Adicionar Feedback', new_my_event_schedule_item_item_feedback_path(my_event_id: @event.event_id, schedule_item_id: item.schedule_item_id), class: 'mt-2 text-blue-500 underline' if @event.end_date < DateTime.now%>
-              </div>
+                <div id='<%= "schedule_item_code_#{item.schedule_item_id}" %>' class="bg-white p-4 rounded-lg shadow-md border-l-4 border-purple-700">
+                  <%= link_to my_event_schedule_item_path(my_event_id: @event.event_id, id: item.schedule_item_id) do %>
+                  <p class="font-bold text-gray-800 text-lg"><%= item.name %></p>
+                  <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.start_time') %>:</span> <%= item.start_time %></p>
+                  <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.duration') %>:</span> <%= item.duration %>min</p>
+                  <%= link_to 'Adicionar Feedback', new_my_event_schedule_item_item_feedback_path(my_event_id: @event.event_id, schedule_item_id: item.schedule_item_id), class: 'mt-2 text-blue-500 underline' if @event.end_date < DateTime.now%>
+                  <% end %>
+                </div>
             <% end %>
           <% end %>
         <% end %>

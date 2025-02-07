@@ -1,0 +1,13 @@
+en:
+  schedule_items:
+    negate_access: You cannot access this page.
+    show:
+      title: Title
+      external_video_url: Video
+      description: Description
+      no_task_avaliable: No task avaliables
+      no_content_avaliable: No content avaliable
+      contents: Contents
+      activites: Activites
+      needed_for_certification: Needed for certification
+    

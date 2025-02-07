@@ -59,16 +59,16 @@ describe "Participante de um evento acessa mais detalhes do evento", type: :syst
         date: 	"2025-02-14",
         schedule_items: [
           {
-            code: '1',
             name:	"Palestra",
             start_time:	"2025-02-14T09:00:00.000-03:00",
-            end_time:	"2025-02-14T10:00:00.000-03:00"
+            end_time:	"2025-02-14T10:00:00.000-03:00",
+            code: "GOEX84DP"
           },
           {
-            code: '2',
             name:	"Segunda Palestra",
             start_time:	"2025-02-14T10:00:00.000-03:00",
-            end_time:	"2025-02-14T11:00:00.000-03:00"
+            end_time:	"2025-02-14T11:00:00.000-03:00",
+            code: "6XD2I9RA"
           }
         ]
       },
@@ -76,10 +76,10 @@ describe "Participante de um evento acessa mais detalhes do evento", type: :syst
         date: 	"2025-02-15",
         schedule_items: [
           {
-            code: '3',
             name:	"Apresentação",
             start_time:	"2025-02-15T09:00:00.000-03:00",
-            end_time:	"2025-02-15T10:00:00.000-03:00"
+            end_time:	"2025-02-15T10:00:00.000-03:00",
+            code: "8XDGREWQ"
           }
         ]
       },
@@ -87,6 +87,7 @@ describe "Participante de um evento acessa mais detalhes do evento", type: :syst
         date: 	"2025-02-16",
         schedule_items: []
       }
+
     ]
     batches = [ {
         batch_id: '1',

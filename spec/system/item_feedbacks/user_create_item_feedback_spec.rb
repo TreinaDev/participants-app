@@ -33,11 +33,11 @@ describe 'Usuário cria feedback de um item de um evento' do
     click_on 'Meus Eventos'
     click_on 'Acessar Conteúdo do Evento'
 
-    within("#1") do
+    within("#schedule_item_code_1") do
       expect(page).to have_link 'Adicionar Feedback'
       expect(page).not_to have_content 'Workshop'
     end
-    within("#2") do
+    within("#schedule_item_code_2") do
       expect(page).to have_link 'Adicionar Feedback'
       expect(page).not_to have_content 'Palestra'
     end
@@ -109,7 +109,7 @@ describe 'Usuário cria feedback de um item de um evento' do
 
     login_as ticket.user
     visit my_event_path(id: event.event_id)
-    within("#1") do
+    within("#schedule_item_code_1") do
       click_on 'Adicionar Feedback'
     end
     save_page
