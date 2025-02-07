@@ -178,11 +178,10 @@ describe "Usuário vê itens de agenda", type: :system do
     expect(page).to have_content "Atividades"
     expect(page).to have_content "Conteúdos"
     expect(page).to have_content 'Ruby PDF'
-    expect(page).to have_content "\u003Cstrong\u003EDescrição Ruby PDF\u003C/strong\u003E"
-    expect(page).to have_content "\u003Ciframe id='external-video' width='800' height='450' src='https://www.youtube.com/embed/idaXF2Er4TU' frameborder='0' allowfullscreen\u003E\u003C/iframe\u003E"
+    expect(page).to have_content "Descrição Ruby PDF"
     expect(page).to have_content "Exercício Rails"
     expect(page).to have_content 'Seu primeiro exercício ruby'
-    expect(page).to have_content 'Obrigatória'
+    expect(page).to have_content 'Necessário para certificado'
     expect(current_path).to eq my_event_schedule_item_path(my_event_id: event.event_id, id: schedules[0][:schedule_items][0][:code],  locale: :'pt-BR')
   end
 

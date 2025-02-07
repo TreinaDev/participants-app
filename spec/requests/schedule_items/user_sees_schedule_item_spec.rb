@@ -121,7 +121,7 @@ RSpec.describe "ScheduleItems", type: :request do
       expect(response).to have_http_status(200)
       expect(response.body).to include("Exercício Rails")
       expect(response.body).to include("Seu primeiro exercício ruby")
-      expect(response.body).to include("Obrigatória")
+      expect(response.body).to include("Necessário para certificado")
     end
   end
 end
