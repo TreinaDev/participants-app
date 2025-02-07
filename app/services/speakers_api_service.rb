@@ -5,6 +5,10 @@ class SpeakersApiService
     self.request("#{BASE_URL}/curriculums/#{curriculum_code}", :get)
   end
 
+  def self.get_speaker(email)
+    self.request("#{BASE_URL}/speakers/#{email}", :get)
+  end
+
   def self.request(url, method)
     conn = Faraday.new do |faraday|
       faraday.response :raise_error

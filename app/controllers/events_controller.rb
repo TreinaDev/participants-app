@@ -8,6 +8,7 @@ class EventsController < ApplicationController
     end
     @posts = Post.where(event_id: params[:event_id])
     @announcements = @event.announcements
+    @speakers = Speaker.request_speakers_by_email(@event.schedules.flat_map { |schedule| schedule.schedule_items.map(&:responsible_email) })
   end
 
   def index

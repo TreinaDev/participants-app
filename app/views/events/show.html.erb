@@ -134,3 +134,14 @@
       </section>
     <% end %>
 </div>
+
+<% if @speakers.any? %>
+  <%= page_sub_title(t('.meet_our_speakers')) %>
+
+  <div class="card-grid">
+    <% @speakers.each do |speaker| %>
+      <%= render 'speakers/speaker_card', speaker: speaker %>
+    <% end %>
+  </div>
+<% end %>
+ 

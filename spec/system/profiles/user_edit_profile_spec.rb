@@ -1,6 +1,4 @@
 require 'rails_helper'
-WebMock.disable_net_connect!(allow_localhost: true)
-WebMock.enable!
 
 describe 'usuário edita perfil' do
   it 'pela página do perfil' do

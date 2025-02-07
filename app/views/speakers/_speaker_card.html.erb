@@ -1,0 +1,9 @@
+<%= link_to speaker.profile_url do %>
+  <div class="card-event p-4 mb-8">
+    <div class="flex flex-col items-center">
+      <%= image_tag speaker.profile_image_url, class: "w-32 h-32 mb-4 rounded-full shadow-lg" %>
+      <h5 class="speaker-name"><%= "#{speaker.first_name} #{speaker.last_name}" %></h5>
+      <span class="speaker-role"><%= I18n.t('.speaker.role') %>: <%= speaker.role %></span>
+    </div>
+  </div>
+<% end %>
