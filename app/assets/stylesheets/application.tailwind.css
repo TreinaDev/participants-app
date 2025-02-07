@@ -31,8 +31,24 @@
     @apply flex items-center justify-center space-x-3 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-10 text-lg rounded-xl shadow-lg transition-all duration-300;
   }
 
+  .btn-announcement {
+    @apply text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-xs px-3 py-1.5 me-2 text-center inline-flex items-center dark:bg-gray-600 dark:hover:bg-gray-500 dark:focus:ring-gray-800
+  }
+
   .card-event {
     @apply max-w-lg rounded-lg shadow-xl border-purple-900 border-2 hover:-translate-y-2 hover:shadow-indigo-500/50
+  }
+
+  .card-announcement {
+    @apply p-4 mb-4 text-blue-800 border border-blue-300 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-800
+  }
+
+  .card-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6
+  }
+
+  .content-announcement {
+    @apply mt-2 mb-4 text-sm text-gray-800 dark:text-gray-300
   }
 
   .notice {
@@ -63,6 +79,13 @@
     @apply px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6
   }
 
+  .speaker-name {
+    @apply mb-2 text-2xl font-semibold text-gray-900 dark:text-white
+  }
+
+  .speaker-role {
+    @apply text-sm text-gray-500 dark:text-gray-400
+  }
 }
 
 

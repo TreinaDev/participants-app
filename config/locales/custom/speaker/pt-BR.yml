@@ -1,0 +1,9 @@
+pt-BR:
+  speaker:
+    one: Palestrante
+    other: Palestrantes
+    first_name: Nome
+    last_name: Sobrenome
+    role: Profissão
+    profile_image_url: Imagem de perfil
+    profile_url: Página do profissional

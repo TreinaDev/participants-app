@@ -30,7 +30,7 @@
           <%= f.submit t('.save'), class: 'btn-login' %>
         </div>
         <div class="actions my-5 flex">
-          <%= link_to t('.back'), user_profile_path(user_id: @user.id, id: @profile.id), class: "btn-back" %>
+          <%= form_link_to_back %>
         </div>
       <% end %>
     </div>

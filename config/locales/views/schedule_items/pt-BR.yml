@@ -1,0 +1,13 @@
+pt-BR:
+  schedule_items:
+    negate_access: Você não tem autorização para acessar está página.
+    show:
+      title: Título
+      external_video_url: Vídeo
+      description: Descrição
+      no_task_avaliable: Nenhuma tarefa disponível
+      no_content_avaliable: Nenhum conteúdo disponível
+      contents: Conteúdos
+      activites: Atividades
+      needed_for_certification: Necessário para certificado
+    

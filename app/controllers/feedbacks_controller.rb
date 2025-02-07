@@ -22,6 +22,7 @@ class FeedbacksController < ApplicationController
 
   def index
     @feedbacks = Feedback.where(user: current_user, event_id: @my_event_id)
+    @item_feedbacks = ItemFeedback.where(user: current_user, event_id: @my_event_id)
   end
 
   private
@@ -33,6 +34,6 @@ class FeedbacksController < ApplicationController
   def set_and_check_my_event_id
     @my_event_id = params[:my_event_id]
     @event = Event.request_event_by_id(@my_event_id)
-    redirect_to root_path, alert: t(".no_finished") if @event.end_date > Date.today
+    redirect_to root_path, alert: t(".no_finished") if @event.end_date > DateTime.now
   end
 end

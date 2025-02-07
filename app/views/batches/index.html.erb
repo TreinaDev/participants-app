@@ -1,6 +1,6 @@
 <%= page_title(t('.title'))%>
 <div class='ml-6'>
-  <%= link_to t('.back'), event_by_name_path(event_id: @event.event_id, name: @event.name.parameterize), class: "btn-back ml-6" %>
+  <%= button_to_back %>
 </div>
 <div class="bg-white p-6 m-3 w-full">
   <div class="mt-4 space-y-4">

@@ -14,6 +14,7 @@ describe 'usuário edita perfil' do
 
   it 'com sucesso', type: :system, js: true do
     user = create(:user, email: 'teste@email.com')
+    stub_request(:get, 'https://brasilapi.com.br/api/ibge/uf/v1').to_return(body: "")
 
     login_as user
     visit edit_user_profile_path(user_id: user, id: user.profile)
@@ -49,12 +50,15 @@ describe 'usuário edita perfil' do
     expect(page).to have_content 'Você não tem autorização para acessar está página.'
   end
 
-  it 'e volta pa página de perfil' do
+  it 'e volta para página de perfil' do
     user = create(:user, email: 'teste@email.com')
 
     login_as user
-    visit edit_user_profile_path(user_id: user, id: user.profile)
-    click_on 'Voltar'
+    visit root_path
+    click_on "Olá, #{user.name}"
+    click_on 'Meu Perfil'
+    click_on 'Editar Perfil'
+    find(:css, '#back-button').click
 
     expect(current_path).to eq user_profile_path(user_id: user, id: user.profile, locale: :'pt-BR')
   end

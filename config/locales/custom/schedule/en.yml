@@ -5,3 +5,9 @@ en:
     type: Type of Event
     instructor: Instructor
     email: Contact
+    schedule_type: Schedule type
+    responsible_email: Email
+    responsible_name: Responsible
+    schedule_types:
+      activity: activity
+      interval: interval

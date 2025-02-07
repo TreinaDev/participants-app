@@ -18,4 +18,6 @@ pt-BR:
       models:
         ticket:
           sold_out: 'Esgotado'
+          not_usable: 'não pode ser usado um ticket não usável'
+          not_the_date: 'não pode ser usável quando não é a data do evento'
 
