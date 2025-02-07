@@ -114,7 +114,7 @@ describe "Usuário vê itens de agenda", type: :system do
     expect(current_path).not_to eq my_event_schedule_item_path(my_event_id: event.event_id, id: schedules[0][:schedule_items][1][:code],  locale: :'pt-BR')
   end
 
-  it "e consegue vê conteúdos e atividades daquele item da agenda" do
+  it "e consegue ver conteúdos e atividades daquele item da agenda" do
     user = create(:user)
     schedules = [
       {
@@ -209,5 +209,43 @@ describe "Usuário vê itens de agenda", type: :system do
 
     expect(current_path).to eq new_user_session_path
     expect(page).to have_content "Para continuar, faça login ou registre-se."
+  end
+
+  it "e recebe mensagem de aviso caso não exista atividades e/ou conteúdos para o item da agenda" do
+    user = create(:user)
+    schedules = [
+      {
+        date: 	"2025-02-14",
+        schedule_items: [
+          {
+            name:	"Palestra",
+            start_time:	"2025-02-14T09:00:00.000-03:00",
+            end_time:	"2025-02-14T10:00:00.000-03:00",
+            code: "GOEX84DP"
+          }
+        ]
+      }
+    ]
+    event = build(:event,
+      schedules: schedules
+    )
+
+    batches = [ build(:batch) ]
+    curriculum = Curriculum.new(contents: [], tasks: [])
+
+    target_event_id = event.event_id
+    target_batch_id =  batches[0].batch_id
+
+    allow(Event).to receive(:request_event_by_id).and_return(event)
+    allow(Curriculum).to receive(:request_curriculum_by_schedule_item_code).and_return(curriculum)
+    create(:ticket, event_id: event.event_id, batch_id: batches[0].batch_id, user: user)
+    allow(Batch).to receive(:request_batch_by_id).with(target_event_id, target_batch_id).and_return(batches[0])
+
+    login_as user
+    visit my_event_schedule_item_path(my_event_id: event.event_id, id: schedules[0][:schedule_items][0][:code],  locale: :'pt-BR')
+
+    expect(page).to have_content "Nenhum conteúdo disponível"
+    expect(page).to have_content "Nenhuma tarefa disponível"
+    expect(current_path).to eq my_event_schedule_item_path(my_event_id: event.event_id, id: schedules[0][:schedule_items][0][:code],  locale: :'pt-BR')
   end
 end
