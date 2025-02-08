@@ -75,6 +75,14 @@
     @apply w-full rounded-md bg-violet-900 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-violet-600 focus:shadow-none active:bg-slate-700 hover:bg-violet-950 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none
   }
 
+  .input-stars {
+    @apply  bg-transparent border-0 text-transparent cursor-pointer appearance-none checked:bg-none focus:bg-none focus:ring-0 focus:ring-offset-0
+  }
+
+  .label-stars {
+    @apply  text-gray-300 pointer-events-none dark:peer-checked:text-yellow-600 dark:text-neutral-600
+  }
+
   .profile-row {
     @apply px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6
   }
