@@ -25,6 +25,10 @@ class User < ApplicationRecord
     Ticket.where(user: self, event_id: event_id).any?
   end
 
+  def has_event_reminder?(event)
+    self.reminders.pluck(:event_id).include?(event)
+  end
+
   def full_name
     self.name + " "  + self.last_name
   end

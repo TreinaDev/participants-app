@@ -20,6 +20,10 @@ class Event
     ActionText::Content.new(@description)
   end
 
+  def earliest_batch_date
+    @batches.min_by { |batch| batch.start_date }.start_date
+  end
+
   def self.all
     response = EventsApiService.get_events
     events = response[:events]
