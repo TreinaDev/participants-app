@@ -5,6 +5,7 @@ FactoryBot.define do
     sequence(:email) { |n| "person#{n}@example.com" }
     cpf { CPF.generate }
     password { "12345678" }
+    code { SecureRandom.alphanumeric(6) }
 
     factory :user_with_favorites do
       transient do

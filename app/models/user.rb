@@ -10,8 +10,13 @@ class User < ApplicationRecord
   has_many :likes
   has_many :comments
 
+  before_validation :generate_code, on: :create
+
   validates :name, :last_name, :cpf, presence: true
+  validates :code, length: { is: 6 }
+  validates :code, uniqueness: true
   validates :cpf, uniqueness: { case_sensitive: false }
+  validates :code, presence: true
   validate :cpf_valid
 
   after_create :create_profile
@@ -25,6 +30,13 @@ class User < ApplicationRecord
   end
 
   private
+
+  def generate_code
+    loop do
+      self.code = SecureRandom.alphanumeric(6)
+      break unless User.exists?(code: self.code)
+    end
+  end
 
   def create_profile
     create_profile!()

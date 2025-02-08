@@ -73,4 +73,25 @@ RSpec.describe User, type: :model do
       it { is_expected.to validate_uniqueness_of(:cpf).case_insensitive }
     end
   end
+
+  describe 'creation' do
+    it 'code é gerado na criação do registro' do
+      user = User.new(email: 'master@email.com', password: 'asdfqw', name: 'Master', last_name: 'of Puppets', cpf: CPF.generate)
+
+      expect(user.code).to be_nil
+
+      user.save
+
+      expect(user.code).to be_present
+    end
+
+    it 'e não muda com atualização do registro' do
+      user = User.create(email: 'master@email.com', password: 'asdfqw', name: 'Master', last_name: 'of Puppets', cpf: CPF.generate)
+      code = user.code
+      user.name = "MASTER"
+      user.save
+
+      expect(user.code).to eq code
+    end
+  end
 end
