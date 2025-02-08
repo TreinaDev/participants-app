@@ -11,22 +11,14 @@ describe 'Participante adiciona nova postagem a um evento', type: :system, js: t
   end
 
   it 'com sucesso' do
-    event = build(:event, event_id: 1, name: 'DevWeek')
-    ticket = create(:ticket, event_id: event.event_id)
-    user = ticket.user
+    user = create(:user)
+    event = build(:event, event_id: '1', name: 'DevWeek')
     allow(Event).to receive(:request_event_by_id).and_return(event).exactly(2)
-    batches = [ {
-        batch_id: '1',
-        name: 'Entrada - Meia',
-        limit_tickets: 20,
-        start_date: 5.days.ago.to_date,
-        value: 20.00,
-        end_date: 2.month.from_now.to_date,
-        event_id: '1'
-      }
-    ]
-    batches.map! { |batch| build(:batch, **batch) }
-    allow(Batch).to receive(:request_batch_by_id).with('1', '1').and_return(batches[0])
+    batches = [ build(:batch, name: 'Entrada - Meia') ]
+    target_event_id = event.event_id
+    target_batch_id = batches[0].batch_id
+    ticket = create(:ticket, event_id: event.event_id, batch_id: target_batch_id, user: user)
+    allow(Batch).to receive(:request_batch_by_id).with(target_event_id, target_batch_id).and_return(batches[0])
 
     login_as user
     visit new_event_post_path(event_id: event.event_id, locale: :'pt-BR')

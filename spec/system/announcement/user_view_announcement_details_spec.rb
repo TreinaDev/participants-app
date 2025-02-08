@@ -2,27 +2,19 @@ require 'rails_helper'
 
 describe 'Usuário acessa página de detalhes de comunicados oficiais' do
   it 'com sucesso' do
+    user = create(:user)
     event = build(:event, name: 'DevWeek')
     announcement = build(:announcement, title: 'Taxa extra de R$100,00', description: 'NOVA TAXA: PAGUEM!')
     announcement_two = build(:announcement, title: 'Taxa extra de R$500,00', description: 'NOVA TAXA: PAGUEM! PAGUEM COM A ALMA. PAGUEM OU O FUTURO NÃO LHES PERTENCERÁ. SEJAM PAGANTES E NÃO DEVEDORES', announcement_id: 'ABGJLJ7')
-    ticket = create(:ticket, event_id: event.event_id)
-    user = ticket.user
     allow(Event).to receive(:all).and_return([ event ])
     allow(Event).to receive(:request_event_by_id).and_return(event)
     allow(Announcement).to receive(:request_announcements_by_event_id).and_return([ announcement, announcement_two ])
     allow(Announcement).to receive(:request_announcement_by_id).and_return(announcement_two)
-    batches = [ {
-        batch_id: '1',
-        name: 'Entrada - Meia',
-        limit_tickets: 20,
-        start_date: 5.days.ago.to_date,
-        value: 20.00,
-        end_date: 2.month.from_now.to_date,
-        event_id: '1'
-      }
-    ]
-    batches.map! { |batch| build(:batch, **batch) }
-    allow(Batch).to receive(:request_batch_by_id).with(event.event_id, '1').and_return(batches[0])
+    batches = [ build(:batch) ]
+    target_event_id = event.event_id
+    target_batch_id = batches[0].batch_id
+    ticket = create(:ticket, event_id: event.event_id, batch_id: target_batch_id, user: user)
+    allow(Batch).to receive(:request_batch_by_id).with(target_event_id, target_batch_id).and_return(batches[0])
 
     login_as user
     visit root_path
@@ -39,27 +31,19 @@ describe 'Usuário acessa página de detalhes de comunicados oficiais' do
   end
 
   it 'e volta à página do evento' do
+    user = create(:user)
     event = build(:event, name: 'DevWeek')
     announcement = build(:announcement, title: 'Taxa extra de R$100,00', description: 'NOVA TAXA: PAGUEM!')
     announcement_two = build(:announcement, title: 'Taxa extra de R$500,00', description: 'NOVA TAXA: PAGUEM! PAGUEM COM A ALMA. PAGUEM OU O FUTURO NÃO LHES PERTENCERÁ. SEJAM PAGANTES E NÃO DEVEDORES', announcement_id: 'ABGJLJ7')
-    ticket = create(:ticket, event_id: event.event_id)
-    user = ticket.user
     allow(Event).to receive(:all).and_return([ event ])
     allow(Event).to receive(:request_event_by_id).and_return(event, event)
     allow(Announcement).to receive(:request_announcements_by_event_id).and_return([ announcement, announcement_two ])
     allow(Announcement).to receive(:request_announcement_by_id).and_return(announcement_two)
-    batches = [ {
-        batch_id: '1',
-        name: 'Entrada - Meia',
-        limit_tickets: 20,
-        start_date: 5.days.ago.to_date,
-        value: 20.00,
-        end_date: 2.month.from_now.to_date,
-        event_id: '1'
-      }
-    ]
-    batches.map! { |batch| build(:batch, **batch) }
-    allow(Batch).to receive(:request_batch_by_id).with(event.event_id, '1').and_return(batches[0])
+    batches = [ build(:batch) ]
+    target_event_id = event.event_id
+    target_batch_id = batches[0].batch_id
+    ticket = create(:ticket, event_id: event.event_id, batch_id: target_batch_id, user: user)
+    allow(Batch).to receive(:request_batch_by_id).with(target_event_id, target_batch_id).and_return(batches[0])
 
     login_as user
     visit root_path
