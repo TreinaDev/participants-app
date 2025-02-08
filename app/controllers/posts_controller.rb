@@ -19,7 +19,7 @@ class PostsController < ApplicationController
     @post.user = current_user
 
     if @post.save
-      redirect_to event_by_name_path(event_id: params[:event_id], name: Event.request_event_by_id(params[:event_id]).name.parameterize), notice: t(".success")
+      redirect_to my_event_path(id: params[:event_id]), notice: t(".success")
     else
       @event_id = params[:event_id]
       flash.now[:alert] = t(".alert")

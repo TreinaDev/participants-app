@@ -9,8 +9,6 @@ en:
       start_date: Start Date
     show:
       event_agenda: Event Agenda
-      no_schedule: There is no schedule registered for this event yet.
-      no_schedule_item: There is no schedule registered for this day yet.
       add_favorites: Add Favorites
       tickets: Tickets
       ticket_date: Ticket Date
@@ -24,3 +22,7 @@ en:
       event_description: Event Description
       event_details: Access Event Content
       meet_our_speakers: Meet our speakers!
+    agenda:
+      no_schedule: There is no schedule registered for this event yet.
+      no_schedule_item: There is no schedule registered for this day yet.
+
