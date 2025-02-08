@@ -20,5 +20,23 @@ describe 'User Details API' do
       expect(json_response.keys).not_to include 'created_at'
       expect(json_response.keys).not_to include 'updated_at'
     end
+
+    it 'e não existe usuário com o código informado' do
+      get "/api/v1/users/ZZZZZZ"
+
+      expect(response).to have_http_status 404
+      expect(response.content_type).to include 'application/json'
+      json_response = JSON.parse(response.body)
+
+      expect(json_response['error']).to eq 'User not found'
+    end
+
+    it 'E falha com um erro interno' do
+      allow(User).to receive(:find_by).and_raise(ActiveRecord::ActiveRecordError)
+
+      get "/api/v1/users/ZZZZZZ"
+
+      expect(response.status).to eq 500
+    end
   end
 end
