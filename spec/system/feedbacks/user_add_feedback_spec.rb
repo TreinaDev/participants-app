@@ -36,7 +36,7 @@ describe 'Usuário cria feedback de um evento' do
       visit new_my_event_feedback_path(my_event_id: event.event_id)
       fill_in 'Título', with: 'Avaliação da DevWeek'
       fill_in 'Comentário', with: 'O evento foi genial, mais a comida foi péssima'
-      select '4', from: 'Nota'
+      find('label[for="hs-ratings-readonly-4"]').click
       check 'Público'
       click_on 'Adicionar Feedback'
 
@@ -59,7 +59,9 @@ describe 'Usuário cria feedback de um evento' do
       visit new_my_event_feedback_path(my_event_id: event.event_id)
       fill_in 'Título', with: ''
       fill_in 'Comentário', with: ''
-      select '4', from: 'Nota'
+      within('.rating-stars') do
+        find('label[for="hs-ratings-readonly-4"]').click
+      end
       check 'Público'
       click_on 'Adicionar Feedback'
 

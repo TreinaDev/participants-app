@@ -112,11 +112,9 @@ describe 'Usuário cria feedback de um item de um evento' do
     within("#schedule_item_code_1") do
       click_on 'Adicionar Feedback'
     end
-    save_page
-
     fill_in 'Título', with: 'Avaliação do Iten'
     fill_in 'Comentário', with: 'A atividade foi genial, mais a comida foi péssima'
-    select '4', from: 'Nota'
+    find('label[for="hs-ratings-readonly-4"]').click
     check 'Público'
     click_on 'Adicionar Feedback'
 
@@ -151,7 +149,7 @@ describe 'Usuário cria feedback de um item de um evento' do
     visit new_my_event_schedule_item_item_feedback_path(my_event_id: event.event_id, schedule_item_id: schedule_item.schedule_item_id)
     fill_in 'Título', with: ''
     fill_in 'Comentário', with: ''
-    select '4', from: 'Nota'
+    find('label[for="hs-ratings-readonly-4"]').click
     check 'Público'
     click_on 'Adicionar Feedback'
 
