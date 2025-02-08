@@ -58,6 +58,8 @@ Rails.application.routes.draw do
       resources :tickets, param: :token do
         post "used", on: :member
       end
+
+      resources :users, param: :code, only: [ :show ]
     end
   end
 end
