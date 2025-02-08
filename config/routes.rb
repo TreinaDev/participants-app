@@ -55,6 +55,10 @@ Rails.application.routes.draw do
       resources :item_feedbacks do
         resources :feedback_answers, only: [ :create ]
       end
+
+      resources :schedule_items do
+        resources :item_feedbacks, only: [ :index ]
+      end
       resources :tickets, param: :token do
         post "used", on: :member
       end
