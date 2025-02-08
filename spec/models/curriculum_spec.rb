@@ -4,8 +4,11 @@ RSpec.describe Curriculum, type: :model do
   context "conteúdo de um currículo" do
     it "e retorna currículo" do
       curriculum = {
-        "curriculum_contents": [],
-        "curriculum_tasks": []
+        "curriculum": {
+          "curriculum_contents": [],
+          "tasks_available": true,
+          "curriculum_tasks": []
+        }
       }
 
       response = double('response', status: 200, body: curriculum.to_json)
@@ -14,6 +17,7 @@ RSpec.describe Curriculum, type: :model do
 
       expect(results.contents).to eq []
       expect(results.tasks).to eq []
+      expect(results.tasks_available).to eq true
     end
 
     it "e retorna com conteudo" do
@@ -66,6 +70,7 @@ RSpec.describe Curriculum, type: :model do
               ]
             }
           ],
+          "tasks_available": true,
           "curriculum_tasks": [
             {
               "code": "FNRVUEUB",
@@ -85,6 +90,8 @@ RSpec.describe Curriculum, type: :model do
       response = double('response', status: 200, body: curriculum.to_json)
       allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3003/api/v1/curriculums/ABCD1234").and_return(response)
       results = Curriculum.request_curriculum_by_schedule_item_code("ABCD1234")
+
+      expect(results.tasks_available).to eq true
 
       expect(results.contents[0].code).to eq 'MH0IBQ8O'
       expect(results.contents[0].title).to eq 'Ruby PDF'
