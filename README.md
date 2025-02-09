@@ -1,6 +1,6 @@
 
 # Participants-App | Gerenciamento de Inscrições
-Esta aplicação foi desenvolvida para gerenciar inscrições em eventos, conectando participantes com interesses em comum. A ideia principal é oferecer funcionalidades que permitam a organização de eventos, a interação entre participantes e a compra de ingressos.
+Esta aplicação foi desenvolvida para gerenciar inscrições em eventos, conectando participantes com interesses em comum. A ideia principal é oferecer funcionalidades que permitam a organização de eventos para os participantes, a interação entre eles e a compra de ingressos.
 
 ![](https://img.shields.io/github/issues/TreinaDev/participants-app.svg)
 ![](https://img.shields.io/github/issues-pr/TreinaDev/participants-app.svg)
@@ -9,7 +9,7 @@ Esta aplicação foi desenvolvida para gerenciar inscrições em eventos, conect
 ![Ruby](https://img.shields.io/badge/ruby-%23CC342D.svg?style=for-the-badge&logo=ruby&logoColor=white)
 
 ## 🚀 Funcionalidades
-### ✅ **Visualizar Eventos** 
+### ✅ **Visualizar Eventos**
 - Lista de eventos publicados com data a partir do dia atual.
 - Exibição de detalhes como:
   - Descrição completa.
@@ -25,6 +25,7 @@ Esta aplicação foi desenvolvida para gerenciar inscrições em eventos, conect
   - Cidade, estado e telefone.
 - Salvar eventos como favoritos.
 - Visualizar lista de ingressos adquiridos.
+- Visulizar lista de feedbacks feitos.
 
 ### ✅ **Compra de Ingressos** 
 - Escolha de ingressos disponíveis na página de detalhes do evento.
@@ -42,21 +43,23 @@ Esta aplicação foi desenvolvida para gerenciar inscrições em eventos, conect
 - Solicitação de lembrete para eventos futuros sem ingressos disponíveis.
 - Envio de e-mail no dia da abertura de vendas de ingressos.
 
-### 🚧 **Feed do Evento**
-- [ ] Feed para postagens entre participantes com ingresso confirmado.
-- [ ] Recursos do feed:
-  - [ ] Suporte a texto enriquecido.
-  - [ ] Upload de imagens.
-  - [ ] Curtidas e comentários.
-- [ ] Resumo das últimas 10 postagens na página inicial do usuário.
-- [ ] Comunicados oficiais destacados, sem curtidas ou comentários.
+### ✅ **Feed do Evento**
+- Feed para postagens entre participantes com ingresso confirmado.
+- Recursos do feed:
+  - Suporte a texto enriquecido.
+  - Upload de imagens.
+  - Curtidas e comentários.
+- Resumo das últimas 10 postagens na página inicial do usuário.
+- Comunicados oficiais destacados, sem curtidas ou comentários.
+- Feedbacks feitos pelos usuários que participaram do evento.
 
-### 🚧 **Feedbacks**
-- [ ] Após o evento, usuários podem fornecer feedback:
-  - [ ] Feedback geral ou específico por item da agenda.
-  - [ ] Público ou anônimo.
-- [ ] Feedbacks públicos aparecem no feed do evento.
-- [ ] Organizadores têm acesso a todos os feedbacks.
+### ✅ **Feedbacks**
+- Após o evento, usuários podem fornecer feedback:
+  - Feedback geral ou específico por item da agenda.
+  - Público ou anônimo.
+- Feedbacks públicos aparecem no feed do evento.
+- Palestrantes do evento podem responder feedbacks.
+- Organizadores têm acesso a todos os feedbacks.
 
 ## 📝 Pré-requisitos
 1. Setup:
@@ -65,16 +68,24 @@ Esta aplicação foi desenvolvida para gerenciar inscrições em eventos, conect
    - SQLite
 
 2. Gems:
-   - [devise](https://github.com/heartcombo/devise) - Autenticação e autorização.
-   - [faraday](https://github.com/lostisland/faraday) - Biblioteca HTTP para fazer requisições.
-   - [rspec-rails](https://github.com/rspec/rspec-rails) - Framework de testes.
-   - [capybara](https://github.com/teamcapybara/capybara) - Ferramenta de teste que simula a interação do usuário com a aplicação.
-   - [rubocop-rails-omakase](https://github.com/rubocop/rubocop-rails) - Conjunto de regras para manter o código limpo e consistente.
-   - [cuprite](https://github.com/rubycdp/cuprite) - Driver de teste para Capybara usando o Chrome DevTools Protocol.
-   - [simplecov](https://github.com/simplecov-ruby/simplecov) - Gera relatórios de cobertura de código.
-   - [factory_bot_rails](https://github.com/thoughtbot/factory_bot_rails) - Biblioteca para criar dados de teste de forma fácil e limpa.
-   - [shoulda-matchers](https://github.com/thoughtbot/shoulda-matchers) - Fornece matchers para testes RSpec que simplificam a escrita de testes.
-   - [cpf_cnpj](https://github.com/fnando/cpf_cnpj) - Gera cpf e cnpj fictícios para testes e válidações.
+    - [capybara](https://github.com/teamcapybara/capybara)
+    - [carmen](https://github.com/carmen-ruby/carmen)
+    - [cpf_cnpj](https://github.com/fnando/cpf_cnpj)
+    - [cuprite](https://github.com/rubycdp/cuprite)
+    - [devise](https://github.com/heartcombo/devise)
+    - [faraday](https://github.com/lostisland/faraday)
+    - [factory_bot_rails](https://github.com/thoughtbot/factory_bot_rails)
+    - [image_processing](https://github.com/janko/image_processing)
+    - [rack-cors](https://github.com/cyu/rack-cors)
+    - [rqrcode](https://github.com/whomwah/rqrcode)
+    - [rspec-rails](https://github.com/rspec/rspec-rails)
+    - [shoulda-matchers](https://github.com/thoughtbot/shoulda-matchers)
+    - [simplecov](https://github.com/simplecov-ruby/simplecov)
+    - [solid_cache](https://github.com/rails/solid_cache)
+    - [solid_cable](https://github.com/rails/solid_cable)
+    - [solid_queue](https://github.com/rails/solid_queue)
+    - [stimulus-rails](https://github.com/hotwired/stimulus-rails)
+    - [tailwindcss-rails](https://github.com/rails/tailwindcss-rails)
 
 ## 💻 Como Contruir
 Para construir o projeto, siga estas etapas:
