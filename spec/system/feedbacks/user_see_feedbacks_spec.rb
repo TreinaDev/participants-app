@@ -6,7 +6,7 @@ describe 'Usuário ve feedbacks de um evento' do
     create(:ticket, event_id: event.event_id)
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
-    visit new_my_event_feedback_path(my_event_id: event.event_id)
+    visit my_event_feedbacks_path(my_event_id: event.event_id)
 
     expect(current_path).to eq new_user_session_path
     expect(page).to have_content 'Para continuar, faça login ou registre-se.'
