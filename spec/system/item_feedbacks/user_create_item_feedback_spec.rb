@@ -120,9 +120,8 @@ describe 'Usuário cria feedback de um item de um evento' do
 
     expect(page).to have_content 'Feedback adicionado com sucesso'
     expect(page).to have_content 'Atividade: Palestra'
-    expect(page).to have_content 'Título: Avaliação do Iten'
+    expect(page).to have_content 'Avaliação do Iten'
     expect(page).to have_content 'Feedback Público'
-    expect(page).to have_content 'Comentário: A atividade foi genial, mais a comida foi péssima'
     expect(page).to have_content 'Nota: 4'
   end
 

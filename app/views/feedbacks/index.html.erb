@@ -1,37 +1,33 @@
 <%= page_title(t('.title')) %>
 
 <% @feedbacks.each do |feedback| %>
-  <dl>
-    <dt> <%= I18n.t('event.one') %>:</dt>
-    <dd> <%= @event.name %> </dd>
-
-    <dt> <%= Feedback.human_attribute_name :title %>:</dt>
-    <dd> <%= feedback.title %> </dd>
-
-    <dt> <%= Feedback.human_attribute_name :comment %>: </dt>
-    <dd> <%= feedback.comment %> </dd>
-
-    <dt> <%= Feedback.human_attribute_name :mark %>: </dt>
-    <dd> <%= feedback.mark %> </dd>
-
-    <p> <%= Feedback.model_name.human %> <%= feedback.public ? t('.public') : t('.anonymous') %> </p>
-  </dl>
+  <li class="bg-white shadow-md rounded-lg transition hover:shadow-lg px-6 py-4 border-l-4  flex flex-col" id="<%= dom_id(feedback) %>">            
+    <%= link_to my_event_feedback_path(my_event_id: feedback.event_id, id: feedback.id), class: "block" do %>
+      <h3 class="text-2xl font-bold text-gray-900"><%= feedback.title %></h3>
+      <%= I18n.t('event.one') %>: <span class="font-medium text-gray-800"><%= @event.name %></span>
+      <p class="text-gray-600 text-sm mt-2">
+        <%= t('.created_by') %> <span class="font-medium text-gray-800"><%= feedback.user.full_name %></span> <%= t('.in') %> 
+        <span class="text-gray-500"><%= l(feedback.created_at, format: :short) %></span>
+      <p class="text-gray-600 text-sm mt-2">
+        <%= Feedback.human_attribute_name :mark %>: <span class="font-medium text-gray-800"><%= feedback.mark %></span>
+      </p>
+      <p> <%= Feedback.model_name.human %> <%= feedback.public ? t('.public') : t('.anonymous') %> </p>
+    <% end %>
+  </li>
 <% end %>
-
+</br>
 <% @item_feedbacks.each do |feedback| %>
-  <dl>
-    <dt> <%= I18n.t('schedule_item.one') %>:</dt>
-    <dd> <%= feedback.schedule_item.name %> </dd>
-
-    <dt> <%= Feedback.human_attribute_name :title %>:</dt>
-    <dd> <%= feedback.title %> </dd>
-
-    <dt> <%= Feedback.human_attribute_name :comment %>: </dt>
-    <dd> <%= feedback.comment %> </dd>
-
-    <dt> <%= Feedback.human_attribute_name :mark %>: </dt>
-    <dd> <%= feedback.mark %> </dd>
-
-    <p> <%= Feedback.model_name.human %> <%= feedback.public ? t('.public') : t('.anonymous') %> </p>
-  </dl>
+  <li class="bg-white shadow-md rounded-lg transition hover:shadow-lg px-6 py-4 border-l-4 flex flex-col" id="<%= dom_id(feedback) %>">     
+    <%= link_to my_event_schedule_item_item_feedback_path(my_event_id: feedback.event_id, schedule_item_id: feedback.schedule_item.schedule_item_id, id: feedback.id), class: "block" do %>
+      <h3 class="text-2xl font-bold text-gray-900"><%= feedback.title %></h3>
+      <%= I18n.t('schedule_item.one') %>: <span class="font-medium text-gray-800"><%= feedback.schedule_item.name %></span>
+      <p class="text-gray-600 text-sm mt-2">
+        <%= t('.created_by') %> <span class="font-medium text-gray-800"><%= feedback.user.full_name %></span> <%= t('.in') %> 
+        <span class="text-gray-500"><%= l(feedback.created_at, format: :short) %></span>
+      <p class="text-gray-600 text-sm mt-2">
+        <%= ItemFeedback.human_attribute_name :mark %>: <span class="font-medium text-gray-800"><%= feedback.mark %></span>
+      </p>
+      <p> <%= ItemFeedback.model_name.human %> <%= feedback.public ? t('.public') : t('.anonymous') %> </p>
+    <% end %>
+  </li>
 <% end %>
