@@ -11,6 +11,7 @@
     <p class="text-sm text-gray-500 mt-4"><%= t('.published_in') %> <%= l(@post.created_at, format: :short) %></p>
   </div>
   <%= link_to t('.edit_post'), edit_event_post_path(@event_id, @post), class: "btn-confirm self-end" if @post.user == current_user%>
+  <%= link_to t('.delete_post'), event_post_path(@event_id, @post), method: :delete, class: "btn-delete self-end" if @post.user == current_user%>
 </div>
 
 <% if user_signed_in? %>

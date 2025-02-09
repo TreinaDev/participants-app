@@ -7,6 +7,10 @@
     @apply text-white bg-purple-700 hover:bg-purple-500 focus:ring-4 focus:ring-purple-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
   }
 
+  .btn-delete {
+    @apply text-white bg-red-700 hover:bg-purple-500 focus:ring-4 focus:ring-purple-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+  }
+
   .btn-buy {
     @apply bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition
   }
@@ -16,7 +20,7 @@
   }
 
   .btn-nav {
-    @apply block py-2 px-3 md:p-0 md:hover:text-purple-400 text-white hover:text-white md:hover:bg-transparent 
+    @apply block py-2 px-3 md:p-0 md:hover:text-purple-400 text-white hover:text-white md:hover:bg-transparent
   }
 
   .btn-logout {
@@ -71,6 +75,14 @@
     @apply w-full rounded-md bg-violet-900 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-violet-600 focus:shadow-none active:bg-slate-700 hover:bg-violet-950 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none
   }
 
+  .input-stars {
+    @apply  bg-transparent border-0 text-transparent cursor-pointer appearance-none checked:bg-none focus:bg-none focus:ring-0 focus:ring-offset-0
+  }
+
+  .label-stars {
+    @apply  text-gray-300 pointer-events-none dark:peer-checked:text-yellow-600 dark:text-neutral-600
+  }
+
   .profile-row {
     @apply px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6
   }
@@ -87,5 +99,3 @@
     @apply text-sm text-gray-500 dark:text-gray-400
   }
 }
-
-

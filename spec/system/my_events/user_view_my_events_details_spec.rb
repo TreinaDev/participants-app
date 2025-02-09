@@ -28,21 +28,13 @@ describe "Participante de um evento acessa mais detalhes do evento", type: :syst
 
   it 'e é redirecionado para a página de detalhes deste evento ao clicar o botão' do
     user = create(:user)
-    batches = [ {
-        batch_id: '1',
-        name: 'Entrada - Meia',
-        limit_tickets: 20,
-        start_date: 5.days.ago.to_date,
-        value: 20.00,
-        end_date: 2.month.from_now.to_date,
-        event_id: '1'
-      }
-    ]
-    event = build(:event, name: 'DevWeek', batches: batches, event_id: '1')
+    event = build(:event, name: 'DevWeek', event_id: '1')
     events = [ event ]
-    ticket = create(:ticket, event_id: event.event_id, batch_id: '1', user: user)
-    batches.map! { |batch| build(:batch, **batch) }
-    allow(Batch).to receive(:request_batch_by_id).with("1", '1').and_return(batches[0])
+    batches = [ build(:batch) ]
+    target_event_id = event.event_id
+    target_batch_id = batches[0].batch_id
+    ticket = create(:ticket, event_id: event.event_id, batch_id: target_batch_id, user: user)
+    allow(Batch).to receive(:request_batch_by_id).with(target_event_id, target_batch_id).and_return(batches[0])
     allow(Event).to receive(:request_event_by_id).and_return(events[0])
 
     login_as user
@@ -88,22 +80,13 @@ describe "Participante de um evento acessa mais detalhes do evento", type: :syst
         date: 	"2025-02-16",
         schedule_items: []
       }
-
     ]
-    batches = [ {
-        batch_id: '1',
-        name: 'Entrada - Meia',
-        limit_tickets: 20,
-        start_date: 5.days.ago.to_date,
-        value: 20.00,
-        end_date: 2.month.from_now.to_date,
-        event_id: '1'
-      }
-    ]
-    event = build(:event, name: 'DevWeek', batches: batches, event_id: '1', schedules: schedules)
-    ticket = create(:ticket, event_id: event.event_id, batch_id: '1', user: user)
-    batches.map! { |batch| build(:batch, **batch) }
-    allow(Batch).to receive(:request_batch_by_id).with("1", '1').and_return(batches[0])
+    event = build(:event, name: 'DevWeek', event_id: '1', schedules: schedules)
+    batches = [ build(:batch) ]
+    target_event_id = event.event_id
+    target_batch_id = batches[0].batch_id
+    ticket = create(:ticket, event_id: event.event_id, batch_id: target_batch_id, user: user)
+    allow(Batch).to receive(:request_batch_by_id).with(target_event_id, target_batch_id).and_return(batches[0])
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
     login_as user
@@ -126,20 +109,12 @@ describe "Participante de um evento acessa mais detalhes do evento", type: :syst
 
   it 'e visualiza que não há programação para o evento' do
     user = create(:user)
-    batches = [ {
-        batch_id: '1',
-        name: 'Entrada - Meia',
-        limit_tickets: 20,
-        start_date: 5.days.ago.to_date,
-        value: 20.00,
-        end_date: 2.month.from_now.to_date,
-        event_id: '1'
-      }
-    ]
-    event = build(:event, name: 'DevWeek', batches: batches, event_id: '1')
-    ticket = create(:ticket, event_id: event.event_id, batch_id: '1', user: user)
-    batches.map! { |batch| build(:batch, **batch) }
-    allow(Batch).to receive(:request_batch_by_id).with("1", '1').and_return(batches[0])
+    event = build(:event, name: 'DevWeek', event_id: '1')
+    batches = [ build(:batch) ]
+    target_event_id = event.event_id
+    target_batch_id = batches[0].batch_id
+    ticket = create(:ticket, event_id: event.event_id, batch_id: target_batch_id, user: user)
+    allow(Batch).to receive(:request_batch_by_id).with(target_event_id, target_batch_id).and_return(batches[0])
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
     login_as user
@@ -150,20 +125,12 @@ describe "Participante de um evento acessa mais detalhes do evento", type: :syst
 
   it 'e consegue ver o feed do evento, ainda sem postagens' do
     user = create(:user)
-    batches = [ {
-        batch_id: '1',
-        name: 'Entrada - Meia',
-        limit_tickets: 20,
-        start_date: 5.days.ago.to_date,
-        value: 20.00,
-        end_date: 2.month.from_now.to_date,
-        event_id: '1'
-      }
-    ]
-    event = build(:event, name: 'DevWeek', batches: batches, event_id: '1')
-    ticket = create(:ticket, event_id: event.event_id, batch_id: '1', user: user)
-    batches.map! { |batch| build(:batch, **batch) }
-    allow(Batch).to receive(:request_batch_by_id).with("1", '1').and_return(batches[0])
+    event = build(:event, name: 'DevWeek', event_id: '1')
+    batches = [ build(:batch) ]
+    target_event_id = event.event_id
+    target_batch_id = batches[0].batch_id
+    ticket = create(:ticket, event_id: event.event_id, batch_id: target_batch_id, user: user)
+    allow(Batch).to receive(:request_batch_by_id).with(target_event_id, target_batch_id).and_return(batches[0])
     allow(Event).to receive(:request_event_by_id).and_return(event)
 
     login_as user
@@ -175,21 +142,13 @@ describe "Participante de um evento acessa mais detalhes do evento", type: :syst
 
   it "e consegue ver o feed de postagens" do
     user = create(:user)
-    batches = [ {
-        batch_id: '1',
-        name: 'Entrada - Meia',
-        limit_tickets: 20,
-        start_date: 5.days.ago.to_date,
-        value: 20.00,
-        end_date: 2.month.from_now.to_date,
-        event_id: '1'
-      }
-    ]
-    event = build(:event, name: 'DevWeek', batches: batches, event_id: '1')
+    event = build(:event, name: 'DevWeek', event_id: '1')
     events = [ event ]
-    ticket = create(:ticket, event_id: event.event_id, batch_id: '1', user: user)
-    batches.map! { |batch| build(:batch, **batch) }
-    allow(Batch).to receive(:request_batch_by_id).with("1", '1').and_return(batches[0])
+    batches = [ build(:batch) ]
+    target_event_id = event.event_id
+    target_batch_id = batches[0].batch_id
+    ticket = create(:ticket, event_id: event.event_id, batch_id: target_batch_id, user: user)
+    allow(Batch).to receive(:request_batch_by_id).with(target_event_id, target_batch_id).and_return(batches[0])
     allow(Event).to receive(:request_event_by_id).and_return(events[0])
 
     post = create(:post, user: user, event_id: event.event_id, title: 'Título Teste', content: '<b>Conteúdo Teste</b>')
@@ -287,21 +246,13 @@ describe "Participante de um evento acessa mais detalhes do evento", type: :syst
 
   it "e consegue chegar na página de conteudos de eventos através de meus eventos" do
     user = create(:user)
-    batches = [ {
-        batch_id: '1',
-        name: 'Entrada - Meia',
-        limit_tickets: 20,
-        start_date: 5.days.ago.to_date,
-        value: 20.00,
-        end_date: 2.month.from_now.to_date,
-        event_id: '1'
-      }
-    ]
-    event = build(:event, name: 'DevWeek', batches: batches, event_id: '1')
+    event = build(:event, name: 'DevWeek', event_id: '1')
     events = [ event ]
-    ticket = create(:ticket, event_id: event.event_id, batch_id: '1', user: user)
-    batches.map! { |batch| build(:batch, **batch) }
-    allow(Batch).to receive(:request_batch_by_id).with("1", '1').and_return(batches[0])
+    batches = [ build(:batch, name: 'Entrada - Meia') ]
+    target_event_id = event.event_id
+    target_batch_id = batches[0].batch_id
+    ticket = create(:ticket, event_id: event.event_id, batch_id: target_batch_id, user: user)
+    allow(Batch).to receive(:request_batch_by_id).with(target_event_id, target_batch_id).and_return(batches[0])
     allow(Event).to receive(:request_event_by_id).and_return(events[0])
     allow(Event).to receive(:request_event_by_id).and_return(event)
     allow(Event).to receive(:all).and_return(events)
@@ -309,7 +260,6 @@ describe "Participante de um evento acessa mais detalhes do evento", type: :syst
     login_as user
     visit root_path
     click_on 'Meus Eventos'
-
     within("#event_id_#{event.event_id}") do
       click_on 'Acessar Conteúdo do Evento'
     end

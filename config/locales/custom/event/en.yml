@@ -8,3 +8,8 @@ en:
     url_event: Event url
     event_owner: Event owner
     limit_participants: Limit participants
+    event_type: Event type
+    types:
+      inperson: Inperson
+      online: Online
+      hybrid: Hybrid

@@ -14,5 +14,6 @@ class MyEventsController < ApplicationController
     @posts = Post.where(event_id: params[:id])
     @feedbacks = Feedback.where(event_id: params[:id])
     @item_feedbacks = ItemFeedback.where(event_id: params[:id])
+    @announcements = Announcement.request_announcements_by_event_id(@event.event_id)
   end
 end

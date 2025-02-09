@@ -2,6 +2,7 @@ FactoryBot.define do
   factory :event do
     sequence(:event_id) { |n| n.to_s }
     name { "Dev Week" }
+    event_type { "inperson" }
     banner { 'http://localhost:3000/events/1/banner.jpg' }
     logo { 'http://localhost:3000/events/1/logo.jpg' }
     start_date { 2.days.from_now }
@@ -13,12 +14,12 @@ FactoryBot.define do
     event_owner { 'Samuel' }
     batches { [] }
     schedules { [] }
-    announcements { [] }
 
     initialize_with do
       new(
         event_id: event_id,
         name: name,
+        event_type: event_type,
         banner: banner,
         logo: logo,
         start_date: start_date,
@@ -30,7 +31,6 @@ FactoryBot.define do
         event_owner: event_owner,
         batches: batches,
         schedules: schedules,
-        announcements: announcements
       )
     end
   end

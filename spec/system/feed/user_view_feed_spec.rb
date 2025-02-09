@@ -16,13 +16,17 @@ describe 'Usuário visita página de detalhes de um evento' do
       create(:post, user: user2, event_id: event2.event_id.to_i, title: 'Título Teste 3')
       allow(Event).to receive(:request_event_by_id).and_return(event1)
       allow(Event).to receive(:all).and_return(events)
+      batches = [ build(:batch, batch_id: '1') ]
+      target_event_id = event1.event_id
+      target_batch_id = batches[0].batch_id
+      allow(Batch).to receive(:request_batch_by_id).with(target_event_id, target_batch_id).and_return(batches[0])
 
       login_as user1
       visit root_path
       within('nav') do
-        click_on 'Eventos'
+        click_on 'Meus Eventos'
       end
-      click_on 'DevWeek'
+      click_on 'Acessar Conteúdo do Evento'
 
       expect(page).to have_content('Feed')
       expect(page).to have_link('Título Teste 1')
@@ -35,11 +39,15 @@ describe 'Usuário visita página de detalhes de um evento' do
     it 'e não existem postagens no feed' do
       user = create(:user)
       event = build(:event, event_id: '1', name: 'DevWeek')
-      create(:ticket, user: user, event_id: event.event_id)
       allow(Event).to receive(:request_event_by_id).and_return(event)
+      batches = [ build(:batch, name: 'Entrada - Meia') ]
+      target_event_id = event.event_id
+      target_batch_id = batches[0].batch_id
+      ticket = create(:ticket, event_id: event.event_id, batch_id: target_batch_id, user: user)
+      allow(Batch).to receive(:request_batch_by_id).with(target_event_id, target_batch_id).and_return(batches[0])
 
       login_as user
-      visit event_by_name_path(event_id: event.event_id, name: event.name.parameterize, locale: :'pt-BR')
+      visit my_event_path(id: event.event_id)
 
       expect(page).to have_content('Feed')
       expect(page).to have_content 'Não existem postagens para esse evento'

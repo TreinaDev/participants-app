@@ -11,9 +11,9 @@
             <%=f.label :comment, class: 'form-label' %>
             <%=f.text_area :comment, class: 'form-field' %>
           </div>
-          <div class="w-full">
+          <div class="w-full rating-stars">
             <%=f.label :mark, class: 'form-label' %>
-            <%= f.select :mark, [["1", 1], ["2", 2], ["3", 3], ["4", 4], ["5", 5]], class: 'form-label' %>
+            <%= render 'shared/rating', name: model.is_a?(ItemFeedback) ? "item_feedback" : "feedback" %>
           </div>
           <label class="flex items-center cursor-pointer relative" for="check-2">
             <%= f.check_box :public, class: "peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-purple-900 checked:bg-slate-800 checked:border-slate-800", id: "check-2" %>

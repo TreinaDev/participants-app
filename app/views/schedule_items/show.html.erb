@@ -25,21 +25,27 @@
   <div class="bg-white shadow-lg rounded-lg p-6 flex flex-col">
     <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center"> <%= t(".activites") %></h2>
 
-    <% if @curriculum.tasks.any? %>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <% @curriculum.tasks.each do |task| %>
-          <div class="p-4 bg-green-50 rounded-lg shadow-md">
-            <h3 class="text-lg font-semibold text-green-700"><%= task.title %></h3>
-            <p class="text-sm text-gray-700"><%= task.description %></p>
-            <% if task.need_certificate %>
-              <p class="text-xs font-medium text-gray-600 mt-2"> <%= t(".needed_for_certification") %></p>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
+    <% if @curriculum.tasks_available %>
+      <% if @curriculum.tasks.any? %>
+        <div class="grid grid-cols-1 gap-6">
+          <% @curriculum.tasks.each do |task| %>
+            <div class="p-4 bg-green-50 rounded-lg shadow-md">
+              <h3 class="text-lg font-semibold text-green-700"><%= task.title %></h3>
+              <p class="text-sm text-gray-700"><%= task.description %></p>
+              <% if task.need_certificate %>
+                <p class="text-xs font-medium text-gray-600 mt-2"> <%= t(".needed_for_certification") %></p>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="text-center"> <%= t(".no_task_avaliable") %></p>
+      <% end %>
     <% else %>
-      <p class="text-center"> <%= t(".no_task_avaliable") %></p>
+      <p class="text-center"> <%= t(".no_task_avaliable_yet") %></p>
     <% end %>
+
+    
   </div>
 
 </div>

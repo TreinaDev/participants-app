@@ -48,91 +48,51 @@
       </div>
     </div>
   </div>
-  <div class="bg-white p-6 rounded-lg shadow-md w-full">
-    <div class="flex justify-between w-auto">
-      <dl>
-        <dt class="text-sm text-black-500 mt-1 font-bold"><%= I18n.t('event.start_date') %>:</dt>
-        <dd class="text-sm text-gray-500 mt-1"><%= I18n.l(@event.start_date, format: :long) %></dd>
-        <dt class="text-sm text-black-500 mt-1 font-bold"><%= I18n.t('event.end_date') %>:</dt>
-        <dd class="text-sm text-gray-500 mt-1"><%= I18n.l(@event.end_date, format: :long) %> </dd>
+  <div class="grid grid-cols-4 gap-4 bg-white w-full mb-6">
+    <div class="col-span-2 flex w-auto">
+      <dl class="pl-6"> <dt class="text-sm text-gray-500 mt-1"><%= I18n.t('event.event_type') %>:</dt>
+        <dd class="text-xl text-green-500 mt-1 font-bold">
+          <%= case @event.event_type
+              when "inperson" then I18n.t('event.types.inperson')
+              when "online" then I18n.t('event.types.online')
+              else I18n.t('event.types.online')
+            end
+          %>
+        </dd>
+        <dt class="text-sm text-gray-500 mt-1"><%= I18n.t('event.start_date') %>:</dt>
+        <dd class="text-sm text-black-500 mt-1 font-bold"><%= I18n.l(@event.start_date, format: :long) %></dd>
+        <dt class="text-sm text-gray-500 mt-1"><%= I18n.t('event.end_date') %>:</dt>
+        <dd class="text-sm text-black-500 mt-1 font-bold"><%= I18n.l(@event.end_date, format: :long) %> </dd>
       </dl>
-      <dl>        
-        <dt class="text-sm text-black-500 mt-1 font-bold"><%= I18n.t('event.local_event') %>:</dt>
-        <dd class="text-sm text-gray-500 mt-1"><%= @event.local_event %> </dd>
-        <dt class="text-sm text-black-500 mt-1 font-bold"><%= I18n.t('event.limit_participants') %>:</dt>
-        <dd class="text-sm text-gray-500 mt-1"><%= @event.limit_participants %></dd>
+      <dl class="pl-6">
+        <% if @event.event_type != "online" %>
+          <dt class="text-sm text-gray-500 mt-1"><%= I18n.t('event.local_event') %>:</dt>
+          <dd class="text-sm text-black-500 mt-1 font-bold"><%= @event.local_event %> </dd>
+        <% end %>
+        <dt class="text-sm text-gray-500 mt-1"><%= I18n.t('event.limit_participants') %>:</dt>
+        <dd class="text-sm text-black-500 mt-1 font-bold"><%= @event.limit_participants %></dd>
+        <dt class="text-sm text-gray-500 mt-1"><%= I18n.t('event.event_owner') %>:</dt>
+        <dd class="text-sm text-black-500 mt-1 font-bold"><%= @event.event_owner %>  </dd>
       </dl>
-      <dl>        
-        <dt class="text-sm text-black-500 mt-1 font-bold"><%= I18n.t('event.event_owner') %>:</dt>
-        <dd class="text-sm text-gray-500 mt-1"><%= @event.event_owner %>  </dd>
-        <dt class="text-sm text-black-500 mt-1 font-bold"><%= I18n.t('event.url_event') %>:</dt>
-        <dd class="text-sm text-gray-500 mt-1"><%= @event.url_event %></dd>
-      </dl>
-    </div>    
-  </div>
-  <div class="bg-white p-6 m-3 w-full">
-    <h2><%= t('.event_description') %>:</h2>
-    <%= render 'layouts/action_text/contents/content' do %>
-      <%= @event.rich_text_description %>
-    <% end %>
-  </div>          
-  <div class="bg-white p-6 m-3 w-full">
-    <h2><%= t('.event_agenda') %></h2>
-    <% if @event.schedules.empty? %>
-      <p class="mt-4 text-gray-600"><%= t('.no_schedule') %></p>
-    <% else %>
-      <div class="mt-4 space-y-4">
-        <% @event.schedules.each do |schedule| %>
-          <p class="font-bold text-gray-800"><%= I18n.l(schedule.date) %></p>
-          <% if schedule.schedule_items.empty? %>
-            <p class="mt-4 text-gray-600"><%= t('.no_schedule_item') %></p>
-          <% else %>
-            <% schedule.schedule_items.each do |item| %>
-              <div class="bg-white p-4 rounded-lg shadow-md">
-                <p class="font-bold text-gray-800"><%= item.name %></p>
-                <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.start_time') %>:</span> <%= item.start_time %></p>
-                <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.duration') %>:</span> <%= item.duration %>min</p>
-                 <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.responsible_email') %>:</span> <%= item.responsible_email %></p>
-                <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.responsible_name') %>:</span> <%= item.responsible_name %></p>
-                <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.schedule_type') %>:</span> <%=  I18n.t("schedule.schedule_types.#{item.schedule_type}") %></p>
-              </div>
-            <% end %>
-          <% end %>
+    </div>
+    <div class="col-span-2">
+      <h2 class="text-sm text-gray-500 mt-1"><%= t('.event_description') %>:</h2>
+      <div class="pr-5">
+        <%= render 'layouts/action_text/contents/content' do %>
+          <%= @event.rich_text_description %>
         <% end %>
       </div>
-    <% end %>
+    </div>
   </div>
-    <% if user_signed_in? && current_user.participates_in_event?(@event.event_id)%>
-      <section class="w-full mt-10 mb-10">
-        <div class="flex items-center justify-between mb-6 px-6">
-          <h2 class="text-3xl font-bold text-gray-900">Feed</h2>
-          <%= link_to new_event_post_path(event_id: @event.event_id), class: "btn-confirm" do %>
-            <span><%=t('.add_post')%></span>
-          <% end %>
-        </div>
-        <ul class="space-y-4">
-          <% if @announcements.any? %>
-            <% @announcements.each do |announcement| %>
-              <%= render 'announcements/announcement_list_item', announcement: announcement %>
-            <% end %>
-          <% end %>
-        </ul>
-        <ul class="space-y-4">
-          <% if @posts.any? %>
-            <% @posts.each do |post| %>
-              <li class="bg-white shadow-md rounded-lg transition hover:shadow-lg flex justify-between w-50" id="<%=dom_id(post)%>">
-                <%= render post %>
-                <div>
-                  <%= link_to t('.edit_post'), edit_event_post_path(@event.event_id, post), class: "btn-confirm" if post.user == current_user %>
-                </div>
-              </li>
-            <% end %>
-          <% else %>
-            <p><%=t('.no_posts')%></p>
-          <% end %>
-        </ul>
-      </section>
-    <% end %>
+
+
+  <%# agenda %>
+  <div class="flex flex-col items-center bg-white p-6 m-3 mt-8 w-full">
+    <h2 class="text-4xl font-bold text-violet-800 pb-10"><%= t('.event_agenda') %></h2>
+
+    <%= render 'agenda', event: @event %>
+  </div>
+  <%# fim da agenda %>
 </div>
 
 <% if @speakers.any? %>

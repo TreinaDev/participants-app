@@ -6,6 +6,7 @@ en:
       external_video_url: Video
       description: Description
       no_task_avaliable: No task avaliables
+      no_task_avaliable_yet: Activities still unavailable
       no_content_avaliable: No content avaliable
       contents: Contents
       activites: Activites

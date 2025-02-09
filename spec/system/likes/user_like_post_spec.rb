@@ -36,8 +36,12 @@ describe 'Usuário curte postagem' do
   it 'cria curtida automática do dono ao criar postagem' do
     user = create(:user)
     event = build(:event, event_id: '1', name: 'DevWeek')
-    create(:ticket, user: user, event_id: event.event_id)
     allow(Event).to receive(:request_event_by_id).and_return(event)
+    batches = [ build(:batch, name: 'Entrada - Meia') ]
+    target_event_id = event.event_id
+    target_batch_id = batches[0].batch_id
+    ticket = create(:ticket, event_id: event.event_id, batch_id: target_batch_id, user: user)
+    allow(Batch).to receive(:request_batch_by_id).with(target_event_id, target_batch_id).and_return(batches[0])
 
     login_as user
     visit new_event_post_path(event_id: event.event_id, locale: :'pt-BR')
