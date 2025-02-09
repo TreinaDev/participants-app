@@ -106,6 +106,7 @@ RSpec.describe "ScheduleItems", type: :request do
             "title": "Exercício Rails",
             "description": "Seu primeiro exercício ruby",
             "certificate_requirement": "Obrigatória",
+            "task_status": false,
             "attached_contents": [
               {
                 "attached_content_code": "MH0IBQ8O"
@@ -115,7 +116,7 @@ RSpec.describe "ScheduleItems", type: :request do
         ]
       )
       create(:ticket, event_id: event.event_id, user: user)
-      allow(Curriculum).to receive(:request_curriculum_by_schedule_item_code).and_return(curriculum)
+      allow(Curriculum).to receive(:request_curriculum_by_schedule_item_and_user_code).and_return(curriculum)
 
       login_as user
       get(my_event_schedule_item_path(my_event_id: event.event_id, id: schedules[0][:schedule_items][0][:code]))

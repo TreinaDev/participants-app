@@ -3,6 +3,6 @@ class ScheduleItemsController < ApplicationController
   before_action -> { check_user_is_participant(params[:my_event_id]) }, only: [ :show ]
   def show
     user_code = current_user.code
-    @curriculum = Curriculum.request_curriculum_by_schedule_item_code(params[:id], user_code)
+    @curriculum = Curriculum.request_curriculum_by_schedule_item_and_user_code(params[:id], user_code)
   end
 end
