@@ -5,7 +5,7 @@
     <%= form_link_to_back %>
   </div>
   <div class="text-center w-72 card-event">
-    <div class="flex justify-center items-center mb-5 h-72 mt-5 text-center">
+    <div id="<%= @ticket.token %>" class="flex justify-center items-center mb-5 h-72 mt-5 text-center">
         <%= @svg.html_safe %>
     </div>
     <div class="px-3 space-y-2 text-center">

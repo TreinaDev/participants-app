@@ -111,21 +111,31 @@ describe 'Usuário acessa ingressos de um evento' do
     expect(page).to have_content 'Você não participa deste evento'
   end
 
-  it 'e pode acessar o QrCode de um ticket específico' do
+  it 'e pode acessar o QrCode de um ticket específico', js: true do
     user = create(:user)
-    batches = [ {
-      batch_id: '1',
-      name: 'Entrada - Meia',
-      limit_tickets: 20,
-      start_date: 5.days.ago.to_date,
-      value: 20.00,
-      end_date: 2.month.from_now.to_date,
-      event_id: '1'
+    batches = [
+      {
+        batch_id: '1',
+        name: 'Entrada - Meia',
+        limit_tickets: 20,
+        start_date: 5.days.ago.to_date,
+        value: 20.00,
+        end_date: 2.month.from_now.to_date,
+        event_id: '1'
       }
     ]
+
     event = build(:event, name: 'DevWeek', batches: batches, event_id: '1')
     events = [ event ]
     ticket = create(:ticket, event_id: event.event_id, batch_id: '1', user: user)
+    qrcode = RQRCode::QRCode.new(ticket.token)
+    generated_svg = qrcode.as_svg(
+      offset: 0,
+      color: "000",
+      shape_rendering: "crispEdges",
+      module_size: 6,
+      standalone: true
+    ).to_s.strip
     batches.map! { |batch| build(:batch, **batch) }
     allow(Batch).to receive(:request_batch_by_id).with("1", '1').and_return(batches[0])
     allow(Event).to receive(:request_event_by_id).and_return(events[0])
@@ -134,6 +144,10 @@ describe 'Usuário acessa ingressos de um evento' do
     visit my_event_path(id: event.event_id, locale: :'pt-BR')
     click_on 'QR Code'
 
+    rendered_svg = page.evaluate_script("document.querySelector('##{ticket.token} svg')?.outerHTML").strip
     expect(current_path).to eq event_batch_ticket_path(event_id: event.event_id, batch_id: ticket.batch_id, id: ticket.id, locale: :'pt-BR')
+    expect(page).to have_css('svg')
+    expect(page).to have_css('svg[shape-rendering="crispEdges"]')
+    expect(normalize_svg(rendered_svg)).to eq(normalize_svg(generated_svg))
   end
 end
