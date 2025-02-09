@@ -25,6 +25,10 @@ class FeedbacksController < ApplicationController
     @item_feedbacks = ItemFeedback.where(user: current_user, event_id: @my_event_id)
   end
 
+  def show
+    @feedback = Feedback.find(params[:id])
+  end
+
   private
 
   def feedback_params

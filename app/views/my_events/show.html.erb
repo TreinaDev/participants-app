@@ -32,7 +32,7 @@
   </div>
 
   <% if user_signed_in? && current_user.participates_in_event?(@event.event_id) %>
-    <section class="w-full mt-10 mb-10">
+    <section id ="feed" class="w-full mt-10 mb-10">
       <div class="flex items-center justify-between mb-6 px-6">
         <h2 class="text-3xl font-bold text-gray-900">Feed</h2>
         <%= link_to new_event_post_path(event_id: @event.event_id), class: "btn-confirm" do %>
@@ -54,6 +54,27 @@
               <div class="mt-2 text-right">
                 <%= link_to t('.edit_post'), edit_event_post_path(@event.event_id, post), class: "btn-confirm" if post.user == current_user %>
               </div>
+            </li>
+          <% end %>
+        <% else %>
+          <p class="text-gray-600 text-center"><%= t('.no_posts') %></p>
+        <% end %>
+      <ul class="space-y-4">
+        <% if @feedbacks.any? %>
+          <% @feedbacks.each do |feedback| %>
+            <li class="bg-white shadow-md rounded-lg transition hover:shadow-lg px-6 py-4 border-l-4 border-amber-700 flex flex-col" id="<%= dom_id(feedback) %>">
+              <%= render feedback %>
+            </li>
+          <% end %>
+        <% else %>
+          <p class="text-gray-600 text-center"><%= t('.no_posts') %></p>
+        <% end %>
+      </ul>
+      <ul class="space-y-4">
+        <% if @item_feedbacks.any? %>
+          <% @item_feedbacks.each do |item_feedback| %>
+            <li class="bg-white shadow-md rounded-lg transition hover:shadow-lg px-6 py-4 border-l-4 border-amber-500 flex flex-col" id="<%= dom_id(item_feedback) %>">
+              <%= render item_feedback %>
             </li>
           <% end %>
         <% else %>
