@@ -100,4 +100,54 @@ describe 'Usuário feedback de um  item de um evento' do
     expect(current_path).to eq root_path
     expect(page).to have_content 'Você não participa deste evento'
   end
+
+  it 'e ve resposta do palestrante' do
+    schedules = [
+      {
+        date: 	5.day.ago,
+        schedule_items: [
+          {
+            name:	"Palestra",
+            start_time:	5.day.ago.beginning_of_day + 9.hours,
+            end_time:	5.day.ago.beginning_of_day + 10.hours,
+            code: '1'
+          }
+        ]
+      }
+    ]
+    batches = [ {
+        batch_id: '1',
+        name: 'Entrada - Meia',
+        limit_tickets: 20,
+        start_date: 5.days.ago.to_date,
+        value: 20.00,
+        end_date: 2.month.from_now.to_date,
+        event_id: '1'
+      }
+    ]
+    event = build(:event, name: 'DevWeek', batches: batches, event_id: '1', start_date: 5.days.ago, end_date: 1.day.ago, schedules: schedules)
+    schedule_item = event.schedules[0].schedule_items[0]
+    ticket = create(:ticket, event_id: event.event_id, batch_id: '1')
+    batches.map! { |batch| build(:batch, **batch) }
+    allow(Batch).to receive(:request_batch_by_id).with("1", '1').and_return(batches[0])
+    allow(Event).to receive(:request_event_by_id).and_return(event)
+    item_feedback = create(:item_feedback, title: 'Título Padrão', comment: 'Comentário Padrão', mark: 3, event_id: event.event_id,
+                                           user: ticket.user, public: true, schedule_item_id: schedule_item.schedule_item_id)
+    post "/api/v1/item_feedbacks/#{item_feedback.id}/feedback_answers", params: {
+      name: 'Nome do Participante Teste',
+      email: 'email@teste.com',
+      comment: 'Comentário Teste'
+  }
+
+    login_as ticket.user
+
+    visit my_event_path(event.event_id, locale: :'pt-BR')
+    click_on 'Título Padrão'
+
+    within '#answer' do
+      expect(page).to have_content 'Comentário Teste'
+      expect(page).to have_content 'Nome do Participante Teste'
+      expect(page).to have_content 'email@teste.com'
+    end
+  end
 end
