@@ -1,0 +1,31 @@
+
+  <% if user_signed_in? && current_user.participates_in_event?(event.event_id) %>
+    <section class="w-50 mt-10 mb-10">
+      <div class="flex items-center justify-end mb-6 px-6">
+        <%= link_to new_event_post_path(event_id: event.event_id), class: "btn-confirm" do %>
+          <span><%= t('.add_post') %></span>
+        <% end %>
+      </div>
+      <ul class="space-y-4">
+        <% if announcements.any? %>
+          <% announcements.each do |announcement| %>
+            <%= render 'announcements/announcement_list_item', announcement: announcement, event: event %>
+          <% end %>
+        <% end %>
+      </ul>
+      <ul class="space-y-4">
+        <% if posts.any? %>
+          <% posts.each do |post| %>
+            <li class="bg-white shadow-md rounded-lg transition hover:shadow-lg px-6 py-4 border-l-4 border-indigo-500 flex flex-col" id="<%= dom_id(post) %>">
+              <%= render post %>
+              <div class="mt-2 text-right">
+                <%= link_to t('.edit_post'), edit_event_post_path(event.event_id, post), class: "btn-confirm" if post.user == current_user %>
+              </div>
+            </li>
+          <% end %>
+        <% else %>
+          <p class="text-gray-600 text-center"><%= t('.no_posts') %></p>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
