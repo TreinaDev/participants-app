@@ -6,8 +6,8 @@ describe "Visitante remove favorito", type: :request do
 
     delete(favorite_path(id: user.favorites.first.id, locale: :'pt-BR'))
 
-    expect(response).to redirect_to new_user_session_path(locale: :'pt-BR')
-    expect(flash[:alert]).to eq 'Usuário não autenticado'
+    expect(response).to redirect_to new_user_session_path
+    expect(flash[:alert]).to eq 'Para continuar, faça login ou registre-se.'
   end
 
   it 'e deve ser o usuário do evento favoritado' do

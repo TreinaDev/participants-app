@@ -6,7 +6,7 @@ describe "Visitante cria favorito", type: :request do
 
     post(favorites_path, params: { event_id: event.event_id })
 
-    expect(response).to redirect_to new_user_session_path(locale: :'pt-BR')
-    expect(flash[:alert]).to eq 'Usuário não autenticado'
+    expect(response).to redirect_to new_user_session_path
+    expect(flash[:alert]).to eq 'Para continuar, faça login ou registre-se.'
   end
 end

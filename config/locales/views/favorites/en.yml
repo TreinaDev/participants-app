@@ -8,5 +8,3 @@ en:
     destroy:
       success: Unfavorite Event
       alert: You do not have permission to perform this action
-    check_user_is_authenticated:
-      alert: 
