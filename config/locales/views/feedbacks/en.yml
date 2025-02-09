@@ -7,6 +7,7 @@ en:
       title: Event Reviews
       public: Public
       anonymous: Anonymous
+      created_by: Created by
     create: 
       success: Feedback successfully added
       alert: Failed to save Feedback

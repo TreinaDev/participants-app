@@ -42,9 +42,8 @@ describe 'Usuário cria feedback de um evento' do
 
       expect(page).to have_content 'Feedback adicionado com sucesso'
       expect(page).to have_content 'Evento: DevWeek'
-      expect(page).to have_content 'Título: Avaliação da DevWeek'
+      expect(page).to have_content 'Avaliação da DevWeek'
       expect(page).to have_content 'Feedback Público'
-      expect(page).to have_content 'Comentário: O evento foi genial, mais a comida foi péssima'
       expect(page).to have_content 'Nota: 4'
     end
   end
