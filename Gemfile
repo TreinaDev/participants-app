@@ -8,6 +8,7 @@ gem "tzinfo-data", platforms: %i[windows jruby]
 
 # 📌 Frontend e Assets
 gem "importmap-rails"
+gem "jbuilder"
 gem "turbo-rails"
 gem "stimulus-rails"
 gem "tailwindcss-rails"
