@@ -1,16 +1,17 @@
 <%=page_title(t('.title'))%>
 
-
-<% if @my_events.empty? %>
-    <%= t('.no_tickets') %>
+<% if @event_ids.empty? %>
+  <p class="text-lg text-center text-gray-500 dark:text-black-300 mt-6"><%= t('.no_tickets') %></p>    
 <% else %>
-    <% @my_events.each do |event| %>
-        <div id="event_id_<%=event.event_id%>"  class="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition">
-            <%= render '/events/event', event: event %>
-            <%= link_to t('.event_details'), my_event_path(id: event.event_id), class: 'mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition block p-6 text-center' %>
-            <% if event.end_date < Date.today %>
-                <%= link_to t('.add_feedback'), new_my_event_feedback_path(event.event_id), class: 'mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition block p-6 text-center' %>
-            <% end %>
-        </div>
-    <% end %>
+  <p class="text-lg text-center text-gray-500 dark:text-black-300 mt-6"><%= t('.no_server') if @my_events.empty? %></p>
+    
+  <% @my_events.each do |event| %>
+      <div id="event_id_<%=event.event_id%>"  class="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition">
+          <%= render '/events/event', event: event %>
+          <%= link_to t('.event_details'), my_event_path(id: event.event_id), class: 'mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition block p-6 text-center' %>
+          <% if event.end_date < Date.today %>
+              <%= link_to t('.add_feedback'), new_my_event_feedback_path(event.event_id), class: 'mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition block p-6 text-center' %>
+          <% end %>
+      </div>
+  <% end %>
 <% end %>

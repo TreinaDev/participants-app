@@ -8,3 +8,4 @@ pt-BR:
     index:
       title: Eventos Favoritos
       no_favorites: Você ainda não possui eventos favoritos
+      no_server: Erro do servidor

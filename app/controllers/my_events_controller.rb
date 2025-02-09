@@ -3,8 +3,8 @@ class MyEventsController < ApplicationController
   before_action -> { check_user_is_participant(params[:id]) }, only: [ :show ]
 
   def index
-    event_ids = current_user.tickets.pluck(:event_id).uniq
-    @my_events = event_ids.map { |event_id| Event.request_event_by_id(event_id) }.select { |event| event_ids.include?(event.event_id) }
+    @event_ids = current_user.tickets.pluck(:event_id).uniq
+    @my_events = @event_ids.map { |event_id| Event.request_event_by_id(event_id) }.select { |event| @event_ids.include?(event.event_id) if event }
   end
 
   def show

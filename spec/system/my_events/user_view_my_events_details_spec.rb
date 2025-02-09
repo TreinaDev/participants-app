@@ -278,4 +278,18 @@ describe "Participante de um evento acessa mais detalhes do evento", type: :syst
 
     expect(page).to have_content 'Você ainda não possui ingressos comprados'
   end
+
+  it "e vê erro do servidor quando o aplicativo de eventos não esta no ar" do
+    user = create(:user)
+    event = build(:event, name: 'DevWeek', event_id: '1')
+    batches = [ build(:batch, name: 'Entrada - Meia') ]
+    target_batch_id = batches[0].batch_id
+    create(:ticket, event_id: event.event_id, batch_id: target_batch_id, user: user)
+
+    login_as user
+    visit root_path
+    click_on 'Meus Eventos'
+
+    expect(page).to have_content 'Erro do servidor'
+  end
 end
