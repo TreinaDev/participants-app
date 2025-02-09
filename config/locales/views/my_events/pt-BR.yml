@@ -1,6 +1,7 @@
 pt-BR:
   my_events:
     index:
+      no_server: Erro do servidor
       title: Meus Eventos
       no_tickets: Você ainda não possui ingressos comprados
       see_ticket: Ver Ingresso

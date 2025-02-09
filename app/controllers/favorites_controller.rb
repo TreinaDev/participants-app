@@ -9,8 +9,8 @@ class FavoritesController < ApplicationController
   end
 
   def index
-    favorite_event_ids = current_user.favorites.pluck(:event_id)
-    @favorites = Event.request_favorites(current_user.favorites).select { |event| favorite_event_ids.include?(event.event_id) }
+    @favorite_event_ids = current_user.favorites.pluck(:event_id)
+    @favorites = Event.request_favorites(current_user.favorites).select { |event| @favorite_event_ids.include?(event.event_id) if event }
   end
 
   def destroy

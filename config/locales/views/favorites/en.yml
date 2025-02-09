@@ -3,6 +3,7 @@ en:
     index:
       title: Events Favorites
       no_favorites: You don't have any favorite events yet
+      no_server: Server error
     create:
       success: Event successfully added to favorite
     destroy:

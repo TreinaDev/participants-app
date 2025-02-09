@@ -2,6 +2,7 @@ en:
   my_events:
     index:
       title: My Events
+      no_server: Server error
       no_tickets: You have not purchased any tickets yet
       see_ticket: See Ticket
       event_details: Access Event Content
