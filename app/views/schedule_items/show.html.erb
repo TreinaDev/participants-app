@@ -35,6 +35,10 @@
               <% if task.need_certificate %>
                 <p class="text-xs font-medium text-gray-600 mt-2"> <%= t(".needed_for_certification") %></p>
               <% end %>
+              <% if task.task_status %>
+                <p class="text-sm text-green-600 font-semibold absolute top-2 right-2"><%= t(".task_completed") %></p>
+              <% else %>
+              <% end %>
             </div>
           <% end %>
         </div>
