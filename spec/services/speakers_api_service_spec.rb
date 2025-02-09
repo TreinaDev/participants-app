@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe SpeakersApiService, type: :model do
   describe 'Usuário faz uma requisição de um curriculum' do
-    it 'e recebe um currículo com sucesso' do
+    it 'e recebe um currículo, por usuário, com sucesso' do
       curriculum = {
             "curriculum_contents": [
               {
@@ -24,6 +24,7 @@ describe SpeakersApiService, type: :model do
                 "title": "Exercício Rails",
                 "description": "Seu primeiro exercício ruby",
                 "certificate_requirement": "Obrigatória",
+                "task_status": false,
                 "attached_contents": [
                   {
                     "attached_content_code": "MH0IBQ8O"
@@ -34,8 +35,8 @@ describe SpeakersApiService, type: :model do
           }
 
       response = double('response', status: 200, body: curriculum.to_json)
-      allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3003/api/v1/curriculums/ABCD1234").and_return(response)
-      results = SpeakersApiService.get_curriculum("ABCD1234")
+      allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3003/api/v1/curriculums/ABCD1234/participants/ASDFGHJK").and_return(response)
+      results = SpeakersApiService.get_curriculum_by_user("ABCD1234", "ASDFGHJK")
 
       expect(results[:curriculum_contents][0][:code]).to eq 'MH0IBQ8O'
       expect(results[:curriculum_contents][0][:title]).to eq 'Ruby PDF'
@@ -48,13 +49,14 @@ describe SpeakersApiService, type: :model do
       expect(results[:curriculum_tasks][0][:title]).to eq 'Exercício Rails'
       expect(results[:curriculum_tasks][0][:description]).to eq 'Seu primeiro exercício ruby'
       expect(results[:curriculum_tasks][0][:certificate_requirement]).to eq "Obrigatória"
+      expect(results[:curriculum_tasks][0][:task_status]).to eq false
       expect(results[:curriculum_tasks][0][:attached_contents][0][:attached_content_code]).to eq 'MH0IBQ8O'
     end
 
     it 'e ocorre um erro na requisição' do
-      allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3003/api/v1/curriculums/ABCD1234").and_raise(Faraday::ServerError)
+      allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3003/api/v1/curriculums/ABCD1234/participants/ASDFGHJK").and_raise(Faraday::ServerError)
 
-      expect { SpeakersApiService.get_curriculum("ABCD1234") }.to raise_error(Faraday::ServerError)
+      expect { SpeakersApiService.get_curriculum_by_user("ABCD1234", "ASDFGHJK") }.to raise_error(Faraday::ServerError)
     end
   end
 

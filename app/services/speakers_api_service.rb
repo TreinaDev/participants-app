@@ -1,8 +1,8 @@
 class SpeakersApiService
   BASE_URL = "http://localhost:3003/api/v1"
 
-  def self.get_curriculum(curriculum_code)
-    self.request("#{BASE_URL}/curriculums/#{curriculum_code}", :get)
+  def self.get_curriculum_by_user(curriculum_code, user_code)
+    self.request("#{BASE_URL}/curriculums/#{curriculum_code}/participants/#{user_code}", :get)
   end
 
   def self.get_speaker(email)
