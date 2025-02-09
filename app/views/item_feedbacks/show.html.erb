@@ -17,3 +17,7 @@
     <%= t('.created_by') %> <span class="font-medium text-gray-800"><%= @item_feedback.user.full_name %></span>
   </div>
 </div>
+
+<% if @feedback_answer %>
+  <%= render @feedback_answer %>
+<% end %>
