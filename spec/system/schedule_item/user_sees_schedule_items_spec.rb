@@ -156,6 +156,7 @@ describe "Usuário vê itens de agenda", type: :system do
           "title": "Exercício Rails",
           "description": "Seu primeiro exercício ruby",
           "certificate_requirement": "Obrigatória",
+          "task_status": false,
           "attached_contents": [
             {
               "attached_content_code": "MH0IBQ8O"
@@ -169,7 +170,7 @@ describe "Usuário vê itens de agenda", type: :system do
     target_batch_id =  batches[0].batch_id
 
     allow(Event).to receive(:request_event_by_id).and_return(event)
-    allow(Curriculum).to receive(:request_curriculum_by_schedule_item_code).and_return(curriculum)
+    allow(Curriculum).to receive(:request_curriculum_by_schedule_item_and_user_code).and_return(curriculum)
     create(:ticket, event_id: event.event_id, batch_id: batches[0].batch_id, user: user)
     allow(Batch).to receive(:request_batch_by_id).with(target_event_id, target_batch_id).and_return(batches[0])
 
@@ -254,6 +255,7 @@ describe "Usuário vê itens de agenda", type: :system do
           "title": "Exercício Rails",
           "description": "Seu primeiro exercício ruby",
           "certificate_requirement": "Obrigatória",
+          "task_status": false,
           "attached_contents": [
             {
               "attached_content_code": "MH0IBQ8O"
@@ -267,7 +269,7 @@ describe "Usuário vê itens de agenda", type: :system do
     target_batch_id =  batches[0].batch_id
 
     allow(Event).to receive(:request_event_by_id).and_return(event)
-    allow(Curriculum).to receive(:request_curriculum_by_schedule_item_code).and_return(curriculum)
+    allow(Curriculum).to receive(:request_curriculum_by_schedule_item_and_user_code).and_return(curriculum)
     create(:ticket, event_id: event.event_id, batch_id: batches[0].batch_id, user: user)
     allow(Batch).to receive(:request_batch_by_id).with(target_event_id, target_batch_id).and_return(batches[0])
 
@@ -309,7 +311,7 @@ describe "Usuário vê itens de agenda", type: :system do
     target_batch_id =  batches[0].batch_id
 
     allow(Event).to receive(:request_event_by_id).and_return(event)
-    allow(Curriculum).to receive(:request_curriculum_by_schedule_item_code).and_return(curriculum)
+    allow(Curriculum).to receive(:request_curriculum_by_schedule_item_and_user_code).and_return(curriculum)
     create(:ticket, event_id: event.event_id, batch_id: batches[0].batch_id, user: user)
     allow(Batch).to receive(:request_batch_by_id).with(target_event_id, target_batch_id).and_return(batches[0])
 
