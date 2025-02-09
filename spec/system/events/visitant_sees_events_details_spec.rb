@@ -102,8 +102,7 @@ describe 'Visitante acessa página de detalhes de um evento' do
     expect(page).to have_content "Responsável: Hebe Soares"
     expect(page).to have_content "Email: soareshebe@sbt.com"
 
-    expect(page).to have_content "16/02/2025"
-    expect(page).to have_content 'Ainda não existe programação cadastrada para esse dia'
+    expect(page).not_to have_content "16/02/2025"
   end
 
   it 'e visualiza opção de ver ingressos' do

@@ -18,7 +18,6 @@
         <% end %>
       <% end %>
     </div>
-  
     <div class="space-y-4 text-right">
       <div class="space-y-2">
         <% if current_user && current_user.favorites.find_by(event_id: @event.event_id).present? %>
