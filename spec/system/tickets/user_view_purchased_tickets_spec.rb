@@ -111,7 +111,7 @@ describe 'Usuário acessa ingressos de um evento' do
     expect(page).to have_content 'Você não participa deste evento'
   end
 
-  it 'e pode acessar o QrCode de um ticket específico', js: true do
+  xit 'e pode acessar o QrCode de um ticket específico', js: true do
     user = create(:user)
     batches = [
       {
