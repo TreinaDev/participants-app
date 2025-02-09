@@ -23,7 +23,7 @@ describe 'Usuário ve feedbacks de um evento' do
       login_as ticket.user
       visit root_path
       click_on 'Meus Eventos'
-      click_on 'Acessar a meus feedbacks'
+      click_on 'Acessa Meus Feedbacks'
 
       expect(page).to have_content 'Evento: DevWeek'
       expect(page).to have_content 'Título Padrão'
@@ -46,7 +46,7 @@ describe 'Usuário ve feedbacks de um evento' do
       login_as ticket.user
       visit root_path
       click_on 'Meus Eventos'
-      click_on 'Acessar a meus feedbacks'
+      click_on 'Acessa Meus Feedbacks'
 
       expect(page).to have_content 'Evento: DevWeek'
       expect(page).to have_content 'Título Padrão'
@@ -74,7 +74,7 @@ describe 'Usuário ve feedbacks de um evento' do
       visit root_path
       click_on 'Meus Eventos'
       within "#event_id_2" do
-        click_on 'Acessar a meus feedbacks'
+        click_on 'Acessa Meus Feedbacks'
       end
 
       expect(page).not_to have_content 'Evento: DevWeek'
@@ -113,7 +113,7 @@ describe 'Usuário ve feedbacks de um evento' do
     visit root_path
     click_on 'Meus Eventos'
 
-    expect(page).not_to have_link 'Acessar a meus feedbacks'
+    expect(page).not_to have_link 'Acessa Meus Feedbacks'
   end
 
   it 'mas o evento não terminou' do
