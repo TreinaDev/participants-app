@@ -11,4 +11,5 @@ pt-BR:
       hello: "Olá, %{name}"
     feedback_form:
       save: Adicionar Feedback
+      form_title: Avaliação
 

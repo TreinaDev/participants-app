@@ -11,3 +11,4 @@ en:
       hello: "Hello, %{name}"
     feedback_form:
       save: Add Feedback
+      form_title: Review
