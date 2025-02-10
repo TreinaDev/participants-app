@@ -26,10 +26,12 @@ describe 'Feedback Answer API' do
                                              user: user, schedule_item_id: schedule_item.schedule_item_id, public: true)
 
       post "/api/v1/item_feedbacks/#{item_feedback.id}/feedback_answers", params: {
-            name: 'Nome do Participante Teste',
-            email: 'email@teste.com',
-            comment: 'Comentário Teste'
-        }
+            feedback_answer: {
+              name: 'Nome do Participante Teste',
+                email: 'email@teste.com',
+                comment: 'Comentário Teste'
+            }
+          }
 
       expect(response).to have_http_status 201
       expect(response.content_type).to include 'application/json'
@@ -65,10 +67,12 @@ describe 'Feedback Answer API' do
               user: user, schedule_item_id: schedule_item.schedule_item_id, public: true)
 
       post "/api/v1/item_feedbacks/#{item_feedback.id}/feedback_answers", params: {
-            name: '',
+        feedback_answer: {
+          name: '',
             email: '',
             comment: ''
         }
+      }
 
       expect(response).to have_http_status 406
       expect(response.content_type).to include 'application/json'
@@ -98,10 +102,12 @@ describe 'Feedback Answer API' do
       login_as user
 
       post "/api/v1/item_feedbacks/#{item_feedback_id}/feedback_answers", params: {
-            name: 'Nome do Participante Teste',
-            email: 'email@teste.com',
-            comment: 'Comentário Teste'
-        }
+            feedback_answer: {
+              name: 'Nome do Participante Teste',
+                email: 'email@teste.com',
+                comment: 'Comentário Teste'
+            }
+          }
 
       expect(response).to have_http_status 404
       expect(response.content_type).to include 'application/json'
@@ -134,10 +140,12 @@ describe 'Feedback Answer API' do
       allow(FeedbackAnswer).to receive(:new).and_raise(ActiveRecord::ActiveRecordError)
 
       post "/api/v1/item_feedbacks/#{item_feedback.id}/feedback_answers", params: {
-        name: 'Nome do Participante Teste',
-        email: 'email@teste.com',
-        comment: 'Comentário Teste'
-      }
+          feedback_answer: {
+            name: 'Nome do Participante Teste',
+              email: 'email@teste.com',
+              comment: 'Comentário Teste'
+          }
+        }
 
       expect(response).to have_http_status 500
       expect(response.content_type).to include 'application/json'
