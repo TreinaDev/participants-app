@@ -73,6 +73,7 @@ RSpec.describe Curriculum, type: :model do
             }
           ],
           "tasks_available": true,
+          "certificate_url": "http://localhost:3000/certificates/PIMZBVXM04DWVNVWI90H.pdf",
           "curriculum_tasks": [
             {
               "code": "FNRVUEUB",
@@ -96,7 +97,7 @@ RSpec.describe Curriculum, type: :model do
       results = Curriculum.request_curriculum_by_schedule_item_and_user_code("ABCD1234", user_code)
 
       expect(results.tasks_available).to eq true
-
+      expect(results.certificate_url).to eq "http://localhost:3000/certificates/PIMZBVXM04DWVNVWI90H.pdf"
       expect(results.contents[0].code).to eq 'MH0IBQ8O'
       expect(results.contents[0].title).to eq 'Ruby PDF'
       expect(results.contents[0].description).to eq "<strong>Descrição Ruby PDF</strong>"
