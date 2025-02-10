@@ -6,6 +6,8 @@ en:
       edit_post: Edit Post
       delete_post: Delete Post
       published_in: 'Published in:'
+      like: Like
+      unlike: Unlike
       likes:
         one: like
         other: likes
