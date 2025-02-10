@@ -2,38 +2,45 @@
   <%= button_to_back %>
 </div>
 
-<div class="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg flex justify-between border-x mb-3">
-  <div>
-    <div class="prose prose-lg text-gray-700">
-      <h1 class="text-3xl font-bold text-gray-800 mb-4"><%= page_title(@post.title) %></h1>
-      <%= @post.content %>
-    </div>
-    <p class="text-sm text-gray-500 mt-4"><%= t('.published_in') %> <%= l(@post.created_at, format: :short) %></p>
-  </div>
-  <%= link_to t('.edit_post'), edit_event_post_path(@event_id, @post), class: "btn-confirm self-end" if @post.user == current_user%>
-  <%= link_to t('.delete_post'), event_post_path(@event_id, @post), method: :delete, class: "btn-delete self-end" if @post.user == current_user%>
+<div class="post-container">
+  <h1 class="post-title"><%= page_title(@post.title) %></h1>
+  <div class="post-content"><%= @post.content %></div>
+  <p class="post-meta"><%= t('.published_in') %> <%= l(@post.created_at, format: :short) %></p>
+</div>
+
+<div class="flex gap-4 justify-center items-center">
+  <%= link_to t('.edit_post'), edit_event_post_path(@event_id, @post), class: "btn-confirm" if @post.user == current_user %>
+  <%= link_to t('.delete_post'), event_post_path(@event_id, @post), method: :delete, class: "btn-delete" if @post.user == current_user %>
 </div>
 
 <% if user_signed_in? %>
-  <% if !@post.liked_by?(current_user) %>
-    <%= button_to event_post_likes_path(event_id: @event_id, post_id: @post.id), id: "like-button" do %>
-        <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"/>
-        </svg>
+  <div class="flex items-center gap-2 justify-center">
+    <% if !@post.liked_by?(current_user) %>
+      <%= button_to event_post_likes_path(event_id: @event_id, post_id: @post.id), id: "like-button", class: "like-button" do %>
+        ❤️ <span><%= t('.like') %></span>
+      <% end %>
+    <% else %>
+      <%= button_to event_post_like_path(event_id: @event_id, post_id: @post.id, id: @like.id), method: :delete, id: "unlike-button", class: "like-button" do %>
+        💔 <span><%= t('.unlike') %></span>
+      <% end %>
     <% end %>
-  <% else %>
-    <%= button_to event_post_like_path(event_id: @event_id, post_id: @post.id, id: @like.id), method: :delete, id: "unlike-button" do %>
-      <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="full" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"/>
-      </svg>
-    <% end %>
+  </div>
+<% end %>
+
+<div class="flex items-center gap-2 justify-center">
+  <p class="likes-count"><%= @number_of_likes %> <%= t('.likes', count: @number_of_likes) %></p>
+</div>
+
+<div class="comments-container">
+  <%= render 'shared/errors_messages', model: @comment %>
+
+  <%= render 'comments/new', post_id: @post.id, event_id: @event_id %>
+
+  <% if @post.comments.any? %>
+    <div class="mt-4">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4"><%= Comment.model_name.human(count: @post.comments.count) %></h2>
+
+      <%= render @post.comments %>
+    </div>
   <% end %>
-<% end %>
-<p><%=@number_of_likes%> <%=t('.likes', count: @number_of_likes)%></p>
-
-<%= render 'shared/errors_messages', model: @comment %>
-<%= render 'comments/new', post_id: @post.id, event_id: @event_id %>
-
-<% if @post.comments.any? %>
-  <%= render @post.comments %>
-<% end %>
+</div>

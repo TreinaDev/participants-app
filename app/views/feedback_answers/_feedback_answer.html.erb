@@ -1,7 +1,7 @@
-<br>
-<div id="answer">
-  <p><%=feedback_answer.comment%></p>
-  <p><%=feedback_answer.name%></p>
-  <p><%=feedback_answer.email%></p>
-  <p><%=l(feedback_answer.created_at, format: :short)%></p>
+<div id="answer" class="bg-white shadow-md rounded-lg p-4 border border-gray-200 max-w-lg mx-auto">
+  <p class="text-gray-700 text-lg font-medium"><%= feedback_answer.comment %></p>
+  <div class="mt-2 text-sm text-gray-500">
+    <p><strong><%= feedback_answer.name %></strong> • <%= feedback_answer.email %></p>
+    <p class="text-gray-400"><%= l(feedback_answer.created_at, format: :short) %></p>
+  </div>
 </div>

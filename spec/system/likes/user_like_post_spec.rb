@@ -12,7 +12,7 @@ describe 'Usuário curte postagem' do
     login_as other_user
     visit event_post_path(event_id: event.event_id, id: post)
 
-    expect(page).to have_css('#like-button')
+    expect(page).to have_css('.like-button')
   end
 
   it 'com sucesso' do
@@ -26,7 +26,7 @@ describe 'Usuário curte postagem' do
 
     login_as other_user
     visit event_post_path(event_id: event.event_id, id: post)
-    find('#like-button').click
+    find('.like-button').click
 
     expect(page).to have_content 'Você curtiu a postagem com sucesso'
     expect(page).not_to have_css('#like-button')
