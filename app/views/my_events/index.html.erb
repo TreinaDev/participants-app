@@ -1,18 +1,33 @@
 <%=page_title(t('.title'))%>
 
 <% if @event_ids.empty? %>
-  <p class="text-lg text-center text-gray-500 dark:text-black-300 mt-6"><%= t('.no_tickets') %></p>    
+  <div class="flex justify-center items-center h-64">
+    <p class="text-xl text-center text-gray-500 dark:text-gray-300">
+      <%= t('.no_tickets') %>
+    </p>
+  </div>
 <% else %>
   <p class="text-lg text-center text-gray-500 dark:text-black-300 mt-6"><%= t('.no_server') if @my_events.empty? %></p>
-    
-  <% @my_events.each do |event| %>
-      <div id="event_id_<%=event.event_id%>"  class="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <% @my_events.each do |event| %>
+        <div id="event_id_<%=event.event_id%>" class="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
           <%= render '/events/event', event: event %>
-          <%= link_to t('.event_details'), my_event_path(id: event.event_id), class: 'mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition block p-6 text-center' %>
-          <% if event.end_date < Date.today %>
-              <%= link_to t('.add_feedback'), new_my_event_feedback_path(event.event_id), class: 'mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition block p-6 text-center' %>
-              <%= link_to t('.see_feedbacks'), my_event_feedbacks_path(event.event_id), class: 'mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition block p-6 text-center' %>              
-          <% end %>
-      </div>
-  <% end %>
+          
+          <div class="p-4">
+            <%= link_to t('.event_details'), my_event_path(id: event.event_id), 
+              class: 'block w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition text-center font-medium' %>
+            
+            <% if event.end_date < Date.today %>
+              <%= link_to t('.add_feedback'), new_my_event_feedback_path(event.event_id),
+                class: 'block w-full mt-2 bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition text-center font-medium' %>
+                
+              <%= link_to t('.see_feedbacks'), my_event_feedbacks_path(event.event_id), 
+                class: 'block w-full mt-2 bg-gray-600 text-white py-2 rounded-lg hover:bg-gray-700 transition text-center font-medium' %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 <% end %>
