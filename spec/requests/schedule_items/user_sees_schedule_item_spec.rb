@@ -100,6 +100,7 @@ RSpec.describe "ScheduleItems", type: :request do
       curriculum = Curriculum.new(
         contents: [],
         tasks_available: true,
+        certificate_url: "http://localhost:3000/certificates/PIMZBVXM04DWVNVWI90H.pdf",
         tasks: [
           {
             "code": "FNRVUEUB",

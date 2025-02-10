@@ -50,4 +50,10 @@
       <p class="text-center"> <%= t(".no_task_avaliable_yet") %></p>
     <% end %>
   </div>
+
+  <% unless @curriculum.certificate_url.nil? %>
+    <div>
+      <%= link_to t('.my_certificate'), @curriculum.certificate_url, class: "btn-event"  %>
+    </div>
+  <% end %>
 </div>
