@@ -33,7 +33,7 @@
     <div class="flex-1 p-6 border-2 border-violet-200 rounded-lg">
         <div class="tab-content" id="tab1">
           <h2 class="h2-dashbord"><%= t('.Dashboard') %></h2>
-          <%= render 'dashboard_event', announcements: @announcements, posts: @posts, event: @event,  tickets_by_batch_id: @tickets_by_batch_id %>
+          <%= render 'dashboard_event', announcements: @announcements, posts: @posts, event: @event,  tickets_by_batch_id: @tickets_by_batch_id, batches: @batches %>
         </div>
         
         <div class="tab-content hidden" id="tab2">

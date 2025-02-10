@@ -45,7 +45,7 @@
           <p class="text-xs uppercase tracking-wide text-gray-500"><%= t('.tickets') %></p>
           <div class="w-20 ml-2 px-3 py-1 rounded-xl bg-violet-100 text-center">
             <h3 class="text-xl sm:text-2xl font-medium text-violet-800">
-              <%= current_user.tickets.count %>
+              <%= batches.keys.sum { |batch_id| tickets_by_batch_id[batch_id].count } %>
             </h3>
           </div>
         </div>
