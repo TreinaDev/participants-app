@@ -2,6 +2,7 @@ class FeedbacksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_and_check_my_event_id
   before_action -> { check_user_is_participant(@my_event_id) }
+  before_action :set_and_check_feedback, only: :show
 
   def new
     @feedback = Feedback.new
@@ -25,9 +26,7 @@ class FeedbacksController < ApplicationController
     @item_feedbacks = ItemFeedback.where(user: current_user, event_id: @my_event_id)
   end
 
-  def show
-    @feedback = Feedback.find(params[:id])
-  end
+  def show;  end
 
   private
 
@@ -39,5 +38,10 @@ class FeedbacksController < ApplicationController
     @my_event_id = params[:my_event_id]
     @event = Event.request_event_by_id(@my_event_id)
     redirect_to root_path, alert: t(".no_finished") if @event.end_date > DateTime.now
+  end
+
+  def set_and_check_feedback
+    @feedback = Feedback.find(params[:id])
+    redirect_to root_path, alert: t(".not_yours") unless @feedback.public && current_user == @feedback.user
   end
 end

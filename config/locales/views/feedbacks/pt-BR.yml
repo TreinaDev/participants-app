@@ -11,3 +11,5 @@ pt-BR:
     create: 
       success: Feedback adicionado com sucesso
       alert: Falha ao salvar o Feedback
+    show: 
+    not_yours: Você não possui acesso a esse feedback

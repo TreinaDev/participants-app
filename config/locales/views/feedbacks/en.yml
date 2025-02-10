@@ -11,3 +11,5 @@ en:
     create: 
       success: Feedback successfully added
       alert: Failed to save Feedback
+    show:
+      not_yours: You don't have access to this feedback

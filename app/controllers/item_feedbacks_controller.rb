@@ -3,6 +3,7 @@ class ItemFeedbacksController < ApplicationController
   before_action :set_and_check_my_event
   before_action :set_and_check_schedule
   before_action -> { check_user_is_participant(@my_event_id) }
+  before_action :set_and_check_item_feedback, only: :show
 
   def new
     @item_feedback = ItemFeedback.new()
@@ -23,7 +24,6 @@ class ItemFeedbacksController < ApplicationController
   end
 
   def show
-    @item_feedback = ItemFeedback.find(params[:id])
     @feedback_answer = FeedbackAnswer.find_by(item_feedback: @item_feedback.id)
   end
 
@@ -43,5 +43,10 @@ class ItemFeedbacksController < ApplicationController
     @schedule_item_id = params[:schedule_item_id]
     @schedule_item = @event.schedules.flat_map(&:schedule_items).find { |item_schedule| item_schedule.schedule_item_id == @schedule_item_id }
     redirect_to root_path, alert: t(".no_schedule") unless @schedule_item
+  end
+
+  def set_and_check_item_feedback
+    @item_feedback = ItemFeedback.find(params[:id])
+    redirect_to root_path, alert: t(".not_yours") unless @item_feedback.public && current_user == @item_feedback.user
   end
 end
