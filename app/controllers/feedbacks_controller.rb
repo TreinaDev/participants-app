@@ -1,6 +1,6 @@
 class FeedbacksController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_and_check_my_event_id  
+  before_action :set_and_check_my_event_id
   before_action -> { check_user_is_participant(@my_event_id) }
   before_action :set_and_check_feedback, only: :show
 
