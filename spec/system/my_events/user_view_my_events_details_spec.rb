@@ -292,4 +292,84 @@ describe "Participante de um evento acessa mais detalhes do evento", type: :syst
 
     expect(page).to have_content 'Erro do servidor'
   end
+
+  it 'e não vê feedbacks anonimos' do
+    user = create(:user, name: 'David', last_name: 'Martinez')
+    batches = [ {
+        batch_id: '1',
+        name: 'Entrada - Meia',
+        limit_tickets: 20,
+        start_date: 5.days.ago.to_date,
+        value: 20.00,
+        end_date: 2.month.from_now.to_date,
+        event_id: '1'
+      }
+    ]
+    event = build(:event, name: 'DevWeek', batches: batches, event_id: '1', start_date: 5.days.ago, end_date: 1.day.ago)
+    ticket = create(:ticket, event_id: event.event_id, batch_id: '1', user: user)
+    batches.map! { |batch| build(:batch, **batch) }
+    allow(Batch).to receive(:request_batch_by_id).with("1", '1').and_return(batches[0])
+    allow(Event).to receive(:request_event_by_id).and_return(event)
+
+    login_as ticket.user
+    create(:feedback, title: 'Título Padrão', comment: 'Comentário Padrão', mark: 3, event_id: event.event_id,
+                      user: user, public: true)
+    create(:feedback, title: 'Título Padrão 2', comment: 'Comentário Padrão 2', mark: 1, event_id: event.event_id,
+                      user: user, public: false)
+    visit my_event_path(event.event_id, locale: :'pt-BR')
+
+    expect(page).to have_content 'Feedback'
+    expect(page).to have_content 'David Martinez'
+    expect(page).to have_content 'Título Padrão'
+    expect(page).to have_content 'Nota: 3'
+    expect(page).not_to have_content 'Título Padrão 2'
+    expect(page).not_to have_content 'Nota: 1'
+  end
+
+  it 'e não consegue ver feedback de um item de um evento anonimos' do
+    user = create(:user, name: 'David', last_name: 'Martinez')
+    batches = [ {
+        batch_id: '1',
+        name: 'Entrada - Meia',
+        limit_tickets: 20,
+        start_date: 5.days.ago.to_date,
+        value: 20.00,
+        end_date: 2.month.from_now.to_date,
+        event_id: '1'
+      }
+    ]
+    schedules = [
+      {
+        date: 	5.day.ago,
+        schedule_items: [
+          {
+            name:	"Palestra",
+            start_time:	5.day.ago.beginning_of_day + 9.hours,
+            end_time:	5.day.ago.beginning_of_day + 10.hours,
+            code: '1'
+          }
+        ]
+      }
+    ]
+    event = build(:event, name: 'DevWeek', batches: batches, event_id: '1', start_date: 5.days.ago, end_date: 1.day.ago, schedules: schedules)
+    schedule_item = event.schedules[0].schedule_items[0]
+    ticket = create(:ticket, event_id: event.event_id, batch_id: '1', user: user)
+    batches.map! { |batch| build(:batch, **batch) }
+    allow(Batch).to receive(:request_batch_by_id).with("1", '1').and_return(batches[0])
+    allow(Event).to receive(:request_event_by_id).and_return(event)
+
+    login_as ticket.user
+    create(:item_feedback, title: 'Título Padrão', comment: 'Comentário Padrão', mark: 3, event_id: event.event_id,
+                                      user: user, public: true, schedule_item_id: schedule_item.schedule_item_id)
+    create(:item_feedback, title: 'Título Padrão 2', comment: 'Comentário Padrão', mark: 1, event_id: event.event_id,
+                                      user: user, public: false, schedule_item_id: schedule_item.schedule_item_id)
+    visit my_event_path(event.event_id, locale: :'pt-BR')
+
+    expect(page).to have_content 'Feedback'
+    expect(page).to have_content 'David Martinez'
+    expect(page).to have_content 'Título Padrão'
+    expect(page).to have_content 'Nota: 3'
+    expect(page).not_to have_content 'Título Padrão 2'
+    expect(page).not_to have_content 'Nota: 1'
+  end
 end
