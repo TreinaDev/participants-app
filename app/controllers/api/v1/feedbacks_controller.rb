@@ -12,7 +12,7 @@ class Api::V1::FeedbacksController < Api::V1::ApiController
 
       feedback_json = @feedbacks.map { |feedback| { id: feedback.id, title: feedback.title,
                                                     comment: feedback.comment, mark: feedback.mark,
-                                                    user: feedback.user.full_name } }
+                                                    user: feedback.user_identification } }
 
       render status: :ok, json: { event_id: @event.event_id, feedbacks: feedback_json, item_feedbacks: item_feedbacks }
     else
