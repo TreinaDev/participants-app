@@ -54,7 +54,36 @@ describe 'Usuário ve feedback de um evento' do
                                       user: ticket.user, public: true)
 
     visit my_event_feedback_path(my_event_id: feedback.event_id, id: feedback.id)
+
     expect(current_path).to eq root_path
     expect(page).to have_content 'Você não participa deste evento'
+  end
+
+  it 'e não pode ver feedback anonimo de outro usuario' do
+    user = create(:user)
+    batches = [ {
+        batch_id: '1',
+        name: 'Entrada - Meia',
+        limit_tickets: 20,
+        start_date: 5.days.ago.to_date,
+        value: 20.00,
+        end_date: 2.month.from_now.to_date,
+        event_id: '1'
+      }
+    ]
+    event = build(:event, name: 'DevWeek', batches: batches, event_id: '1', start_date: 5.days.ago, end_date: 1.day.ago)
+    ticket = create(:ticket, event_id: event.event_id, batch_id: '1')
+    create(:ticket, event_id: event.event_id, batch_id: '1', user: user)
+    batches.map! { |batch| build(:batch, **batch) }
+    allow(Batch).to receive(:request_batch_by_id).with("1", '1').and_return(batches[0])
+    allow(Event).to receive(:request_event_by_id).and_return(event)
+    feedback = create(:feedback, title: 'Título Padrão', comment: 'Comentário Padrão', mark: 3, event_id: event.event_id,
+                      user: ticket.user, public: false)
+
+    login_as user
+
+    visit my_event_feedback_path(my_event_id: feedback.event_id, id: feedback.id)
+
+    expect(page).to have_content 'Você não possui acesso a esse feedback'
   end
 end

@@ -7,3 +7,5 @@ en:
     create:       
       success: Feedback added with success
       alert: Failed to save feedback
+    show:
+      not_yours: You don't have access to this feedback
