@@ -65,6 +65,20 @@ describe 'usuário adiciona link social ao perfil' do
     expect(page).to have_selector('a[href="https://www.facebook.com"]')
   end
 
+  it 'com url inválido' do
+    user = create(:user)
+    SocialMedium.create(name: 'Facebook')
+
+    login_as user
+    visit new_user_profile_social_link_path(user_id: user, profile_id: user.profile)
+    select 'Facebook', from: 'Redes Sociais'
+    fill_in 'URL', with: '132546'
+    click_on 'Salvar Link'
+
+    expect(page).to have_content 'Não foi possível salvar o Link'
+    expect(page).not_to have_link 'Facebook'
+  end
+
   it 'e clica no botão de voltar' do
     user = create(:user)
     SocialMedium.create(name: 'Facebook')
