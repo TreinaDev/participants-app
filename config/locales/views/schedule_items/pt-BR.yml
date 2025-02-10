@@ -5,10 +5,11 @@ pt-BR:
       title: Título
       external_video_url: Vídeo
       description: Descrição
-      no_task_avaliable: Nenhuma tarefa disponível
+      no_task_avaliable: Nenhuma atividade disponível
       no_task_avaliable_yet: Atividades ainda indisponíveis
       no_content_avaliable: Nenhum conteúdo disponível
       contents: Conteúdos
       activites: Atividades
       needed_for_certification: Necessário para certificado
-    
+      task_completed: Atividade Concluída!
+      finish_task: Finalizar Tarefa

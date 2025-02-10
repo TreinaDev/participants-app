@@ -11,4 +11,5 @@ en:
       contents: Contents
       activites: Activites
       needed_for_certification: Needed for certification
-    
+      task_completed: Task Completed
+      finish_task: Finish Task
