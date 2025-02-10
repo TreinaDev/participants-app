@@ -9,4 +9,8 @@ class ItemFeedback < ApplicationRecord
     event = Event.request_event_by_id(self.event_id)
     event.schedules.flat_map(&:schedule_items).find { |item_schedule| item_schedule.schedule_item_id == self.schedule_item_id }
   end
+
+  def user_identification
+    self.public ? user.full_name : "Anônimo"
+  end
 end

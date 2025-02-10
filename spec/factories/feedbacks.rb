@@ -5,5 +5,6 @@ FactoryBot.define do
     title { "Título Padrão" }
     comment { "Comentário Padrão" }
     mark { 1 }
+    public { false }
   end
 end

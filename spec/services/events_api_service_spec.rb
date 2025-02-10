@@ -35,7 +35,7 @@ describe EventsApiService, type: :model do
       ]
 
       response = double('response', status: 200, body: events.to_json)
-      allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/api/v1/events').and_return(response)
+      allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3001/api/v1/events').and_return(response)
       results = EventsApiService.get_events
 
       expect(results[0][:uuid]).to eq 1
@@ -89,7 +89,7 @@ describe EventsApiService, type: :model do
         }
       ]
       response = double('response', status: 200, body: [ events[0] ].to_json)
-      allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/api/v1/events?query=cozinhar').and_return(response)
+      allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3001/api/v1/events?query=cozinhar').and_return(response)
       results = EventsApiService.get_events('cozinhar')
 
       expect(results.length).to eq 1
@@ -106,7 +106,7 @@ describe EventsApiService, type: :model do
     end
 
     it 'e ocorre erro na requisição' do
-      allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/api/v1/events').and_raise(Faraday::Error)
+      allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3001/api/v1/events').and_raise(Faraday::Error)
       expect { EventsApiService.get_events }.to raise_error(Faraday::Error)
     end
   end
@@ -142,7 +142,7 @@ describe EventsApiService, type: :model do
       }
 
       response = double('response', status: 200, body: event.to_json)
-      allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/api/v1/events/1').and_return(response)
+      allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3001/api/v1/events/1').and_return(response)
       result = EventsApiService.get_event_by_id(event[:uuid])
 
       expect(result[:name]).to eq 'Aprendedo a cozinhar'
@@ -165,7 +165,7 @@ describe EventsApiService, type: :model do
   end
 
   it 'e ocorre erro na requisição' do
-    allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/api/v1/events/1').and_raise(Faraday::Error)
+    allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3001/api/v1/events/1').and_raise(Faraday::Error)
 
     expect { EventsApiService.get_event_by_id(1) }.to raise_error(Faraday::Error)
   end
@@ -181,7 +181,7 @@ describe 'Requisição para um comunicado de um evento' do
       created_at: "2025-02-01T12:00:00.000-03:00"
     }
     response = double('response', status: 200, body: announcement.to_json)
-    allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3000/api/v1/events/#{event_code}/announcements/#{announcement[:code]}").and_return(response)
+    allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3001/api/v1/events/#{event_code}/announcements/#{announcement[:code]}").and_return(response)
     result = EventsApiService.get_announcement_by_id(event_code, announcement[:code])
 
     expect(result[:code]).to eq "ABDJDS"
@@ -191,7 +191,7 @@ describe 'Requisição para um comunicado de um evento' do
   end
 
   it 'e ocorre erro na requisição' do
-    allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3000/api/v1/events/#{event_code}/announcements/9999").and_raise(Faraday::Error)
+    allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3001/api/v1/events/#{event_code}/announcements/9999").and_raise(Faraday::Error)
 
     expect { EventsApiService.get_announcement_by_id(event_code, 9999) }.to raise_error(Faraday::Error)
   end
@@ -216,7 +216,7 @@ describe 'Requisição para comunicados de um evento' do
     }
   ]
     response = double('response', status: 200, body: announcements.to_json)
-    allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3000/api/v1/events/#{event_code}/announcements").and_return(response)
+    allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3001/api/v1/events/#{event_code}/announcements").and_return(response)
     result = EventsApiService.get_announcements_by_event_id(event_code)
 
     expect(result.length).to eq 2
@@ -233,7 +233,7 @@ describe 'Requisição para comunicados de um evento' do
   end
 
   it 'e ocorre erro na requisição' do
-    allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3000/api/v1/events/#{event_code}/announcements").and_raise(Faraday::Error)
+    allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3001/api/v1/events/#{event_code}/announcements").and_raise(Faraday::Error)
 
     expect { EventsApiService.get_announcements_by_event_id(event_code) }.to raise_error(Faraday::Error)
   end

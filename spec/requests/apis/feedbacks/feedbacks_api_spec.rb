@@ -49,7 +49,7 @@ describe 'Feedback API' do
         expect(json_response["feedbacks"][0]["title"]).to eq 'Título'
         expect(json_response["feedbacks"][0]["comment"]).to eq 'Comentário'
         expect(json_response["feedbacks"][0]["mark"]).to eq 4
-        expect(json_response["feedbacks"][0]["user"]).to eq 'Gabriel Tavares'
+        expect(json_response["feedbacks"][0]["user"]).to eq 'Anônimo'
         expect(json_response["feedbacks"][1]["id"]).to eq 2
         expect(json_response["feedbacks"][1]["title"]).to eq 'Título Padrão'
         expect(json_response["feedbacks"][1]["comment"]).to eq 'Comentário Padrão'
@@ -74,7 +74,7 @@ describe 'Feedback API' do
       travel_to 6.days.from_now do
         login_as user
         create(:feedback, title: 'Título', comment: 'Comentário', mark: 4, event_id: event.event_id,
-               user: user, public: false)
+               user: user, public: true)
         login_as other_user
         create(:feedback, title: 'Título Padrão', comment: 'Comentário Padrão', mark: 3, event_id: event.event_id,
                user: other_user, public: true)
