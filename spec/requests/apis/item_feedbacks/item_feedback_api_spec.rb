@@ -47,4 +47,31 @@ describe 'ITEM Feedback API' do
       expect(response.status).to eq 500
     end
   end
+
+  it 'e mostra respostas a um feedback' do
+    user = create(:user, name: 'David', last_name: 'Martinez')
+    item_feedback = create(:item_feedback, title: 'Título do feedback de item', comment: 'Comentário Padrão de item', mark: 4, event_id: '1', schedule_item_id: '1', public: true, user: user)
+    post "/api/v1/item_feedbacks/#{item_feedback.id}/feedback_answers", params: {
+        feedback_answer: {
+            name: 'Nome do Participante Teste',
+            email: 'email@teste.com',
+            comment: 'Comentário Teste'
+        }
+      }
+
+    get "/api/v1/schedule_items/1/item_feedbacks"
+
+    expect(response.status).to eq 200
+    expect(response.content_type).to include 'application/json'
+    json_response = JSON.parse(response.body)
+    expect(json_response["item_feedbacks"][0]["id"]).to eq 1
+    expect(json_response["item_feedbacks"][0]["schedule_item_id"]).to eq '1'
+    expect(json_response["item_feedbacks"][0]["title"]).to eq 'Título do feedback de item'
+    expect(json_response["item_feedbacks"][0]["comment"]).to eq 'Comentário Padrão de item'
+    expect(json_response["item_feedbacks"][0]["mark"]).to eq 4
+    expect(json_response["item_feedbacks"][0]["user"]).to eq 'David Martinez'
+    expect(json_response["item_feedbacks"][0]["feedback_answers"][0]["name"]).to eq 'Nome do Participante Teste'
+    expect(json_response["item_feedbacks"][0]["feedback_answers"][0]["email"]).to eq 'email@teste.com'
+    expect(json_response["item_feedbacks"][0]["feedback_answers"][0]["comment"]).to eq 'Comentário Teste'
+  end
 end
