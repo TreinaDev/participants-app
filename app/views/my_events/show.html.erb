@@ -3,7 +3,8 @@
  <!-- Sidebar -->
     <aside class="w-64 border-2 border-violet-200 rounded-lg">
       <% if @event.banner.present? %>
-      <img class="rounded-t-lg object-cover w-full h-20" src="<%= @event.banner %>" alt="Banner do evento">
+        <img class="rounded-t-lg object-cover w-full h-20" src="<%= @event.banner %>" alt="Banner do evento">
+      <% end %>
       <div class="p-4">
         <div class="flex items-center space-x-4">
           <% if @event.logo.present? %>

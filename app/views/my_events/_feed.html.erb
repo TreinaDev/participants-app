@@ -1,6 +1,6 @@
 
   <% if user_signed_in? && current_user.participates_in_event?(event.event_id) %>
-    <section class="w-full mt-10 mb-10">
+    <section class="w-full mt-10 mb-10" id="feed">
       <div class="flex items-center justify-end mb-6 px-6">
         <%= link_to new_event_post_path(event_id: event.event_id), class: "btn-confirm" do %>
           <span><%= t('.add_post') %></span>
