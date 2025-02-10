@@ -6,12 +6,24 @@ class Curriculum
     @tasks_available = tasks_available
   end
 
-  def self.request_curriculum_by_schedule_item_code(schedule_item_id)
-    curriculum_params = SpeakersApiService.get_curriculum(schedule_item_id)
+  def self.request_curriculum_by_schedule_item_and_user_code(schedule_item_id, user_code)
+    curriculum_params = SpeakersApiService.get_curriculum_by_user(schedule_item_id, user_code)
     build_curriculum(curriculum_params)
   rescue Faraday::Error => error
     Rails.logger.error(error)
     build_curriculum({})
+  end
+
+  def self.request_finalize_task(user_code, task_code)
+    SpeakersApiService.post_complete_task(user_code, task_code)
+    {
+      ok: true
+    }
+  rescue Faraday::Error => error
+    Rails.logger.error(error)
+    {
+      ok: false
+    }
   end
 
   private
@@ -40,6 +52,7 @@ class Curriculum
       Task.new(
         code: task[:code], title: task[:title],
         description: task[:description], certificate_requirement: task[:certificate_requirement],
+        task_status: task[:task_status],
         attached_contents: task[:attached_contents]
       )
     end

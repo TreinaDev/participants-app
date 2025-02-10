@@ -40,7 +40,11 @@ Rails.application.routes.draw do
         resources :item_feedbacks, only: [ :new, :create, :show ]
       end
     end
-
+    resources :schedule_items, only: [] do
+      member do
+          post "complete_task/:task_code",  to: "schedule_items#complete_task", as: "complete_task"
+      end
+    end
     resources :my_feedbacks, only: [ :index ]
     resources :reminders, only: [ :create, :destroy ]
     resources :favorites, only: [ :index, :create, :destroy ]
