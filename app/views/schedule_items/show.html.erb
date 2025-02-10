@@ -35,6 +35,11 @@
               <% if task.need_certificate %>
                 <p class="text-xs font-medium text-gray-600 mt-2"> <%= t(".needed_for_certification") %></p>
               <% end %>
+              <% if task.task_status %>
+                <p class="text-sm text-green-600 font-semibold"><%= t(".task_completed") %></p>
+              <% else %>
+                <%= button_to t(".finish_task"), complete_task_schedule_item_path(task_code: task.code , id: @schedule_item_id), class: "btn-confirm" %>
+              <% end %>
             </div>
           <% end %>
         </div>
@@ -44,8 +49,11 @@
     <% else %>
       <p class="text-center"> <%= t(".no_task_avaliable_yet") %></p>
     <% end %>
-
-    
   </div>
 
+  <% unless @curriculum.certificate_url.nil? %>
+    <div>
+      <%= link_to t('.my_certificate'), @curriculum.certificate_url, class: "btn-event"  %>
+    </div>
+  <% end %>
 </div>

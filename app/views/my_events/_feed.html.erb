@@ -27,5 +27,27 @@
           <p class="text-gray-600 text-center"><%= t('.no_posts') %></p>
         <% end %>
       </ul>
+      <ul class="space-y-4">
+        <% if @feedbacks.any? %>
+          <% @feedbacks.each do |feedback| %>
+            <li class="bg-white shadow-md rounded-lg transition hover:shadow-lg px-6 py-4 border-l-4 border-amber-700 flex flex-col" id="<%= dom_id(feedback) %>">
+              <%= render feedback %>
+            </li>
+          <% end %>
+        <% else %>
+          <p class="text-gray-600 text-center"><%= t('.no_posts') %></p>
+        <% end %>
+      </ul>
+      <ul class="space-y-4">
+        <% if @item_feedbacks.any? %>
+          <% @item_feedbacks.each do |item_feedback| %>
+            <li class="bg-white shadow-md rounded-lg transition hover:shadow-lg px-6 py-4 border-l-4 border-amber-500 flex flex-col" id="<%= dom_id(item_feedback) %>">
+              <%= render item_feedback %>
+            </li>
+          <% end %>
+        <% else %>
+          <p class="text-gray-600 text-center"><%= t('.no_posts') %></p>
+        <% end %>
+      </ul>
     </section>
   <% end %>

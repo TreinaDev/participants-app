@@ -1,14 +1,19 @@
 pt-BR:
   schedule_items:
     negate_access: Você não tem autorização para acessar está página.
+    task_suceffully_completed: Tarefa finalizada com sucesso!
+    task_status_unchanged : Erro ao finalizar a tarefa
     show:
       title: Título
       external_video_url: Vídeo
       description: Descrição
-      no_task_avaliable: Nenhuma tarefa disponível
+      no_task_avaliable: Nenhuma atividade disponível
       no_task_avaliable_yet: Atividades ainda indisponíveis
       no_content_avaliable: Nenhum conteúdo disponível
       contents: Conteúdos
       activites: Atividades
       needed_for_certification: Necessário para certificado
-    
+      task_completed: Atividade Concluída!
+      finish_task: Finalizar Tarefa
+      my_certificate: Meu certificado
+

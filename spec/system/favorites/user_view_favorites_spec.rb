@@ -162,4 +162,15 @@ describe 'Usuário acessa página de favoritos' do
     expect(page).not_to have_css 'img[src="http://localhost:3000/events/3/banner.jpg"]'
     expect(page).not_to have_css 'img[src="http://localhost:3000/events/3/logo.jpg"]'
   end
+
+  it 'exibe erro do servidor quando o aplicativo de eventos não está no ar' do
+    user = create(:user)
+    event = build(:event, name: 'DevWeek', event_id: '1')
+    create(:favorite, user_id: user.id, event_id: event.event_id)
+
+    login_as user
+    visit favorites_path(locale: :'pt-BR')
+
+    expect(page).to have_content 'Erro do servidor'
+  end
 end

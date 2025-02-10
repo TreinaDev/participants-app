@@ -176,7 +176,7 @@ describe 'Tickets API' do
       event = build(:event, name: 'DevWeek',  event_id: '1', batches: batches,
                             start_date: Date.today, end_date: 3.days.from_now)
       ticket = create(:ticket, event_id: '1', batch_id: target_batch[:id])
-      allow(Event).to receive(:request_event_by_id).and_return(event).exactly(2)
+      allow(Event).to receive(:request_event_by_id).and_return(event).exactly(3)
       allow(Batch).to receive(:get_batch_by_id).and_return(target_batch).exactly(2)
 
       post "/api/v1/tickets/#{ticket.token}/used"
@@ -204,7 +204,7 @@ describe 'Tickets API' do
       event = build(:event, name: 'DevWeek',  event_id: '1', batches: batches,
                             start_date: Date.today, end_date: 3.days.from_now)
       ticket = create(:ticket, event_id: '1', batch_id: target_batch[:id])
-      allow(Event).to receive(:request_event_by_id).and_return(event).exactly(2)
+      allow(Event).to receive(:request_event_by_id).and_return(event).exactly(4)
       allow(Batch).to receive(:get_batch_by_id).and_return(target_batch).exactly(2)
 
       post "/api/v1/tickets/#{ticket.token}/used"
@@ -215,6 +215,36 @@ describe 'Tickets API' do
         expect(response.content_type).to include 'application/json'
         json_response = JSON.parse(response.body)
         expect(json_response["usage_status"]).to eq 'used'
+      end
+    end
+
+    it 'e não pode ser usado em datas não cadastradas do evento' do
+      batches = [
+        {
+        id: '2',
+        name: 'PCD - Meia',
+        limit_tickets: 50,
+        start_date: 6.days.ago.to_date,
+        value: 10.00,
+        end_date: 2.month.from_now.to_date,
+        event_id: '1'
+        }
+      ]
+      target_batch = batches[0]
+      event = build(:event, name: 'DevWeek',  event_id: '1', batches: batches,
+                            start_date: Date.today, end_date: 3.days.from_now)
+      ticket = create(:ticket, event_id: '1', batch_id: target_batch[:id])
+      ticket.not_the_date!
+      allow(Event).to receive(:request_event_by_id).and_return(event).exactly(3)
+      allow(Batch).to receive(:get_batch_by_id).and_return(target_batch).exactly(2)
+
+      travel_to 1.year.from_now do
+        post "/api/v1/tickets/#{ticket.token}/used"
+
+        expect(response.status).to eq 404
+        expect(response.content_type).to include 'application/json'
+        json_response = JSON.parse(response.body)
+        expect(json_response["error"]).to eq 'This ticket can be used only on the day of the event'
       end
     end
 

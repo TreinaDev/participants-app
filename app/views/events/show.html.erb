@@ -18,7 +18,6 @@
         <% end %>
       <% end %>
     </div>
-  
     <div class="space-y-4 text-right">
       <div class="space-y-2">
         <% if current_user && current_user.favorites.find_by(event_id: @event.event_id).present? %>
@@ -31,18 +30,18 @@
         <% end %> 
       </div>
       <div>
-        <% if @event.batches.any? && @event.batches.min_by { |batch| batch.start_date }.start_date <= DateTime.now.to_date %>
+        <% if @event.batches.any? && @event.earliest_batch_date <= DateTime.now.to_date %>
           <%= link_to t('.tickets'), event_batches_path(@event.event_id), class: "btn-buy" %>
          
         <% elsif @event.batches.any? && @total_tickets_sales == @event.batches.reduce(0) {|acc, curr| acc + curr.limit_tickets } %>
           <%= link_to t('.soldout'), event_batches_path(@event.event_id), class: "btn-buy", disabled: true %>
         <% elsif @event.batches.any? %>
-          <%= button_to t('.add_reminder'), reminders_path(event_id: @event.event_id), method: :create, class: "btn-confirm" if user_signed_in? && !current_user.reminders.pluck(:event_id).include?(@event.event_id) %>
-          <%= button_to t('.remove_reminder'), reminder_path(current_user.reminders.find_by(event_id: @event.event_id).id), method: :delete, class: "btn-buy" if user_signed_in? && current_user.reminders.pluck(:event_id).include?(@event.event_id) %>
-          <p><%=t('.ticket_date')%> <%=I18n.l(@event.batches.min_by { |batch| batch.start_date }.start_date, format: :short)%></p>
+          <%= button_to t('.add_reminder'), reminders_path(event_id: @event.event_id), method: :create, class: "btn-confirm" if user_signed_in? && !current_user.has_event_reminder?(@event.event_id) %>
+          <%= button_to t('.remove_reminder'), reminder_path(current_user.reminders.find_by(event_id: @event.event_id).id), method: :delete, class: "btn-buy" if user_signed_in? && current_user.has_event_reminder?(@event.event_id) %>
+          <p><%=t('.ticket_date')%> <%=I18n.l(@event.earliest_batch_date, format: :short)%></p>
         <% else %>
-          <%= button_to t('.add_reminder'), reminders_path(event_id: @event.event_id), method: :create, class: "btn-confirm" if user_signed_in? && !current_user.reminders.pluck(:event_id).include?(@event.event_id) && @event.batches.any? %>
-          <%= button_to t('.remove_reminder'), reminder_path(current_user.reminders.find_by(event_id: @event.event_id).id), method: :delete, class: "btn-buy" if user_signed_in? && current_user.reminders.pluck(:event_id).include?(@event.event_id) %>
+          <%= button_to t('.add_reminder'), reminders_path(event_id: @event.event_id), method: :create, class: "btn-confirm" if user_signed_in? && !current_user.has_event_reminder?(@event.event_id) && @event.batches.any? %>
+          <%= button_to t('.remove_reminder'), reminder_path(current_user.reminders.find_by(event_id: @event.event_id).id), method: :delete, class: "btn-buy" if user_signed_in? && current_user.has_event_reminder?(@event.event_id) %>
           <p class='text-red-700'><%=t('.no_tickets_registered')%></p>
         <% end %>
       </div>

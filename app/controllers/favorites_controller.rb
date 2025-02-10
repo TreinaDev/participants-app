@@ -1,5 +1,5 @@
 class FavoritesController < ApplicationController
-  before_action :check_if_user_is_authenticated, only: [ :create, :index, :destroy ]
+  before_action :authenticate_user!
 
   def create
     @favorite = current_user.favorites.build(event_id: params[:event_id])
@@ -9,8 +9,8 @@ class FavoritesController < ApplicationController
   end
 
   def index
-    favorite_event_ids = current_user.favorites.pluck(:event_id)
-    @favorites = Event.request_favorites(current_user.favorites).select { |event| favorite_event_ids.include?(event.event_id) }
+    @favorite_event_ids = current_user.favorites.pluck(:event_id)
+    @favorites = Event.request_favorites(current_user.favorites).select { |event| @favorite_event_ids.include?(event.event_id) if event }
   end
 
   def destroy
@@ -20,11 +20,5 @@ class FavoritesController < ApplicationController
     elsif @favorite.destroy!
       redirect_to favorites_path, notice: t(".success")
     end
-  end
-
-  private
-
-  def check_if_user_is_authenticated
-    redirect_to new_user_session_path(locale: :'pt-BR'), alert: t(".check_user_is_authenticated.alert") unless user_signed_in?
   end
 end

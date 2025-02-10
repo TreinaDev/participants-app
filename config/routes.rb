@@ -35,12 +35,16 @@ Rails.application.routes.draw do
 
     resources :my_events, only: [ :show, :index ] do
       resources :schedule_items, only: [ :show ]
-      resources :feedbacks, only: [ :new, :create, :index ]
+      resources :feedbacks, only: [ :new, :create, :index, :show ]
       resources :schedule_items do
-        resources :item_feedbacks, only: [ :new, :create ]
+        resources :item_feedbacks, only: [ :new, :create, :show ]
       end
     end
-
+    resources :schedule_items, only: [] do
+      member do
+          post "complete_task/:task_code",  to: "schedule_items#complete_task", as: "complete_task"
+      end
+    end
     resources :my_feedbacks, only: [ :index ]
     resources :reminders, only: [ :create, :destroy ]
     resources :favorites, only: [ :index, :create, :destroy ]
@@ -55,9 +59,15 @@ Rails.application.routes.draw do
       resources :item_feedbacks do
         resources :feedback_answers, only: [ :create ]
       end
+
+      resources :schedule_items do
+        resources :item_feedbacks, only: [ :index ]
+      end
       resources :tickets, param: :token do
         post "used", on: :member
       end
+
+      resources :users, param: :code, only: [ :show ]
     end
   end
 end

@@ -1,6 +1,8 @@
 en:
   schedule_items:
     negate_access: You cannot access this page.
+    task_suceffully_completed: Task Completed!
+    task_status_unchanged: Task Status Unchanged
     show:
       title: Title
       external_video_url: Video
@@ -11,4 +13,6 @@ en:
       contents: Contents
       activites: Activites
       needed_for_certification: Needed for certification
-    
+      task_completed: Task Completed
+      finish_task: Finish Task
+      my_certificate: My certificate
