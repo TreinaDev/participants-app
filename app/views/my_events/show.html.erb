@@ -15,16 +15,16 @@
       </div>
       <nav class="flex flex-col space-y-2">
           <button class="tab-link text-left mx-4 px-4 py-2 text-violet-600 rounded-lg hover:bg-violet-200" data-tab="tab1">
-              Dashboard
+              <%= t('.Dashboard') %>
           </button>
           <button class="tab-link text-left mx-4 px-4 py-2 text-violet-600 rounded-lg hover:bg-violet-200" data-tab="tab2">
-              Agenda
+              <%= t('.agenda') %>
           </button>
           <button class="tab-link text-left mx-4 px-4 py-2 text-violet-600 rounded-lg hover:bg-violet-200" data-tab="tab3">
-              Feed
+              <%= t('.feed') %>
           </button>
           <button class="tab-link text-left mx-4 px-4 py-2 text-violet-600 rounded-lg hover:bg-violet-200" data-tab="tab4">
-              Ingressos
+              <%= t('.tickets') %>
           </button>
       </nav>
     </aside>
@@ -32,23 +32,22 @@
     <!-- Conteúdo principal -->
     <div class="flex-1 p-6 border-2 border-violet-200 rounded-lg">
         <div class="tab-content" id="tab1">
-          <h2 class="h2-dashbord">Dashboard</h2>
+          <h2 class="h2-dashbord"><%= t('.Dashboard') %></h2>
           <%= render 'dashboard_event', announcements: @announcements, posts: @posts, event: @event,  tickets_by_batch_id: @tickets_by_batch_id %>
         </div>
         
         <div class="tab-content hidden" id="tab2">
-          <h2 class="h2-dashbord">Agenda</h2>
+          <h2 class="h2-dashbord"><%= t('.agenda') %></h2>
           <%= render 'agenda', event: @event %>
         </div>
 
         <div class="tab-content hidden" id="tab3">
-          <h2 class="h2-dashbord">Feed</h2>
+          <h2 class="h2-dashbord"><%= t('.feed') %></h2>
           <%= render 'feed', announcements: @announcements, posts: @posts, event: @event  %>
         </div>
 
         <div class="tab-content hidden" id="tab4">
-          <h2 class="h2-dashbord">Ingressos</h2>
-          <p class="mb-8 py-6 max-w-2xl text-sm text-gray-800">Ingressos que possui para este evento.</p>
+          <h2 class="h2-dashbord"><%= t('.tickets') %></h2>
           <%= render 'my_ticket', tickets_by_batch_id: @tickets_by_batch_id, event: @event, batches: @batches %>
         </div>
     </div>

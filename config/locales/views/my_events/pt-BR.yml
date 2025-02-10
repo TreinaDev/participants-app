@@ -9,8 +9,15 @@ pt-BR:
       add_feedback: Adicionar Feedback
       see_feedbacks: Acessa Meus Feedbacks
     show:
-      title: Ingressos para o evento
-      event_agenda: Agenda do evento
+      tickets: Ingressos
+      agenda: Agenda
+      dashboard: Dashboard
+      feed: Feed
+    dashboard_event:
+      about: Sobre
+      agenda_tasks: Tarefas da Agenda
+      posts_in_the_feed: Postagens no feed
+      tickets: Ingressos
     feed:
       add_post: Adicionar Postagem
       edit_post: Editar
@@ -21,6 +28,7 @@ pt-BR:
       no_schedule_item: Ainda não existe programação cadastrada para esse dia
       no_schedule: Ainda não existe programação cadastrada para esse evento
     my_ticket:
+      tickets_you_have: Ingressos que possui para este evento.
       ticket_number: Nº do Ingresso
       qr_code: QR Code
       local: Local
