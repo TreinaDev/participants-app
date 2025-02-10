@@ -1,0 +1,59 @@
+<div class="my-6 grid grid-cols-3 gap-6">
+  <div class="flex col-span-2 bg-white border border-violet-200 shadow-sm rounded-xl">
+    <div class="h-80 overflow-y-auto p-4 md:p-5 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300">
+      <h3 class="text-lg font-bold text-gray-800">
+        <%= t('.about') %>
+      </h3>
+      <div class="mt-2 text-gray-800">
+        <%= render 'layouts/action_text/contents/content' do %>
+          <%= event.rich_text_description %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white border border-violet-200 shadow-sm rounded-xl">
+
+   <!-- Card Section -->
+    <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+      <!-- Grid -->
+      <div class="grid grid-cols-1 gap-4 sm:gap-6">
+        <!-- Card -->
+        <div class="flex items-center justify-between bg-white border border-violet-200 shadow-sm rounded-xl p-4 md:p-5">
+          <p class="text-xs uppercase tracking-wide text-gray-500"><%= t('.agenda_tasks') %></p>
+          <div class="w-20 ml-2 px-3 py-1 rounded-xl bg-violet-100 text-center">
+            <h3 class="text-xl sm:text-2xl font-medium text-violet-800">
+             <%= event.schedules.sum { |schedule| schedule.schedule_items.count } %>
+            </h3>
+          </div>
+        </div>
+        <!-- End Card -->
+
+        <!-- Card -->
+          <div class="flex items-center justify-between bg-white border border-violet-200 shadow-sm rounded-xl p-4 md:p-5">
+          <p class="text-xs uppercase tracking-wide text-gray-500"><%= t('.posts_in_the_feed') %></p>
+          <div class="w-20 ml-2 px-3 py-1 rounded-xl bg-violet-100 text-center">
+            <h3 class="text-xl sm:text-2xl font-medium text-violet-800">
+              <%= announcements.count + posts.count %>
+            </h3>
+          </div>
+        </div>
+        <!-- End Card -->
+
+        <!-- Card -->
+        <div class="flex items-center justify-between bg-white border border-violet-200 shadow-sm rounded-xl p-4 md:p-5">
+          <p class="text-xs uppercase tracking-wide text-gray-500"><%= t('.tickets') %></p>
+          <div class="w-20 ml-2 px-3 py-1 rounded-xl bg-violet-100 text-center">
+            <h3 class="text-xl sm:text-2xl font-medium text-violet-800">
+              <%= batches.keys.sum { |batch_id| tickets_by_batch_id[batch_id].count } %>
+            </h3>
+          </div>
+        </div>
+        <!-- End Card -->
+      </div>
+      <!-- End Grid -->
+    </div>
+    <!-- End Card Section -->
+
+  </div>
+</div>

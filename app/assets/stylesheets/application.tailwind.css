@@ -98,4 +98,8 @@
   .speaker-role {
     @apply text-sm text-gray-500 dark:text-gray-400
   }
+
+  .h2-dashbord {
+    @apply text-2xl font-bold text-gray-800 bg-gradient-to-r from-blue-500 to-purple-500 text-white py-2 px-4 rounded-lg shadow-md inline-block
+  }
 }

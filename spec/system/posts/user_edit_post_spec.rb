@@ -31,6 +31,7 @@ describe 'Participante edita postagem' do
       click_on 'Meus Eventos'
     end
     click_on 'Acessar Conteúdo do Evento'
+    click_on 'Feed'
     within("##{dom_id(post)}") do
       click_on 'Editar'
     end

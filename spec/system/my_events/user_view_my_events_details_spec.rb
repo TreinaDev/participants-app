@@ -91,6 +91,7 @@ describe "Participante de um evento acessa mais detalhes do evento", type: :syst
 
     login_as user
     visit my_event_path(event.event_id, locale: :'pt-BR')
+    click_on 'Agenda'
 
     expect(page).to have_content "14/02/2025"
     expect(page).to have_content "Palestra"
@@ -119,6 +120,7 @@ describe "Participante de um evento acessa mais detalhes do evento", type: :syst
 
     login_as user
     visit my_event_path(event.event_id, locale: :'pt-BR')
+    click_on 'Agenda'
 
     expect(page).to have_content 'Ainda não existe programação cadastrada para esse evento'
   end
@@ -135,6 +137,7 @@ describe "Participante de um evento acessa mais detalhes do evento", type: :syst
 
     login_as user
     visit my_event_path(event.event_id, locale: :'pt-BR')
+    click_on 'Agenda'
 
     expect(page).to have_content('Feed')
     expect(page).to have_content 'Não existem postagens para esse evento'
@@ -157,6 +160,7 @@ describe "Participante de um evento acessa mais detalhes do evento", type: :syst
 
     login_as user
     visit my_event_path(event.event_id, locale: :'pt-BR')
+    click_on 'Agenda'
     click_on 'Título Teste'
 
     expect(page).to have_content 'Título Teste'
@@ -233,6 +237,7 @@ describe "Participante de um evento acessa mais detalhes do evento", type: :syst
     item_feedback = create(:item_feedback, title: 'Título Padrão', comment: 'Comentário Padrão', mark: 3, event_id: event.event_id,
                                       user: user, public: true, schedule_item_id: schedule_item.schedule_item_id)
     visit my_event_path(event.event_id, locale: :'pt-BR')
+    click_on 'Feed'
 
     within "#feed" do
       within "##{dom_id(item_feedback)}" do
@@ -265,8 +270,10 @@ describe "Participante de um evento acessa mais detalhes do evento", type: :syst
     end
 
     expect(page).to have_content 'DevWeek'
-    expect(page).to have_content 'Entrada - Meia'
-    expect(page).to have_content 'Agenda do evento'
+    expect(page).to have_content 'Dashboard'
+    expect(page).to have_content 'Agenda'
+    expect(page).to have_content 'Feed'
+    expect(page).to have_content 'Ingressos'
   end
 
   it "e não possui nenhum evento" do

@@ -9,15 +9,28 @@ en:
       add_feedback: Add Feedback
       see_feedbacks: Access My Feedbacks
     show:
-      title: Tickets for the event
-      date: Date
-      time: Time
-      local: Local
+      tickets: Tickets
+      agenda: Agenda
+      dashboard: Dashboard
+      feed: Feed
+    dashboard_event:
+      about: About
+      agenda_tasks: Agenda Tasks
+      posts_in_the_feed: Posts in the feed
+      tickets: Tickets
+    feed:
+      add_post: Add Post
+      edit_post: Edit
+      no_posts: There are no posts for this event
+      created_by: Created by
+      in: in
+    agenda:
+      no_schedule_item: There is no schedule registered for this day
+      no_schedule: There is no schedule registered for this event
+    my_ticket:
+      tickets_you_have: Tickets you have for this event.
       ticket_number: Ticket Number
       qr_code: QR Code
-      no_schedule: There is no schedule registered for this event yet.
-      no_schedule_item: There is no schedule registered for this day yet.
-      event_agenda: Event Agenda
-      no_posts: No post registered yet
-      add_post: Add Post
-      edit_post: Edit Post      
+      local: Local
+      time: Time
+      date: Date

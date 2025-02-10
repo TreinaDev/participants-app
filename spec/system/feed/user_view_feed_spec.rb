@@ -48,6 +48,7 @@ describe 'Usuário visita página de detalhes de um evento' do
 
       login_as user
       visit my_event_path(id: event.event_id)
+      click_on 'Feed'
 
       expect(page).to have_content('Feed')
       expect(page).to have_content 'Não existem postagens para esse evento'

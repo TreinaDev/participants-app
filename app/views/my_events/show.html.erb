@@ -1,129 +1,54 @@
-<div class="max-w-4xl mx-auto p-6">
-  <h1 class="text-2xl font-bold text-gray-900 mb-4">
-    <%= page_title("#{@event.name}") %>
-  </h1>
 
-  <div class="bg-white p-6 m-3 w-full">
-    <h2 class="text-3xl font-bold text-gray-900"><%= t('.event_agenda') %></h2>
-    <% if @event.schedules.empty? %>
-      <p class="mt-4 text-gray-600"><%= t('.no_schedule') %></p>
-    <% else %>
-
-      <div class="mt-4 space-y-4">
-        <% @event.schedules.each do |schedule| %>
-          <p class="font-bold text-gray-800 text-lg"><%= I18n.l(schedule.date) %></p>
-          <% if schedule.schedule_items.empty? %>
-            <p class="mt-4 text-gray-600"><%= t('.no_schedule_item') %></p>
-          <% else %>
-            <% schedule.schedule_items.each do |item| %>
-                <div id='<%= "schedule_item_code_#{item.schedule_item_id}" %>' class="bg-white p-4 rounded-lg shadow-md border-l-4 border-purple-700">
-                  <%= link_to my_event_schedule_item_path(my_event_id: @event.event_id, id: item.schedule_item_id) do %>
-                  <p class="font-bold text-gray-800 text-lg"><%= item.name %></p>
-                  <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.start_time') %>:</span> <%= item.start_time %></p>
-                  <p class="text-sm text-gray-600"><span class="font-bold"><%= I18n.t('schedule.duration') %>:</span> <%= item.duration %>min</p>
-                  <%= link_to 'Adicionar Feedback', new_my_event_schedule_item_item_feedback_path(my_event_id: @event.event_id, schedule_item_id: item.schedule_item_id), class: 'mt-2 text-blue-500 underline' if @event.end_date < DateTime.now%>
-                  <% end %>
-                </div>
-            <% end %>
-          <% end %>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
-
-  <% if user_signed_in? && current_user.participates_in_event?(@event.event_id) %>
-    <section id ="feed" class="w-full mt-10 mb-10">
-      <div class="flex items-center justify-between mb-6 px-6">
-        <h2 class="text-3xl font-bold text-gray-900">Feed</h2>
-        <%= link_to new_event_post_path(event_id: @event.event_id), class: "btn-confirm" do %>
-          <span><%= t('.add_post') %></span>
-        <% end %>
-      </div>
-      <ul class="space-y-4">
-        <% if @announcements.any? %>
-          <% @announcements.each do |announcement| %>
-            <%= render 'announcements/announcement_list_item', announcement: announcement, event: @event %>
-          <% end %>
-        <% end %>
-      </ul>
-      <ul class="space-y-4">
-        <% if @posts.any? %>
-          <% @posts.each do |post| %>
-            <li class="bg-white shadow-md rounded-lg transition hover:shadow-lg px-6 py-4 border-l-4 border-indigo-500 flex flex-col" id="<%= dom_id(post) %>">
-              <%= render post %>
-              <div class="mt-2 text-right">
-                <%= link_to t('.edit_post'), edit_event_post_path(@event.event_id, post), class: "btn-confirm" if post.user == current_user %>
-              </div>
-            </li>
-          <% end %>
-        <% else %>
-          <p class="text-gray-600 text-center"><%= t('.no_posts') %></p>
-        <% end %>
-      <ul class="space-y-4">
-        <% if @feedbacks.any? %>
-          <% @feedbacks.each do |feedback| %>
-            <li class="bg-white shadow-md rounded-lg transition hover:shadow-lg px-6 py-4 border-l-4 border-amber-700 flex flex-col" id="<%= dom_id(feedback) %>">
-              <%= render feedback %>
-            </li>
-          <% end %>
-        <% else %>
-          <p class="text-gray-600 text-center"><%= t('.no_posts') %></p>
-        <% end %>
-      </ul>
-      <ul class="space-y-4">
-        <% if @item_feedbacks.any? %>
-          <% @item_feedbacks.each do |item_feedback| %>
-            <li class="bg-white shadow-md rounded-lg transition hover:shadow-lg px-6 py-4 border-l-4 border-amber-500 flex flex-col" id="<%= dom_id(item_feedback) %>">
-              <%= render item_feedback %>
-            </li>
-          <% end %>
-        <% else %>
-          <p class="text-gray-600 text-center"><%= t('.no_posts') %></p>
-        <% end %>
-      </ul>
-    </section>
-  <% end %>
-
-<% @batches.keys.each do |batch_id| %>
-    <div class="max-w-md mx-auto bg-white rounded-lg overflow-hidden shadow-lg">
-      <div class="bg-gradient-to-r from-purple-600 to-indigo-600 p-6 text-white">
-        <h1 class="text-2xl font-bold"><%= @event.name %></h1>
-        <p class="text-sm opacity-75 mt-1">
-        <%= @batches[batch_id].name %> x<%= @tickets_by_batch_id[batch_id].count %>
-        </p>
-      </div>
-      <% @tickets_by_batch_id[batch_id].each do |ticket| %>
-      <div class="p-6">
-        <div class="flex justify-between items-center mb-6">
-          <div>
-            <p class="text-sm text-gray-600"><%= t('.date')%></p>
-            <p class="text-lg font-semibold"><%= I18n.l(ticket.date_of_purchase, format: :date) %></p>
-          </div>
-          <div class="text-right">
-            <p class="text-sm text-gray-600"><%= t('.time')%></p>
-            <p class="text-lg font-semibold"><%= I18n.l(ticket.date_of_purchase, format: :hour) %></p>
-          </div>
-        </div>
-
-        <div class="mb-6">
-          <p class="text-sm text-gray-600"><%= t('.local')%></p>
-          <p class="text-lg font-semibold"><%= @event.local_event %></p>
-        </div>
-      </div>
-
-      <div class="border-t border-dashed p-6">
-        <div class="flex justify-between items-center">
-          <div>
-            <p class="text-sm text-gray-600"><%= t('.ticket_number')%></p>
-            <p class="text-md font-mono font-semibold"><%= ticket.token %></p>
-          </div>
-           <%= link_to event_batch_ticket_path(event_id: @event.event_id, batch_id: ticket.batch_id, id: ticket.id) do %>
-          <div class="h-16 w-16 bg-gray-200 rounded flex items-center justify-center">
-            <span class="text-gray-600 text-xs"><%= t('.qr_code')%></span>
-          </div>
-          <% end %>
-        </div>
-      </div>
+ <div data-controller="tabs" class="flex justify-center space-x-2 min-h-screen p-6">
+ <!-- Sidebar -->
+    <aside class="w-64 border-2 border-violet-200 rounded-lg">
+      <% if @event.banner.present? %>
+        <img class="rounded-t-lg object-cover w-full h-20" src="<%= @event.banner %>" alt="Banner do evento">
       <% end %>
+      <div class="p-4">
+        <div class="flex items-center space-x-4">
+          <% if @event.logo.present? %>
+            <img class="w-12 h-12 mb-3 rounded-full" src="<%= @event.logo %>" alt="Logo do evento"/>
+          <% end %>
+          <h5 class="mb-2 text-sm font-bold tracking-tigh text-black"><%= @event.name %></h5>
+        </div>
+      </div>
+      <nav class="flex flex-col space-y-2">
+          <button class="tab-link text-left mx-4 px-4 py-2 text-violet-600 rounded-lg hover:bg-violet-200" data-tab="tab1">
+              <%= t('.Dashboard') %>
+          </button>
+          <button class="tab-link text-left mx-4 px-4 py-2 text-violet-600 rounded-lg hover:bg-violet-200" data-tab="tab2">
+              <%= t('.agenda') %>
+          </button>
+          <button class="tab-link text-left mx-4 px-4 py-2 text-violet-600 rounded-lg hover:bg-violet-200" data-tab="tab3">
+              <%= t('.feed') %>
+          </button>
+          <button class="tab-link text-left mx-4 px-4 py-2 text-violet-600 rounded-lg hover:bg-violet-200" data-tab="tab4">
+              <%= t('.tickets') %>
+          </button>
+      </nav>
+    </aside>
+
+    <!-- Conteúdo principal -->
+    <div class="flex-1 p-6 border-2 border-violet-200 rounded-lg">
+        <div class="tab-content" id="tab1">
+          <h2 class="h2-dashbord"><%= t('.Dashboard') %></h2>
+          <%= render 'dashboard_event', announcements: @announcements, posts: @posts, event: @event,  tickets_by_batch_id: @tickets_by_batch_id, batches: @batches %>
+        </div>
+        
+        <div class="tab-content hidden" id="tab2">
+          <h2 class="h2-dashbord"><%= t('.agenda') %></h2>
+          <%= render 'agenda', event: @event %>
+        </div>
+
+        <div class="tab-content hidden" id="tab3">
+          <h2 class="h2-dashbord"><%= t('.feed') %></h2>
+          <%= render 'feed', announcements: @announcements, posts: @posts, event: @event  %>
+        </div>
+
+        <div class="tab-content hidden" id="tab4">
+          <h2 class="h2-dashbord"><%= t('.tickets') %></h2>
+          <%= render 'my_ticket', tickets_by_batch_id: @tickets_by_batch_id, event: @event, batches: @batches %>
+        </div>
     </div>
-  <% end %>
+</div>
