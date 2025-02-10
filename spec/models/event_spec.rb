@@ -18,7 +18,7 @@ RSpec.describe Event, type: :model do
       }
 
       response = double('response', status: 200, body: event.to_json)
-      allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/api/v1/events/1').and_return(response)
+      allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3001/api/v1/events/1').and_return(response)
       result = Event.request_event_by_id(event[:code])
 
       expect(result.event_id).to eq '1'
@@ -86,7 +86,7 @@ RSpec.describe Event, type: :model do
         schedules: schedules
       }
       response = double('response', status: 200, body: event.to_json)
-      allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/api/v1/events/1').and_return(response)
+      allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3001/api/v1/events/1').and_return(response)
       result = Event.request_event_by_id(event[:code])
 
       expect(result.schedules[0].date).to eq "Fri, 14 Feb 2025".to_datetime
@@ -114,7 +114,7 @@ RSpec.describe Event, type: :model do
 
     it "e retorna um array vazio, caso a API retorne status 500" do
       response = double('response', status: 500, body: "{}")
-      allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/events/1').and_return(response)
+      allow(Faraday).to receive(:get).with('http://localhost:3001/api/v1/events/1').and_return(response)
       allow(Rails.logger).to receive(:error)
 
       result = Event.request_event_by_id("1")
@@ -128,7 +128,7 @@ RSpec.describe Event, type: :model do
     it 'Deveria receber toda a lista de eventos disponíveis' do
       travel_to(Time.zone.local(2024, 01, 01, 00, 04, 44))
       json = File.read(Rails.root.join('spec/support/json/events_list.json'))
-      url = 'http://localhost:3000/api/v1/events'
+      url = 'http://localhost:3001/api/v1/events'
       response = double('faraday_response', body: json, status: 200)
       allow_any_instance_of(Faraday::Connection).to receive(:get).with(url).and_return(response)
       allow(response).to receive(:success?).and_return(true)
@@ -138,16 +138,16 @@ RSpec.describe Event, type: :model do
       expect(result.length).to eq 2
       expect(result[0].event_id).to eq "1"
       expect(result[0].name).to eq 'Dev Week'
-      expect(result[0].banner).to eq "http://localhost:3000/events/1/banner.jpg"
-      expect(result[0].logo).to eq "http://localhost:3000/events/1/logo.jpg"
+      expect(result[0].banner).to eq "http://localhost:3001/events/1/banner.jpg"
+      expect(result[0].logo).to eq "http://localhost:3001/events/1/logo.jpg"
       expect(result[1].event_id).to eq "2"
       expect(result[1].name).to eq 'Ruby Update'
-      expect(result[1].banner).to eq "http://localhost:3000/events/2/banner.jpg"
-      expect(result[1].logo).to eq "http://localhost:3000/events/2/logo.jpg"
+      expect(result[1].banner).to eq "http://localhost:3001/events/2/banner.jpg"
+      expect(result[1].logo).to eq "http://localhost:3001/events/2/logo.jpg"
     end
 
     it 'e deveria receber array vazio em caso de erro na requisição' do
-      url = 'http://localhost:3000/api/v1/events'
+      url = 'http://localhost:3001/api/v1/events'
       response = double('faraday_response', body: "{}", status: 500)
       allow(Faraday).to receive(:get).with(url).and_return(response)
       allow(response).to receive(:success?).and_return(false)
@@ -159,7 +159,7 @@ RSpec.describe Event, type: :model do
     it 'só recebe eventos que não aconteceram' do
       travel_to(Time.zone.local(2024, 01, 01, 00, 04, 44))
       json = File.read(Rails.root.join('spec/support/json/error_events_list.json'))
-      url = 'http://localhost:3000/api/v1/events'
+      url = 'http://localhost:3001/api/v1/events'
       response = double('faraday_response', body: json, status: 200)
       allow_any_instance_of(Faraday::Connection).to receive(:get).with(url).and_return(response)
       allow(response).to receive(:success?).and_return(true)
@@ -170,7 +170,7 @@ RSpec.describe Event, type: :model do
     end
 
     it 'e deveria receber array vazio em caso de erro na requisição com query string' do
-      url = 'http://localhost:3000/api/v1/events?query=dev'
+      url = 'http://localhost:3001/api/v1/events?query=dev'
       response = double('faraday_response', body: "{}", status: 500)
       allow(Faraday).to receive(:get).with(url).and_return(response)
       allow(response).to receive(:success?).and_return(false)

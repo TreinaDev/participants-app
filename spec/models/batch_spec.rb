@@ -43,7 +43,7 @@ RSpec.describe Batch, type: :model do
       }
 
       response = double('response', status: 200, body: batches.to_json)
-      allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3000/api/v1/events/1/ticket_batches').and_return(response)
+      allow_any_instance_of(Faraday::Connection).to receive(:get).with('http://localhost:3001/api/v1/events/1/ticket_batches').and_return(response)
       result = Batch.request_batches_by_event_id(event[:code])
 
       expect(result[0].name).to eq 'Entrada - VIP'
@@ -59,7 +59,7 @@ RSpec.describe Batch, type: :model do
     end
 
     it 'e deveria receber array vazio em caso de erro na requisição' do
-      url = 'http://localhost:3000/api/v1/events/1/ticket_batches'
+      url = 'http://localhost:3001/api/v1/events/1/ticket_batches'
       response = double('faraday_response', body: "{}", status: 500)
       allow(Faraday).to receive(:get).with(url).and_return(response)
       allow(response).to receive(:success?).and_return(false)

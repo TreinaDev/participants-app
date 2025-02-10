@@ -22,7 +22,7 @@ RSpec.describe Announcement, type: :model do
        }
 
       response = double('response', status: 200, body: announcements.to_json)
-      allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3000/api/v1/events/#{event.event_id}/announcements").and_return(response)
+      allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3001/api/v1/events/#{event.event_id}/announcements").and_return(response)
       result = Announcement.request_announcements_by_event_id(event.event_id)
 
       expect(result[0].title).to eq 'PAGUEM A TAXA'
@@ -40,7 +40,7 @@ RSpec.describe Announcement, type: :model do
       event = build(:event)
 
       response = double('response', status: 500, body: "{}")
-      allow(Faraday).to receive(:get).with("http://localhost:3000/api/v1/events/#{event.event_id}/announcements").and_return(response)
+      allow(Faraday).to receive(:get).with("http://localhost:3001/api/v1/events/#{event.event_id}/announcements").and_return(response)
       allow(Rails.logger).to receive(:error)
 
       result = Announcement.request_announcements_by_event_id(event.event_id)
@@ -64,7 +64,7 @@ RSpec.describe Announcement, type: :model do
       }
 
       response = double('response', status: 200, body: announcement.to_json)
-      allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3000/api/v1/events/#{event.event_id}/announcements/#{announcement[:code]}").and_return(response)
+      allow_any_instance_of(Faraday::Connection).to receive(:get).with("http://localhost:3001/api/v1/events/#{event.event_id}/announcements/#{announcement[:code]}").and_return(response)
       result = Announcement.request_announcement_by_id(event.event_id, announcement[:code])
 
       expect(result.title).to eq 'PAGUEM A TAXA'
@@ -77,7 +77,7 @@ RSpec.describe Announcement, type: :model do
       event = build(:event)
 
       response = double('response', status: 500, body: "{}")
-      allow(Faraday).to receive(:get).with("http://localhost:3000/api/v1/events/#{event.event_id}/announcements/ABDJDS").and_return(response)
+      allow(Faraday).to receive(:get).with("http://localhost:3001/api/v1/events/#{event.event_id}/announcements/ABDJDS").and_return(response)
       allow(Rails.logger).to receive(:error)
 
       result = Announcement.request_announcement_by_id(event.event_id, "ABDJDS")
