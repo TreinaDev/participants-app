@@ -16,7 +16,8 @@ describe 'Usuário autenticado acessa o dashboard' do
     login_as user
     visit dashboard_index_path
 
-    expect(page).to have_content '🚀 Explore eventos incríveis e faça parte da experiência!'
+    expect(page).to have_content 'Ainda não há publicações.'
+    expect(page).to have_content '🚀 Participe de eventos e veja novos conteúdos!' 
     expect(page).to have_link 'Participar Agora'
   end
 
@@ -78,8 +79,11 @@ describe 'Usuário autenticado acessa o dashboard' do
     login_as user
     visit dashboard_index_path
 
-    expect(page).to have_content "Criado por #{post.user.name} em #{I18n.l(post.created_at, format: :short)}"
-    expect(page).to have_content "Evento: #{event_three.name}"
+    expect(page).to have_content 'Dashboard'
+    expect(page).to have_content 'Acompanhe os últimos posts e novidades dos seus eventos.'
+    expect(page).to have_content '📢 Português: um idioma problemático'
+    expect(page).to have_content "👤 André • 📅 #{I18n.l(post.created_at, format: :short)}"
+    expect(page).to have_content "🎉 Evento: Soletrando"
   end
 
   it 'e não pode acessar se não estiver autenticado' do

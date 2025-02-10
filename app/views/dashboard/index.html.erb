@@ -1,13 +1,22 @@
+<div class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-6 px-8 rounded-lg shadow-md mb-6">
+  <%= page_title_dash(t('.dashboard'))%>
+  <p class="text-lg mt-2 opacity-90"><%= t('.dashboard_subtitle', default: 'Acompanhe os últimos posts e novidades dos seus eventos.') %></p>
+</div>
+
 <ul class="space-y-4">
   <% if @posts.any? %>
     <% @posts.each do |post| %>
-      <li class="bg-gradient-to-r from-white to-gray-100 shadow-lg rounded-xl transition transform hover:scale-105 hover:shadow-xl p-6">
+      <li class="border-l-4 border-blue-500 bg-white shadow-lg rounded-xl transition transform hover:scale-105 hover:shadow-xl p-6">
         <%= render post %>
       </li>
      <% end %>
   <% else %>
-    <div class="text-center py-10 bg-white shadow-md rounded-lg">
+    <div class="text-center py-10 bg-white shadow-md rounded-lg flex flex-col items-center">
+      <svg class="w-16 h-16 text-gray-400 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.5 9.5l-2.5 2.5m0 0l-2.5-2.5m2.5 2.5V6m5 12H7a2 2 0 01-2-2V8a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2z" />
+      </svg>
       <h3 class="text-xl font-semibold text-gray-900"><%= t('.no_posts')%></h3>
+      <p class="text-gray-600 mt-2"><%= t('.participate')%></p>
       <div class="mt-4">
         <%= link_to t('.join_now'), events_path, class: "bg-blue-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-700 transition" %>
       </div>

@@ -5,6 +5,12 @@ module ApplicationHelper
     end
   end
 
+  def page_title_dash(text)
+    content_tag(:h1, class: "text-3xl font-extrabold text-center text-withe mt-8 mb-6") do
+      text
+    end
+  end
+
   def page_sub_title(text)
     content_tag(:h2, class: "ms-2 font-semibold text-4xl mb-6 text-violet-900 dark:text-violet-900 text-center") do
       text
