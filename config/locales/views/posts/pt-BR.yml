@@ -6,6 +6,8 @@ pt-BR:
       edit_post: Editar Postagem
       delete_post: Excluir Postagem
       published_in: 'Publicado em:'
+      like: Curtir
+      unlike: Descurtir
       likes:
         one: curtida
         other: curtidas
