@@ -3,6 +3,7 @@ class ItemFeedback < ApplicationRecord
   validates :title, :comment, :mark, presence: true
   validates :comment, length: { maximum: 150 }
   validates :mark, inclusion: { in: [ 1, 2, 3, 4, 5 ] }
+  has_many :feedback_answer
 
   def schedule_item
     event = Event.request_event_by_id(self.event_id)

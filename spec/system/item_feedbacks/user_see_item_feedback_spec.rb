@@ -134,10 +134,12 @@ describe 'Usuário feedback de um  item de um evento' do
     item_feedback = create(:item_feedback, title: 'Título Padrão', comment: 'Comentário Padrão', mark: 3, event_id: event.event_id,
                                            user: ticket.user, public: true, schedule_item_id: schedule_item.schedule_item_id)
     post "/api/v1/item_feedbacks/#{item_feedback.id}/feedback_answers", params: {
-      name: 'Nome do Participante Teste',
-      email: 'email@teste.com',
-      comment: 'Comentário Teste'
-  }
+        feedback_answer: {
+          name: 'Nome do Participante Teste',
+            email: 'email@teste.com',
+            comment: 'Comentário Teste'
+        }
+      }
 
     login_as ticket.user
 
