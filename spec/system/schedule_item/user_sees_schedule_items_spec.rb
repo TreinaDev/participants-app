@@ -104,6 +104,7 @@ describe "Usuário vê itens de agenda", type: :system do
 
     login_as user
     visit my_event_path(id: event.event_id, locale: :'pt-BR')
+    click_on 'Agenda'
     within("#schedule_item_code_#{schedules[0][:schedule_items][0][:code]}") do
       click_on schedules[0][:schedule_items][0][:name]
     end

@@ -27,7 +27,7 @@ describe 'Participante adiciona nova postagem a um evento', type: :system, js: t
     click_on 'Salvar'
 
     expect(page).to have_content 'Postagem adicionada'
-    expect(page).to have_content 'Título Teste'
+    expect(page).to have_content "POSTS NO FEED\n1"
   end
 
   it 'com campos vazios' do
