@@ -91,4 +91,32 @@ describe SpeakersApiService, type: :model do
       expect { SpeakersApiService.get_speaker("silvio@sbt.com") }.to raise_error(Faraday::ServerError)
     end
   end
+
+  describe 'Requisição Post para completar tarefa de um participante' do
+    it 'Com sucesso' do
+      message = {
+       "message": "OK"
+      }
+      user_code = "user123"
+      task_code = "task456"
+      response = double('response', status: 200, body: message.to_json)
+      allow_any_instance_of(Faraday::Connection).to receive(:post).with("http://localhost:3003/api/v1/participant_tasks", { participant_code: user_code, task_code: task_code }.to_json).and_return(response)
+
+      result = SpeakersApiService.post_complete_task(user_code, task_code)
+
+      expect(result[:message]).to eq "OK"
+    end
+
+    it 'e ocorre um erro na requisição' do
+      user_code = "user123"
+      task_code = "task456"
+
+      allow_any_instance_of(Faraday::Connection).to receive(:post)
+        .with("http://localhost:3003/api/v1/participant_tasks", { participant_code: user_code, task_code: task_code }.to_json)
+        .and_raise(Faraday::ConnectionFailed.new("Connection failed"))
+
+      # Espera que o erro seja levantado
+      expect { SpeakersApiService.post_complete_task(user_code, task_code) }.to raise_error(Faraday::ConnectionFailed)
+    end
+  end
 end

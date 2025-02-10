@@ -319,7 +319,7 @@ describe "Usuário vê itens de agenda", type: :system do
     visit my_event_schedule_item_path(my_event_id: event.event_id, id: schedules[0][:schedule_items][0][:code],  locale: :'pt-BR')
 
     expect(page).to have_content "Nenhum conteúdo disponível"
-    expect(page).to have_content "Nenhuma tarefa disponível"
+    expect(page).to have_content "Nenhuma atividade disponível"
     expect(current_path).to eq my_event_schedule_item_path(my_event_id: event.event_id, id: schedules[0][:schedule_items][0][:code],  locale: :'pt-BR')
   end
 end

@@ -14,6 +14,18 @@ class Curriculum
     build_curriculum({})
   end
 
+  def self.request_finalize_task(user_code, task_code)
+    SpeakersApiService.post_complete_task(user_code, task_code)
+    {
+      ok: true
+    }
+  rescue Faraday::Error => error
+    Rails.logger.error(error)
+    {
+      ok: false
+    }
+  end
+
   private
 
   def self.build_curriculum(curriculum_params)
