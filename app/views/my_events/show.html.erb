@@ -1,7 +1,7 @@
 
- <div class="flex justify-center space-x-2 min-h-screen p-6">
+ <div data-controller="tabs" class="flex justify-center space-x-2 min-h-screen p-6">
  <!-- Sidebar -->
-    <aside class="w-64 border-r-2 border-violet-200 rounded-lg">
+    <aside class="w-64 border-2 border-violet-200 rounded-lg">
       <% if @event.banner.present? %>
       <img class="rounded-t-lg object-cover w-full h-20" src="<%= @event.banner %>" alt="Banner do evento">
       <% end %>
@@ -14,16 +14,16 @@
         </div>
       </div>
       <nav class="flex flex-col space-y-2">
-          <button class="tab-link text-left mx-4 px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-200" data-tab="tab1">
+          <button class="tab-link text-left mx-4 px-4 py-2 text-violet-600 rounded-lg hover:bg-violet-200" data-tab="tab1">
               Dashboard
           </button>
-          <button class="tab-link text-left mx-4 px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-200" data-tab="tab2">
+          <button class="tab-link text-left mx-4 px-4 py-2 text-violet-600 rounded-lg hover:bg-violet-200" data-tab="tab2">
               Agenda
           </button>
-          <button class="tab-link text-left mx-4 px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-200" data-tab="tab3">
+          <button class="tab-link text-left mx-4 px-4 py-2 text-violet-600 rounded-lg hover:bg-violet-200" data-tab="tab3">
               Feed
           </button>
-          <button class="tab-link text-left mx-4 px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-200" data-tab="tab4">
+          <button class="tab-link text-left mx-4 px-4 py-2 text-violet-600 rounded-lg hover:bg-violet-200" data-tab="tab4">
               Ingressos
           </button>
       </nav>
@@ -32,8 +32,8 @@
     <!-- Conteúdo principal -->
     <div class="flex-1 p-6 border-2 border-violet-200 rounded-lg">
         <div class="tab-content" id="tab1">
-          <h2 class="h2-dashbord">Dashboard de <%= @event.name %></h2>
-          <p>Você possui </p>
+          <h2 class="h2-dashbord">Dashboard</h2>
+          <%= render 'dashboard_event', announcements: @announcements, posts: @posts, event: @event,  tickets_by_batch_id: @tickets_by_batch_id %>
         </div>
         
         <div class="tab-content hidden" id="tab2">
@@ -48,31 +48,8 @@
 
         <div class="tab-content hidden" id="tab4">
           <h2 class="h2-dashbord">Ingressos</h2>
-          <p class="mb-8 py-6 max-w-2xl text-sm text-gray-500">Ingressos que possui para este evento.</p>
+          <p class="mb-8 py-6 max-w-2xl text-sm text-gray-800">Ingressos que possui para este evento.</p>
           <%= render 'my_ticket', tickets_by_batch_id: @tickets_by_batch_id, event: @event, batches: @batches %>
         </div>
     </div>
 </div>
-
-<script>
-    // Seleciona todas as abas e conteúdos
-    const tabs = document.querySelectorAll(".tab-link");
-    const contents = document.querySelectorAll(".tab-content");
-
-    // Adiciona evento de clique nas abas
-    tabs.forEach(tab => {
-        tab.addEventListener("click", () => {
-            // Remove classe ativa de todas as abas
-            tabs.forEach(t => t.classList.remove("text-blue-500", "border-blue-500"));
-            // Esconde todo o conteúdo
-            contents.forEach(content => content.classList.add("hidden"));
-
-            // Ativa a aba clicada
-            tab.classList.add("text-blue-500", "border-blue-500");
-            document.getElementById(tab.getAttribute("data-tab")).classList.remove("hidden");
-        });
-    });
-
-    // Ativar a primeira aba por padrão
-    tabs[0].classList.add("text-blue-500", "border-blue-500");
-</script>

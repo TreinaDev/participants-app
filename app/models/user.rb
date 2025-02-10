@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_one :profile
   has_many :likes
   has_many :comments
+  has_many :posts
 
   before_validation :generate_code, on: :create
 
