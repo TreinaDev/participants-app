@@ -9,7 +9,4 @@ pt-BR:
       my_events: Meus Eventos
       my_profile: Meu Perfil
       hello: "Olá, %{name}"
-    feedback_form:
-      save: Adicionar Feedback
-      form_title: Avaliação
 
