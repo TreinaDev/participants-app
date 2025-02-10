@@ -13,10 +13,10 @@ class ScheduleItemsController < ApplicationController
     @schedule_item_id = params[:id]
     @curriculum = Curriculum.request_curriculum_by_schedule_item_and_user_code(params[:id], user_code)
     if response[:ok]
-      flash[:notice] = "Tarefa finalizada com sucesso!"
-      render :show, status: :unprocessable_entity
+      flash[:notice] = t(".task_suceffully_completed")
+      redirect_back(fallback_location: root_path)
     else
-      flash[:error] = "Erro ao finalizar a tarefa."
+      flash[:error] = t(".task_status_unchanged")
       render :show, status: :unprocessable_entity
     end
   end

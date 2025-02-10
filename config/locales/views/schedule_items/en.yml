@@ -1,6 +1,8 @@
 en:
   schedule_items:
     negate_access: You cannot access this page.
+    task_suceffully_completed: Task Completed!
+    task_status_unchanged: Task Status Unchanged
     show:
       title: Title
       external_video_url: Video
