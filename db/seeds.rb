@@ -8,7 +8,7 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-user = User.create!(name: 'Master', last_name: 'Teste', email: 'master@email.com', password: '123456', cpf: CPF.generate)
+user = User.create!(name: 'Master', last_name: 'Teste', email: 'master@email.com', password: '123456', cpf: CPF.generate, code: 'MASTER123')
 profile = user.profile
 profile.update(city: 'Cidade Teste', state: 'Estado Teste')
 SocialMedium.create(name: 'Instagram')
@@ -16,3 +16,5 @@ SocialMedium.create(name: 'Linkedin')
 SocialMedium.create(name: 'GitHub')
 SocialMedium.create(name: 'Reddit')
 SocialMedium.create(name: 'Facebook')
+
+FactoryBot.create(:ticket, status_confirmed: true, date_of_purchase: 3.weeks.ago, payment_method: 1, user: user, batch_id: 'ABCD1234', event_id: 'ABCD1234')
