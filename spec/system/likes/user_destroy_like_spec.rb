@@ -11,7 +11,7 @@ describe 'Usuário remove curtida da postagem' do
     visit event_post_path(event_id: event.event_id, id: post)
 
     expect(page).to have_css('#unlike-button')
-    expect(page).not_to have_css('#like-button')
+    expect(page).not_to have_css('like-button')
   end
 
   it 'com sucesso' do

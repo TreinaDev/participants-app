@@ -39,6 +39,7 @@ describe 'Usuário cria comentário em postagem' do
 
     expect(current_path).to eq event_post_path(event_id: event.event_id, id: post.id, locale: :'pt-BR')
     expect(page).to have_content 'Comentário adicionado'
+    expect(page).to have_content 'Comentário'
     expect(page).to have_content 'Comentário Teste'
     expect(page).to have_content 'Carlos'
     expect(page).to have_content I18n.l(Comment.last.created_at, format: :short)
