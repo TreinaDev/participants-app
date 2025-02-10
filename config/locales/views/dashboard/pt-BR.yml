@@ -1,5 +1,7 @@
 pt-BR:
   dashboard:
     index:
-      no_posts: 🚀 Explore eventos incríveis e faça parte da experiência!
+      no_posts: Ainda não há publicações.
+      participate: 🚀 Participe de eventos e veja novos conteúdos!
       join_now: Participar Agora
+      dashboard: Dashboard
