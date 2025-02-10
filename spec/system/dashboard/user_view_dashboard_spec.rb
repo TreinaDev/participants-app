@@ -17,7 +17,7 @@ describe 'Usuário autenticado acessa o dashboard' do
     visit dashboard_index_path
 
     expect(page).to have_content 'Ainda não há publicações.'
-    expect(page).to have_content '🚀 Participe de eventos e veja novos conteúdos!' 
+    expect(page).to have_content '🚀 Participe de eventos e veja novos conteúdos!'
     expect(page).to have_link 'Participar Agora'
   end
 
