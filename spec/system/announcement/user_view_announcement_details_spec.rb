@@ -22,7 +22,7 @@ describe 'Usuário acessa página de detalhes de comunicados oficiais' do
       click_on 'Meus Eventos'
     end
     click_on 'Acessar Conteúdo do Evento'
-    within(".card-announcement-#{announcement_two.announcement_id}") do
+    within(".ca-#{announcement_two.announcement_id}") do
       click_on 'Ver Comunicado'
     end
 
@@ -51,7 +51,7 @@ describe 'Usuário acessa página de detalhes de comunicados oficiais' do
       click_on 'Meus Eventos'
     end
     click_on 'Acessar Conteúdo do Evento'
-    within(".card-announcement-#{announcement_two.announcement_id}") do
+    within(".ca-#{announcement_two.announcement_id}") do
       click_on 'Ver Comunicado'
     end
     click_on 'Voltar'
