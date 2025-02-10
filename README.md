@@ -130,6 +130,267 @@ bin/dev
    rspec
    ```
 
+## APIs
+
+O Participants-App funciona em conjunto com as aplicações [Events-App|https://github.com/TreinaDev/events-app] [Speakers-App|https://github.com/TreinaDev/speakers-app]. Dados são compartilhados com as demais aplicações pelos endpoints descritos abaixo. De modo geral, erros no servidor retornam status http 500.
+
+### **Endpoint**: usuários que participam de um evento
+`GET /api/v1/events/:id`
+---
+#### **Parâmetros**
+| Par               | Tipo   | Descrição                                    |
+|-------------------|--------|----------------------------------------------|
+| `id`              | string | Código alfanumérico único do evento          |
+
+#### **Código HTTP**
+`200 OK`
+
+#### **JSON**
+```json
+{
+  [
+    {
+      "name": "Carla",
+      "last_name": "Fernandes",
+      "email": "carla.fernandes@email.com",
+      "cpf": "222.222.222-80"
+    },
+    {
+      "name": "Eduardo",
+      "last_name": "Menezes",
+      "email": "eduardo.menezes@email.com",
+      "cpf": "333.333.333-70"
+    }
+  ]
+}
+```
+
+### **Endpoint**: número de ingressos de um lote de um evento que já foram vendidos
+`GET /api/v1/events/:event_id/batches/:id`
+---
+#### **Parâmetros**
+| Par               | Tipo   | Descrição                                      |
+|-------------------|--------|------------------------------------------------|
+| `event_id`        | string | Código alfanumérico único do lote de um evento |
+| `id`              | string | Código alfanumérico único do evento            |
+
+#### **JSON**
+```json
+{
+  "id": 198,
+  "sold_tickets": 27
+}
+```
+
+#### **Outros retornos***
+Retorna 404 quando o lote não foi encontrado
+
+### **Endpoint**: feebacks de um evento e de todas as atividades do evento
+`GET /api/v1/events/:event_id/feedbacks`
+---
+#### **Parâmetros**
+| Par               | Tipo   | Descrição                                      |
+|-------------------|--------|------------------------------------------------|
+| `event_id`        | string | Código alfanumérico único do evento            |
+
+#### **JSON**
+```json
+{
+  "event_id": 12345,
+  "feedbacks": [
+    {
+      "id": 1,
+      "title": "Ótimo Evento",
+      "comment": "Gostei muito do evento, foi bem organizado!",
+      "mark": 5,
+      "user": "João Silva"
+    },
+    {
+      "id": 2,
+      "title": "Poderia ser melhor",
+      "comment": "O local estava muito lotado.",
+      "mark": 3,
+      "user": "Maria Souza"
+    }
+  ],
+  "item_feedbacks": [
+    {
+      "id": 10,
+      "title": "Qualidade do Palestrante",
+      "comment": "O palestrante principal foi incrível.",
+      "mark": 5,
+      "user": "Ana Pereira",
+      "schedule_item_id": 1001
+    },
+    {
+      "id": 11,
+      "title": "Feedback sobre Workshop",
+      "comment": "A sessão prática foi muito curta.",
+      "mark": 4,
+      "user": "Carlos Oliveira",
+      "schedule_item_id": 1002
+    }
+  ]
+}
+
+```
+#### **Outros retornos***
+Retorna 404 quando não há feedbacks para o evento ou se o evento não foi encontrado
+
+### **Endpoint**: Cria resposta para feedback da atividade de um evento
+`POST /api/v1/item_feedbacks/:item_feedback_id/feedback_answers`
+---
+#### **Parâmetros**
+| Par                | Tipo   | Descrição                                           |
+|--------------------|--------|-----------------------------------------------------|
+| `item_feedback_id` | string | Código alfanumérico único da atividade de um evento |
+| `name`             | string | Nome que quem está respondendo                      |
+| `email`            | string | Email de quem está respondendo                      |
+| `comment`          | string | Corpo da resposta ao feedback                       |
+
+#### **JSON**
+
+Status 201
+```json
+{
+  "id": 1,
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "comment": "Obrigado pelo seu feedback",
+  "item_feedback_id": 5,
+  "created_at": "2025-02-09T12:34:56Z",
+  "updated_at": "2025-02-09T12:34:56Z"
+}
+```
+Status 406
+```json
+{
+  "errors": [
+    "Nome não pode ficar em branco",
+    "Email é inválido"
+  ]
+}
+```
+Status 406
+```json
+{
+  "error": "Item feedback not found"
+}
+```
+
+### **Endpoint**: feedbacks de uma atividade de um evento
+`GET /api/v1/schedule_items/:schedule_item_id/item_feedbacks`
+---
+#### **Parâmetros**
+| Par               | Tipo   | Descrição                                      |
+|-------------------|--------|------------------------------------------------|
+| `schedule_item_id`| string | Código alfanumérico único da atividade         |
+
+#### **JSON**
+```json
+{
+  "comentarios_itens": [
+    {
+      "id": 1,
+      "titulo": "Ótima Sessão",
+      "comentario": "Discussão muito esclarecedora!",
+      "nota": 5,
+      "usuario": "João Silva",
+      "id_item_agenda": 101
+    },
+    {
+      "id": 2,
+      "titulo": "Poderia ser melhor",
+      "comentario": "A sessão foi informativa, mas faltou mais engajamento.",
+      "nota": 3,
+      "usuario": "Maria Oliveira",
+      "id_item_agenda": 102
+    }
+  ]
+}
+```
+#### **Outros retornos***
+Retorna 404 quando não há feedbacks para a atividade
+
+### **Endpoint**: Alteração de status de um ticket para "usado"
+`POST /api/v1/tickets/:token/used`
+---
+#### **Parâmetros**
+| Par               | Tipo   | Descrição                                      |
+|-------------------|--------|------------------------------------------------|
+| `token`           | string | Código alfanumérico do ingresso                |
+
+### **JSON**
+Status 200
+```json
+  {
+    "token": "ABC123",
+    "status_confirmed": false,
+    "date_of_purchase": "2025-02-09T12:00:00Z",
+    "payment_method": 1,
+    "user_id": 2,
+    "event_id": "EVT001",
+    "batch_id": "BATCH001",
+    "usage_status": 1
+  }
+```
+
+Status 422: quando ticket já está marcado como usado
+```json
+  {
+    "error": "This ticket is already used for this day"
+  }
+```
+
+Status 404: quando a requisição ocorre em um dia diferente da validade do ticket
+```json
+  {
+    "error": "This ticket can be used only on the day of the event"
+  }
+```
+
+### **Endpoint**: dados de um usuário
+`GET /api/v1/users/:code`
+---
+#### **Parâmetros**
+| Par               | Tipo   | Descrição                                      |
+|-------------------|--------|------------------------------------------------|
+| `code`            | string | Código alfanumérico do usuário                 |
+
+
+### **JSON**
+Status 200
+```json
+  {
+    "name": "Nome Teste",
+    "last_name": "Sobrenome Teste",
+    "cpf": "42547083000",
+    "email": "teste@email.com"
+  }
+```
+
+Status 404
+```json
+{
+  "error": "User not found"
+}
+```
+
+
 ## 🤝 Contribuidores
 [<img src="https://avatars.githubusercontent.com/u/65695476?v=4" width=115 ><br> <sub> Cristiano Santana </sub>](https://github.com/CristianoSantan)|[<img src="https://avatars.githubusercontent.com/u/182559072?v=4" width=115 > <br> <sub> César Faustino </sub>](https://github.com/cmf000)|[<img src="https://avatars.githubusercontent.com/u/178613704?v=4" width=115 > <br> <sub> David Bolivar </sub>](https://github.com/thedavs99)|[<img src="https://avatars.githubusercontent.com/u/64371312?v=4" width=115 > <br> <sub> Gabriel Ribeiro </sub>](https://github.com/Gabriel-T-P)|[<img src="https://avatars.githubusercontent.com/u/182513782?v=4" width=115 > <br> <sub> João Branco </sub>](https://github.com/joaoCasteloBranco)|[<img src="https://avatars.githubusercontent.com/u/112505223?v=4" width=115 > <br> <sub> Samuel Rocha </sub>](https://github.com/SamuelRocha91)|
 | :---: | :---: | :---: | :---: | :---: | :---: |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
